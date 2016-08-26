@@ -1,4 +1,4 @@
 *.o
-/Debug/*
+/Debug
 *.sdf
 *.opensdf
