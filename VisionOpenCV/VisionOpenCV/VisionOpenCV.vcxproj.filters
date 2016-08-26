@@ -18,10 +18,18 @@
     <ClCompile Include="MainOpenCV.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="ImageHandler.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="girl.jpg">
       <Filter>资源文件</Filter>
     </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="ImageHandler.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
