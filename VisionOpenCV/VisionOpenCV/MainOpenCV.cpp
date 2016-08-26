@@ -45,10 +45,8 @@ void Select_MotionTarget(void);
 
 int main()
 {
-	DemoImage();
+//	DemoImage();
 
-	    // areas;
-    QApplication a(argc, argv);
     //state;
     static unsigned int state = SAMPLE_TARGET;
     VideoCapture capture(0);
@@ -104,7 +102,7 @@ int main()
         imshow("Source Video", frame);
         //然后再画矩形框
         Mat motion = frame.clone();
-        rectangle(motion, Point(x_min_value, y_min_value), Point(x_max_value, y_max_value), 180,2,8,0);
+        rectangle(motion, Point((int)x_min_value, (int)y_min_value), Point((int)x_max_value, (int)y_max_value), 180,2,8,0);
         imshow("drawing", motion);
         //------------------------------//
         if (waitKey(10) == 27)
@@ -139,8 +137,8 @@ int ch[] = {0, 0};
 //记录跟踪目标的实时位置
 vector<Point>Position_Buf;
 Point g_cur_position, g_last_position, g_offset_postion;  //记录中心位置坐标
-//qt中的定时器
-Timer_Motion timer;
+//计数器代替定时器
+int stayCount = 0, stayMaxCount = 100000;
 //---------------------------------------------//
 //
 //---------------------------------------------//
@@ -198,18 +196,16 @@ int Camshift_cal(void)
                 //----------------------------------------//
                 //该计算只是每帧之间的移动面积差，若不行估计要移动多帧后在计算。
                 if(roud.area() <= AREAS_MOTION) //说明物体基本没有移动
-                {
-                    timer.start_timer(); //定时7S中
-                }
+                                   stayCount++; //定时7S中
                 else
-                timer.stop_timer();
+                stayCount=0;
 
-                if((trackBox.size.area() <= 300) || (timer.return_flag() == 1))
+				if(trackBox.size.area() <= 300 || stayCount >= stayMaxCount)
                 {
                     target_flag = 1;
                     state_fsm = SET_TARGET;
                     destroyWindow("motion");
-                    timer.clr_flag();
+                    stayCount=0;
                 }
                 //
                 break;
@@ -246,9 +242,10 @@ void Select_MotionTarget(void)
     minMaxLoc(array_x, &x_min_value, &x_max_value, 0, 0);
     minMaxLoc(array_y, &y_min_value, &y_max_value, 0, 0);
     //计算面积
-    rect_x = x_min_value; rect_y = y_min_value;
-    rect_h = x_max_value - x_min_value;
-    rect_w = y_max_value - y_min_value;
+    rect_x = (int)x_min_value; 
+	rect_y = (int)y_min_value;
+    rect_h = (int)x_max_value - (int)x_min_value;
+    rect_w = (int)y_max_value - (int)y_min_value;
     //------------------------------------//
 }
 
