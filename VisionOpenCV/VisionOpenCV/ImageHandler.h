@@ -27,6 +27,7 @@ public:
 	};
 	Mat foreground;
 	Rect selection, moveRange;
+	int rect_x, rect_y, rect_h, rect_w;
 	double x_max_value, x_min_value , y_max_value, y_min_value ;
 
 private:	

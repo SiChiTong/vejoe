@@ -44,9 +44,13 @@ int main()
 			{
 				imageTool.SelectMotionTarget();
 				//面积在一定的范围内才进入目标赛选程序
-				int areaObject = imageTool.selection.height * imageTool.selection.width;
+				int areaObject = imageTool.rect_h * imageTool.rect_w;
 				if(areaObject >= MIN_TARGET_AREAR && areaObject <= MAX_TARGET_AREAR)
 				{
+					imageTool.selection.x = imageTool.rect_x;
+					imageTool.selection.y = imageTool.rect_y;
+					imageTool.selection.width = imageTool.rect_w;
+					imageTool.selection.height = imageTool.rect_h;
 					workState = TARTGET_FOLLOW;
 				}
 				break;
