@@ -84,7 +84,7 @@ bool ImageHandler::RecognitionCamShift(Mat frame)
 			//判断跟踪的目标位置是否发生改变，若没有则开始计时
 			SelectMotionTarget();
 			//该计算只是每帧之间的移动面积差，若不行估计要移动多帧后在计算。
-			if(rect_h * rect_w <= AREAS_MOTION) //说明物体基本没有移动
+			if(moveRange.height * moveRange.width <= AREAS_MOTION) //说明物体基本没有移动
 				stayCount++; 
 			else
 				stayCount=0;
@@ -102,7 +102,7 @@ bool ImageHandler::RecognitionCamShift(Mat frame)
 	return targetExistsFlag;
 }
 
-
+//确定运动区域
 void ImageHandler::SelectMotionTarget(void)
 {
 	medianBlur(foreground, srcImage, 9);
@@ -127,10 +127,10 @@ void ImageHandler::SelectMotionTarget(void)
 	minMaxLoc(array_x, &x_min_value, &x_max_value, 0, 0);
 	minMaxLoc(array_y, &y_min_value, &y_max_value, 0, 0);
 	//计算面积
-	rect_x = (int)x_min_value; 
-	rect_y = (int)y_min_value;
-	rect_h = (int)x_max_value - (int)x_min_value;
-	rect_w = (int)y_max_value - (int)y_min_value;
+	moveRange.x = (int)x_min_value; 
+	moveRange.y = (int)y_min_value;
+	moveRange.height = (int)x_max_value - (int)x_min_value;
+	moveRange.width = (int)y_max_value - (int)y_min_value;
 }
 
 //一个Demo图片
