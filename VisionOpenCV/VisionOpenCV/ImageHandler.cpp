@@ -83,6 +83,7 @@ bool ImageHandler::TrackCamShift(Mat souceFrame,Mat foreground)
 			//判断camshift目标追寻不到, 通过返回的矩形框的面积来判断
 			ellipse(dstImage, trackBox, Scalar(0,0,255), 3, CV_AA);
 			imshow("运动对象捕获", dstImage);
+			moveWindow("运动对象捕获",700,500);
 
 			//判断跟踪的目标位置是否发生改变，若没有则开始计时
 			RecognitionMotionTarget(foreground);
@@ -113,35 +114,25 @@ void ImageHandler::RecognitionMotionTarget(Mat foreground)
 	morphologyEx(tmpImage,srcImage,MORPH_CLOSE,shapeOperateKernal);
 	//imshow("动作提取图像", srcImage);
 	//提取边界
-	Canny(srcImage, srcImage, 50, 150, 3);
-	
-	imshow("运动轮廓", srcImage);
-	moveWindow("运动轮廓",800,0);
+	Canny(srcImage, srcImage, 50, 150, 3);	
 	//找到所有轮廓
 	findContours(srcImage, contourAll, hierarchy, RETR_TREE, CV_CHAIN_APPROX_NONE);
-	
 	int shapeCount = contourAll.size();
 	vector<vector<Point>>contoursAppr(shapeCount);
 	vector<Rect> boundRect(shapeCount);
-	vector<Point> boundPoly(shapeCount);
 	vector<int>array_x(shapeCount), array_y(shapeCount);
-	Mat shapeImageOutline(srcImage.size(),CV_8U,Scalar(0));
-
+	//找到最大连通域
 	for(int i = 0; i < shapeCount; i ++)
-	{
+	{//找到所有物体
 		approxPolyDP(Mat(contourAll[i]), contoursAppr[i], 5, true);
-		vector<Point>::const_iterator itp = contoursAppr[i].begin();
-		while(itp != (contoursAppr[i].end() -1)){
-			line(shapeImageOutline, *itp, *(itp+1), Scalar(255), 2);
-			itp++;
-		}
-		line(shapeImageOutline, *itp, *(contoursAppr[i].begin()), Scalar(255), 2);
-
 		boundRect[i] = boundingRect(Mat(contoursAppr[i]));
 		array_x[i] = boundRect[i].x;
 		array_y[i] = boundRect[i].y;
 	}
-	
+	//填充空洞
+	drawContours(srcImage,contourAll,0,Scalar(255), CV_FILLED);
+	imshow("运动轮廓", srcImage);
+	moveWindow("运动轮廓",700,0);
 	//找到最大值,最小值
 	minMaxLoc(array_x, &x_min_value, &x_max_value, 0, 0);
 	minMaxLoc(array_y, &y_min_value, &y_max_value, 0, 0);
@@ -170,6 +161,7 @@ void ImageHandler::RecognitionHumanFace(Mat sourceFrame){
 		ellipse(sourceFrame,center,Size(faces[i].width/2,faces[i].height/2),0,0,360,Scalar( 255, 0, 255 ), 2, 8, 0 );
 	}
 	imshow("人脸识别",sourceFrame);
+	moveWindow("人脸识别",0,500);
 }
 
 //一个Demo图片
