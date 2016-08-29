@@ -21,28 +21,35 @@ enum enumImageStatus
 
 int main()
 {
+	
+	int nIdx=0;
 	ImageHandler imageTool ;
-	Mat frame;
+	Mat sourceFrame,background,foreground;
 
 	enumImageStatus workState = SAMPLE_TARGET;
 	VideoCapture capture(0);
 	if (!capture.isOpened()) return 0;
+	
+	Mat shapeOperateKernal = getStructuringElement(MORPH_RECT, Size(5, 5));
+	Mat tmpImage;
 
-	BackgroundSubtractorMOG mog;
+	//高斯混合背景/前景分割方法
+	BackgroundSubtractorMOG2 toolGaussBackground(100,16);
 	bool stopFlag(false);
 	while (!stopFlag)
 	{
-		if (!capture.read(frame))
-		{
-			break;
-		}
-		mog(frame, imageTool.foreground, 0.03);
+		if (!capture.read(sourceFrame))	break;
+
+		toolGaussBackground(sourceFrame, foreground, -1);
+		toolGaussBackground.getBackgroundImage(background);
+		imshow("背景图像", background);
+		moveWindow("背景图像",0,0);
 		//
 		switch(workState)
 		{
 		case SAMPLE_TARGET:
 			{
-				imageTool.SelectMotionTarget();
+				imageTool.RecognitionMotionTarget(foreground);
 				//面积在一定的范围内才进入目标赛选程序
 				int areaObject = imageTool.moveRange.height * imageTool.moveRange.width;
 				if(areaObject >= MIN_TARGET_AREAR && areaObject <= MAX_TARGET_AREAR)
@@ -53,18 +60,15 @@ int main()
 				break;
 			}
 		case TARTGET_FOLLOW:
-			if(imageTool.RecognitionCamShift(frame))
+			if(imageTool.TrackCamShift(sourceFrame,foreground))
 			{
 				workState = SAMPLE_TARGET;
 			}
 			break;
 		}
-		// show foreground
-		imshow("动作提取图像", imageTool.foreground);
-		imshow("原始图像", frame);
-		Mat motion = frame.clone();
-		rectangle(motion, Point((int)imageTool.x_min_value, (int)imageTool.y_min_value), Point((int)imageTool.x_max_value, (int)imageTool.y_max_value), 180,2,8,0);
-		imshow("矩形标记动作", motion);
+		
+		imageTool.RecognitionHumanFace(sourceFrame);
+
 		if (waitKey(10) == 27)
 		{//监听到ESC退出
 			stopFlag = true;
