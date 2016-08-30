@@ -8,13 +8,15 @@ using namespace std;
 #define    MAX_TARGET_AREAR     10000
 
 
-ImageHandler::ImageHandler(void)
+ImageHandler::ImageHandler(void):FACE_COUNT(10),MIN_SIZE_PIXEL(10)
 {
 	vmin = 10;
 	vmax = 256;
 	smin = 30;
 	x_min_value = 0;
 	y_min_value = 0;
+
+	findTargetFlag = false;
 
 	hsize = 16;
 	hranges[0]=0;
@@ -24,6 +26,7 @@ ImageHandler::ImageHandler(void)
 	stayMaxCount = 100000;
 	ch[0]=0;
 	ch[1] =0;
+
 
 	shapeOperateKernal = getStructuringElement(MORPH_RECT, Size(5, 5));
 	string faceCascadeName = "haarcascade_frontalface_default.xml";
@@ -149,6 +152,7 @@ void ImageHandler::RecognitionMotionTarget(Mat foreground)
 	moveRange.width = (int)y_max_value - (int)y_min_value;
 }
 
+int findMostSimilarRect(Rect target, vector<Rect> selectList);
 //人脸识别
 void ImageHandler::RecognitionHumanFace(Mat sourceFrame){
 	
@@ -159,23 +163,43 @@ void ImageHandler::RecognitionHumanFace(Mat sourceFrame){
 	//灰度图象直方图均衡化（归一化图像亮度和增强对比度）
 	equalizeHist( faceGray, faceGray );
 	//人脸识别
-	faceCascade.detectMultiScale(faceGray, faces, 1.1,2,0|CV_HAAR_SCALE_IMAGE,Size(30,30));
-	int faceCount = faces.size(),maxIdx=-1, maxArea = 0;
-	for(int i=0;i<faceCount;i++)
-	{//仅显示最大人脸
-		//if(faces[i].width * faces[i].height < maxArea) continue;
-		maxIdx = i;
-		maxArea = faces[i].width * faces[i].height;
-
-		Point center( faces[maxIdx].x + faces[maxIdx].width/2, faces[maxIdx].y + faces[maxIdx].height/2 );
-		ellipse(sourceFrame,center,Size(faces[maxIdx].width/2,faces[maxIdx].height/2),0,0,360,Scalar( 255, 0, 255 ), 2, 8, 0 );
+	faceCascade.detectMultiScale(faceGray, faces, 1.1, 2, 0|CV_HAAR_SCALE_IMAGE, Size(30,30));
+	if(!findTargetFlag)
+	{//首次识别
+		if(allFaceLatest.size() < FACE_COUNT)
+		{//首次采集
+			allFaceLatest.push_back(faces);
+		}
+		if(allFaceLatest.size() >= FACE_COUNT)
+		{//首次识别：最多脸 -> 最大脸
+			findTargetFlag = true;
+		}
+		return;
 	}
-	if(maxIdx >= 0)
-	{
-		
-	}
+	int similarIdx=findMostSimilarRect(currentTarget,faces );
+	currentTarget = faces[similarIdx];
+	//图像绘制
+	Point center(currentTarget.x +currentTarget.width/2,currentTarget.y + currentTarget.height/2 );
+	ellipse(sourceFrame,center,Size(currentTarget.width/2,currentTarget.height/2),0,0,360,Scalar( 255, 0, 255 ), 2, 8, 0 );	
 	imshow("人脸识别",sourceFrame);
 	moveWindow("人脸识别",0,500);
+}
+
+//找最相似目标
+int findMostSimilarRect(Rect target, vector<Rect> selectList)
+{
+	int faceCount = selectList.size(),similarIdx=0, mostSimilar =0xFFFFFF, tmpSimilar;
+	for(int i=1;i<faceCount;i++)
+	{//找到最相似人脸
+		//最相似计算公式（最小值）：面积差 + 坐标距离平方
+		tmpSimilar = abs(selectList[0].width * selectList[0].height - target.height*target.width) + (int)abs(pow(selectList[0].x,2) + pow(selectList[0].y,2) -pow(target.x,2)-pow(target.y,2));
+		if(tmpSimilar < mostSimilar)
+		{
+			similarIdx = i;
+			mostSimilar = tmpSimilar;
+		}
+	}
+	return similarIdx;
 }
 
 //一个Demo图片

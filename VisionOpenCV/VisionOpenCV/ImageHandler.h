@@ -36,14 +36,19 @@ public:
 	double x_max_value, x_min_value , y_max_value, y_min_value ;
 
 private:
-	int hsize ;
-	float hranges[2] ;
-	const float* phranges;
-	int ch[2] ;
+	bool findTargetFlag;
+	double currentAngle;
+	const int FACE_COUNT,MIN_SIZE_PIXEL;
+	int hsize;
 	//计数器代替定时器
 	int stayCount, stayMaxCount ;
 	//hsv转化数据范围滤波
-	int vmin , vmax , smin ;	
+	int vmin , vmax , smin ;
+	float hranges[2] ;
+	const float* phranges;
+	int ch[2] ;
+	//当前追踪的目标
+	Rect currentTarget,nextTarget;
 	//中间变量
 	Mat hsv, hue, mask, hist, backproj,srcImage,tmpImage,shapeOperateKernal;
 	//可变空间数组
@@ -51,5 +56,6 @@ private:
 	vector<Vec4i>hierarchy;	
 	//人脸识别
 	CascadeClassifier faceCascade;
+	vector<vector<Rect>> allFaceLatest;
 };
 
