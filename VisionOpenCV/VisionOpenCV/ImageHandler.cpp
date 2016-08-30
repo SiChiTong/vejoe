@@ -8,7 +8,7 @@ using namespace std;
 #define    MAX_TARGET_AREAR     10000
 
 
-ImageHandler::ImageHandler(void):FACE_COUNT(10),MIN_SIZE_PIXEL(10)
+ImageHandler::ImageHandler(void):FIRST_FRAME_COUNT(10),MIN_SIZE_PIXEL(10),CHANGE_FACE_JUMP_FALG(200), CHANGE_FACE_MIN_COUNT(3)
 {
 	vmin = 10;
 	vmax = 256;
@@ -17,7 +17,7 @@ ImageHandler::ImageHandler(void):FACE_COUNT(10),MIN_SIZE_PIXEL(10)
 	y_min_value = 0;
 
 	findTargetFlag = false;
-
+	jumpFrameCount=0;
 	hsize = 16;
 	hranges[0]=0;
 	hranges[1]=180;
@@ -29,7 +29,7 @@ ImageHandler::ImageHandler(void):FACE_COUNT(10),MIN_SIZE_PIXEL(10)
 
 
 	shapeOperateKernal = getStructuringElement(MORPH_RECT, Size(5, 5));
-	string faceCascadeName = "haarcascade_frontalface_default.xml";
+	string faceCascadeName = "haarcascade_frontalface_alt.xml";
 	if(!faceCascade.load(faceCascadeName)){printf("--(!)Error loading\n");}
 }
 
@@ -153,9 +153,10 @@ void ImageHandler::RecognitionMotionTarget(Mat foreground)
 }
 
 int findMostSimilarRect(Rect target, vector<Rect> selectList);
+void FindTheFirstFace(vector<vector<Rect>> , int , Rect&);
+
 //人脸识别
 void ImageHandler::RecognitionHumanFace(Mat sourceFrame){
-	
 	vector<Rect> faces;
 	Mat faceGray;
 	//灰度处理（彩色图像变为黑白）
@@ -163,21 +164,37 @@ void ImageHandler::RecognitionHumanFace(Mat sourceFrame){
 	//灰度图象直方图均衡化（归一化图像亮度和增强对比度）
 	equalizeHist( faceGray, faceGray );
 	//人脸识别
-	faceCascade.detectMultiScale(faceGray, faces, 1.1, 2, 0|CV_HAAR_SCALE_IMAGE, Size(30,30));
+	faceCascade.detectMultiScale(faceGray, faces, 1.1, 3, 0|CV_HAAR_SCALE_IMAGE, Size(60,60));
+	if(faces.size() < 1) return;
 	if(!findTargetFlag)
 	{//首次识别
-		if(allFaceLatest.size() < FACE_COUNT)
+		imageAllWidth = sourceFrame.cols;
+		int faceCollectCount = allFaceLatest.size();
+		if(faceCollectCount < FIRST_FRAME_COUNT)
 		{//首次采集
 			allFaceLatest.push_back(faces);
 		}
-		if(allFaceLatest.size() >= FACE_COUNT)
+		if(faceCollectCount >= FIRST_FRAME_COUNT)
 		{//首次识别：最多脸 -> 最大脸
+			FindTheFirstFace(allFaceLatest,MIN_SIZE_PIXEL,currentTarget);
 			findTargetFlag = true;
 		}
 		return;
 	}
-	int similarIdx=findMostSimilarRect(currentTarget,faces );
-	currentTarget = faces[similarIdx];
+	//距离上次最近的脸
+	int similarIdx=findMostSimilarRect(currentTarget , faces);
+	if(abs(faces[similarIdx].x - currentTarget.x) > CHANGE_FACE_JUMP_FALG || abs(faces[similarIdx].x - currentTarget.x) > CHANGE_FACE_JUMP_FALG || 
+		abs(faces[similarIdx].x - currentTarget.x) > CHANGE_FACE_JUMP_FALG || abs(faces[similarIdx].x - currentTarget.x) > CHANGE_FACE_JUMP_FALG)
+	{//跳帧检查
+		jumpFrameCount++;
+		if(jumpFrameCount >= CHANGE_FACE_MIN_COUNT){
+			findTargetFlag = false;
+			allFaceLatest.clear();
+		}
+	}else{
+		jumpFrameCount = 0;
+		currentTarget = faces[similarIdx];
+	}
 	//图像绘制
 	Point center(currentTarget.x +currentTarget.width/2,currentTarget.y + currentTarget.height/2 );
 	ellipse(sourceFrame,center,Size(currentTarget.width/2,currentTarget.height/2),0,0,360,Scalar( 255, 0, 255 ), 2, 8, 0 );	
@@ -185,14 +202,73 @@ void ImageHandler::RecognitionHumanFace(Mat sourceFrame){
 	moveWindow("人脸识别",0,500);
 }
 
+//找到初始化的第一张脸
+void FindTheFirstFace(vector<vector<Rect>> allFrameFaces, int maxInter,Rect &faceNearest)
+{//首次识别：最多脸 -> 最大脸
+	char* strRectFormat = "%d_%d_%d_%d", *tmpStrRect=new char[100];
+	map<string,int> faceStrCountList;
+	map<string,Rect> faceStrRectList;
+	vector<Rect> faceList = allFrameFaces[0];
+	for(vector<Rect>::iterator istep=faceList.begin();istep != faceList.end();++istep)
+	{//存储第一个
+		sprintf(tmpStrRect, strRectFormat,istep->x,istep->y,istep->width,istep->height);
+		faceStrCountList[tmpStrRect]=1;
+		faceStrRectList[tmpStrRect] = *istep;
+	}
+	int frameCount = allFrameFaces.size(), faceNum;
+	for(int i=1;i<frameCount;i++)
+	{//搜集所有位置脸的数量
+		faceNum = allFrameFaces[i].size();
+		for(int j=0;j<faceNum;j++)
+		{
+			sprintf(tmpStrRect, strRectFormat,allFrameFaces[i][j].x,allFrameFaces[i][j].y,allFrameFaces[i][j].width,allFrameFaces[i][j].height);
+			int nearIdx = findMostSimilarRect(allFrameFaces[i][j],faceList);
+			if(abs(allFrameFaces[i][j].x - faceList[nearIdx].x) > maxInter || abs(allFrameFaces[i][j].y - faceList[nearIdx].y) > maxInter|| 
+				abs(allFrameFaces[i][j].width - faceList[nearIdx].width) > maxInter|| abs(allFrameFaces[i][j].height - faceList[nearIdx].height) > maxInter)
+			{//新发现的矩形（最近的矩形不是同一个）
+				faceList.push_back(allFrameFaces[i][j]);
+				faceStrCountList[tmpStrRect]=1;
+				faceStrRectList[tmpStrRect] = allFrameFaces[i][j];
+			}
+			else
+			{
+				faceStrCountList[tmpStrRect] ++;
+			}
+		}
+	}
+	int maxRectNum = 0;
+	for(map<string,int>::iterator istep = faceStrCountList.begin();istep != faceStrCountList.end();istep++)
+	{//找所有帧图像中，最多脸的矩形位置（识别度最高的认为是人脸）
+		if(istep->second > maxRectNum)
+			maxRectNum = istep->second;
+	}
+	int maxFaceSize = 0;
+	for(map<string,int>::iterator istep = faceStrCountList.begin();istep != faceStrCountList.end();istep++)
+	{//找最多脸 中的最大脸（几个一样多数量的脸，找距离摄像头最近的）
+		if(istep->second < maxRectNum) continue;
+		if(faceStrRectList[istep->first].height * faceStrRectList[istep->first].width > maxFaceSize)
+		{
+			faceNearest = faceStrRectList[istep->first];
+			maxFaceSize = faceNearest.height * faceNearest.width;
+		}		
+	}
+}
+
+//计算两矩形的相似值
+int calcTwoRectSimilar(Rect one, Rect two)
+{
+	//相似计算公式（最小值）：面积差 + 中心坐标距离平方
+	return abs(one.width * one.height - two.height*two.width) + 
+		   (int)abs(pow(one.x + one.width/2 ,2) + pow(one.y + one.height/2,2) -pow(two.x + two.width/2,2)-pow(two.y+two.height/2,2));
+}
+
 //找最相似目标
 int findMostSimilarRect(Rect target, vector<Rect> selectList)
 {
-	int faceCount = selectList.size(),similarIdx=0, mostSimilar =0xFFFFFF, tmpSimilar;
+	int faceCount = selectList.size(),similarIdx=0, mostSimilar = 0xFFFFFF, tmpSimilar;
 	for(int i=1;i<faceCount;i++)
 	{//找到最相似人脸
-		//最相似计算公式（最小值）：面积差 + 坐标距离平方
-		tmpSimilar = abs(selectList[0].width * selectList[0].height - target.height*target.width) + (int)abs(pow(selectList[0].x,2) + pow(selectList[0].y,2) -pow(target.x,2)-pow(target.y,2));
+		tmpSimilar = calcTwoRectSimilar(selectList[i], target);
 		if(tmpSimilar < mostSimilar)
 		{
 			similarIdx = i;

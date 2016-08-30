@@ -18,7 +18,7 @@ int main()
 	bool stopFlag(false);
 	while (!stopFlag)
 	{
-		if (!capture.read(sourceFrame))	break;		
+		if (!capture.read(sourceFrame))	break;
 		imshow("原始图像", sourceFrame);
 		moveWindow("原始图像",0,0);
 		//高斯分离前景
