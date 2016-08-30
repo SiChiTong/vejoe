@@ -61,6 +61,14 @@ bool ImageHandler::TrackCamShift(Mat souceFrame,Mat foreground)
 	case SET_TARGET:
 		{
 			targetExistsFlag = false;   
+			RecognitionMotionTarget(foreground);
+			int areaObject = moveRange.height * moveRange.width;
+			if(areaObject >= MIN_TARGET_AREAR && areaObject <= MAX_TARGET_AREAR)
+			{
+				selection = moveRange;
+				state_fsm = TARGET_CAMSHIFT;
+			}
+
 			//计算直方图
 			Mat roi(hue, selection), maskroi(mask, selection);
 			//计算直方图，放入hist.
@@ -68,7 +76,6 @@ bool ImageHandler::TrackCamShift(Mat souceFrame,Mat foreground)
 			//归一化处理
 			normalize(hist, hist, 0, 255, CV_MINMAX);
 
-			state_fsm = TARGET_CAMSHIFT;
 			break;
 		}
 
@@ -97,7 +104,6 @@ bool ImageHandler::TrackCamShift(Mat souceFrame,Mat foreground)
 			{
 				targetExistsFlag = true;
 				state_fsm = SET_TARGET;
-				destroyWindow("运动对象捕获");
 				stayCount=0;
 			}
 			break;
@@ -112,11 +118,11 @@ void ImageHandler::RecognitionMotionTarget(Mat foreground)
 	//开闭操作
 	morphologyEx(foreground,tmpImage,MORPH_OPEN,shapeOperateKernal);
 	morphologyEx(tmpImage,srcImage,MORPH_CLOSE,shapeOperateKernal);
-	//imshow("动作提取图像", srcImage);
+	
 	//提取边界
-	Canny(srcImage, srcImage, 50, 150, 3);	
+	//Canny(srcImage, srcImage, 50, 150, 3);	
 	//找到所有轮廓
-	findContours(srcImage, contourAll, hierarchy, RETR_TREE, CV_CHAIN_APPROX_NONE);
+	findContours(srcImage, contourAll, hierarchy, RETR_EXTERNAL , CHAIN_APPROX_SIMPLE);
 	int shapeCount = contourAll.size();
 	vector<vector<Point>>contoursAppr(shapeCount);
 	vector<Rect> boundRect(shapeCount);
@@ -128,9 +134,9 @@ void ImageHandler::RecognitionMotionTarget(Mat foreground)
 		boundRect[i] = boundingRect(Mat(contoursAppr[i]));
 		array_x[i] = boundRect[i].x;
 		array_y[i] = boundRect[i].y;
-	}
-	//填充空洞
-	drawContours(srcImage,contourAll,0,Scalar(255), CV_FILLED);
+		//填充空洞
+		drawContours(srcImage,contourAll,i,Scalar(255), CV_FILLED);
+	}	
 	imshow("运动轮廓", srcImage);
 	moveWindow("运动轮廓",700,0);
 	//找到最大值,最小值
@@ -154,11 +160,19 @@ void ImageHandler::RecognitionHumanFace(Mat sourceFrame){
 	equalizeHist( faceGray, faceGray );
 	//人脸识别
 	faceCascade.detectMultiScale(faceGray, faces, 1.1,2,0|CV_HAAR_SCALE_IMAGE,Size(30,30));
-	int faceCount = faces.size();
+	int faceCount = faces.size(),maxIdx=-1, maxArea = 0;
 	for(int i=0;i<faceCount;i++)
+	{//仅显示最大人脸
+		//if(faces[i].width * faces[i].height < maxArea) continue;
+		maxIdx = i;
+		maxArea = faces[i].width * faces[i].height;
+
+		Point center( faces[maxIdx].x + faces[maxIdx].width/2, faces[maxIdx].y + faces[maxIdx].height/2 );
+		ellipse(sourceFrame,center,Size(faces[maxIdx].width/2,faces[maxIdx].height/2),0,0,360,Scalar( 255, 0, 255 ), 2, 8, 0 );
+	}
+	if(maxIdx >= 0)
 	{
-		Point center( faces[i].x + faces[i].width/2, faces[i].y + faces[i].height/2 );
-		ellipse(sourceFrame,center,Size(faces[i].width/2,faces[i].height/2),0,0,360,Scalar( 255, 0, 255 ), 2, 8, 0 );
+		
 	}
 	imshow("人脸识别",sourceFrame);
 	moveWindow("人脸识别",0,500);
