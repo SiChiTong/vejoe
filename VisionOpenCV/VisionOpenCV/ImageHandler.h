@@ -50,7 +50,7 @@ private:
 	const float* phranges;
 	int ch[2] ;
 	//当前追踪的目标
-	Rect currentTarget,nextTarget;
+	Rect nextTarget;
 	//中间变量
 	Mat hsv, hue, mask, hist, backproj,srcImage,tmpImage,shapeOperateKernal;
 	//可变空间数组
