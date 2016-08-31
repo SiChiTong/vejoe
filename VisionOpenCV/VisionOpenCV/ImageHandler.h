@@ -21,7 +21,7 @@ public:
 	//识别运动物体
 	void RecognitionMotionTarget(Mat foreground);
 	//人脸识别
-	void RecognitionHumanFace(Mat sourceFrame);
+	int RecognitionHumanFace(Mat sourceFrame);
 
 	//图像测试
 	void DemoImage(void);
@@ -37,11 +37,8 @@ public:
 
 private:
 	bool findTargetFlag;
-	double currentAngle;
 	//首次识别脸部需要视频图像帧数，同一个脸部的距离误差范围，改变目标作为跳帧的阈值，重新定位前连续发生跳帧次数
 	const int FIRST_FRAME_COUNT, MIN_SIZE_PIXEL, CHANGE_FACE_JUMP_FALG, CHANGE_FACE_MIN_COUNT;
-	//图像宽度
-	int imageAllWidth, imageTargetX;
 	//跳帧统计
 	int jumpFrameCount;
 	int hsize;

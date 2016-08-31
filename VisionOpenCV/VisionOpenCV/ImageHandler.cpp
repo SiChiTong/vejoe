@@ -156,7 +156,7 @@ int findMostSimilarRect(Rect target, vector<Rect> selectList);
 void FindTheFirstFace(vector<vector<Rect>> , int , Rect&);
 
 //人脸识别
-void ImageHandler::RecognitionHumanFace(Mat sourceFrame){
+int ImageHandler::RecognitionHumanFace(Mat sourceFrame){
 	vector<Rect> faces;
 	Mat faceGray;
 	//灰度处理（彩色图像变为黑白）
@@ -165,10 +165,9 @@ void ImageHandler::RecognitionHumanFace(Mat sourceFrame){
 	equalizeHist( faceGray, faceGray );
 	//人脸识别
 	faceCascade.detectMultiScale(faceGray, faces, 1.1, 3, 0|CV_HAAR_SCALE_IMAGE, Size(60,60));
-	if(faces.size() < 1) return;
+	if(faces.size() < 1) return -1;
 	if(!findTargetFlag)
 	{//首次识别
-		imageAllWidth = sourceFrame.cols;
 		int faceCollectCount = allFaceLatest.size();
 		if(faceCollectCount < FIRST_FRAME_COUNT)
 		{//首次采集
@@ -176,15 +175,15 @@ void ImageHandler::RecognitionHumanFace(Mat sourceFrame){
 		}
 		if(faceCollectCount >= FIRST_FRAME_COUNT)
 		{//首次识别：最多脸 -> 最大脸
-			FindTheFirstFace(allFaceLatest,MIN_SIZE_PIXEL,currentTarget);
+			FindTheFirstFace(allFaceLatest,MIN_SIZE_PIXEL,nextTarget);
 			findTargetFlag = true;
 		}
-		return;
+		return -1;
 	}
 	//距离上次最近的脸
-	int similarIdx=findMostSimilarRect(currentTarget , faces);
-	if(abs(faces[similarIdx].x - currentTarget.x) > CHANGE_FACE_JUMP_FALG || abs(faces[similarIdx].x - currentTarget.x) > CHANGE_FACE_JUMP_FALG || 
-		abs(faces[similarIdx].x - currentTarget.x) > CHANGE_FACE_JUMP_FALG || abs(faces[similarIdx].x - currentTarget.x) > CHANGE_FACE_JUMP_FALG)
+	int similarIdx=findMostSimilarRect(nextTarget , faces);
+	if(abs(faces[similarIdx].x - nextTarget.x) > CHANGE_FACE_JUMP_FALG || abs(faces[similarIdx].x - nextTarget.x) > CHANGE_FACE_JUMP_FALG || 
+		abs(faces[similarIdx].x - nextTarget.x) > CHANGE_FACE_JUMP_FALG || abs(faces[similarIdx].x - nextTarget.x) > CHANGE_FACE_JUMP_FALG)
 	{//跳帧检查
 		jumpFrameCount++;
 		if(jumpFrameCount >= CHANGE_FACE_MIN_COUNT){
@@ -193,13 +192,15 @@ void ImageHandler::RecognitionHumanFace(Mat sourceFrame){
 		}
 	}else{
 		jumpFrameCount = 0;
-		currentTarget = faces[similarIdx];
+		nextTarget = faces[similarIdx];
 	}
 	//图像绘制
-	Point center(currentTarget.x +currentTarget.width/2,currentTarget.y + currentTarget.height/2 );
-	ellipse(sourceFrame,center,Size(currentTarget.width/2,currentTarget.height/2),0,0,360,Scalar( 255, 0, 255 ), 2, 8, 0 );	
+	Point center(nextTarget.x +nextTarget.width/2,nextTarget.y + nextTarget.height/2 );
+	ellipse(sourceFrame,center,Size(nextTarget.width/2,nextTarget.height/2),0,0,360,Scalar( 255, 0, 255 ), 2, 8, 0 );	
 	imshow("人脸识别",sourceFrame);
 	moveWindow("人脸识别",0,500);
+
+	return nextTarget.x +nextTarget.width/2;
 }
 
 //找到初始化的第一张脸
@@ -210,7 +211,7 @@ void FindTheFirstFace(vector<vector<Rect>> allFrameFaces, int maxInter,Rect &fac
 	map<string,Rect> faceStrRectList;
 	vector<Rect> faceList = allFrameFaces[0];
 	for(vector<Rect>::iterator istep=faceList.begin();istep != faceList.end();++istep)
-	{//存储第一个
+	{//存储第一帧中的人脸
 		sprintf(tmpStrRect, strRectFormat,istep->x,istep->y,istep->width,istep->height);
 		faceStrCountList[tmpStrRect]=1;
 		faceStrRectList[tmpStrRect] = *istep;

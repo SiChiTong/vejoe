@@ -21,6 +21,9 @@
     <ClCompile Include="ImageHandler.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="MotionCalc.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="girl.jpg">
@@ -29,6 +32,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ImageHandler.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="MotionCalc.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
