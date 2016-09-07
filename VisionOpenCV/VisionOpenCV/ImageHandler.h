@@ -1,12 +1,12 @@
 #pragma once
 #include <iostream>
-#include <core/core.hpp>
-#include <highgui/highgui.hpp>
-#include <opencv2/imgproc/imgproc.hpp>
-#include <opencv2/video/video.hpp>
-#include <opencv2/objdetect/objdetect.hpp>
-#include <opencv.hpp>
-#include <cv.h>
+#include "core/core.hpp"
+#include "highgui/highgui.hpp"
+#include "opencv2/imgproc/imgproc.hpp"
+#include "opencv2/video/video.hpp"
+#include "opencv2/objdetect/objdetect.hpp"
+#include "opencv.hpp"
+#include "cv.h"
 
 using namespace cv;
 
@@ -54,10 +54,10 @@ private:
 	//中间变量
 	Mat hsv, hue, mask, hist, backproj,srcImage,tmpImage,shapeOperateKernal;
 	//可变空间数组
-	vector<vector<Point>> contourAll;
+	vector<vector<Point> > contourAll;
 	vector<Vec4i>hierarchy;	
 	//人脸识别
 	CascadeClassifier faceCascade;
-	vector<vector<Rect>> allFaceLatest;
+	vector<vector<Rect> > allFaceLatest;
 };
 

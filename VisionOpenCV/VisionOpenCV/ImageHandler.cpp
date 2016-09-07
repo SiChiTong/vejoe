@@ -1,5 +1,5 @@
 #include "ImageHandler.h"
-
+#include <iostream>
 
 using namespace std;
 
@@ -127,7 +127,7 @@ void ImageHandler::RecognitionMotionTarget(Mat foreground)
 	//找到所有轮廓
 	findContours(srcImage, contourAll, hierarchy, RETR_EXTERNAL , CHAIN_APPROX_SIMPLE);
 	int shapeCount = contourAll.size();
-	vector<vector<Point>>contoursAppr(shapeCount);
+	vector<vector<Point> >contoursAppr(shapeCount);
 	vector<Rect> boundRect(shapeCount);
 	vector<int>array_x(shapeCount), array_y(shapeCount);
 	//找到最大连通域
@@ -153,7 +153,7 @@ void ImageHandler::RecognitionMotionTarget(Mat foreground)
 }
 
 int findMostSimilarRect(Rect target, vector<Rect> selectList);
-void FindTheFirstFace(vector<vector<Rect>> , int , Rect&);
+void FindTheFirstFace(vector<vector<Rect> > , int , Rect&);
 
 //人脸识别
 int ImageHandler::RecognitionHumanFace(Mat sourceFrame){
@@ -204,7 +204,7 @@ int ImageHandler::RecognitionHumanFace(Mat sourceFrame){
 }
 
 //找到初始化的第一张脸
-void FindTheFirstFace(vector<vector<Rect>> allFrameFaces, int maxInter,Rect &faceNearest)
+void FindTheFirstFace(vector<vector<Rect> > allFrameFaces, int maxInter,Rect &faceNearest)
 {//首次识别：最多脸 -> 最大脸
 	char* strRectFormat = "%d_%d_%d_%d", *tmpStrRect=new char[100];
 	map<string,int> faceStrCountList;
@@ -282,13 +282,14 @@ int findMostSimilarRect(Rect target, vector<Rect> selectList)
 //一个Demo图片
 void ImageHandler::DemoImage(void){
 	//读入图片，注意图片路径
-	Mat image=imread("girl.jpg");
+	Mat image=imread("img.jpg");
 
 	//图片读入成功与否判定
 	if(!image.data)		return ;
 
 	//显示图像
-	imshow("image1",image);
+	imshow("image1",image);	
+	moveWindow("人脸识别",800,500);
 	
 	//等待按键
 	waitKey();
