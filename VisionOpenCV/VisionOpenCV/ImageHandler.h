@@ -1,6 +1,6 @@
 #pragma once
 #include <iostream>
-#include "core/core.hpp"
+#include <core/core.hpp>
 #include "highgui/highgui.hpp"
 #include "opencv2/imgproc/imgproc.hpp"
 #include "opencv2/video/video.hpp"

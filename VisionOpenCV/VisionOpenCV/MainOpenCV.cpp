@@ -9,8 +9,7 @@ using namespace std;
 int main()
 {
 	int objXValue = -1;
-	ImageHandler imageTool;
-	imageTool.DemoImage();
+	ImageHandler imageTool;	
 	Mat sourceFrame,background,foreground;
 
 	VideoCapture capture(0);
