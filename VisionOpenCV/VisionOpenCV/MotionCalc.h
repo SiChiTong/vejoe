@@ -9,13 +9,12 @@ public:
 	double CalcAngleByLocation(int xValue);
 	//归零
 	void MoveOrigin();
-
+	//视野范围角度
+	const int MAX_VISION_ANGLE;
 	//当前角度（实时）
 	double currentAngle;
 
 private:
-	//视野范围角度
-	const int MAX_VISION_ANGLE;
 	//移动角速度
 	int moveSpeed;
 	//图像总宽度

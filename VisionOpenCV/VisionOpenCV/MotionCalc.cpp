@@ -31,5 +31,5 @@ double MotionCalc::CalcAngleByLocation(int xValue)
 
 void MotionCalc::MoveOrigin()
 {
-
+	
 }

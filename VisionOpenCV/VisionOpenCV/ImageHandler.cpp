@@ -92,8 +92,8 @@ bool ImageHandler::TrackCamShift(Mat souceFrame,Mat foreground)
 
 			//判断camshift目标追寻不到, 通过返回的矩形框的面积来判断
 			ellipse(dstImage, trackBox, Scalar(0,0,255), 3, CV_AA);
-			imshow("运动对象捕获", dstImage);
-			moveWindow("运动对象捕获",700,500);
+			imshow("Move Obj", dstImage);
+			moveWindow("Move Obj",700,500);
 
 			//判断跟踪的目标位置是否发生改变，若没有则开始计时
 			RecognitionMotionTarget(foreground);
@@ -140,8 +140,8 @@ void ImageHandler::RecognitionMotionTarget(Mat foreground)
 		//填充空洞
 		drawContours(srcImage,contourAll,i,Scalar(255), CV_FILLED);
 	}	
-	imshow("运动轮廓", srcImage);
-	moveWindow("运动轮廓",700,0);
+	imshow("Move", srcImage);
+	moveWindow("Move",700,0);
 	//找到最大值,最小值
 	minMaxLoc(array_x, &x_min_value, &x_max_value, 0, 0);
 	minMaxLoc(array_y, &y_min_value, &y_max_value, 0, 0);
@@ -197,8 +197,8 @@ int ImageHandler::RecognitionHumanFace(Mat sourceFrame){
 	//图像绘制
 	Point center(nextTarget.x +nextTarget.width/2,nextTarget.y + nextTarget.height/2 );
 	ellipse(sourceFrame,center,Size(nextTarget.width/2,nextTarget.height/2),0,0,360,Scalar( 255, 0, 255 ), 2, 8, 0 );	
-	imshow("人脸识别",sourceFrame);
-	moveWindow("人脸识别",0,500);
+	imshow("Hunman Face",sourceFrame);
+	moveWindow("Hunman Face",700,500);
 
 	return nextTarget.x +nextTarget.width/2;
 }
