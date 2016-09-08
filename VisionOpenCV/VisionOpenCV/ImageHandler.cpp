@@ -164,7 +164,7 @@ int ImageHandler::TrackMotionTarget(Mat souceFrame,Mat foreground)
 	//ellipse(dstImage,nextTargetRotate, Scalar(0,0,255), 3, CV_AA);
 	//imshow("Move Obj", dstImage);
 	//moveWindow("Move Obj",700,500);
-	return nextTargetRotate.center.x;
+	return nextTargetRotate.center.x + nextTargetRotate.size.width / 2.0;
 }
 
 //确定运动区域
@@ -193,8 +193,8 @@ void ImageHandler::RecognitionMotionTarget(Mat foreground)
 		//填充空洞
 		drawContours(srcImage,contourAll,i,Scalar(255), CV_FILLED);
 	}
-	imshow("Move", srcImage);
-	moveWindow("Move",700,0);
+	//imshow("Move", srcImage);
+	//moveWindow("Move",500,0);
 	//找到最大值,最小值
 	minMaxLoc(array_x, &x_min_value, &x_max_value, 0, 0);
 	minMaxLoc(array_y, &y_min_value, &y_max_value, 0, 0);
