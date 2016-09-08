@@ -10,15 +10,14 @@ int main()
 {
 	//摄像头宽、高（分辨率），显示图片宽度（高度等比例缩放）
 	const int CAMERA_WIDTH = 640, CAMERA_HIGHT = 480, COMPRESS_WIDTH = 400;
-	int objXValue = -1, compressHight, angleMin,angleMax;
+	int objXValue = -1, compressHight, angleMin,angleMax, xValue;
 	ImageHandler imageTool;	
 	Mat sourceFrame,background,foreground, compressFrame;
 	compressHight = 1.0 * CAMERA_HIGHT * COMPRESS_WIDTH / CAMERA_WIDTH;
 
 	VideoCapture capture(0);
 	if (!capture.isOpened()) return 0;
-	if (!capture.read(sourceFrame))	return 0;
-	MotionCalc motionCalc(COMPRESS_WIDTH);
+	MotionCalc motionCalc(CAMERA_WIDTH);
 	angleMax = motionCalc.MAX_VISION_ANGLE / 2;
 	angleMin = -1 * angleMax;
 
@@ -28,18 +27,16 @@ int main()
 	while (!stopFlag)
 	{
 		if (!capture.read(sourceFrame))	break;
-		resize(sourceFrame,compressFrame,Size(COMPRESS_WIDTH, compressHight));
 		//显示原始图像
 		imshow("Source Image", sourceFrame);
 		moveWindow("Source Image",0,0);
-		////高斯分离前景
-		//toolGaussBackground(sourceFrame, foreground, -1);
-		//toolGaussBackground.getBackgroundImage(background);
-		////CamShift目标跟踪识别
-		//imageTool.TrackCamShift(sourceFrame,foreground);
-
-		//人脸跟踪识别
-		int xValue = imageTool.RecognitionHumanFace(compressFrame);
+		//高斯分离前景
+		toolGaussBackground(sourceFrame, foreground, -1);
+		//运动目标识别
+		xValue = imageTool.TrackMotionTarget(sourceFrame,foreground);
+		////人脸跟踪识别
+		//resize(sourceFrame,compressFrame,Size(COMPRESS_WIDTH, compressHight));
+		//xValue = imageTool.RecognitionHumanFace(compressFrame);
 		if(xValue >= 0 && (xValue >= objXValue + 1 || xValue <= objXValue - 1))
 		{//转动不低于一度才显示
 			objXValue = xValue;
