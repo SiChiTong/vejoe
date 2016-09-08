@@ -8,7 +8,7 @@ using namespace std;
 #define    MAX_TARGET_AREAR     10000
 
 
-ImageHandler::ImageHandler(void):FIRST_FRAME_COUNT(10),MIN_SIZE_PIXEL(10),CHANGE_FACE_JUMP_FALG(200), CHANGE_FACE_MIN_COUNT(5),MIN_RECT_AREA(300)
+ImageHandler::ImageHandler(void):FIRST_FRAME_COUNT(10),MIN_SIZE_PIXEL(10),CHANGE_FACE_JUMP_FALG(200), CHANGE_FACE_MIN_COUNT(2),MIN_RECT_AREA(300),DEMO_RESULT_RADIUS(500)
 {
 	vmin = 10;
 	vmax = 256;
@@ -27,6 +27,9 @@ ImageHandler::ImageHandler(void):FIRST_FRAME_COUNT(10),MIN_SIZE_PIXEL(10),CHANGE
 	ch[0]=0;
 	ch[1] =0;
 
+	camPosDemoResult = Point(DEMO_RESULT_RADIUS/2,0);
+	objPosDemoResult = Point(DEMO_RESULT_RADIUS/2,DEMO_RESULT_RADIUS/2);
+	colorDemoResult = Scalar(255,255,255);
 
 	shapeOperateKernal = getStructuringElement(MORPH_RECT, Size(5, 5));
 	string faceCascadeName = "haarcascade_frontalface_alt.xml";
@@ -203,6 +206,21 @@ void ImageHandler::RecognitionMotionTarget(Mat foreground)
 	moveRange.y = (int)y_min_value;
 	moveRange.height = (int)y_max_value - (int)y_min_value;
 	moveRange.width = (int)x_max_value - (int)x_min_value;
+}
+
+//显示当前角度
+void ImageHandler::ShowDemoInfo(double degree)
+{	
+	demoResultInfo = Mat::zeros(DEMO_RESULT_RADIUS/2,DEMO_RESULT_RADIUS,CV_8UC1);
+	//标注摄像头位置
+	circle(demoResultInfo,camPosDemoResult,6,colorDemoResult,5);
+	//计算当前角度
+	objPosDemoResult.x = DEMO_RESULT_RADIUS / 2.0 * (1.0 - sin(degree));
+	objPosDemoResult.y = DEMO_RESULT_RADIUS / 2.0 * cos(degree);
+	line(demoResultInfo, camPosDemoResult, objPosDemoResult,colorDemoResult,3);
+
+	imshow("Result", demoResultInfo);
+	moveWindow("Result",500,0);
 }
 
 int findMostSimilarRect(Rect target, vector<Rect> selectList);

@@ -11,10 +11,11 @@ int main()
 	//摄像头宽、高（分辨率），显示图片宽度（高度等比例缩放）
 	const int CAMERA_WIDTH = 640, CAMERA_HIGHT = 480, COMPRESS_WIDTH = 400;
 	int objXValue = -1, compressHight, angleMin,angleMax, xValue;
+	double nextAngle;
 	ImageHandler imageTool;	
 	Mat sourceFrame,foreground, compressFrame;
 	compressHight = 1.0 * CAMERA_HIGHT * COMPRESS_WIDTH / CAMERA_WIDTH;
-
+	
 	VideoCapture capture(0);
 	if (!capture.isOpened()) return 0;
 	MotionCalc motionCalc(COMPRESS_WIDTH);
@@ -40,12 +41,8 @@ int main()
 		if(xValue >= 0 && (xValue >= objXValue + 1 || xValue <= objXValue - 1))
 		{//转动不低于一度才显示
 			objXValue = xValue;
-			double nextAngle = motionCalc.CalcAngleByLocation(xValue);
-			for(int i=angleMin;i<angleMax;i += 2)
-			{
-				cout << ((nextAngle + 2 >= i && nextAngle - 2 <= i) ? "|":"_");
-			}
-			cout<<endl;
+			nextAngle = motionCalc.CalcAngleByLocation(xValue);
+			imageTool.ShowDemoInfo(nextAngle);
 		}
 
 		//程序结束开关

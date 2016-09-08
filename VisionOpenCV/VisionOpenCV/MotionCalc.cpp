@@ -26,7 +26,7 @@ double MotionCalc::CalcAngleByLocation(int xValue)
 	//角度的方向：摄像头对称成像，所以正负反过来了
 	angle *= horiLen>0?-1:1;
 	//转换为角度
-	return angle / M_PI * 180;
+	return angle;
 }
 
 void MotionCalc::MoveOrigin()
