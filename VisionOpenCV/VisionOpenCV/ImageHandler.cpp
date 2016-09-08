@@ -192,9 +192,9 @@ void ImageHandler::RecognitionMotionTarget(Mat foreground)
 		array_y[i] = boundRect[i].y;
 		//填充空洞
 		drawContours(srcImage,contourAll,i,Scalar(255), CV_FILLED);
-	}	
-	//imshow("Move", srcImage);
-	//moveWindow("Move",700,0);
+	}
+	imshow("Move", srcImage);
+	moveWindow("Move",700,0);
 	//找到最大值,最小值
 	minMaxLoc(array_x, &x_min_value, &x_max_value, 0, 0);
 	minMaxLoc(array_y, &y_min_value, &y_max_value, 0, 0);
