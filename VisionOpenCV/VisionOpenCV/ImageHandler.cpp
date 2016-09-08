@@ -3,12 +3,17 @@
 
 using namespace std;
 
-#define  AREAS_MOTION  100  //
-#define    MIN_TARGET_AREAR     500
-#define    MAX_TARGET_AREAR     10000
+#define  AREAS_MOTION	100
+#define  MIN_TARGET_AREAR		500
+#define  MAX_TARGET_AREAR		10000
+#define	 DEMO_RESULT_RADIUS		500
 
 
-ImageHandler::ImageHandler(void):FIRST_FRAME_COUNT(10),MIN_SIZE_PIXEL(10),CHANGE_FACE_JUMP_FALG(200), CHANGE_FACE_MIN_COUNT(2),MIN_RECT_AREA(300),DEMO_RESULT_RADIUS(500)
+Scalar ImageHandler::colorDemoResult;
+Point ImageHandler::camPosDemoResult, ImageHandler::objPosDemoResult;
+
+
+ImageHandler::ImageHandler(void):FIRST_FRAME_COUNT(10),MIN_SIZE_PIXEL(10),CHANGE_FACE_JUMP_FALG(200), CHANGE_FACE_MIN_COUNT(2),MIN_RECT_AREA(300)
 {
 	vmin = 10;
 	vmax = 256;
@@ -196,8 +201,8 @@ void ImageHandler::RecognitionMotionTarget(Mat foreground)
 		//填充空洞
 		drawContours(srcImage,contourAll,i,Scalar(255), CV_FILLED);
 	}
-	//imshow("Move", srcImage);
-	//moveWindow("Move",500,0);
+	imshow("Move", srcImage);
+	moveWindow("Move",500,500);
 	//找到最大值,最小值
 	minMaxLoc(array_x, &x_min_value, &x_max_value, 0, 0);
 	minMaxLoc(array_y, &y_min_value, &y_max_value, 0, 0);
@@ -210,14 +215,16 @@ void ImageHandler::RecognitionMotionTarget(Mat foreground)
 
 //显示当前角度
 void ImageHandler::ShowDemoInfo(double degree)
-{	
-	demoResultInfo = Mat::zeros(DEMO_RESULT_RADIUS/2,DEMO_RESULT_RADIUS,CV_8UC1);
+{
+	Mat demoResultInfo = Mat::zeros(DEMO_RESULT_RADIUS/2,DEMO_RESULT_RADIUS,CV_8UC1);
 	//标注摄像头位置
 	circle(demoResultInfo,camPosDemoResult,6,colorDemoResult,5);
 	//计算当前角度
 	objPosDemoResult.x = DEMO_RESULT_RADIUS / 2.0 * (1.0 - sin(degree));
 	objPosDemoResult.y = DEMO_RESULT_RADIUS / 2.0 * cos(degree);
 	line(demoResultInfo, camPosDemoResult, objPosDemoResult,colorDemoResult,3);
+	
+	cout<<degree << '=' << objPosDemoResult.x << endl;
 
 	imshow("Result", demoResultInfo);
 	moveWindow("Result",500,0);

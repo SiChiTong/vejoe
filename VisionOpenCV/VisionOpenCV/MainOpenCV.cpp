@@ -1,17 +1,26 @@
 #include <iostream>
 #include <cv.h>
+#include <pthread.h>
 
 #include "ImageHandler.h"
 #include "MotionCalc.h"
+#pragma comment(lib,"pthreadVC2.lib")
 
 using namespace std;
 
+void *showObjectResult(void *);
+
+double (* calcAngle)();
+void (*showAngle)(double);
+bool stopFlag(false);
+
+double nextAngle;
 int main()
 {
 	//摄像头宽、高（分辨率），显示图片宽度（高度等比例缩放）
 	const int CAMERA_WIDTH = 640, CAMERA_HIGHT = 480, COMPRESS_WIDTH = 400;
 	int objXValue = -1, compressHight, angleMin,angleMax, xValue;
-	double nextAngle;
+	//double nextAngle;
 	ImageHandler imageTool;	
 	Mat sourceFrame,foreground, compressFrame;
 	compressHight = 1.0 * CAMERA_HIGHT * COMPRESS_WIDTH / CAMERA_WIDTH;
@@ -21,10 +30,17 @@ int main()
 	MotionCalc motionCalc(COMPRESS_WIDTH);
 	angleMax = motionCalc.MAX_VISION_ANGLE / 2;
 	angleMin = -1 * angleMax;
+	//多线程显示位置
+	calcAngle = motionCalc.CalcAngleNextStep;
+	showAngle = imageTool.ShowDemoInfo;
+	pthread_t showThread;
+	int thErr = pthread_create(&showThread, NULL,showObjectResult, NULL);
+	if(thErr != 0){cout << "Mult thread create fail:" << thErr <<endl; return -1;}
+	
 
 	//高斯混合背景/前景分割方法
 	BackgroundSubtractorMOG2 toolGaussBackground(100,16);
-	bool stopFlag(false);
+	
 	while (!stopFlag)
 	{
 		if (!capture.read(sourceFrame))	break;
@@ -38,11 +54,11 @@ int main()
 		xValue = imageTool.TrackMotionTarget(compressFrame,foreground);
 		////人脸跟踪识别
 		//xValue = imageTool.RecognitionHumanFace(compressFrame);
-		if(xValue >= 0 && (xValue >= objXValue + 1 || xValue <= objXValue - 1))
+		if(xValue >= 0 && (xValue >= objXValue + 2 || xValue <= objXValue - 2))
 		{//转动不低于一度才显示
 			objXValue = xValue;
 			nextAngle = motionCalc.CalcAngleByLocation(xValue);
-			imageTool.ShowDemoInfo(nextAngle);
+			motionCalc.setAngleTarget(nextAngle);
 		}
 
 		//程序结束开关
@@ -50,6 +66,17 @@ int main()
 		{//监听到ESC退出
 			stopFlag = true;
 		}
+	}
+	return 0;
+}
+
+
+void* showObjectResult(void * arg)
+{
+	while(!stopFlag){
+		cout << nextAngle << '+';
+		showAngle(calcAngle());
+		waitKey(100);
 	}
 	return 0;
 }

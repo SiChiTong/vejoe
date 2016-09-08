@@ -7,16 +7,20 @@ public:
 	~MotionCalc(void);
 	//根据横坐标值计算对应角度
 	double CalcAngleByLocation(int xValue);
+	//向目标移动一个时间单位
+	static double CalcAngleNextStep();
 	//归零
 	void MoveOrigin();
-	//视野范围角度
+	//视野范围角度，速度改变的角度阈值
 	const int MAX_VISION_ANGLE;
-	//当前角度（实时）
-	double currentAngle;
+	//设置移动目标角度
+	void setAngleTarget(double);
+	//当前，目标角度（实时）
+	static double currentAngle, targetAngle;
 
 private:
-	//移动角速度
-	int moveSpeed;
+	//移动角速度（弧度）
+	//static  moveMaxSpeed, moveNormalSpeed,SPEED_THRESHOLD_ANGLE;
 	//图像总宽度
 	int videoImageWidth;
 	//摄像头到图像的虚拟距离，用于计算目标角度
