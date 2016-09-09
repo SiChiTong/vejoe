@@ -11,16 +11,16 @@ using namespace std;
 void *showObjectResult(void *);
 
 double (* calcAngle)();
-void (*showAngle)(double);
+void (*showAngle)(double,int);
 bool stopFlag(false);
 
-double nextAngle;
+int xValue;
 int main()
 {
 	//摄像头宽、高（分辨率），显示图片宽度（高度等比例缩放）
 	const int CAMERA_WIDTH = 640, CAMERA_HIGHT = 480, COMPRESS_WIDTH = 400;
-	int objXValue = -1, compressHight, angleMin,angleMax, xValue;
-	//double nextAngle;
+	int objXValue = -1, compressHight, angleMin,angleMax;
+	double nextAngle;
 	ImageHandler imageTool;	
 	Mat sourceFrame,foreground, compressFrame;
 	compressHight = 1.0 * CAMERA_HIGHT * COMPRESS_WIDTH / CAMERA_WIDTH;
@@ -43,10 +43,15 @@ int main()
 	
 	while (!stopFlag)
 	{
-		if (!capture.read(sourceFrame))	break;
+		if (!capture.read(sourceFrame))
+		{
+			capture.open(0);
+				cout<<endl<<capture.isOpened()<<"Camera Read Fail;"<<endl;
+			if (!capture.isOpened() || !capture.read(sourceFrame)) break;
+		}
 		resize(sourceFrame,compressFrame,Size(COMPRESS_WIDTH, compressHight));
 		//显示原始图像
-		imshow("Source Image", compressFrame);
+		imshow("Source Image", sourceFrame);
 		moveWindow("Source Image",0,0);
 		//高斯分离前景
 		toolGaussBackground(compressFrame, foreground, -1);
@@ -74,8 +79,7 @@ int main()
 void* showObjectResult(void * arg)
 {
 	while(!stopFlag){
-		cout << nextAngle << '+';
-		showAngle(calcAngle());
+		showAngle(calcAngle(), xValue);
 		waitKey(100);
 	}
 	return 0;

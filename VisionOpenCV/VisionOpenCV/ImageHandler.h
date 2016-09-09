@@ -25,7 +25,7 @@ public:
 	//人脸识别
 	int RecognitionHumanFace(Mat sourceFrame);
 	//展示Demo结果
-	static void ShowDemoInfo(double degree);
+	static void ShowDemoInfo(double,int);
 
 	//图像测试
 	void DemoImage(void);

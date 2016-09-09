@@ -178,8 +178,11 @@ int ImageHandler::TrackMotionTarget(Mat souceFrame,Mat foreground)
 //确定运动区域
 void ImageHandler::RecognitionMotionTarget(Mat foreground)
 {
+	
+	imshow("Move 11", foreground);
+	moveWindow("Move 11",0,500);
 	//开闭操作
-	morphologyEx(foreground,tmpImage,MORPH_OPEN,shapeOperateKernal);
+	morphologyEx(foreground,tmpImage,MORPH_OPEN,shapeOperateKernal);	
 	morphologyEx(tmpImage,srcImage,MORPH_CLOSE,shapeOperateKernal);
 	
 	//提取边界
@@ -189,20 +192,18 @@ void ImageHandler::RecognitionMotionTarget(Mat foreground)
 	int shapeCount = contourAll.size();
 	vector<vector<Point> >contoursAppr(shapeCount);
 	vector<Rect> boundRect(shapeCount);
-	vector<int>array_x(shapeCount), array_y(shapeCount);
+	vector<int>array_x, array_y;
 	//找到最大连通域
 	for(int i = 0; i < shapeCount; i ++)
 	{//找到所有物体
 		approxPolyDP(Mat(contourAll[i]), contoursAppr[i], 5, true);
 		boundRect[i] = boundingRect(Mat(contoursAppr[i]));
-		if(boundRect[i].area() < MIN_RECT_AREA) continue;
-		array_x[i] = boundRect[i].x;
-		array_y[i] = boundRect[i].y;
 		//填充空洞
 		drawContours(srcImage,contourAll,i,Scalar(255), CV_FILLED);
+		if(boundRect[i].area() < MIN_RECT_AREA) continue;
+		array_x.push_back(boundRect[i].x);
+		array_y.push_back(boundRect[i].y);
 	}
-	imshow("Move", srcImage);
-	moveWindow("Move",500,500);
 	//找到最大值,最小值
 	minMaxLoc(array_x, &x_min_value, &x_max_value, 0, 0);
 	minMaxLoc(array_y, &y_min_value, &y_max_value, 0, 0);
@@ -211,10 +212,18 @@ void ImageHandler::RecognitionMotionTarget(Mat foreground)
 	moveRange.y = (int)y_min_value;
 	moveRange.height = (int)y_max_value - (int)y_min_value;
 	moveRange.width = (int)x_max_value - (int)x_min_value;
+	
+	if(moveRange.area() >= MIN_RECT_AREA)
+	{
+		rectangle(srcImage, Point(moveRange.x, moveRange.y), Point(moveRange.x + moveRange.width, moveRange.y + moveRange.height), Scalar(255,0,0), 2);
+		circle(srcImage, Point(moveRange.x + moveRange.width / 2, moveRange.y + moveRange.height /2 ),7, Scalar(255,0,0),2);
+		imshow("Move", srcImage);
+		moveWindow("Move",500,500);
+	}
 }
 
 //显示当前角度
-void ImageHandler::ShowDemoInfo(double degree)
+void ImageHandler::ShowDemoInfo(double degree,int xValue)
 {
 	Mat demoResultInfo = Mat::zeros(DEMO_RESULT_RADIUS/2,DEMO_RESULT_RADIUS,CV_8UC1);
 	//标注摄像头位置
@@ -223,11 +232,12 @@ void ImageHandler::ShowDemoInfo(double degree)
 	objPosDemoResult.x = DEMO_RESULT_RADIUS / 2.0 * (1.0 - sin(degree));
 	objPosDemoResult.y = DEMO_RESULT_RADIUS / 2.0 * cos(degree);
 	line(demoResultInfo, camPosDemoResult, objPosDemoResult,colorDemoResult,3);
-	
-	cout<<degree << '=' << objPosDemoResult.x << endl;
+	if(xValue > 0){//-1为没捕捉到运动物体
+		circle(demoResultInfo,Point(xValue * 1.2,0), 7,colorDemoResult,2);
+	}
 
 	imshow("Result", demoResultInfo);
-	moveWindow("Result",500,0);
+	moveWindow("Result",700,0);
 }
 
 int findMostSimilarRect(Rect target, vector<Rect> selectList);
