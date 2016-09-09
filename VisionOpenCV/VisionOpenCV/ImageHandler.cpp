@@ -1,5 +1,6 @@
 #include "ImageHandler.h"
 #include <iostream>
+#include <numeric>
 
 using namespace std;
 
@@ -7,13 +8,15 @@ using namespace std;
 #define  MIN_TARGET_AREAR		500
 #define  MAX_TARGET_AREAR		10000 
 #define	 DEMO_RESULT_RADIUS		500 // 指针 半径
+#define  FILTER_MIDDLE_COUNT	5	// 中值滤波数据量
+#define	 FILTER_MEAN_COUNT		3	// 均值滤波数据量
 
 
 Scalar ImageHandler::colorDemoResult;
 Point ImageHandler::camPosDemoResult, ImageHandler::objPosDemoResult;
 
 
-ImageHandler::ImageHandler(void):FIRST_FRAME_COUNT(10),MIN_SIZE_PIXEL(10),CHANGE_FACE_JUMP_FALG(200), CHANGE_FACE_MIN_COUNT(2),MIN_RECT_AREA(300)
+ImageHandler::ImageHandler(void):FIRST_FRAME_COUNT(10),MIN_SIZE_PIXEL(10),CHANGE_FACE_JUMP_FALG(200), CHANGE_FACE_MIN_COUNT(5),MIN_RECT_AREA(200)
 {
 	vmin = 10;
 	vmax = 256;
@@ -152,27 +155,43 @@ int ImageHandler::TrackMotionTarget(Mat souceFrame,Mat foreground)
 	backproj &= mask;
 	//camshift算法
 	trackBox = CamShift(backproj, moveRange,TermCriteria( CV_TERMCRIT_EPS | CV_TERMCRIT_ITER, 15, 2.0));
-	if(!findTargetFlag){//首次没用多帧取均值
-		nextTargetRotate = trackBox;
-		findTargetFlag = true;
-		return nextTarget.x;
+	//中值 + 均值 过滤
+	double xValue = trackBox.center.x + trackBox.size.width;
+	midFiltArray.push_back(xValue);
+	sourceFiltArray.push_back(xValue);
+	if(midFiltArray.size() < FILTER_MIDDLE_COUNT) return -1;
+	sort(midFiltArray.begin(), midFiltArray.end());
+	meanFiltArray.push_back(midFiltArray[FILTER_MIDDLE_COUNT/2]);
+	if(meanFiltArray.size() > FILTER_MEAN_COUNT)
+	{
+		meanFiltArray.pop_back();
 	}
-	//看是否跳帧
-	if(abs(trackBox.center.x - nextTargetRotate.center.x) > CHANGE_FACE_JUMP_FALG || abs(trackBox.center.y - nextTargetRotate.center.y) > CHANGE_FACE_JUMP_FALG || 
-		abs(trackBox.size.width - nextTargetRotate.size.width) > CHANGE_FACE_JUMP_FALG || abs(trackBox.size.height - nextTargetRotate.size.height) > CHANGE_FACE_JUMP_FALG)
-	{//跳帧检查
-		jumpFrameCount++;
-		if(jumpFrameCount >= CHANGE_FACE_MIN_COUNT)//没求跳帧均值，只是取了最后一帧
-			nextTargetRotate = trackBox;
-	}else{
-		jumpFrameCount = 0;
-		nextTargetRotate = trackBox;
-	}
-	////判断camshift目标追寻不到, 通过返回的矩形框的面积来判断
-	//ellipse(dstImage,nextTargetRotate, Scalar(0,0,255), 3, CV_AA);
-	//imshow("Move Obj", dstImage);
-	//moveWindow("Move Obj",700,500);
-	return nextTargetRotate.center.x + nextTargetRotate.size.width / 2.0;
+	midFiltArray.erase(std::find(midFiltArray.begin(),midFiltArray.end(),sourceFiltArray[0]));
+	sourceFiltArray.erase(sourceFiltArray.begin());
+	xValue =std::accumulate(std::begin(meanFiltArray),end(meanFiltArray),0)/meanFiltArray.size(); 
+
+	return xValue;
+
+	//跳帧 检测过滤
+	//if(!findTargetFlag){//首次没用多帧取均值
+	//	nextTargetRotate = trackBox;
+	//	findTargetFlag = true;
+	//	return nextTarget.x;
+	//}
+	//if(abs(trackBox.center.x - nextTargetRotate.center.x) > CHANGE_FACE_JUMP_FALG || abs(trackBox.center.y - nextTargetRotate.center.y) > CHANGE_FACE_JUMP_FALG || 
+	//	abs(trackBox.size.width - nextTargetRotate.size.width) > CHANGE_FACE_JUMP_FALG || abs(trackBox.size.height - nextTargetRotate.size.height) > CHANGE_FACE_JUMP_FALG)
+	//{//跳帧检查
+	//	jumpFrameCount++;
+	//	if(jumpFrameCount >= CHANGE_FACE_MIN_COUNT)//没求跳帧均值，只是取了最后一帧
+	//		nextTargetRotate = trackBox;
+	//}else{
+	//	jumpFrameCount = 0;
+	//	nextTargetRotate = trackBox;
+	//}
+	////ellipse(dstImage,nextTargetRotate, Scalar(0,0,255), 3, CV_AA);
+	////imshow("Move Obj", dstImage);
+	////moveWindow("Move Obj",700,500);
+	//return nextTargetRotate.center.x + nextTargetRotate.size.width / 2.0;
 }
 
 //确定运动区域

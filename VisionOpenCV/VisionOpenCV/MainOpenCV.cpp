@@ -36,7 +36,6 @@ int main()
 	pthread_t showThread;
 	int thErr = pthread_create(&showThread, NULL,showObjectResult, NULL);
 	if(thErr != 0){cout << "Mult thread create fail:" << thErr <<endl; return -1;}
-	
 
 	//高斯混合背景/前景分割方法
 	BackgroundSubtractorMOG2 toolGaussBackground(100,16);
