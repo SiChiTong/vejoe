@@ -31,7 +31,7 @@ int main()
 	angleMax = motionCalc.MAX_VISION_ANGLE / 2;
 	angleMin = -1 * angleMax;
 	//多线程显示位置
-	calcAngle = motionCalc.CalcAngleNextStep;
+	calcAngle = motionCalc.CalcAngleNextStepBySection;
 	showAngle = imageTool.ShowDemoInfo;
 	pthread_t showThread;
 	int thErr = pthread_create(&showThread, NULL,showObjectResult, NULL);

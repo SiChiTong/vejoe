@@ -5,8 +5,8 @@ using namespace std;
 
 #define  AREAS_MOTION	100
 #define  MIN_TARGET_AREAR		500
-#define  MAX_TARGET_AREAR		10000
-#define	 DEMO_RESULT_RADIUS		500
+#define  MAX_TARGET_AREAR		10000 
+#define	 DEMO_RESULT_RADIUS		500 // 指针 半径
 
 
 Scalar ImageHandler::colorDemoResult;
@@ -178,9 +178,6 @@ int ImageHandler::TrackMotionTarget(Mat souceFrame,Mat foreground)
 //确定运动区域
 void ImageHandler::RecognitionMotionTarget(Mat foreground)
 {
-	
-	imshow("Move 11", foreground);
-	moveWindow("Move 11",0,500);
 	//开闭操作
 	morphologyEx(foreground,tmpImage,MORPH_OPEN,shapeOperateKernal);	
 	morphologyEx(tmpImage,srcImage,MORPH_CLOSE,shapeOperateKernal);
@@ -218,7 +215,7 @@ void ImageHandler::RecognitionMotionTarget(Mat foreground)
 		rectangle(srcImage, Point(moveRange.x, moveRange.y), Point(moveRange.x + moveRange.width, moveRange.y + moveRange.height), Scalar(255,0,0), 2);
 		circle(srcImage, Point(moveRange.x + moveRange.width / 2, moveRange.y + moveRange.height /2 ),7, Scalar(255,0,0),2);
 		imshow("Move", srcImage);
-		moveWindow("Move",500,500);
+		moveWindow("Move",0,500);
 	}
 }
 
@@ -232,7 +229,8 @@ void ImageHandler::ShowDemoInfo(double degree,int xValue)
 	objPosDemoResult.x = DEMO_RESULT_RADIUS / 2.0 * (1.0 - sin(degree));
 	objPosDemoResult.y = DEMO_RESULT_RADIUS / 2.0 * cos(degree);
 	line(demoResultInfo, camPosDemoResult, objPosDemoResult,colorDemoResult,3);
-	if(xValue > 0){//-1为没捕捉到运动物体
+	if(xValue > 0)
+	{//-1为没捕捉到运动物体
 		circle(demoResultInfo,Point(xValue * 1.2,0), 7,colorDemoResult,2);
 	}
 
