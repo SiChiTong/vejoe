@@ -42,7 +42,7 @@ double MotionCalc::CalcAngleByLocation(int xValue)
 }
 
 double  MotionCalc::CalcAngleNextStep()
-{
+{//直接移向目标位置
 	double tmpDiff = fabs(targetAngle - currentAngle);
 	int tmpFlag = targetAngle > currentAngle ? 1 : -1;
 
@@ -69,10 +69,10 @@ double  MotionCalc::CalcAngleNextStepBySection()
 	}
 	else if(abs(sectionDiff) == 0)
 	{//当前位置在目标区域了
-		tmpValue = overLen - sectionAngle / 2.0;
+		tmpValue = abs(overLen) - sectionAngle / 2.0;
 		if(abs(tmpValue) > MOVE_NORMAL_SPEED)
 		{//未达到中心位置
-			currentAngle += MOVE_NORMAL_SPEED * (tmpValue>0?-1:1);
+			currentAngle += MOVE_NORMAL_SPEED * (tmpValue * overLen>0?-1:1);
 		}
 	}
 	return currentAngle;

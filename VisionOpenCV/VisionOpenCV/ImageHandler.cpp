@@ -164,12 +164,12 @@ int ImageHandler::TrackMotionTarget(Mat souceFrame,Mat foreground)
 	meanFiltArray.push_back(midFiltArray[FILTER_MIDDLE_COUNT/2]);
 	if(meanFiltArray.size() > FILTER_MEAN_COUNT)
 	{
-		meanFiltArray.pop_back();
+		meanFiltArray.erase(meanFiltArray.begin ());
 	}
 	midFiltArray.erase(std::find(midFiltArray.begin(),midFiltArray.end(),sourceFiltArray[0]));
 	sourceFiltArray.erase(sourceFiltArray.begin());
 	xValue =std::accumulate(std::begin(meanFiltArray),end(meanFiltArray),0)/meanFiltArray.size(); 
-
+	
 	return xValue;
 
 	//跳帧 检测过滤
@@ -182,7 +182,7 @@ int ImageHandler::TrackMotionTarget(Mat souceFrame,Mat foreground)
 	//	abs(trackBox.size.width - nextTargetRotate.size.width) > CHANGE_FACE_JUMP_FALG || abs(trackBox.size.height - nextTargetRotate.size.height) > CHANGE_FACE_JUMP_FALG)
 	//{//跳帧检查
 	//	jumpFrameCount++;
-	//	if(jumpFrameCount >= CHANGE_FACE_MIN_COUNT)//没求跳帧均值，只是取了最后一帧
+	//	if(jumpFrameCount >= CHANGE_FACE_MIN_COUNT)//没对跳帧处理，只是取了最后一帧
 	//		nextTargetRotate = trackBox;
 	//}else{
 	//	jumpFrameCount = 0;
