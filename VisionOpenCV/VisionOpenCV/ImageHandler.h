@@ -53,7 +53,6 @@ private:
 	int stayCount, stayMaxCount ;
 	//hsv转化数据范围滤波
 	int vmin , vmax , smin ;
-	double x_max_value, x_min_value , y_max_value, y_min_value ;
 	float hranges[2] ;
 	const float* phranges;
 	int ch[2] ;

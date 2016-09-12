@@ -1,6 +1,7 @@
 #include "ImageHandler.h"
 #include <iostream>
 #include <numeric>
+#include <fstream>
 
 using namespace std;
 
@@ -16,13 +17,14 @@ Scalar ImageHandler::colorDemoResult;
 Point ImageHandler::camPosDemoResult, ImageHandler::objPosDemoResult;
 
 
+ofstream fOrigin("data.txt");
+ofstream fMid("inData.txt");
+
 ImageHandler::ImageHandler(void):FIRST_FRAME_COUNT(10),MIN_SIZE_PIXEL(10),CHANGE_FACE_JUMP_FALG(200), CHANGE_FACE_MIN_COUNT(5),MIN_RECT_AREA(200)
 {
 	vmin = 10;
 	vmax = 256;
 	smin = 30;
-	x_min_value = 0;
-	y_min_value = 0;
 
 	findTargetFlag = false;
 	jumpFrameCount=0;
@@ -132,31 +134,35 @@ int ImageHandler::TrackMotionTarget(Mat souceFrame,Mat foreground)
 	//框出运动目标
 	RecognitionMotionTarget(foreground);
 	if(moveRange.area() < MIN_RECT_AREA) return -1;//运动物体太小则忽略
-	Mat dstImage;
-	//使用中值滤波器进行模糊操作（平滑处理）：中值滤波将图像的每个像素用邻域 (以当前像素为中心的正方形区域)像素的中值代替
-	medianBlur(souceFrame, dstImage, 3);
-	//高斯滤波：这个像素滤波后的值是根据其相邻像素（包括自己那个点）与一个滤波模板进行相乘
-	GaussianBlur(dstImage, dstImage, Size(3,3), 0,0);
-	//将彩色图像转换为HSV格式，保存到hsv中
-	cvtColor(dstImage, hsv, COLOR_BGR2HSV);
-	//将数据设定在规定的范围内
-	inRange(hsv, Scalar(0, smin, MIN(vmin,vmax)),Scalar(180, 256, MAX(vmin, vmax)), mask);
-	//取出 H通道放入hue中
-	hue.create(hsv.size(), hsv.depth());
-	mixChannels(&hsv, 1, &hue, 1, ch, 1);
-	//计算直方图
-	Mat roi(hue, moveRange), maskroi(mask, moveRange);
-	//计算直方图，放入hist.
-	calcHist(&roi, 1, 0, maskroi, hist, 1, &hsize, &phranges);
-	//归一化处理
-	normalize(hist, hist, 0, 255, CV_MINMAX);
-	//反向投影图,放入backproj, H通道的范围在0~180的范围内
-	calcBackProject(&hue, 1, 0, hist, backproj, &phranges);
-	backproj &= mask;
-	//camshift算法
-	trackBox = CamShift(backproj, moveRange,TermCriteria( CV_TERMCRIT_EPS | CV_TERMCRIT_ITER, 15, 2.0));
+	//Mat dstImage;
+	////使用中值滤波器进行模糊操作（平滑处理）：中值滤波将图像的每个像素用邻域 (以当前像素为中心的正方形区域)像素的中值代替
+	//medianBlur(souceFrame, dstImage, 3);
+	////高斯滤波：这个像素滤波后的值是根据其相邻像素（包括自己那个点）与一个滤波模板进行相乘
+	//GaussianBlur(dstImage, dstImage, Size(3,3), 0,0);
+	////将彩色图像转换为HSV格式，保存到hsv中
+	//cvtColor(dstImage, hsv, COLOR_BGR2HSV);
+	////将数据设定在规定的范围内
+	//inRange(hsv, Scalar(0, smin, MIN(vmin,vmax)),Scalar(180, 256, MAX(vmin, vmax)), mask);
+	////取出 H通道放入hue中
+	//hue.create(hsv.size(), hsv.depth());
+	//mixChannels(&hsv, 1, &hue, 1, ch, 1);
+	////计算直方图
+	//Mat roi(hue, moveRange), maskroi(mask, moveRange);
+	////计算直方图，放入hist.
+	//calcHist(&roi, 1, 0, maskroi, hist, 1, &hsize, &phranges);
+	////归一化处理
+	//normalize(hist, hist, 0, 255, CV_MINMAX);
+	////反向投影图,放入backproj, H通道的范围在0~180的范围内
+	//calcBackProject(&hue, 1, 0, hist, backproj, &phranges);
+	//backproj &= mask;
+	////camshift算法
+	//trackBox = CamShift(backproj, moveRange,TermCriteria( CV_TERMCRIT_EPS | CV_TERMCRIT_ITER, 15, 2.0));
+	//double xValue = trackBox.center.x;	
+
 	//中值 + 均值 过滤
-	double xValue = trackBox.center.x + trackBox.size.width;
+	double xValue = moveRange.x + moveRange.width/2.0;
+	fOrigin << xValue << " ";	
+	cout <<xValue<< "========================" ; 
 	midFiltArray.push_back(xValue);
 	sourceFiltArray.push_back(xValue);
 	if(midFiltArray.size() < FILTER_MIDDLE_COUNT) return -1;
@@ -170,6 +176,9 @@ int ImageHandler::TrackMotionTarget(Mat souceFrame,Mat foreground)
 	sourceFiltArray.erase(sourceFiltArray.begin());
 	xValue =std::accumulate(std::begin(meanFiltArray),end(meanFiltArray),0)/meanFiltArray.size(); 
 	
+	fMid << xValue << " ";
+	cout<< xValue<<endl;
+
 	return xValue;
 
 	//跳帧 检测过滤
@@ -208,7 +217,7 @@ void ImageHandler::RecognitionMotionTarget(Mat foreground)
 	int shapeCount = contourAll.size();
 	vector<vector<Point> >contoursAppr(shapeCount);
 	vector<Rect> boundRect(shapeCount);
-	vector<int>array_x, array_y;
+	vector<int>array_x, array_y, array_x2, array_y2;
 	//找到最大连通域
 	for(int i = 0; i < shapeCount; i ++)
 	{//找到所有物体
@@ -217,17 +226,15 @@ void ImageHandler::RecognitionMotionTarget(Mat foreground)
 		//填充空洞
 		drawContours(srcImage,contourAll,i,Scalar(255), CV_FILLED);
 		if(boundRect[i].area() < MIN_RECT_AREA) continue;
-		array_x.push_back(boundRect[i].x);
-		array_y.push_back(boundRect[i].y);
+		array_x.push_back(boundRect[i].x); array_x2.push_back(boundRect[i].x + boundRect[i].width);
+		array_y.push_back(boundRect[i].y); array_y2.push_back(boundRect[i].y + boundRect[i].height);
 	}
-	//找到最大值,最小值
-	minMaxLoc(array_x, &x_min_value, &x_max_value, 0, 0);
-	minMaxLoc(array_y, &y_min_value, &y_max_value, 0, 0);
-	//计算面积
-	moveRange.x = (int)x_min_value; 
-	moveRange.y = (int)y_min_value;
-	moveRange.height = (int)y_max_value - (int)y_min_value;
-	moveRange.width = (int)x_max_value - (int)x_min_value;
+	//找到最大\最小值
+	if(array_x.size() == 0) return;//没有捕捉到运动物体
+	moveRange.x = (int)(*std::min_element(array_x.begin(),array_x.end())); 
+	moveRange.y = (int)(*std::min_element(array_y.begin(),array_y.end())); 
+	moveRange.width = (int)(*std::max_element(array_x2.begin(),array_x2.end())) - moveRange.x; 
+	moveRange.height = (int)(*std::max_element(array_y2.begin(),array_y2.end())) - moveRange.y;
 	
 	if(moveRange.area() >= MIN_RECT_AREA)
 	{
@@ -252,6 +259,7 @@ void ImageHandler::ShowDemoInfo(double degree,int xValue)
 	{//-1为没捕捉到运动物体
 		circle(demoResultInfo,Point(xValue * 1.2,0), 7,colorDemoResult,2);
 	}
+	cout << xValue << "****" << degree<<endl;
 
 	imshow("Result", demoResultInfo);
 	moveWindow("Result",700,0);

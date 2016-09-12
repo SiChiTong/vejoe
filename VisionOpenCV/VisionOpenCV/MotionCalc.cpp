@@ -4,9 +4,10 @@
 
 using namespace std;
 #define M_PI       3.14159265358979323846
-#define MOVE_MAX_SPEED 0.05 //3度
-#define MOVE_NORMAL_SPEED 0.02 //1度
-#define	SPEED_THRESHOLD_ANGLE 0.7 //40度
+#define MOVE_MAX_SPEED 0.05	//3度
+#define MOVE_NORMAL_SPEED 0.02	//1度
+#define MOVE_EACH_TIME	0.5		//每次移动时间（秒）
+#define	SPEED_THRESHOLD_ANGLE 0.7	//40度
 #define VISION_SECTION_COUNT	5	//视角 分区域 总数
 #define ONE_SIDE_SECTION_BOUND	0.1	//边界缓冲区域 占比
 
@@ -67,6 +68,10 @@ double  MotionCalc::CalcAngleNextStepBySection()
 	{//相隔至少一个区域，或者在相邻区域，并且目标不在边界缓冲区
 		currentAngle += MOVE_NORMAL_SPEED * (sectionDiff>0?1:-1);
 	}
+	else if(currentSection == 0 && targetSection ==0 && currentSection * targetSection < 0 && abs(targetAngle) > sectionBoundAngle)
+	{//分居原点左右
+		currentAngle += MOVE_NORMAL_SPEED * (targetAngle>0?1:-1);
+	}
 	else if(abs(sectionDiff) == 0)
 	{//当前位置在目标区域了
 		tmpValue = abs(overLen) - sectionAngle / 2.0;
@@ -75,6 +80,7 @@ double  MotionCalc::CalcAngleNextStepBySection()
 			currentAngle += MOVE_NORMAL_SPEED * (tmpValue * overLen>0?-1:1);
 		}
 	}
+	cout << targetAngle << "++++" << currentAngle << "###";
 	return currentAngle;
 }
 
