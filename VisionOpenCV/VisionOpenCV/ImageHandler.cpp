@@ -6,13 +6,8 @@ using namespace std;
 #define  AREAS_MOTION	100
 #define  MIN_TARGET_AREAR		500
 #define  MAX_TARGET_AREAR		10000 
-#define	 DEMO_RESULT_RADIUS		500 // 指针 半径
 #define  FILTER_MIDDLE_COUNT	5	// 中值滤波数据量
 #define	 FILTER_MEAN_COUNT		3	// 均值滤波数据量
-
-
-Scalar ImageHandler::colorDemoResult;
-Point ImageHandler::camPosDemoResult, ImageHandler::objPosDemoResult;
 
 ImageHandler::ImageHandler(void):FIRST_FRAME_COUNT(10),MIN_SIZE_PIXEL(10),CHANGE_FACE_JUMP_FALG(200), CHANGE_FACE_MIN_COUNT(5),MIN_RECT_AREA(200)
 {
@@ -30,10 +25,6 @@ ImageHandler::ImageHandler(void):FIRST_FRAME_COUNT(10),MIN_SIZE_PIXEL(10),CHANGE
 	stayMaxCount = 100;
 	ch[0]=0;
 	ch[1] =0;
-
-	camPosDemoResult = Point(DEMO_RESULT_RADIUS/2,0);
-	objPosDemoResult = Point(DEMO_RESULT_RADIUS/2,DEMO_RESULT_RADIUS/2);
-	colorDemoResult = Scalar(255,255,255);
 
 	shapeOperateKernal = getStructuringElement(MORPH_RECT, Size(5, 5));
 	string faceCascadeName = "haarcascade_frontalface_alt.xml";
@@ -166,8 +157,8 @@ int ImageHandler::TrackMotionTarget(Mat souceFrame,Mat foreground)
 	}
 	midFiltArray.erase(std::find(midFiltArray.begin(),midFiltArray.end(),sourceFiltArray[0]));
 	sourceFiltArray.erase(sourceFiltArray.begin());
-	xValue =std::accumulate(std::begin(meanFiltArray),end(meanFiltArray),0)/meanFiltArray.size(); 
-
+	xValue =std::accumulate(meanFiltArray.begin(),meanFiltArray.end(),0)/meanFiltArray.size(); 
+	
 	return xValue;
 
 	//跳帧 检测过滤
@@ -230,27 +221,8 @@ void ImageHandler::RecognitionMotionTarget(Mat foreground)
 		rectangle(srcImage, Point(moveRange.x, moveRange.y), Point(moveRange.x + moveRange.width, moveRange.y + moveRange.height), Scalar(255,0,0), 2);
 		circle(srcImage, Point(moveRange.x + moveRange.width / 2, moveRange.y + moveRange.height /2 ),7, Scalar(255,0,0),2);
 		imshow("Move", srcImage);
-		moveWindow("Move",0,500);
+		moveWindow("Move",0,400);
 	}
-}
-
-//显示当前角度
-void ImageHandler::ShowDemoInfo(double degree,int xValue)
-{
-	Mat demoResultInfo = Mat::zeros(DEMO_RESULT_RADIUS/2,DEMO_RESULT_RADIUS,CV_8UC1);
-	//标注摄像头位置
-	circle(demoResultInfo,camPosDemoResult,6,colorDemoResult,5);
-	//计算当前角度
-	objPosDemoResult.x = DEMO_RESULT_RADIUS / 2.0 * (1.0 - sin(degree));
-	objPosDemoResult.y = DEMO_RESULT_RADIUS / 2.0 * cos(degree);
-	line(demoResultInfo, camPosDemoResult, objPosDemoResult,colorDemoResult,3);
-	if(xValue > 0)
-	{//-1为没捕捉到运动物体
-		circle(demoResultInfo,Point(xValue * 1.2,0), 7,colorDemoResult,2);
-	}
-
-	imshow("Result", demoResultInfo);
-	moveWindow("Result",700,0);
 }
 
 int findMostSimilarRect(Rect target, vector<Rect> selectList);

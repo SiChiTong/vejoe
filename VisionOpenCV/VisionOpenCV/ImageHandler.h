@@ -24,8 +24,6 @@ public:
 	void RecognitionMotionTarget(Mat foreground);
 	//人脸识别
 	int RecognitionHumanFace(Mat sourceFrame);
-	//展示Demo结果
-	static void ShowDemoInfo(double,int);
 
 	//图像测试
 	void DemoImage(void);
@@ -39,8 +37,6 @@ public:
 	Rect selection, moveRange;
 
 private:
-	static Scalar colorDemoResult;
-	static Point camPosDemoResult, objPosDemoResult;
 	bool findTargetFlag;
 	//首次识别脸部需要视频图像帧数，同一个脸部的距离误差范围，改变目标作为跳帧的阈值，重新定位前连续发生跳帧次数
 	const int FIRST_FRAME_COUNT, MIN_SIZE_PIXEL, CHANGE_FACE_JUMP_FALG, CHANGE_FACE_MIN_COUNT;

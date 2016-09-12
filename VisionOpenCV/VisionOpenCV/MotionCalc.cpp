@@ -1,5 +1,9 @@
 #include "MotionCalc.h"
 #include <iostream>
+#include <math.h>
+#include <stdlib.h>
+#include <highgui/highgui.hpp>
+
 
 using namespace std;
 #define M_PI       3.14159265358979323846
@@ -9,13 +13,7 @@ using namespace std;
 #define	SPEED_THRESHOLD_ANGLE 0.7	//40度
 #define VISION_SECTION_COUNT	5	//视角 分区域 总数
 #define ONE_SIDE_SECTION_BOUND	0.1	//边界缓冲区域 占比
-
-//当前，目标角度（实时）
-double MotionCalc::currentAngle, MotionCalc::targetAngle;
-//分区域相关 角度
-double MotionCalc::sectionAngle, MotionCalc::sectionBoundAngle, MotionCalc::moveSpeed;
-
-bool MotionCalc::moveFlag;
+#define	DEMO_RESULT_RADIUS		500 // 指针 半径
 
 MotionCalc::MotionCalc(int imageWidth):MAX_VISION_ANGLE(60)
 {
@@ -23,7 +21,11 @@ MotionCalc::MotionCalc(int imageWidth):MAX_VISION_ANGLE(60)
 	verticalDistance = (imageWidth / 2.0) / tan(MAX_VISION_ANGLE / 2 * M_PI / 180);
 	sectionAngle = MAX_VISION_ANGLE / VISION_SECTION_COUNT * M_PI / 180;
 	sectionBoundAngle = sectionAngle * ONE_SIDE_SECTION_BOUND;
-	moveFlag = false;
+
+	currentAngle = 0;
+	camPosDemoResult = Point(DEMO_RESULT_RADIUS/2,0);
+	objPosDemoResult = Point(DEMO_RESULT_RADIUS/2,DEMO_RESULT_RADIUS/2);
+	colorDemoResult = Scalar(255,255,255);
 }
 
 
@@ -59,30 +61,40 @@ double  MotionCalc::CalcAngleNextStep()
 	return currentAngle;
 }
 
-double  MotionCalc::CalcAngleNextStepBySection()
+//计算并显示最终结果
+double  MotionCalc::CalcAngleNextStepBySection(int xValue)
 {
-	if(!moveFlag)
-	{//移动中
-		int currentSection = currentAngle / sectionAngle, targetSection = targetAngle / sectionAngle;
-		int sectionDiff = targetSection - currentSection;
-		int sectionCount = abs(sectionDiff);
-		double overLen = currentAngle - sectionAngle * currentSection;
-		double tmpValue = targetAngle - max(currentSection, targetSection) * sectionAngle;
-		moveFlag = true;
-		if(sectionCount > 1 || sectionCount == 1 && abs(tmpValue) > sectionBoundAngle)
-			moveSpeed = sectionCount * sectionAngle / MOVE_EACH_TIME * (sectionDiff>0?1:-1);
-		else if(currentSection == 0 && targetSection ==0 && currentAngle * targetAngle < 0 && abs(targetAngle) > sectionBoundAngle)
-			moveSpeed = 1 * sectionAngle / MOVE_EACH_TIME * (targetAngle>0?1:-1);
-		else{
-			moveSpeed = 0;
-			moveFlag = false;
-		}
-	}
-	currentAngle += moveSpeed;
+	targetAngle = CalcAngleByLocation(xValue);
+	//计算速度
+	int currentSection = currentAngle / sectionAngle, targetSection = targetAngle / sectionAngle;
+	int sectionDiff = targetSection - currentSection;
+	int sectionCount = abs(sectionDiff);
+	double overLen = currentAngle - sectionAngle * currentSection;
+	double tmpValue = targetAngle - max(currentSection, targetSection) * sectionAngle;
+	if(sectionCount > 1 || sectionCount == 1 && abs(tmpValue) > sectionBoundAngle)
+		moveSpeed = sectionCount * sectionAngle / MOVE_EACH_TIME * (sectionDiff>0?1:-1);
+	else if(currentSection == 0 && targetSection ==0 && currentAngle * targetAngle < 0 && abs(targetAngle) > sectionBoundAngle)
+		moveSpeed = 1 * sectionAngle / MOVE_EACH_TIME * (targetAngle>0?1:-1);
+	else
+		moveSpeed = 0;	
 
-	if(((currentAngle - targetAngle) * moveSpeed) >= 0)
-	{//到达目的地
-		moveFlag = false;
+	while(((currentAngle - targetAngle) * moveSpeed) < 0){//到达目的地
+		currentAngle += moveSpeed;
+
+		Mat demoResultInfo = Mat::zeros(DEMO_RESULT_RADIUS/2,DEMO_RESULT_RADIUS,CV_8UC1);
+		//标注摄像头位置
+		circle(demoResultInfo,camPosDemoResult,6,colorDemoResult,5);
+		//计算当前角度
+		objPosDemoResult.x = DEMO_RESULT_RADIUS / 2.0 * (1.0 - sin(currentAngle));
+		objPosDemoResult.y = DEMO_RESULT_RADIUS / 2.0 * cos(currentAngle);
+		line(demoResultInfo, camPosDemoResult, objPosDemoResult,colorDemoResult,3);
+		if(xValue > 0)
+		{//-1为没捕捉到运动物体
+			circle(demoResultInfo,Point(DEMO_RESULT_RADIUS - xValue * 1.2,0), 7,colorDemoResult,2);
+		}
+
+		imshow("Result", demoResultInfo);
+		moveWindow("Result",500,0);
 	}
 	return currentAngle;
 }
@@ -91,11 +103,4 @@ void MotionCalc::MoveOrigin()
 {
 	currentAngle = 0;
 }
-
-void MotionCalc::setAngleTarget(double degree)
-{
-	if(!moveFlag)
-		targetAngle = degree;	
-}
-
 	
