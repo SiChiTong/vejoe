@@ -23,11 +23,14 @@ public:
 	static double sectionAngle, sectionBoundAngle;
 
 private:
-	//移动角速度（弧度）
-	//static  moveMaxSpeed, moveNormalSpeed,SPEED_THRESHOLD_ANGLE;
+	//移动标志
+	static bool moveFlag;
 	//图像总宽度
 	int videoImageWidth;
 	//摄像头到图像的虚拟距离，用于计算目标角度
 	double verticalDistance;
+	//移动速度
+	static double moveSpeed;
+
 };
 

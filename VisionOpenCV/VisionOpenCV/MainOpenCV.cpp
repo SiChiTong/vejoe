@@ -45,7 +45,7 @@ int main()
 		if (!capture.read(sourceFrame))
 		{
 			capture.open(0);
-				cout<<endl<<capture.isOpened()<<"Camera Read Fail;"<<endl;
+			cout<<endl<<capture.isOpened()<<"Camera Read Fail;"<<endl;
 			if (!capture.isOpened() || !capture.read(sourceFrame)) break;
 		}
 		resize(sourceFrame,compressFrame,Size(COMPRESS_WIDTH, compressHight));

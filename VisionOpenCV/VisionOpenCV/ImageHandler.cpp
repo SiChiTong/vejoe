@@ -1,7 +1,5 @@
 #include "ImageHandler.h"
-#include <iostream>
 #include <numeric>
-#include <fstream>
 
 using namespace std;
 
@@ -15,10 +13,6 @@ using namespace std;
 
 Scalar ImageHandler::colorDemoResult;
 Point ImageHandler::camPosDemoResult, ImageHandler::objPosDemoResult;
-
-
-ofstream fOrigin("data.txt");
-ofstream fMid("inData.txt");
 
 ImageHandler::ImageHandler(void):FIRST_FRAME_COUNT(10),MIN_SIZE_PIXEL(10),CHANGE_FACE_JUMP_FALG(200), CHANGE_FACE_MIN_COUNT(5),MIN_RECT_AREA(200)
 {
@@ -161,8 +155,6 @@ int ImageHandler::TrackMotionTarget(Mat souceFrame,Mat foreground)
 
 	//中值 + 均值 过滤
 	double xValue = moveRange.x + moveRange.width/2.0;
-	fOrigin << xValue << " ";	
-	cout <<xValue<< "========================" ; 
 	midFiltArray.push_back(xValue);
 	sourceFiltArray.push_back(xValue);
 	if(midFiltArray.size() < FILTER_MIDDLE_COUNT) return -1;
@@ -175,9 +167,6 @@ int ImageHandler::TrackMotionTarget(Mat souceFrame,Mat foreground)
 	midFiltArray.erase(std::find(midFiltArray.begin(),midFiltArray.end(),sourceFiltArray[0]));
 	sourceFiltArray.erase(sourceFiltArray.begin());
 	xValue =std::accumulate(std::begin(meanFiltArray),end(meanFiltArray),0)/meanFiltArray.size(); 
-	
-	fMid << xValue << " ";
-	cout<< xValue<<endl;
 
 	return xValue;
 
@@ -259,7 +248,6 @@ void ImageHandler::ShowDemoInfo(double degree,int xValue)
 	{//-1为没捕捉到运动物体
 		circle(demoResultInfo,Point(xValue * 1.2,0), 7,colorDemoResult,2);
 	}
-	cout << xValue << "****" << degree<<endl;
 
 	imshow("Result", demoResultInfo);
 	moveWindow("Result",700,0);
