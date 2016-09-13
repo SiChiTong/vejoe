@@ -15,12 +15,13 @@ using namespace std;
 #define ONE_SIDE_SECTION_BOUND	0.1	//边界缓冲区域 占比
 #define	DEMO_RESULT_RADIUS		500 // 指针 半径
 
-MotionCalc::MotionCalc(int imageWidth):MAX_VISION_ANGLE(60)
+MotionCalc::MotionCalc(int imageWidth,int maxVision):MAX_VISION_ANGLE(maxVision)
 {
 	videoImageWidth = imageWidth;
 	verticalDistance = (imageWidth / 2.0) / tan(MAX_VISION_ANGLE / 2 * M_PI / 180);
 	sectionAngle = MAX_VISION_ANGLE / VISION_SECTION_COUNT * M_PI / 180;
 	sectionBoundAngle = sectionAngle * ONE_SIDE_SECTION_BOUND;
+	visionMaxRadian = MAX_VISION_ANGLE / 2.0 / 180 * M_PI;
 
 	currentAngle = 0;
 	camPosDemoResult = Point(DEMO_RESULT_RADIUS/2,0);
@@ -62,8 +63,9 @@ double  MotionCalc::CalcAngleNextStep()
 }
 
 //计算并显示最终结果
-double  MotionCalc::CalcAngleNextStepBySection(int xValue)
+void  MotionCalc::CalcAngleNextStepBySection(int xValue)
 {
+	//弧度转换
 	targetAngle = CalcAngleByLocation(xValue);
 	//计算速度
 	int currentSection = currentAngle / sectionAngle, targetSection = targetAngle / sectionAngle;
@@ -80,6 +82,7 @@ double  MotionCalc::CalcAngleNextStepBySection(int xValue)
 
 	while(((currentAngle - targetAngle) * moveSpeed) < 0){//到达目的地
 		currentAngle += moveSpeed;
+		if(abs(currentAngle) >= visionMaxRadian) break;//安全域检查
 
 		Mat demoResultInfo = Mat::zeros(DEMO_RESULT_RADIUS/2,DEMO_RESULT_RADIUS,CV_8UC1);
 		//标注摄像头位置
@@ -96,7 +99,6 @@ double  MotionCalc::CalcAngleNextStepBySection(int xValue)
 		imshow("Result", demoResultInfo);
 		moveWindow("Result",500,0);
 	}
-	return currentAngle;
 }
 
 void MotionCalc::MoveOrigin()

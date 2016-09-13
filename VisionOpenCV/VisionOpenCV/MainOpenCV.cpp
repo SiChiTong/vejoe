@@ -17,7 +17,7 @@ int main()
 	
 	VideoCapture capture(0);
 	if (!capture.isOpened()) return 0;
-	MotionCalc motionCalc(COMPRESS_WIDTH);
+	MotionCalc motionCalc(COMPRESS_WIDTH,imageTool.MAX_VISION);
 	angleMax = motionCalc.MAX_VISION_ANGLE / 2;
 	angleMin = -1 * angleMax;	
 	//高斯混合背景/前景分割方法

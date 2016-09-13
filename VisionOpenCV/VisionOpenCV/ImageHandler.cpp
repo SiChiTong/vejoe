@@ -1,15 +1,14 @@
 #include "ImageHandler.h"
 #include <numeric>
+#include <fstream>
 
 using namespace std;
 
 #define  AREAS_MOTION	100
 #define  MIN_TARGET_AREAR		500
 #define  MAX_TARGET_AREAR		10000 
-#define  FILTER_MIDDLE_COUNT	5	// 中值滤波数据量
-#define	 FILTER_MEAN_COUNT		3	// 均值滤波数据量
 
-ImageHandler::ImageHandler(void):FIRST_FRAME_COUNT(10),MIN_SIZE_PIXEL(10),CHANGE_FACE_JUMP_FALG(200), CHANGE_FACE_MIN_COUNT(5),MIN_RECT_AREA(200)
+ImageHandler::ImageHandler(void):FIRST_FRAME_COUNT(10),MIN_SIZE_PIXEL(10),CHANGE_FACE_JUMP_FALG(200), CHANGE_FACE_MIN_COUNT(5)
 {
 	vmin = 10;
 	vmax = 256;
@@ -26,9 +25,27 @@ ImageHandler::ImageHandler(void):FIRST_FRAME_COUNT(10),MIN_SIZE_PIXEL(10),CHANGE
 	ch[0]=0;
 	ch[1] =0;
 
-	shapeOperateKernal = getStructuringElement(MORPH_RECT, Size(5, 5));
-	string faceCascadeName = "haarcascade_frontalface_alt.xml";
-	if(!faceCascade.load(faceCascadeName)){printf("--(!)Error loading\n");}
+	//使用人脸识别时使用
+	//shapeOperateKernal = getStructuringElement(MORPH_RECT, Size(5, 5));
+	//string faceCascadeName = "haarcascade_frontalface_alt.xml";
+	//if(!faceCascade.load(faceCascadeName)){printf("--(!)Error loading\n");}
+
+	ifstream fileParam("Config.ini",ios::in);
+	if(!fileParam.is_open()){
+		cout<<"CANNOT open config file, Params use DEFAULT."<<endl; 	
+		MIN_RECT_AREA = 200;
+		FILTER_MIDDLE_COUNT = 5;
+		FILTER_MEAN_COUNT = 3;
+		MAX_VISION = 60;
+		return;
+	}
+	char tmpChar[256];
+	while(!fileParam.eof())
+	{
+		fileParam.getline(tmpChar,256);
+		string tmpString(tmpChar);
+		UpdateParams(tmpString);
+	}
 }
 
 
@@ -366,4 +383,25 @@ void ImageHandler::DemoImage(void){
 	
 	//等待按键
 	waitKey();
+}
+
+//使用配置文件更新参数值
+void ImageHandler::UpdateParams(string keyValue){
+	size_t pos= keyValue.find('=');
+	if(pos == string::npos) return;//没找到等号
+
+	string tmpKey = keyValue.substr(0,pos);
+	transform(tmpKey.begin(), tmpKey.end(), tmpKey.begin(), (int(*)(int))toupper);
+	if(tmpKey == "MIDFILTERCOUNT"){ //中值滤波帧数		
+		FILTER_MIDDLE_COUNT = atoi(keyValue.substr(pos + 1).c_str());
+	}
+	else if(tmpKey == "MEANFILTERCOUNT"){//均值滤波帧数
+		FILTER_MEAN_COUNT = atoi(keyValue.substr(pos + 1).c_str());
+	}
+	else if(tmpKey == "IGNOREAREA"){ //忽略面积
+		MIN_RECT_AREA = atof(keyValue.substr(pos + 1).c_str());
+	}
+	else if(tmpKey == "MAXVISION"){ //最大视角
+		MAX_VISION = atoi(keyValue.substr(pos + 1).c_str());
+	}
 }
