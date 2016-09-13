@@ -7,6 +7,9 @@ using namespace std;
 #define  AREAS_MOTION	100
 #define  MIN_TARGET_AREAR		500
 #define  MAX_TARGET_AREAR		10000 
+ofstream sourceData("sourceData.txt", ios::out);
+ofstream midData("midData.txt", ios::out);
+ofstream meanData("meanData.txt", ios::out);
 
 ImageHandler::ImageHandler(void):FIRST_FRAME_COUNT(10),MIN_SIZE_PIXEL(10),CHANGE_FACE_JUMP_FALG(200), CHANGE_FACE_MIN_COUNT(5)
 {
@@ -25,7 +28,7 @@ ImageHandler::ImageHandler(void):FIRST_FRAME_COUNT(10),MIN_SIZE_PIXEL(10),CHANGE
 	ch[0]=0;
 	ch[1] =0;
 
-	//使用人脸识别时使用
+	//使用人脸识别时使用（加载匹配模型）
 	//shapeOperateKernal = getStructuringElement(MORPH_RECT, Size(5, 5));
 	//string faceCascadeName = "haarcascade_frontalface_alt.xml";
 	//if(!faceCascade.load(faceCascadeName)){printf("--(!)Error loading\n");}
@@ -34,6 +37,7 @@ ImageHandler::ImageHandler(void):FIRST_FRAME_COUNT(10),MIN_SIZE_PIXEL(10),CHANGE
 	if(!fileParam.is_open()){
 		cout<<"CANNOT open config file, Params use DEFAULT."<<endl; 	
 		MIN_RECT_AREA = 200;
+		MAX_RECT_AREA = 30000;
 		FILTER_MIDDLE_COUNT = 5;
 		FILTER_MEAN_COUNT = 3;
 		MAX_VISION = 60;
@@ -135,7 +139,7 @@ int ImageHandler::TrackMotionTarget(Mat souceFrame,Mat foreground)
 {
 	//框出运动目标
 	RecognitionMotionTarget(foreground);
-	if(moveRange.area() < MIN_RECT_AREA) return -1;//运动物体太小则忽略
+	if(moveRange.area() < MIN_RECT_AREA || moveRange.area() > MAX_RECT_AREA) return -1;//运动物体太小、太大则忽略
 	//Mat dstImage;
 	////使用中值滤波器进行模糊操作（平滑处理）：中值滤波将图像的每个像素用邻域 (以当前像素为中心的正方形区域)像素的中值代替
 	//medianBlur(souceFrame, dstImage, 3);
@@ -163,19 +167,23 @@ int ImageHandler::TrackMotionTarget(Mat souceFrame,Mat foreground)
 
 	//中值 + 均值 过滤
 	double xValue = moveRange.x + moveRange.width/2.0;
+	sourceData << xValue << endl;
+
 	midFiltArray.push_back(xValue);
 	sourceFiltArray.push_back(xValue);
 	if(midFiltArray.size() < FILTER_MIDDLE_COUNT) return -1;
 	sort(midFiltArray.begin(), midFiltArray.end());
 	meanFiltArray.push_back(midFiltArray[FILTER_MIDDLE_COUNT/2]);
+	midData << midFiltArray[FILTER_MIDDLE_COUNT/2] << endl;
 	if(meanFiltArray.size() > FILTER_MEAN_COUNT)
 	{
 		meanFiltArray.erase(meanFiltArray.begin ());
 	}
 	midFiltArray.erase(std::find(midFiltArray.begin(),midFiltArray.end(),sourceFiltArray[0]));
 	sourceFiltArray.erase(sourceFiltArray.begin());
-	xValue =std::accumulate(meanFiltArray.begin(),meanFiltArray.end(),0)/meanFiltArray.size(); 
-	
+	xValue = std::accumulate(meanFiltArray.begin(),meanFiltArray.end(),0)/meanFiltArray.size();
+	meanData << xValue << endl;
+
 	return xValue;
 
 	//跳帧 检测过滤
@@ -206,12 +214,13 @@ void ImageHandler::RecognitionMotionTarget(Mat foreground)
 	//开闭操作
 	morphologyEx(foreground,tmpImage,MORPH_OPEN,shapeOperateKernal);	
 	morphologyEx(tmpImage,srcImage,MORPH_CLOSE,shapeOperateKernal);
+//	morphologyEx(srcImage,srcImage,MORPH_CLOSE,shapeOperateKernal);
 	
 	//提取边界
 	//Canny(srcImage, srcImage, 50, 150, 3);	
 	//找到所有轮廓
 	findContours(srcImage, contourAll, hierarchy, RETR_EXTERNAL , CHAIN_APPROX_SIMPLE);
-	int shapeCount = contourAll.size();
+	int shapeCount = contourAll.size(), maxAreaValue=0, maxAreaIdx = -1;
 	vector<vector<Point> >contoursAppr(shapeCount);
 	vector<Rect> boundRect(shapeCount);
 	vector<int>array_x, array_y, array_x2, array_y2;
@@ -220,12 +229,18 @@ void ImageHandler::RecognitionMotionTarget(Mat foreground)
 	{//找到所有物体
 		approxPolyDP(Mat(contourAll[i]), contoursAppr[i], 5, true);
 		boundRect[i] = boundingRect(Mat(contoursAppr[i]));
+		if(boundRect[i].area() < MIN_RECT_AREA) continue;
 		//填充空洞
 		drawContours(srcImage,contourAll,i,Scalar(255), CV_FILLED);
-		if(boundRect[i].area() < MIN_RECT_AREA) continue;
+		//if(boundRect[i].area() > maxAreaValue ) {
+		//	maxAreaValue = boundRect[i].area();
+		//	maxAreaIdx = i;
+		//}
 		array_x.push_back(boundRect[i].x); array_x2.push_back(boundRect[i].x + boundRect[i].width);
 		array_y.push_back(boundRect[i].y); array_y2.push_back(boundRect[i].y + boundRect[i].height);
 	}
+	//if(maxAreaIdx >0)
+	//	moveRange = boundRect[maxAreaIdx];
 	//找到最大\最小值
 	if(array_x.size() == 0) return;//没有捕捉到运动物体
 	moveRange.x = (int)(*std::min_element(array_x.begin(),array_x.end())); 
@@ -233,13 +248,13 @@ void ImageHandler::RecognitionMotionTarget(Mat foreground)
 	moveRange.width = (int)(*std::max_element(array_x2.begin(),array_x2.end())) - moveRange.x; 
 	moveRange.height = (int)(*std::max_element(array_y2.begin(),array_y2.end())) - moveRange.y;
 	
-	if(moveRange.area() >= MIN_RECT_AREA)
-	{
+	//if(moveRange.area() >= MIN_RECT_AREA && moveRange.area() <= MAX_RECT_AREA)
+	//{
 		rectangle(srcImage, Point(moveRange.x, moveRange.y), Point(moveRange.x + moveRange.width, moveRange.y + moveRange.height), Scalar(255,0,0), 2);
 		circle(srcImage, Point(moveRange.x + moveRange.width / 2, moveRange.y + moveRange.height /2 ),7, Scalar(255,0,0),2);
 		imshow("Move", srcImage);
 		moveWindow("Move",0,400);
-	}
+	//}
 }
 
 int findMostSimilarRect(Rect target, vector<Rect> selectList);
@@ -398,8 +413,11 @@ void ImageHandler::UpdateParams(string keyValue){
 	else if(tmpKey == "MEANFILTERCOUNT"){//均值滤波帧数
 		FILTER_MEAN_COUNT = atoi(keyValue.substr(pos + 1).c_str());
 	}
-	else if(tmpKey == "IGNOREAREA"){ //忽略面积
-		MIN_RECT_AREA = atof(keyValue.substr(pos + 1).c_str());
+	else if(tmpKey == "IGNOREAREAMIN"){ //忽略面积 最小值
+		MIN_RECT_AREA = atoi(keyValue.substr(pos + 1).c_str());
+	}
+	else if(tmpKey == "IGNOREAREAMAX"){ //忽略面积 最大值
+		MAX_RECT_AREA = atoi(keyValue.substr(pos + 1).c_str());
 	}
 	else if(tmpKey == "MAXVISION"){ //最大视角
 		MAX_VISION = atoi(keyValue.substr(pos + 1).c_str());

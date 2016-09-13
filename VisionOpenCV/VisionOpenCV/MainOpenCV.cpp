@@ -22,6 +22,7 @@ int main()
 	angleMin = -1 * angleMax;	
 	//高斯混合背景/前景分割方法
 	BackgroundSubtractorMOG2 toolGaussBackground(100,16);
+//	BackgroundSubtractorMOG toolGaussBackground(100,16,0.6);
 	bool stopFlag(false);
 	while (!stopFlag)
 	{
@@ -33,10 +34,11 @@ int main()
 		}
 		resize(sourceFrame,compressFrame,Size(COMPRESS_WIDTH, compressHight));
 		//显示原始图像
-		//imshow("Source Image", sourceFrame);
-		//moveWindow("Source Image",0,0);
+		imshow("Source Image", sourceFrame);
+		moveWindow("Source Image",0,0);
 		//高斯分离前景
 		toolGaussBackground(compressFrame, foreground, -1);
+//		toolGaussBackground(compressFrame, foreground, 0.4);
 		//运动目标识别
 		xValue = imageTool.TrackMotionTarget(compressFrame,foreground);
 		
