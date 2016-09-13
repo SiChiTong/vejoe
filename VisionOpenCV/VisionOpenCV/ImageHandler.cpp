@@ -57,83 +57,6 @@ ImageHandler::~ImageHandler(void)
 {
 }
 
-//使用CamShift算法捕获运动并标记
-bool ImageHandler::TrackCamShift(Mat souceFrame,Mat foreground)
-{
-	//跟踪目标消失标志
-	bool targetExistsFlag = false;
-	static enumReconStatus state_fsm = SET_TARGET;
-	Mat dstImage;
-	//使用中值滤波器进行模糊操作（平滑处理）：中值滤波将图像的每个像素用邻域 (以当前像素为中心的正方形区域)像素的中值代替
-	medianBlur(souceFrame, dstImage, 3);
-	//高斯滤波：这个像素滤波后的值是根据其相邻像素（包括自己那个点）与一个滤波模板进行相乘
-	GaussianBlur(dstImage, dstImage, Size(3,3), 0,0);
-	//将彩色图像转换为HSV格式，保存到hsv中
-	cvtColor(dstImage, hsv, COLOR_BGR2HSV);
-	//将数据设定在规定的范围内
-	inRange(hsv, Scalar(0, smin, MIN(vmin,vmax)),
-		Scalar(180, 256, MAX(vmin, vmax)), mask);
-	//
-	hue.create(hsv.size(), hsv.depth());
-	//取出H通道放入hue中
-	mixChannels(&hsv, 1, &hue, 1, ch, 1);
-
-	switch(state_fsm)
-	{
-	case SET_TARGET:
-		{
-			targetExistsFlag = false;   
-			RecognitionMotionTarget(foreground);
-			int areaObject = moveRange.height * moveRange.width;
-			if(areaObject >= MIN_TARGET_AREAR && areaObject <= MAX_TARGET_AREAR)
-			{
-				selection = moveRange;
-				state_fsm = TARGET_CAMSHIFT;
-			}
-
-			//计算直方图
-			Mat roi(hue, selection), maskroi(mask, selection);
-			//计算直方图，放入hist.
-			calcHist(&roi, 1, 0, maskroi, hist, 1, &hsize, &phranges);
-			//归一化处理
-			normalize(hist, hist, 0, 255, CV_MINMAX);
-
-			break;
-		}
-
-	case TARGET_CAMSHIFT :
-		{
-			//反向投影图,放入backproj, H通道的范围在0~180的范围内
-			calcBackProject(&hue, 1, 0, hist, backproj, &phranges);
-			backproj &= mask;
-			//camshift算法
-			RotatedRect trackBox = CamShift(backproj, selection,TermCriteria( CV_TERMCRIT_EPS | CV_TERMCRIT_ITER, 15, 2.0));
-
-			//判断camshift目标追寻不到, 通过返回的矩形框的面积来判断
-			ellipse(dstImage, trackBox, Scalar(0,0,255), 3, CV_AA);
-			//imshow("Move Obj", dstImage);
-			//moveWindow("Move Obj",700,500);
-
-			//判断跟踪的目标位置是否发生改变，若没有则开始计时
-			RecognitionMotionTarget(foreground);
-			//该计算只是每帧之间的移动面积差，若不行估计要移动多帧后在计算。
-			if(moveRange.height * moveRange.width <= AREAS_MOTION) //说明物体基本没有移动
-				stayCount++; 
-			else
-				stayCount=0;
-
-			if(trackBox.size.area() <= 300 || stayCount >= stayMaxCount)
-			{
-				targetExistsFlag = true;
-				state_fsm = SET_TARGET;
-				stayCount=0;
-			}
-			break;
-		}
-	}
-	return targetExistsFlag;
-}
-
 //仅锁定运动物体，停止运动时根据最后运动物体色块追踪
 int ImageHandler::TrackMotionTarget(Mat souceFrame,Mat foreground)
 {
@@ -214,10 +137,6 @@ void ImageHandler::RecognitionMotionTarget(Mat foreground)
 	//开闭操作
 	morphologyEx(foreground,tmpImage,MORPH_OPEN,shapeOperateKernal);	
 	morphologyEx(tmpImage,srcImage,MORPH_CLOSE,shapeOperateKernal);
-//	morphologyEx(srcImage,srcImage,MORPH_CLOSE,shapeOperateKernal);
-	
-	//提取边界
-	//Canny(srcImage, srcImage, 50, 150, 3);	
 	//找到所有轮廓
 	findContours(srcImage, contourAll, hierarchy, RETR_EXTERNAL , CHAIN_APPROX_SIMPLE);
 	int shapeCount = contourAll.size(), maxAreaValue=0, maxAreaIdx = -1;
@@ -232,29 +151,90 @@ void ImageHandler::RecognitionMotionTarget(Mat foreground)
 		if(boundRect[i].area() < MIN_RECT_AREA) continue;
 		//填充空洞
 		drawContours(srcImage,contourAll,i,Scalar(255), CV_FILLED);
-		//if(boundRect[i].area() > maxAreaValue ) {
-		//	maxAreaValue = boundRect[i].area();
-		//	maxAreaIdx = i;
-		//}
 		array_x.push_back(boundRect[i].x); array_x2.push_back(boundRect[i].x + boundRect[i].width);
 		array_y.push_back(boundRect[i].y); array_y2.push_back(boundRect[i].y + boundRect[i].height);
 	}
-	//if(maxAreaIdx >0)
-	//	moveRange = boundRect[maxAreaIdx];
-	//找到最大\最小值
-	if(array_x.size() == 0) return;//没有捕捉到运动物体
-	moveRange.x = (int)(*std::min_element(array_x.begin(),array_x.end())); 
-	moveRange.y = (int)(*std::min_element(array_y.begin(),array_y.end())); 
-	moveRange.width = (int)(*std::max_element(array_x2.begin(),array_x2.end())) - moveRange.x; 
-	moveRange.height = (int)(*std::max_element(array_y2.begin(),array_y2.end())) - moveRange.y;
 	
-	//if(moveRange.area() >= MIN_RECT_AREA && moveRange.area() <= MAX_RECT_AREA)
-	//{
-		rectangle(srcImage, Point(moveRange.x, moveRange.y), Point(moveRange.x + moveRange.width, moveRange.y + moveRange.height), Scalar(255,0,0), 2);
-		circle(srcImage, Point(moveRange.x + moveRange.width / 2, moveRange.y + moveRange.height /2 ),7, Scalar(255,0,0),2);
-		imshow("Move", srcImage);
-		moveWindow("Move",0,400);
-	//}
+	Mat tpAlgoImg = srcImage.clone();	
+	
+	int MIN_POINT_COUNT = 20, VALID_INTERVAL = 10;
+	int imageWidth = srcImage.cols, imageHeight = srcImage.rows;
+	uchar * imageData = srcImage.data, *tmpRow;
+	ushort *moveCount = new ushort[imageWidth];
+	for(int i=0;i<imageWidth;i++) 
+		moveCount[i] = 0;
+	for (int i = 0; i < imageHeight; i++)
+	{//图像压缩到一维（X轴方向）
+		tmpRow = srcImage.ptr<uchar>(i);
+		for(int j=0;j<imageWidth;j++){
+			//127的灰色区域表示忽略面积边界（忽略）
+			moveCount[j] += ((int)tmpRow[j] == 255?1:0);
+		}
+	}
+	bool validFlag = false;
+	int invalidCount=0;
+	vector<int> validStartEnd;
+	for(int i=0;i<imageWidth;i++)
+	{//统计有效运动区域
+		if(moveCount[i] < MIN_POINT_COUNT || moveCount[i] > 300 - MIN_POINT_COUNT)
+		{//过滤不合理范围（当前坐标无效）			
+			if(validFlag)
+			{
+				if(invalidCount < VALID_INTERVAL){//小间隔有效
+					invalidCount++;
+				}
+				else
+				{
+					validStartEnd.push_back(i - VALID_INTERVAL - 1);//终点，减一表示当前也是无效
+					validFlag = false;
+					invalidCount = 0;
+				}
+			}
+		}
+		else if(!validFlag)
+		{//新开始记录
+			validStartEnd.push_back(i);//起点
+			validFlag = true;
+			invalidCount = 0;
+		}
+	}
+	if(validStartEnd.size() % 2 != 0)
+	{//最后一段保持有效
+		validStartEnd.push_back(imageWidth);
+	}
+	delete(moveCount);
+	int segmentCount = validStartEnd.size(),tmpLen;
+	int maxValue = 0, maxIdx=-1;
+	for(int i=0;i<segmentCount;i+=2)
+	{//找最大面积
+		tmpLen = validStartEnd[i+1] - validStartEnd[i];
+		if(tmpLen > maxValue){
+			maxIdx = i;
+			maxValue = tmpLen;
+		}
+	}
+	if(maxIdx >= 0)
+	{//找到了最大面积
+		moveRange.x = validStartEnd[maxIdx]; 
+		moveRange.y = 0; 
+		moveRange.width = validStartEnd[maxIdx + 1] - validStartEnd[maxIdx]; 
+		moveRange.height = imageHeight;
+	}	
+	rectangle(srcImage, Point(moveRange.x, moveRange.y), Point(moveRange.x + moveRange.width, moveRange.y + moveRange.height), Scalar(255,0,0), 2);
+	circle(srcImage, Point(moveRange.x + moveRange.width / 2, moveRange.y + moveRange.height /2 ),7, Scalar(255,0,0),2);
+	imshow("Move", srcImage);
+	moveWindow("Move",0,500);
+
+	//整合为一个大连通区域算法
+	if(array_x.size() == 0) return;//没有捕捉到运动物体
+	moveRangeAlg.x = (int)(*std::min_element(array_x.begin(),array_x.end())); 
+	moveRangeAlg.y = (int)(*std::min_element(array_y.begin(),array_y.end())); 
+	moveRangeAlg.width = (int)(*std::max_element(array_x2.begin(),array_x2.end())) - moveRangeAlg.x; 
+	moveRangeAlg.height = (int)(*std::max_element(array_y2.begin(),array_y2.end())) - moveRangeAlg.y;	
+	rectangle(tpAlgoImg, Point(moveRangeAlg.x, moveRangeAlg.y), Point(moveRangeAlg.x + moveRangeAlg.width, moveRangeAlg.y + moveRangeAlg.height), Scalar(255,0,0), 2);
+	circle(tpAlgoImg, Point(moveRangeAlg.x + moveRangeAlg.width / 2, moveRangeAlg.y + moveRangeAlg.height /2 ),7, Scalar(255,0,0),2);
+	imshow("Move1", tpAlgoImg);
+	moveWindow("Move1",500,500);
 }
 
 int findMostSimilarRect(Rect target, vector<Rect> selectList);

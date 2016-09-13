@@ -17,8 +17,6 @@ public:
 	~ImageHandler(void);
 	
 	//颜色追踪
-	bool TrackCamShift(Mat souceFrame,Mat foreground);
-	//颜色追踪
 	int TrackMotionTarget(Mat souceFrame,Mat foreground);
 	//识别运动物体
 	void RecognitionMotionTarget(Mat foreground);
@@ -34,7 +32,7 @@ public:
 		TARGET_CAMSHIFT
 	};
 	Mat foreground;
-	Rect selection, moveRange;
+	Rect selection, moveRange, moveRangeAlg;
 	int MAX_VISION;
 
 private:

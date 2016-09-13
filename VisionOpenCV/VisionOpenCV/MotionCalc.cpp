@@ -95,7 +95,7 @@ void  MotionCalc::CalcAngleNextStepBySection(int xValue)
 		{//-1为没捕捉到运动物体
 			circle(demoResultInfo,Point(DEMO_RESULT_RADIUS - xValue * 1.2,0), 7,colorDemoResult,2);
 		}
-		waitKey(1000/MOVE_EACH_TIME); //发送脉冲间隔
+		//waitKey(1000/MOVE_EACH_TIME); //发送脉冲间隔
 		imshow("Result", demoResultInfo);
 		moveWindow("Result",500,0);
 	}
