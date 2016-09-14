@@ -1,8 +1,11 @@
 #include <iostream>
 #include <cv.h>
 
+#include <pthread.h>
+
 #include "ImageHandler.h"
 #include "MotionCalc.h"
+#pragma comment(lib,"pthreadVC2.lib")
 
 using namespace std;
 
@@ -40,16 +43,15 @@ int main()
 		toolGaussBackground(compressFrame, foreground, -1);
 //		toolGaussBackground(compressFrame, foreground, 0.4);
 		//运动目标识别
-		xValue = imageTool.TrackMotionTarget(compressFrame,foreground);
-		
-		////人脸跟踪识别
+		xValue = imageTool.TrackMotionTarget(compressFrame,foreground);		
+		//人脸跟踪识别
 		//xValue = imageTool.RecognitionHumanFace(compressFrame);
+		//显示结果
 		if(xValue >= 0 && (xValue >= objXValue + 2 || xValue <= objXValue - 2))
-		{//转动不低于一度才显示
+		{//转动不低于2度才显示
 			objXValue = xValue;
 			motionCalc.CalcAngleNextStepBySection(xValue);
-		}
-		
+		}		
 		//程序结束开关
 		if (waitKey(10) == 27)
 		{//监听到ESC退出
@@ -58,3 +60,4 @@ int main()
 	}
 	return 0;
 }
+

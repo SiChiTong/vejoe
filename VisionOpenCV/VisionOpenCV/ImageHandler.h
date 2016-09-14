@@ -17,11 +17,11 @@ public:
 	~ImageHandler(void);
 	
 	//颜色追踪
-	int TrackMotionTarget(Mat souceFrame,Mat foreground);
+	int TrackMotionTarget(Mat,Mat);
 	//识别运动物体
-	void RecognitionMotionTarget(Mat foreground);
+	void RecognitionMotionTarget(Mat);
 	//人脸识别
-	int RecognitionHumanFace(Mat sourceFrame);
+	int RecognitionHumanFace(Mat);
 
 	//图像测试
 	void DemoImage(void);
@@ -42,8 +42,12 @@ private:
 	bool findTargetFlag;
 	//首次识别脸部需要视频图像帧数，同一个脸部的距离误差范围，改变目标作为跳帧的阈值，重新定位前连续发生跳帧次数
 	const int FIRST_FRAME_COUNT, MIN_SIZE_PIXEL, CHANGE_FACE_JUMP_FALG, CHANGE_FACE_MIN_COUNT;
-	//识别区域的最小面积, 中值滤波数据量, 均值滤波数据量
-	int MIN_RECT_AREA, MAX_RECT_AREA,FILTER_MIDDLE_COUNT, FILTER_MEAN_COUNT;
+	//识别区域的有效面积范围, 有效坐标长度（压缩为单坐标时）
+	int MIN_RECT_AREA, MAX_RECT_AREA, MIN_X_DISTANCE, MAX_X_DISTANCE;
+	//中值滤波数据量, 均值滤波数据量
+	int FILTER_MIDDLE_COUNT, FILTER_MEAN_COUNT;
+	//最小运动有效像素数，最大有效运动像素数，最大有效空闲空间
+	int MIN_POINT_COUNT, MAX_POINT_COUNT, VALID_INTERVAL;
 	//跳帧统计
 	int jumpFrameCount;
 	int hsize, moveFrameCount;

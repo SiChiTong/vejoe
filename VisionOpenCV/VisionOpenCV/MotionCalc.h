@@ -20,6 +20,9 @@ public:
 	const int MAX_VISION_ANGLE;
 
 private:
+	//更新参数
+	void UpdateParams(string);
+
 	//图像总宽度
 	int videoImageWidth;
 	//摄像头到图像的虚拟距离，用于计算目标角度
