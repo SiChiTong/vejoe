@@ -98,7 +98,7 @@ void  MotionCalc::CalcAngleNextStepBySection(int xValue)
 		waitKey(1000/MOVE_EACH_TIME); //·¢ËÍÂö³å¼ä¸ô
 		
 		imshow("Result", demoResultInfo);
-		moveWindow("Result",700,0);
+		moveWindow("Result",500,0);
 	}
 }
 

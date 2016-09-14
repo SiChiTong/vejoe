@@ -192,7 +192,7 @@ void ImageHandler::RecognitionMotionTarget(Mat foreground)
 		rectangle(srcImage, Point(moveRange.x, moveRange.y), Point(moveRange.x + moveRange.width, moveRange.y + moveRange.height), Scalar(255,0,0), 2);
 		circle(srcImage, Point(moveRange.x + moveRange.width / 2, moveRange.y + moveRange.height /2 ),7, Scalar(255,0,0),2);
 		imshow("Move", srcImage);
-		moveWindow("Move",700,500);
+		moveWindow("Move",500,400);
 	}	
 }
 

@@ -1,11 +1,8 @@
 #include <iostream>
 #include <cv.h>
 
-#include <pthread.h>
-
 #include "ImageHandler.h"
 #include "MotionCalc.h"
-#pragma comment(lib,"pthreadVC2.lib")
 
 using namespace std;
 
@@ -37,7 +34,7 @@ int main()
 		}
 		resize(sourceFrame,compressFrame,Size(COMPRESS_WIDTH, compressHight));
 		//显示原始图像
-		imshow("Source Image", sourceFrame);
+		imshow("Source Image", compressFrame);
 		moveWindow("Source Image",0,0);
 		//高斯分离前景
 		toolGaussBackground(compressFrame, foreground, -1);
