@@ -24,6 +24,7 @@ MotionCalc::MotionCalc(int imageWidth,int maxVision):MAX_VISION_ANGLE(maxVision)
 	visionMaxRadian = MAX_VISION_ANGLE / 2.0 / 180 * M_PI;
 
 	currentAngle = 0;
+	angleChar[1] = '\0';//手动添加结束符，否则会自动补0x02作为结束符
 	camPosDemoResult = Point(DEMO_RESULT_RADIUS/2,0);
 	objPosDemoResult = Point(DEMO_RESULT_RADIUS/2,DEMO_RESULT_RADIUS/2);
 	colorDemoResult = Scalar(255,255,255);
@@ -81,8 +82,12 @@ void  MotionCalc::CalcAngleNextStepBySection(int xValue)
 		moveSpeed = 0;	
 
 	while(((currentAngle - targetAngle) * moveSpeed) < 0){//到达目的地
+		if(abs(currentAngle + moveSpeed) >= visionMaxRadian) break;//安全域检查
+
 		currentAngle += moveSpeed;
-		if(abs(currentAngle) >= visionMaxRadian) break;//安全域检查
+
+		angleChar[0] = int(currentAngle * 180 * 2 / M_PI)+90;//+90转为正数
+		serial.sendMsg(angleChar);
 
 		Mat demoResultInfo = Mat::zeros(DEMO_RESULT_RADIUS/2,DEMO_RESULT_RADIUS,CV_8UC1);
 		//标注摄像头位置

@@ -1,5 +1,6 @@
 #pragma once
 #include <cv.h>
+#include "serialPort.h"
 
 using namespace cv;
 
@@ -36,6 +37,9 @@ private:
 	
 	Scalar colorDemoResult;
 	Point camPosDemoResult, objPosDemoResult;
+	//向串口发送消息
+	serialPort serial;
+	char angleChar[2];
 
 };
 

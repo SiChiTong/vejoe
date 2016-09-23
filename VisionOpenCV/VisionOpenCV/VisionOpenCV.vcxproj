@@ -21,11 +21,13 @@
   <ItemGroup>
     <ClInclude Include="ImageHandler.h" />
     <ClInclude Include="MotionCalc.h" />
+    <ClInclude Include="serialPort.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ImageHandler.cpp" />
     <ClCompile Include="MainOpenCV.cpp" />
     <ClCompile Include="MotionCalc.cpp" />
+    <ClCompile Include="serialPort.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Xml Include="haarcascade_frontalface_alt.xml" />
