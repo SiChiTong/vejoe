@@ -79,7 +79,7 @@ void  MotionCalc::CalcAngleNextStepBySection(int xValue)
 	else if(currentSection == 0 && targetSection ==0 && currentAngle * targetAngle < 0 && abs(targetAngle) > sectionBoundAngle)
 		moveSpeed = 1 * sectionAngle / MOVE_EACH_TIME * (targetAngle>0?1:-1);
 	else
-		moveSpeed = 0;	
+		moveSpeed = 0;
 
 	while(((currentAngle - targetAngle) * moveSpeed) < 0){//到达目的地
 		if(abs(currentAngle + moveSpeed) >= visionMaxRadian) break;//安全域检查
@@ -102,8 +102,8 @@ void  MotionCalc::CalcAngleNextStepBySection(int xValue)
 		}
 		waitKey(1000/MOVE_EACH_TIME); //发送脉冲间隔
 		
-		imshow("Result", demoResultInfo);
-		moveWindow("Result",500,0);
+		//imshow("Result", demoResultInfo);
+		//moveWindow("Result",500,0);
 	}
 }
 

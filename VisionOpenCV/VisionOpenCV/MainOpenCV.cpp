@@ -34,8 +34,8 @@ int main()
 		}
 		resize(sourceFrame,compressFrame,Size(COMPRESS_WIDTH, compressHight));
 		//显示原始图像
-		imshow("Source Image", compressFrame);
-		moveWindow("Source Image",0,0);
+		//imshow("Source Image", compressFrame);
+		//moveWindow("Source Image",0,0);
 		//高斯分离前景
 		toolGaussBackground(compressFrame, foreground, -1);
 //		toolGaussBackground(compressFrame, foreground, 0.4);
