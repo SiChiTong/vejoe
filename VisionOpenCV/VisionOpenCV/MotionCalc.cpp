@@ -43,7 +43,7 @@ double MotionCalc::CalcAngleByLocation(int xValue)
 	//通过反正切计算弧度
 	double angle = atan2(fabs(horiLen),verticalDistance);
 	//角度的方向：摄像头对称成像，所以正负反过来了
-	angle *= horiLen>0?1:-1;
+	angle *= horiLen>0?-1:1;
 	//转换为角度
 	return angle;
 }
