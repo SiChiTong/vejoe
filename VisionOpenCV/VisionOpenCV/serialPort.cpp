@@ -84,7 +84,8 @@ int serialPort::OpenDevice(char *Dev)
 void serialPort::sendMsg(char *msg){
 	int nLen = strlen(msg);
 	int nCount = write(nFd,msg,nLen);
-	printf("\nSend %d of %d  => %s\n", nCount, nLen, msg);
+//	printf("\nSend %d of %d  => %s\n", nCount, nLen, msg);
+	printf("%d", msg[0]);
 }
 
 void serialPort::receiveMsg(void){
