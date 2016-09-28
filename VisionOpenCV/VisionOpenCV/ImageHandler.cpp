@@ -109,11 +109,9 @@ int ImageHandler::TrackMotionTarget(Mat souceFrame,Mat foreground)
 //确定运动区域
 void ImageHandler::RecognitionMotionTarget(Mat foreground)
 {
-	imshow("f",foreground);
 	//开闭操作
 	morphologyEx(foreground,tmpImage,MORPH_OPEN,shapeOperateKernal);	
 	morphologyEx(tmpImage,srcImage,MORPH_CLOSE,shapeOperateKernal);
-	imshow("f1",srcImage);
 	//找到所有轮廓
 	findContours(srcImage, contourAll, hierarchy, RETR_EXTERNAL , CHAIN_APPROX_SIMPLE);
 	int shapeCount = contourAll.size(), maxAreaValue=0, maxAreaIdx = -1;

@@ -87,7 +87,7 @@ void  MotionCalc::CalcAngleNextStepBySection(int xValue)
 		currentAngle += moveSpeed;
 		//发给设备
 		angleChar[0] = int(currentAngle * 180 * 2 / M_PI)+90;//+90转为正数
-		//serial.sendMsg(angleChar);
+		serial.sendMsg(angleChar);
 		////绘制指针模拟头动
 		//Mat demoResultInfo = Mat::zeros(DEMO_RESULT_RADIUS/2,DEMO_RESULT_RADIUS,CV_8UC1);
 		////标注摄像头位置
