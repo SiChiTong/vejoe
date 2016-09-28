@@ -1,6 +1,8 @@
 #pragma once
 #include <cv.h>
 #include "serialPort.h"
+#include	 <fstream>
+
 
 using namespace cv;
 
@@ -40,6 +42,8 @@ private:
 	//向串口发送消息
 	serialPort serial;
 	char angleChar[2];
+
+	std::ofstream outTest;
 
 };
 

@@ -5,6 +5,7 @@
 #include <highgui/highgui.hpp>
 
 
+
 using namespace std;
 #define M_PI       3.14159265358979323846
 #define MOVE_MAX_SPEED 0.05	//3度
@@ -28,6 +29,8 @@ MotionCalc::MotionCalc(int imageWidth,int maxVision):MAX_VISION_ANGLE(maxVision)
 	camPosDemoResult = Point(DEMO_RESULT_RADIUS/2,0);
 	objPosDemoResult = Point(DEMO_RESULT_RADIUS/2,DEMO_RESULT_RADIUS/2);
 	colorDemoResult = Scalar(255,255,255);
+
+	outTest.open("/usr/software/dataVisioncalc.txt", ios::out);
 }
 
 
@@ -80,14 +83,16 @@ void  MotionCalc::CalcAngleNextStepBySection(int xValue)
 		moveSpeed = 1 * sectionAngle / MOVE_EACH_TIME * (targetAngle>0?1:-1);
 	else
 		moveSpeed = 0;
-
+	outTest <<moveSpeed<< "*****IN******" <<currentAngle<<"##"<<targetAngle<<endl;
+	
 	while(((currentAngle - targetAngle) * moveSpeed) < 0){//到达目的地
 		if(abs(currentAngle + moveSpeed) >= visionMaxRadian) break;//安全域检查
 
 		currentAngle += moveSpeed;
-
 		angleChar[0] = int(currentAngle * 180 * 2 / M_PI)+90;//+90转为正数
 		serial.sendMsg(angleChar);
+		
+		outTest <<moveSpeed << "&&&&" << angleChar[0]<<endl;
 
 		Mat demoResultInfo = Mat::zeros(DEMO_RESULT_RADIUS/2,DEMO_RESULT_RADIUS,CV_8UC1);
 		//标注摄像头位置
