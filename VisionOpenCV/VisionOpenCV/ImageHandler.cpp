@@ -24,9 +24,10 @@ ImageHandler::ImageHandler(void):FIRST_FRAME_COUNT(10),MIN_SIZE_PIXEL(10),CHANGE
 	stayMaxCount = 100;
 	ch[0]=0;
 	ch[1] =0;
+	
+	shapeOperateKernal = getStructuringElement(MORPH_RECT, Size(3, 3));
 
 	//使用人脸识别时使用（加载匹配模型）
-	//shapeOperateKernal = getStructuringElement(MORPH_RECT, Size(5, 5));
 	//string faceCascadeName = "haarcascade_frontalface_alt.xml";
 	//if(!faceCascade.load(faceCascadeName)){printf("--(!)Error loading\n");}
 
@@ -69,7 +70,6 @@ int ImageHandler::TrackMotionTarget(Mat souceFrame,Mat foreground)
 	if(moveRange.width < MIN_X_DISTANCE || moveRange.width > MAX_X_DISTANCE) return -1;//运动物体太小、太大则忽略
 	//中值 + 均值 过滤
 	double xValue = moveRange.x + moveRange.width/2.0;
-
 	midFiltArray.push_back(xValue);
 	sourceFiltArray.push_back(xValue);
 	if(midFiltArray.size() < FILTER_MIDDLE_COUNT) return -1;
@@ -82,7 +82,6 @@ int ImageHandler::TrackMotionTarget(Mat souceFrame,Mat foreground)
 	midFiltArray.erase(std::find(midFiltArray.begin(),midFiltArray.end(),sourceFiltArray[0]));
 	sourceFiltArray.erase(sourceFiltArray.begin());
 	xValue = std::accumulate(meanFiltArray.begin(),meanFiltArray.end(),0)/meanFiltArray.size();
-
 	return xValue;
 
 	//跳帧 检测过滤
@@ -110,9 +109,11 @@ int ImageHandler::TrackMotionTarget(Mat souceFrame,Mat foreground)
 //确定运动区域
 void ImageHandler::RecognitionMotionTarget(Mat foreground)
 {
+	imshow("f",foreground);
 	//开闭操作
 	morphologyEx(foreground,tmpImage,MORPH_OPEN,shapeOperateKernal);	
 	morphologyEx(tmpImage,srcImage,MORPH_CLOSE,shapeOperateKernal);
+	imshow("f1",srcImage);
 	//找到所有轮廓
 	findContours(srcImage, contourAll, hierarchy, RETR_EXTERNAL , CHAIN_APPROX_SIMPLE);
 	int shapeCount = contourAll.size(), maxAreaValue=0, maxAreaIdx = -1;

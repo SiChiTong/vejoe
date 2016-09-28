@@ -7,6 +7,7 @@
 #include <opencv2/objdetect/objdetect.hpp>
 #include <opencv.hpp>
 #include <cv.h>
+#include	 <fstream>
 
 using namespace cv;
 

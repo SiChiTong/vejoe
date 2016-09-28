@@ -29,8 +29,6 @@ MotionCalc::MotionCalc(int imageWidth,int maxVision):MAX_VISION_ANGLE(maxVision)
 	camPosDemoResult = Point(DEMO_RESULT_RADIUS/2,0);
 	objPosDemoResult = Point(DEMO_RESULT_RADIUS/2,DEMO_RESULT_RADIUS/2);
 	colorDemoResult = Scalar(255,255,255);
-
-	outTest.open("/usr/software/dataVisioncalc.txt", ios::out);
 }
 
 
@@ -83,32 +81,28 @@ void  MotionCalc::CalcAngleNextStepBySection(int xValue)
 		moveSpeed = 1 * sectionAngle / MOVE_EACH_TIME * (targetAngle>0?1:-1);
 	else
 		moveSpeed = 0;
-	outTest <<moveSpeed<< "*****IN******" <<currentAngle<<"##"<<targetAngle<<endl;
-	
+
 	while(((currentAngle - targetAngle) * moveSpeed) < 0){//到达目的地
 		if(abs(currentAngle + moveSpeed) >= visionMaxRadian) break;//安全域检查
-
 		currentAngle += moveSpeed;
+		//发给设备
 		angleChar[0] = int(currentAngle * 180 * 2 / M_PI)+90;//+90转为正数
-		serial.sendMsg(angleChar);
-		
-		outTest <<moveSpeed << "&&&&" << angleChar[0]<<endl;
-
-		Mat demoResultInfo = Mat::zeros(DEMO_RESULT_RADIUS/2,DEMO_RESULT_RADIUS,CV_8UC1);
-		//标注摄像头位置
-		circle(demoResultInfo,camPosDemoResult,6,colorDemoResult,5);
-		//计算当前角度
-		objPosDemoResult.x = DEMO_RESULT_RADIUS / 2.0 * (1.0 - sin(currentAngle));
-		objPosDemoResult.y = DEMO_RESULT_RADIUS / 2.0 * cos(currentAngle);
-		line(demoResultInfo, camPosDemoResult, objPosDemoResult,colorDemoResult,3);
-		if(xValue > 0)
-		{//-1为没捕捉到运动物体
-			circle(demoResultInfo,Point(DEMO_RESULT_RADIUS - xValue * 1.2,0), 7,colorDemoResult,2);
-		}
-		waitKey(1000/MOVE_EACH_TIME); //发送脉冲间隔
-		
+		//serial.sendMsg(angleChar);
+		////绘制指针模拟头动
+		//Mat demoResultInfo = Mat::zeros(DEMO_RESULT_RADIUS/2,DEMO_RESULT_RADIUS,CV_8UC1);
+		////标注摄像头位置
+		//circle(demoResultInfo,camPosDemoResult,6,colorDemoResult,5);
+		////计算当前角度
+		//objPosDemoResult.x = DEMO_RESULT_RADIUS / 2.0 * (1.0 - sin(currentAngle));
+		//objPosDemoResult.y = DEMO_RESULT_RADIUS / 2.0 * cos(currentAngle);
+		//line(demoResultInfo, camPosDemoResult, objPosDemoResult,colorDemoResult,3);
+		//if(xValue > 0)
+		//{//-1为没捕捉到运动物体
+		//	circle(demoResultInfo,Point(DEMO_RESULT_RADIUS - xValue * 1.2,0), 7,colorDemoResult,2);
+		//}
 		//imshow("Result", demoResultInfo);
 		//moveWindow("Result",500,0);
+		waitKey(1000/MOVE_EACH_TIME); //发送脉冲间隔		
 	}
 }
 

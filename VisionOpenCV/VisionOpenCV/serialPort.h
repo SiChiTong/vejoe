@@ -28,6 +28,5 @@ public:
 private:
 	int OpenDevice(char *);
 	int nFd;
-	std::ofstream outTxt;
 };
 

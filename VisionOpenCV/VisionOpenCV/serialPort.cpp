@@ -17,20 +17,15 @@ using namespace std;
 
 serialPort::serialPort(void)
 {
-	outTxt.open("/usr/software/dataVisionport.txt", ios::out);
-
 	//打开串口
-	outTxt << "Open device" <<endl;
 	nFd = OpenDevice(DEVICE);
 	if(-1 == nFd)	return;
-	outTxt << "Opened device" <<endl;
 	//设置串口参数
 	struct termios stOption;
 	if(tcgetattr(nFd,&stOption) != 0) {        
 		perror("tcgetattr error\n");  
 		return;     
 	}
-	//outTxt << "get config device" <<endl;
 	//波特率：115200
 	cfsetispeed(&stOption, BAUDRATE);//115200
 	cfsetospeed(&stOption, BAUDRATE);
@@ -54,7 +49,6 @@ serialPort::serialPort(void)
 	{
 		printf("tcsetattr Error!\n");
 	}
-	//outTxt << "set config device" <<endl;
 }
 
 
@@ -70,20 +64,20 @@ int serialPort::OpenDevice(char *Dev)
 	int	fd = open( Dev, O_RDWR|O_NOCTTY|O_NDELAY ); 
 	if (-1 == fd)	
 	{ 			
-		outTxt << "Can't Open Serial Port" <<endl;
+		cout << "Can't Open Serial Port" <<endl;
 		return -1;		
 	}	
 	//恢复串口的状态为阻塞状态
 	if( (fcntl(fd, F_SETFL, 0)) < 0 )
 	{
-		outTxt << "Fcntl F_SETFL Error!\n" <<endl;
+		cout << "Fcntl F_SETFL Error!\n" <<endl;
 		return -1;
 	}
 	////测试打开的文件描述府是否引用一个终端设备，以进一步确认串口是否正确打开
 	////若为终端设备则返回1（真），否则返回0（假）
 	//if(isatty(STDIN_FILENO)==0)
 	//{
-	//	outTxt << "standard input is not a terminal device\n" <<endl;
+	//	cout << "standard input is not a terminal device\n" <<endl;
 	//	return -1;
 	//}
 
@@ -93,9 +87,7 @@ int serialPort::OpenDevice(char *Dev)
 void serialPort::sendMsg(char *msg){
 	int nLen = strlen(msg);	
 	int nCount = write(nFd,msg,nLen);
-//	printf("\nSend %d of %d  => %s\n", nCount, nLen, msg);	
-//	printf("%d", msg[0]);
-	//outTxt << msg << "======" <<nCount<<endl;
+//	printf("\nSend %d of %d  => %s\n", nCount, nLen, msg);
 }
 
 void serialPort::receiveMsg(void){
