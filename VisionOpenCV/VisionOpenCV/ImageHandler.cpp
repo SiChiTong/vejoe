@@ -61,7 +61,38 @@ ImageHandler::~ImageHandler(void)
 {
 }
 
-//仅锁定运动物体，停止运动时根据最后运动物体色块追踪
+PointXY ImageHandler::TrackMotionTargetRange(Mat souceFrame,Mat foreground)
+{
+	PointXY xy = PointXY(0,0);
+	Rect targetRect = RecognitionMotionTargetRange(foreground);
+
+	if(targetRect.width < MIN_X_DISTANCE || targetRect.width > MAX_X_DISTANCE || targetRect.height < MIN_X_DISTANCE || targetRect.height > MAX_X_DISTANCE) return xy;
+	double xValue = targetRect.x + targetRect.width/2.0;
+	double yValue = targetRect.y + targetRect.height/2.0;
+	midFiltArray.push_back(xValue);
+	sourceFiltArray.push_back(xValue);
+	midFiltArrayY.push_back(yValue);
+	sourceFiltArrayY.push_back(yValue);
+	if(midFiltArray.size() < FILTER_MIDDLE_COUNT || midFiltArrayY.size() < FILTER_MIDDLE_COUNT) return xy;
+	sort(midFiltArray.begin(), midFiltArray.end());
+	sort(midFiltArrayY.begin(), midFiltArrayY.end());
+	meanFiltArray.push_back(midFiltArray[FILTER_MIDDLE_COUNT/2]);
+	meanFiltArrayY.push_back(midFiltArrayY[FILTER_MIDDLE_COUNT/2]);
+	if(meanFiltArray.size() > FILTER_MEAN_COUNT)
+	{
+		meanFiltArray.erase(meanFiltArray.begin ());
+		meanFiltArrayY.erase(meanFiltArrayY.begin ());
+	}
+	midFiltArray.erase(std::find(midFiltArray.begin(),midFiltArray.end(),sourceFiltArray[0]));
+	sourceFiltArray.erase(sourceFiltArray.begin());
+	xy.X = std::accumulate(meanFiltArray.begin(),meanFiltArray.end(),0)/meanFiltArray.size();	
+	midFiltArrayY.erase(std::find(midFiltArrayY.begin(),midFiltArrayY.end(),sourceFiltArrayY[0]));
+	sourceFiltArrayY.erase(sourceFiltArrayY.begin());
+	xy.Y = std::accumulate(meanFiltArrayY.begin(),meanFiltArrayY.end(),0)/meanFiltArrayY.size();
+
+	return xy;
+}
+
 int ImageHandler::TrackMotionTarget(Mat souceFrame,Mat foreground)
 {
 	//框出运动目标
@@ -105,6 +136,27 @@ int ImageHandler::TrackMotionTarget(Mat souceFrame,Mat foreground)
 	////moveWindow("Move Obj",700,500);
 	//return nextTargetRotate.center.x + nextTargetRotate.size.width / 2.0;
 }
+
+Rect ImageHandler::RecognitionMotionTargetRange(Mat foreground)
+{
+	morphologyEx(foreground,tmpImage,MORPH_OPEN,shapeOperateKernal);	
+	morphologyEx(tmpImage,srcImage,MORPH_CLOSE,shapeOperateKernal);
+	findContours(srcImage, contourAll, hierarchy, RETR_EXTERNAL , CHAIN_APPROX_SIMPLE);
+	int shapeCount = contourAll.size(), maxAreaValue=0, maxAreaIdx = -1;
+	vector<vector<Point> >contoursAppr(shapeCount);
+	vector<Rect> boundRect(shapeCount);
+	Rect maxRect = Rect(0,0,0,0);
+	for(int i = 0; i < shapeCount; i ++)
+	{
+		approxPolyDP(Mat(contourAll[i]), contoursAppr[i], 5, true);
+		boundRect[i] = boundingRect(Mat(contoursAppr[i]));
+		if(boundRect[i].area() < MIN_RECT_AREA || boundRect[i].area() > MAX_RECT_AREA) continue;
+		maxRect = boundRect[i].area()>maxRect.area()?boundRect[i]:maxRect;
+		drawContours(srcImage,contourAll,i,Scalar(255), CV_FILLED);
+	}
+	return maxRect;
+}
+
 
 //确定运动区域
 void ImageHandler::RecognitionMotionTarget(Mat foreground)

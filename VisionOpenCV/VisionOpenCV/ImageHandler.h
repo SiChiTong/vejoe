@@ -10,16 +10,25 @@
 
 using namespace cv;
 
+struct PointXY
+{
+	int X;
+	int Y;
+	PointXY(int x,int y):X(x),Y(y){};
+};
+
 class ImageHandler
 {
 public:
+
 	ImageHandler(void);
 	~ImageHandler(void);
 	
-	//颜色追踪
+	PointXY TrackMotionTargetRange(Mat,Mat);
 	int TrackMotionTarget(Mat,Mat);
 	//识别运动物体
 	void RecognitionMotionTarget(Mat);
+	Rect RecognitionMotionTargetRange(Mat);
 	//人脸识别
 	int RecognitionHumanFace(Mat);
 
@@ -59,6 +68,7 @@ private:
 	const float* phranges;
 	int ch[2] ;
 	vector<int> midFiltArray,meanFiltArray, sourceFiltArray;
+	vector<int> midFiltArrayY,meanFiltArrayY, sourceFiltArrayY;
 	//当前追踪的目标，下一个移动目标点
 	Rect nextTarget;
 	RotatedRect nextTargetRotate, trackBox;
