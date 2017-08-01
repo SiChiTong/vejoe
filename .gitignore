@@ -1,0 +1,8 @@
+bin/
+obj/
+Debug/
+Release/
+*.sln
+*.suo
+*.sdf
+*.log
