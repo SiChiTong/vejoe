@@ -25,4 +25,7 @@ labyrinthStatus GetNextPlan(void)
 		
 		default:break;
 	}	
+	
+	return tempLabStatus;
 }
+
