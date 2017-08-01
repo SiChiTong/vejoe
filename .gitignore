@@ -1,8 +1,11 @@
 bin/
 obj/
+OBJ/
 Debug/
 Release/
 *.sln
 *.suo
 *.sdf
 *.log
+*.o
+*.lst
