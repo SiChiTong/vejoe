@@ -7,18 +7,25 @@
 //迷宫中小车状态
 typedef enum
 {
+	//未初始化
+	labStatusNone = 0x00,
+	
 	//遇到障碍物停止
-	Stop = 0x00,
-	
-	//查看了一个方向的距离
-	GetOneDistantce,
-	
-	//查看了另一个方向的距离
-	GetTwoDistance,
+	labStatusStop,
 	
 	//移动中
-	Moving
+	labStatusMoving,
+	
+	//查看了一个方向的距离
+	labStatusGetOneDistantce,
+	
+	//查看了另一个方向的距离
+	labStatusGetTwoDistance
 	
 }labyrinthStatus;
+
+
+//获取下一步操作命令
+labyrinthStatus GetNextPlan(void);
 
 #endif

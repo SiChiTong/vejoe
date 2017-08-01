@@ -9,3 +9,6 @@ Release/
 *.log
 *.o
 *.lst
+*.map
+*.d
+*.hex

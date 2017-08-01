@@ -5,12 +5,14 @@
 #include "control.h"	
 #include "filter.h"	
 #include "Check_OverLoad.h"
-
+#include "labyrinth.h" //迷宫实验
 
 int Balance_Pwm,Velocity_Pwm,Turn_Pwm;
 u8 Flag_Target;
 u32 Flash_R_Count;
 int Voltage_Temp,Voltage_Count,Voltage_All;
+extern labyrinthStatus labCarStatus;
+
 /**************************************************************************
 函数功能：所有的控制代码都在这里面
          5ms定时中断由MPU6050的INT引脚触发
@@ -110,11 +112,17 @@ int velocity(int encoder_left,int encoder_right)
 	if(1==Flag_Qian)    	Movement=-Target_Velocity/Flag_sudu;	         //===前进标志位置1 
 	else if(1==Flag_Hou)	Movement=Target_Velocity/Flag_sudu;         //===后退标志位置1
 	else  Movement=0;	
-	if(Bi_zhang==1&&Flag_Left!=1&&Flag_Right!=1)        //进入避障模式
+	
+	labyrinthStatus tempLabStatus = GetNextPlan();
+	if(labCarStatus != tempLabStatus)
+	{
+		
+	}
+	else if(Bi_zhang==1&&Flag_Left!=1&&Flag_Right!=1)        //进入避障模式
 	{
 		if(Distance<500)  Movement=-Target_Velocity/Flag_sudu;
 	}	
-	if(Bi_zhang==2&&Flag_Left!=1&&Flag_Right!=1)        //进入跟随模式
+	else if(Bi_zhang==2&&Flag_Left!=1&&Flag_Right!=1)        //进入跟随模式
 	{
 		if(Distance>100&&Distance<300)  Movement=Target_Velocity/Flag_sudu;
 	}

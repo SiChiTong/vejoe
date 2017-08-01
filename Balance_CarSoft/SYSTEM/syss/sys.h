@@ -83,6 +83,7 @@
 #include "spi.h"
 #include "24l01.h"   
 #include "can.h"
+
 //JTAG模式设置定义
 #define JTAG_SWD_DISABLE   0X02
 #define SWD_ENABLE         0X01
@@ -102,7 +103,7 @@ extern float Acceleration_Z;
 extern float Balance_Kp,Balance_Kd,Velocity_Kp,Velocity_Ki;
 extern u16 PID_Parameter[10],Flash_Parameter[10];
 extern float Zhongzhi;
-extern u32 Remoter_Ch1,Remoter_Ch2;     
+extern u32 Remoter_Ch1,Remoter_Ch2;
 /////////////////////////////////////////////////////////////////  
 void Stm32_Clock_Init(u8 PLL);  //时钟初始化  
 void Sys_Soft_Reset(void);      //系统软复位
