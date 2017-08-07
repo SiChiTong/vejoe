@@ -30,10 +30,19 @@ void MiniBalance_EXTI_Init(void)
 	NVIC_Init(&NVIC_InitStructure); 
 }
 
+int Balance_Pwm,Velocity_Pwm,Turn_Pwm;
+u8 Flag_Target;
+u32 Flash_R_Count;
+int Voltage_Temp,Voltage_Count,Voltage_All;
 
-
-
-
-
-
+int EXTI2_IRQHandler(void) 
+{    
+	if(INT==0)		
+	{                                                                     //10ms控制一次，为了保证M法测速的时间基准，首先读取编码器数据
+		Encoder_Left=Read_Encoder(2);                                       //===读取编码器的值
+		Encoder_Right=Read_Encoder(4);                                      //===读取编码器的值
+		
+	}       	
+	return 0;	  
+}
 

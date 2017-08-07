@@ -59,24 +59,24 @@ void Timer_cfg(void)
 
 
 void (*pfClockHandler)(void);
-void TIM2_IRQHandler(void)
-{	
-	//主频72MHz
-	//定时器的时钟频率 = 主频 / (时钟预分频 + 1) = 72M / (36000 -1 + 1) = 2000
-	//中断时间 = (定时周期 + 1) / 时钟频率 = (2000 - 1 + 1) / 2000 = 1
-	//         = (定时周期 + 1) * (时钟预分频 + 1) / 主频
-	
-	//检测是否发生溢出更新事件
-	if(TIM_GetITStatus(TIM2, TIM_IT_Update) == RESET) return;
-		
-	//清除TIM2的中断待处理位
-	TIM_ClearITPendingBit(TIM2, TIM_FLAG_Update);
-	
-	if(pfClockHandler != NULL)
-	{
-		(*pfClockHandler)();
-	}
-}
+//void TIM2_IRQHandler(void)
+//{	
+//	//主频72MHz
+//	//定时器的时钟频率 = 主频 / (时钟预分频 + 1) = 72M / (36000 -1 + 1) = 2000
+//	//中断时间 = (定时周期 + 1) / 时钟频率 = (2000 - 1 + 1) / 2000 = 1
+//	//         = (定时周期 + 1) * (时钟预分频 + 1) / 主频
+//	
+//	//检测是否发生溢出更新事件
+//	if(TIM_GetITStatus(TIM2, TIM_IT_Update) == RESET) return;
+//		
+//	//清除TIM2的中断待处理位
+//	TIM_ClearITPendingBit(TIM2, TIM_FLAG_Update);
+//	
+//	if(pfClockHandler != NULL)
+//	{
+//		(*pfClockHandler)();
+//	}
+//}
 
 void InitialTimer(void)
 {	

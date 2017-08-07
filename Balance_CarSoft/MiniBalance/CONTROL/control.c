@@ -46,7 +46,7 @@ int EXTI2_IRQHandler(void)
 		Read_Distane();                                                     //===获取超声波测量距离值
 		if(Bi_zhang==0)Led_Flash(100);                                      //===LED闪烁;常规模式 1s改变一次指示灯的状态	
 		else           Led_Flash(0);                                        //===LED闪烁;超声波模式 指示灯常亮	
-		Key();                                                              //===扫描按键状态 单击双击可以改变小车运行状态
+//		Key();                                                              //===扫描按键状态 单击双击可以改变小车运行状态
 		Balance_Pwm =balance(Angle_Balance,Gyro_Balance);                   //===平衡PID控制	
 		Velocity_Pwm=velocity(Encoder_Left,Encoder_Right);                  //===速度环PID控制	 记住，速度反馈是正反馈，就是小车快的时候要慢下来就需要再跑快一点
 		Turn_Pwm    =turn(Encoder_Left,Encoder_Right,Gyro_Turn);            //===转向环PID控制     
@@ -192,13 +192,7 @@ void Set_Pwm(int moto1,int moto2)
 	PWMA=myabs(moto1);
 	if(moto2>0)	BIN1=1,	BIN2=0;
 	else        BIN1=0,	BIN2=1;
-	PWMB=myabs(moto2);	
-//	if(moto1>0)	AIN2=0, AIN1=1;
-//	else AIN2=1, AIN1=0;
-//	PWMA=myabs(moto1);
-//	if(moto2>0)	BIN1=0,	BIN2=1;
-//	else        BIN1=1,	BIN2=0;
-//	PWMB=myabs(moto2);	
+	PWMB=myabs(moto2);
 }
 /**************************************************************************
 函数功能：限制PWM赋值 
@@ -213,8 +207,7 @@ void Xianfu_Pwm(void)
 	if(Moto1<-Amplitude) Moto1=-Amplitude;	
 	if(Moto1>Amplitude)  Moto1=Amplitude;	
 	if(Moto2<-Amplitude) Moto2=-Amplitude;	
-	if(Moto2>Amplitude)  Moto2=Amplitude;		
-	
+	if(Moto2>Amplitude)  Moto2=Amplitude;
 }
 /**************************************************************************
 函数功能：按键修改小车运行状态 
@@ -223,13 +216,12 @@ void Xianfu_Pwm(void)
 **************************************************************************/
 void Key(void)
 {	
-//	u8 tmp,tmp2;
-//	tmp=click_N_Double(50); 
-////	if(tmp==1)Flag_Stop=!Flag_Stop;//单击控制小车的启停
-//	if(tmp==2)Flag_Show=!Flag_Show;//双击控制小车的显示状态
-////tmp2=Long_Press();    
-//	tmp2 = 1;
-//	if(tmp2==1) Bi_zhang=!Bi_zhang;		//长按控制小车是否进入超声波避障模式 
+	u8 tmp,tmp2;
+	tmp=click_N_Double(50); 
+	if(tmp==1)Flag_Stop=!Flag_Stop;//单击控制小车的启停
+	else if(tmp==2)Flag_Show=!Flag_Show;//双击控制小车的显示状态
+	tmp2=Long_Press(); 
+	if(tmp2==1) Bi_zhang=!Bi_zhang;		//长按控制小车是否进入超声波避障模式 
 }
 
 /**************************************************************************

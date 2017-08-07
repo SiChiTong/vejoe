@@ -365,7 +365,7 @@
               <MiscControls>--c99</MiscControls>
               <Define>USE_STDPERIPH_DRIVER</Define>
               <Undefine></Undefine>
-              <IncludePath>.\plan;.\src;.\Libraries\STM32F10x_StdPeriph_Driver\inc;.\Libraries\CMSIS\CM3\CoreSupport;.\Libraries\CMSIS\CM3\DeviceSupport\ST\STM32F10x;.\Libraries\DSPLib\include</IncludePath>
+              <IncludePath>.\plan;.\src;.\Libraries\STM32F10x_StdPeriph_Driver\inc;.\Libraries\CMSIS\CM3\CoreSupport;.\Libraries\CMSIS\CM3\DeviceSupport\ST\STM32F10x;.\Libraries\DSPLib\include;.\src\Core</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -423,6 +423,11 @@
         <Group>
           <GroupName>LIB</GroupName>
           <Files>
+            <File>
+              <FileName>motor.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\Core\motor.c</FilePath>
+            </File>
             <File>
               <FileName>core_cm3.c</FileName>
               <FileType>1</FileType>
@@ -513,6 +518,11 @@
               <FileType>1</FileType>
               <FilePath>.\Libraries\STM32F10x_StdPeriph_Driver\src\stm32f10x_bkp.c</FilePath>
             </File>
+            <File>
+              <FileName>delay.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\delay.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -562,6 +572,11 @@
               <FileName>Ultrasonic.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\src\Sensor\Ultrasonic.c</FilePath>
+            </File>
+            <File>
+              <FileName>exti.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\Sensor\exti.c</FilePath>
             </File>
           </Files>
         </Group>

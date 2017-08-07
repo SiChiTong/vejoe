@@ -1,6 +1,7 @@
 --cpu Cortex-M3
 ".\objects\main.o"
 ".\objects\startup_stm32f10x_md.o"
+".\objects\motor.o"
 ".\objects\core_cm3.o"
 ".\objects\system_stm32f10x.o"
 ".\objects\misc.o"
@@ -19,6 +20,7 @@
 ".\objects\stm32f10x_usart.o"
 ".\objects\stm32f10x_pwr.o"
 ".\objects\stm32f10x_bkp.o"
+".\objects\delay.o"
 ".\objects\cr4_fft_64_stm32.o"
 ".\objects\cr4_fft_256_stm32.o"
 ".\objects\cr4_fft_1024_stm32.o"
@@ -27,6 +29,7 @@
 ".\objects\hall.o"
 ".\objects\switch.o"
 ".\objects\ultrasonic.o"
+".\objects\exti.o"
 --strict --scatter ".\Objects\Balance_Car.sct"
 --summary_stderr --info summarysizes --map --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers

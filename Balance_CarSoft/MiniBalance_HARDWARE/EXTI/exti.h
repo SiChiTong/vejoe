@@ -1,5 +1,5 @@
 #ifndef __EXTI_H
-#define __EXIT_H	 
+#define __EXTI_H	 
 #include "sys.h"
 
 #define INT PBin(2)   //连接到MPU6050的中断引脚

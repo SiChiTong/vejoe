@@ -65,24 +65,7 @@
 #define FTIR   1  //下降沿触发
 #define RTIR   2  //上升沿触发
 #include "delay.h"
-#include "led.h"
-#include "key.h"
-#include "oled.h"
-#include "usart.h"
-#include "usartx.h"
-#include "adc.h"
-#include "timer.h"
-#include "motor.h"
-#include "encoder.h"
-#include "ioi2c.h"
-#include "mpu6050.h"
-#include "show.h"					
-#include "exti.h"
-#include "DataScope_DP.h"
-#include "stmflash.h" 
-#include "spi.h"
-#include "24l01.h"   
-#include "can.h"
+#include "oled.h"		
 //JTAG模式设置定义
 #define JTAG_SWD_DISABLE   0X02
 #define SWD_ENABLE         0X01
@@ -118,10 +101,6 @@ void WFI_SET(void);		//执行WFI指令
 void INTX_DISABLE(void);//关闭所有中断
 void INTX_ENABLE(void);	//开启所有中断
 void MSR_MSP(u32 addr);	//设置堆栈地址
-#include "inv_mpu.h"
-#include "inv_mpu_dmp_motion_driver.h"
-#include "dmpKey.h"
-#include "dmpmap.h"
 #include <string.h> 
 #include <stdio.h>
 #include <stdint.h>
