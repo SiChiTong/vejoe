@@ -3,6 +3,7 @@ obj/
 OBJ/
 Debug/
 Release/
+Objects/
 *.sln
 *.suo
 *.sdf
@@ -13,3 +14,4 @@ Release/
 *.d
 *.hex
 *.crf
+*.axf
