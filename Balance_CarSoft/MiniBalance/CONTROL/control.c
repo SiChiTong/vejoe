@@ -11,7 +11,6 @@ int Balance_Pwm,Velocity_Pwm,Turn_Pwm;
 u8 Flag_Target;
 u32 Flash_R_Count;
 int Voltage_Temp,Voltage_Count,Voltage_All;
-extern labyrinthStatus labCarStatus;
 
 /**************************************************************************
 函数功能：所有的控制代码都在这里面
