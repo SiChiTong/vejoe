@@ -38,6 +38,8 @@ u16 PID_Parameter[10],Flash_Parameter[10];  //Flash相关数组
 float Zhongzhi = 0.5;
 u32 Remoter_Ch1=1500,Remoter_Ch2=1500;      //航模遥控接收变量
 
+MovementDirection carMoveDirect;
+
 int main(void)
 { 
 	delay_init();	    	            //=====延时函数初始化	

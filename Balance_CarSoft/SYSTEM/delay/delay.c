@@ -69,6 +69,8 @@ void delay_ostimedly(u32 ticks)
 	OSTimeDly(ticks);							//UCOSII延时
 #endif 
 }
+
+u16 oneDirectDistance,otherDirectDistance;
  
 //systick中断服务函数,使用ucos时用到
 void SysTick_Handler(void)
@@ -78,6 +80,64 @@ void SysTick_Handler(void)
 		OSIntEnter();							//进入中断
 		OSTimeTick();       					//调用ucos的时钟服务程序               
 		OSIntExit();       	 					//触发任务切换软中断
+	}
+	
+	switch(labCarStatus)
+	{
+		case labStatusMovingForward:
+		{
+			Flag_Qian=1;
+			Flag_Hou=0;
+			Flag_Left=0;
+			Flag_Right=0;
+			
+			if(CheckMovingForwardIsEnd())
+			{
+				Flag_Qian=0;
+				Flag_Left=1;
+				labCarStatus = labStatusCheckingOneDirection;
+				calcPulseForTurnSemiCircle();
+			}
+		}
+		break;
+		case labStatusCheckingOneDirection:
+		{
+			if(CheckTurningIsEnd())
+			{
+				oneDirectDistance = Distance;
+				labCarStatus = labStatusGetOtherDistantce;
+				calcPulseForTurnRound();
+			}
+		}
+		break;
+		case labStatusGetOtherDistantce:
+		{
+			if(CheckTurningIsEnd())
+			{
+				otherDirectDistance = Distance;
+				if(oneDirectDistance > otherDirectDistance + 0xFF)
+				{//距离相差0xff毫米，作为误差过滤
+					calcPulseForTurnRound();
+					labCarStatus = labStatusTurningRound;
+				}
+				else
+				{//当前方向即为目标方向					
+					Flag_Qian=1;
+					Flag_Left=0;
+					labCarStatus = labStatusMovingForward;
+				}
+			}
+		}
+		break;
+		case labStatusTurningRound:
+		{			
+			if(CheckTurningIsEnd())
+			{
+				labCarStatus = labStatusMovingForward;
+			}
+		}
+		break;
+		default:break;
 	}
 }
 #endif

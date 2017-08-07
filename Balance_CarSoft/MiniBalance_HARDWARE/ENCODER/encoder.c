@@ -11,6 +11,8 @@ void Encoder_Init_TIM2(void)
 	TIM_TimeBaseInitTypeDef TIM_TimeBaseStructure;  
 	TIM_ICInitTypeDef TIM_ICInitStructure;  
 	GPIO_InitTypeDef GPIO_InitStructure;
+	NVIC_InitTypeDef NVIC_InitStructure;
+	
 	RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM2, ENABLE);//使能定时器4的时钟
 	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA, ENABLE);//使能PB端口时钟
 
@@ -29,6 +31,12 @@ void Encoder_Init_TIM2(void)
 	TIM_ICStructInit(&TIM_ICInitStructure);
 	TIM_ICInitStructure.TIM_ICFilter = 10;
 	TIM_ICInit(TIM2, &TIM_ICInitStructure);
+		
+	NVIC_InitStructure.NVIC_IRQChannel = TIM2_IRQn;  //TIM2中断
+	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 2;  //先占优先级2级
+	NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0;  //从优先级0级
+	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE; //IRQ通道被使能
+	NVIC_Init(&NVIC_InitStructure);  //根据NVIC_InitStruct中指定的参数初始化外设NVIC寄存器 	
 	
 	TIM_ClearFlag(TIM2, TIM_FLAG_Update);//清除TIM的更新标志位
 	TIM_ITConfig(TIM2, TIM_IT_Update, ENABLE);
@@ -47,6 +55,8 @@ void Encoder_Init_TIM4(void)
 	TIM_TimeBaseInitTypeDef TIM_TimeBaseStructure;  
 	TIM_ICInitTypeDef TIM_ICInitStructure;  
 	GPIO_InitTypeDef GPIO_InitStructure;
+	NVIC_InitTypeDef NVIC_InitStructure;
+	
 	RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM4, ENABLE);//使能定时器4的时钟
 	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOB, ENABLE);//使能PB端口时钟
 
@@ -66,6 +76,12 @@ void Encoder_Init_TIM4(void)
 	TIM_ICStructInit(&TIM_ICInitStructure);
 	TIM_ICInitStructure.TIM_ICFilter = 10;
 	TIM_ICInit(TIM4, &TIM_ICInitStructure);
+		
+	NVIC_InitStructure.NVIC_IRQChannel = TIM4_IRQn;  //TIM4中断
+	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 2;  //先占优先级2级
+	NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0;  //从优先级0级
+	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE; //IRQ通道被使能
+	NVIC_Init(&NVIC_InitStructure);  //根据NVIC_InitStruct中指定的参数初始化外设NVIC寄存器 	
 	
 	TIM_ClearFlag(TIM4, TIM_FLAG_Update);//清除TIM的更新标志位
 	TIM_ITConfig(TIM4, TIM_IT_Update, ENABLE);
