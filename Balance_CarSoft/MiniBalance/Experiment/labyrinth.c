@@ -4,7 +4,7 @@
 #define PI 3.14159265
 
 static float ratioPulse2Distance = 1.0f, ratioDistance2Angle = 1.0f;
-u16 tempLeft,tempRight,lastLeft,lastRight;
+u16 tempLeft,tempRight,lastLeft,lastRight,tempLeftDiff, tempRightDiff;
 u16 oneDirectDistance,otherDirectDistance;
 int targetPulseForTurn;
 
@@ -65,16 +65,31 @@ int CheckMovingForwardIsEnd(void)
 int CheckTurningIsEnd(void)
 {
 	tempLeft=Read_Encoder(2);
-		tempRight=Read_Encoder(4);
-		if(tempLeft < lastLeft)
-			lastLeft -= ENCODER_TIM_PERIOD;
-		if(tempRight < lastRight)
-			lastRight -= ENCODER_TIM_PERIOD;
-		
-		Encoder_Left += tempLeft - lastLeft;
-		Encoder_Right += tempRight - lastRight;
-		
-		return Encoder_Left + Encoder_Right >= targetPulseForTurn * 2;
+	tempRight=Read_Encoder(4);
+	
+	tempLeftDiff = abs(tempLeft - lastLeft);
+	tempRightDiff = abs(tempRight - lastRight);	
+	if(tempLeftDiff > ENCODER_TIM_PERIOD)
+	{//发生了溢出，值的变化方向发生了反转
+		Encoder_Left += (tempLeft - (ENCODER_TIM_PERIOD - lastLeft));
+	}
+	else
+	{//常规变化
+		Encoder_Left += abs(tempLeft - lastLeft);
+	}
+	
+	if(tempRightDiff > ENCODER_TIM_PERIOD)
+	{
+		lastRight += (tempRight - (ENCODER_TIM_PERIOD - lastRight));
+	}
+	else
+	{
+		Encoder_Right += tempRightDiff;
+	}
+	
+	lastLeft = tempLeft;
+	lastRight = tempRight;
+	return Encoder_Left + Encoder_Right >= targetPulseForTurn * 2;
 }
 
 void labyrinthMain(void)
@@ -101,6 +116,7 @@ void labyrinthMain(void)
 		{
 			if(CheckTurningIsEnd())
 			{
+				Read_Distane();
 				oneDirectDistance = Distance;
 				labCarStatus = labStatusGetOtherDistantce;
 				calcPulseForTurnRound();
@@ -111,6 +127,7 @@ void labyrinthMain(void)
 		{
 			if(CheckTurningIsEnd())
 			{
+				Read_Distane();
 				otherDirectDistance = Distance;
 				if(oneDirectDistance > otherDirectDistance + 0xFF)
 				{//距离相差0xff毫米，作为误差过滤

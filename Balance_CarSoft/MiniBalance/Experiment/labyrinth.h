@@ -1,7 +1,7 @@
 #ifndef __LABYRINTH_H
 #define __LABYRINTH_H
 
-#define COLLIDE_MIN_DISTANCE 1000 			//避撞最小距离
+#define COLLIDE_MIN_DISTANCE 100 			//避撞最小距离mm
 #define PULSE_COUNT_ONE_ROUND  (11 * 4)	//一圈脉冲数
 #define RATIO_WHEEL_SPEED  30 					//减速比
 #define DIAMETER_WHEEL 66								//轮子直径mm
