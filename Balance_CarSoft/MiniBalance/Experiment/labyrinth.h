@@ -53,5 +53,7 @@ void calcPulseForTurnRound(void);
 int CheckMovingForwardIsEnd(void);
 //达到转动角度
 int CheckTurningIsEnd(void);
+//算法主函数
+void labyrinthMain(void);
 
 #endif

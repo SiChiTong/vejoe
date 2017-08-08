@@ -5,6 +5,7 @@
 
 static float ratioPulse2Distance = 1.0f, ratioDistance2Angle = 1.0f;
 u16 tempLeft,tempRight,lastLeft,lastRight;
+u16 oneDirectDistance,otherDirectDistance;
 int targetPulseForTurn;
 
 labyrinthStatus labCarStatus;
@@ -16,7 +17,6 @@ void initialLabyrinthConfig(void)
 	
 	ratioPulse2Distance = (1.0f *PULSE_COUNT_ONE_ROUND * RATIO_WHEEL_SPEED) / (PI * DIAMETER_WHEEL);	
 	ratioDistance2Angle = (AXIS_DISTANCE_WHEEL * PI) / 360.0f;
-	labCarStatus = labStatusNone;
 	
 	if(labCarStatus == labStatusStart)
 	{
@@ -75,4 +75,65 @@ int CheckTurningIsEnd(void)
 		Encoder_Right += tempRight - lastRight;
 		
 		return Encoder_Left + Encoder_Right >= targetPulseForTurn * 2;
+}
+
+void labyrinthMain(void)
+{
+	switch(labCarStatus)
+	{
+		case labStatusMovingForward:
+		{
+			Flag_Qian=1;
+			Flag_Hou=0;
+			Flag_Left=0;
+			Flag_Right=0;
+			
+			if(CheckMovingForwardIsEnd())
+			{
+				Flag_Qian=0;
+				Flag_Left=1;
+				labCarStatus = labStatusCheckingOneDirection;
+				calcPulseForTurnSemiCircle();
+			}
+		}
+		break;
+		case labStatusCheckingOneDirection:
+		{
+			if(CheckTurningIsEnd())
+			{
+				oneDirectDistance = Distance;
+				labCarStatus = labStatusGetOtherDistantce;
+				calcPulseForTurnRound();
+			}
+		}
+		break;
+		case labStatusGetOtherDistantce:
+		{
+			if(CheckTurningIsEnd())
+			{
+				otherDirectDistance = Distance;
+				if(oneDirectDistance > otherDirectDistance + 0xFF)
+				{//距离相差0xff毫米，作为误差过滤
+					calcPulseForTurnRound();
+					labCarStatus = labStatusTurningRound;
+				}
+				else
+				{//当前方向即为目标方向					
+					Flag_Qian=1;
+					Flag_Left=0;
+					labCarStatus = labStatusMovingForward;
+				}
+			}
+		}
+		break;
+		case labStatusTurningRound:
+		{			
+			if(CheckTurningIsEnd())
+			{
+				labCarStatus = labStatusMovingForward;
+			}
+		}
+		break;
+		default:break;
+	}
 }

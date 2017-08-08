@@ -42,7 +42,7 @@ MovementDirection carMoveDirect;
 
 int main(void)
 { 
-	delay_init();	    	            //=====延时函数初始化	
+	//delay_init();	    	            //=====延时函数初始化	
 	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA, ENABLE);
 	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOB, ENABLE);
 	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOC, ENABLE);
@@ -127,6 +127,8 @@ int main(void)
 	//	delay_flag=1;	
 	//	delay_50=0;
 	//	while(delay_flag);	     //通过MPU6050的INT中断实现的50ms精准延时	
+		
+		labyrinthMain();	//迷宫算法
 	} 
 }
 

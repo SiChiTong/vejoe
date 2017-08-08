@@ -2,7 +2,6 @@
 
 static volatile u32 TimingDelay=0;  
 
-u16 oneDirectDistance,otherDirectDistance;
 
 void SysTick_Handler(void)
 {	
@@ -10,68 +9,18 @@ void SysTick_Handler(void)
   {  
     TimingDelay--;    
   }  
-	switch(labCarStatus)
-	{
-		case labStatusMovingForward:
-		{
-			Flag_Qian=1;
-			Flag_Hou=0;
-			Flag_Left=0;
-			Flag_Right=0;
-			
-			if(CheckMovingForwardIsEnd())
-			{
-				Flag_Qian=0;
-				Flag_Left=1;
-				labCarStatus = labStatusCheckingOneDirection;
-				calcPulseForTurnSemiCircle();
-			}
-		}
-		break;
-		case labStatusCheckingOneDirection:
-		{
-			if(CheckTurningIsEnd())
-			{
-				oneDirectDistance = Distance;
-				labCarStatus = labStatusGetOtherDistantce;
-				calcPulseForTurnRound();
-			}
-		}
-		break;
-		case labStatusGetOtherDistantce:
-		{
-			if(CheckTurningIsEnd())
-			{
-				otherDirectDistance = Distance;
-				if(oneDirectDistance > otherDirectDistance + 0xFF)
-				{//距离相差0xff毫米，作为误差过滤
-					calcPulseForTurnRound();
-					labCarStatus = labStatusTurningRound;
-				}
-				else
-				{//当前方向即为目标方向					
-					Flag_Qian=1;
-					Flag_Left=0;
-					labCarStatus = labStatusMovingForward;
-				}
-			}
-		}
-		break;
-		case labStatusTurningRound:
-		{			
-			if(CheckTurningIsEnd())
-			{
-				labCarStatus = labStatusMovingForward;
-			}
-		}
-		break;
-		default:break;
-	}
 }
 
 void delay_init()
 {
 	SysTick_CLKSourceConfig(SysTick_CLKSource_HCLK_Div8);
+	
+//	NVIC_InitTypeDef NVIC_InitStructure;
+//	NVIC_InitStructure.NVIC_IRQChannel = SysTick_IRQn;
+//	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 2;
+//	NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0;
+//	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
+//	NVIC_Init(&NVIC_InitStructure);
 	
 	while( SysTick_Config( 72000 )  != 0  );
 }								    
