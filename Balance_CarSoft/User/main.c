@@ -90,7 +90,7 @@ int main(void)
 //	TIM8_Cap_Init(0XFFFF,72-1);	    //=====航模遥控接收初始化
 	CAN1_Mode_Init(1,2,3,6,0);		//=====CAN初始化,波特率1Mbps   
 	MiniBalance_EXTI_Init();        //=====MPU6050 5ms定时中断初始化
-
+	initialLabyrinthConfig();
 	while(1)
 	{
 		if(Flash_Send==1)        //写入PID参数到Flash,由app控制该指令
