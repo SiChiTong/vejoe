@@ -105,8 +105,10 @@ int velocity(int encoder_left,int encoder_right)
 	static float Velocity,Encoder_Least,Encoder,Movement;
 	static float Encoder_Integral,Target_Velocity;
 	//=============遥控前进后退部分=======================// 
-	if(Bi_zhang!=0&&Flag_sudu==1)  Target_Velocity=55;                 //如果进入避障模式,自动进入低速模式
-	else 	                         Target_Velocity=110;                 
+	if(Flag_sudu==10)  Target_Velocity=30;				//转弯时，用更慢模式
+	else if(Bi_zhang!=0&&Flag_sudu==1)  Target_Velocity=55;                 //如果进入避障模式,自动进入低速模式
+	else            Target_Velocity=110;   
+	
 	if(1==Flag_Qian)    	Movement=-Target_Velocity/Flag_sudu;	         //===前进标志位置1 
 	else if(1==Flag_Hou)	Movement=Target_Velocity/Flag_sudu;         //===后退标志位置1
 	else  Movement=0;	

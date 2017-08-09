@@ -107,6 +107,7 @@ extern float Zhongzhi;
 extern u32 Remoter_Ch1,Remoter_Ch2;
 
 extern labyrinthStatus labCarStatus;
+extern int hallDiffCount,targetPulseForTurn;
 
 /////////////////////////////////////////////////////////////////  
 void Stm32_Clock_Init(u8 PLL);  // ±÷”≥ı ºªØ  
