@@ -1,8 +1,17 @@
 bin/
 obj/
+OBJ/
 Debug/
 Release/
+Objects/
 *.sln
 *.suo
 *.sdf
 *.log
+*.o
+*.lst
+*.map
+*.d
+*.hex
+*.crf
+*.axf

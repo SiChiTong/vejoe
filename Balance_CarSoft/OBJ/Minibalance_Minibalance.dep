@@ -1,5 +1,5 @@
 Dependencies for Project 'Minibalance', Target 'Minibalance': (DO NOT MODIFY !)
-F (.\main.c)(0x598A7F48)(-c --cpu Cortex-M3 -g -O0 --apcs=interwork -I..\User -I..\MiniBalance_COER -I..\STM32F10x_FWLib\inc -I..\MiniBalance_HARDWARE -I..\SYSTEM -I..\SYSTEM\delay -I..\SYSTEM\syss -I..\SYSTEM\usart -I..\MiniBalance_HARDWARE\DMP -I..\MiniBalance_HARDWARE\IIC -I..\MiniBalance_HARDWARE\MPU6050 -I..\MiniBalance_HARDWARE\ENCODER -I..\MiniBalance_HARDWARE\OLED -I..\MiniBalance\show -I..\MiniBalance_HARDWARE\LED -I..\MiniBalance_HARDWARE\KEY -I..\MiniBalance_HARDWARE\ADC -I..\MiniBalance_HARDWARE\MOTOR -I..\MiniBalance_HARDWARE\TIMER -I..\MiniBalance_HARDWARE\EXTI -I..\MiniBalance\DataScope_DP -I..\MiniBalance\filter -I..\MiniBalance_HARDWARE\STMFLASH -I..\MiniBalance_HARDWARE\USARTX -I..\MiniBalance_HARDWARE\NRF24L01 -I..\MiniBalance_HARDWARE\SPI -I..\MiniBalance_HARDWARE\CAN -I..\MiniBalance\Experiment-I D:\Project\vejoe\Balance_CarSoft\User\RTE-I "D:\Program Files\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\Include"-I "D:\Program Files\Keil_v5\ARM\CMSIS\Include"-D__UVISION_VERSION="514" -DSTM32F10X_HD -DSTM32F10X_ -DHD -DUSE_STDPERIPH_DRIVER-o ..\obj\main.o --omf_browse ..\obj\main.crf --depend ..\obj\main.d)
+F (.\main.c)(0x598A8480)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork -I..\User -I..\MiniBalance_COER -I..\STM32F10x_FWLib\inc -I..\MiniBalance_HARDWARE -I..\SYSTEM -I..\SYSTEM\delay -I..\SYSTEM\syss -I..\SYSTEM\usart -I..\MiniBalance_HARDWARE\DMP -I..\MiniBalance_HARDWARE\IIC -I..\MiniBalance_HARDWARE\MPU6050 -I..\MiniBalance_HARDWARE\ENCODER -I..\MiniBalance_HARDWARE\OLED -I..\MiniBalance\show -I..\MiniBalance_HARDWARE\LED -I..\MiniBalance_HARDWARE\KEY -I..\MiniBalance_HARDWARE\ADC -I..\MiniBalance_HARDWARE\MOTOR -I..\MiniBalance_HARDWARE\TIMER -I..\MiniBalance_HARDWARE\EXTI -I..\MiniBalance\DataScope_DP -I..\MiniBalance\filter -I..\MiniBalance_HARDWARE\STMFLASH -I..\MiniBalance_HARDWARE\USARTX -I..\MiniBalance_HARDWARE\NRF24L01 -I..\MiniBalance_HARDWARE\SPI -I..\MiniBalance_HARDWARE\CAN -I..\MiniBalance\Experiment-I D:\Project\vejoe\Balance_CarSoft\User\RTE-I "D:\Program Files\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\Include"-I "D:\Program Files\Keil_v5\ARM\CMSIS\Include"-D__UVISION_VERSION="514" -DSTM32F10X_HD -DSTM32F10X_ -DHD -DUSE_STDPERIPH_DRIVER-o ..\obj\main.o --omf_browse ..\obj\main.crf --depend ..\obj\main.d)
 I (stm32f10x.h)(0x59898CD6)
 I (..\MiniBalance_COER\core_cm3.h)(0x59898CD6)
 I (D:\Program Files\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5475F300)
@@ -29,7 +29,7 @@ I (..\STM32F10x_FWLib\inc\stm32f10x_tim.h)(0x59898CD6)
 I (..\STM32F10x_FWLib\inc\stm32f10x_usart.h)(0x59898CD6)
 I (..\STM32F10x_FWLib\inc\stm32f10x_wwdg.h)(0x59898CD6)
 I (..\STM32F10x_FWLib\inc\misc.h)(0x59898CD6)
-I (..\SYSTEM\syss\sys.h)(0x598A7B8F)
+I (..\SYSTEM\syss\sys.h)(0x598A84AC)
 I (..\SYSTEM\delay\delay.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\LED\led.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\KEY\key.h)(0x59898CD6)
@@ -44,13 +44,13 @@ I (..\MiniBalance_HARDWARE\ENCODER\encoder.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\IIC\ioi2c.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\MPU6050\mpu6050.h)(0x59898CD6)
 I (..\MiniBalance\show\show.h)(0x59898CD6)
-I (..\MiniBalance_HARDWARE\EXTI\exti.h)(0x59898E1B)
+I (..\MiniBalance_HARDWARE\EXTI\exti.h)(0x598A83E2)
 I (..\MiniBalance\DataScope_DP\DataScope_DP.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\STMFLASH\stmflash.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\SPI\spi.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\NRF24L01\24l01.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\CAN\can.h)(0x59898CD6)
-I (..\MiniBalance\Experiment\labyrinth.h)(0x598A7F4E)
+I (..\MiniBalance\Experiment\labyrinth.h)(0x598A84C5)
 I (..\MiniBalance_HARDWARE\DMP\inv_mpu.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\DMP\inv_mpu_dmp_motion_driver.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\DMP\dmpKey.h)(0x59898CD6)
@@ -60,8 +60,8 @@ I (D:\Program Files\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x5475F300)
 I (D:\Program Files\Keil_v5\ARM\ARMCC\include\math.h)(0x5475F2FE)
 I (Sensor_Test.h)(0x598A7A01)
 I (Check_OverLoad.h)(0x59898CD6)
-F (.\stm32f10x_it.c)(0x59898E1B)(-c --cpu Cortex-M3 -g -O0 --apcs=interwork -I..\User -I..\MiniBalance_COER -I..\STM32F10x_FWLib\inc -I..\MiniBalance_HARDWARE -I..\SYSTEM -I..\SYSTEM\delay -I..\SYSTEM\syss -I..\SYSTEM\usart -I..\MiniBalance_HARDWARE\DMP -I..\MiniBalance_HARDWARE\IIC -I..\MiniBalance_HARDWARE\MPU6050 -I..\MiniBalance_HARDWARE\ENCODER -I..\MiniBalance_HARDWARE\OLED -I..\MiniBalance\show -I..\MiniBalance_HARDWARE\LED -I..\MiniBalance_HARDWARE\KEY -I..\MiniBalance_HARDWARE\ADC -I..\MiniBalance_HARDWARE\MOTOR -I..\MiniBalance_HARDWARE\TIMER -I..\MiniBalance_HARDWARE\EXTI -I..\MiniBalance\DataScope_DP -I..\MiniBalance\filter -I..\MiniBalance_HARDWARE\STMFLASH -I..\MiniBalance_HARDWARE\USARTX -I..\MiniBalance_HARDWARE\NRF24L01 -I..\MiniBalance_HARDWARE\SPI -I..\MiniBalance_HARDWARE\CAN -I..\MiniBalance\Experiment-I D:\Project\vejoe\Balance_CarSoft\User\RTE-I "D:\Program Files\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\Include"-I "D:\Program Files\Keil_v5\ARM\CMSIS\Include"-D__UVISION_VERSION="514" -DSTM32F10X_HD -DSTM32F10X_ -DHD -DUSE_STDPERIPH_DRIVER-o ..\obj\stm32f10x_it.o --omf_browse ..\obj\stm32f10x_it.crf --depend ..\obj\stm32f10x_it.d)
-I (stm32f10x_it.h)(0x59898E1B)
+F (.\stm32f10x_it.c)(0x598A83E2)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork -I..\User -I..\MiniBalance_COER -I..\STM32F10x_FWLib\inc -I..\MiniBalance_HARDWARE -I..\SYSTEM -I..\SYSTEM\delay -I..\SYSTEM\syss -I..\SYSTEM\usart -I..\MiniBalance_HARDWARE\DMP -I..\MiniBalance_HARDWARE\IIC -I..\MiniBalance_HARDWARE\MPU6050 -I..\MiniBalance_HARDWARE\ENCODER -I..\MiniBalance_HARDWARE\OLED -I..\MiniBalance\show -I..\MiniBalance_HARDWARE\LED -I..\MiniBalance_HARDWARE\KEY -I..\MiniBalance_HARDWARE\ADC -I..\MiniBalance_HARDWARE\MOTOR -I..\MiniBalance_HARDWARE\TIMER -I..\MiniBalance_HARDWARE\EXTI -I..\MiniBalance\DataScope_DP -I..\MiniBalance\filter -I..\MiniBalance_HARDWARE\STMFLASH -I..\MiniBalance_HARDWARE\USARTX -I..\MiniBalance_HARDWARE\NRF24L01 -I..\MiniBalance_HARDWARE\SPI -I..\MiniBalance_HARDWARE\CAN -I..\MiniBalance\Experiment-I D:\Project\vejoe\Balance_CarSoft\User\RTE-I "D:\Program Files\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\Include"-I "D:\Program Files\Keil_v5\ARM\CMSIS\Include"-D__UVISION_VERSION="514" -DSTM32F10X_HD -DSTM32F10X_ -DHD -DUSE_STDPERIPH_DRIVER-o ..\obj\stm32f10x_it.o --omf_browse ..\obj\stm32f10x_it.crf --depend ..\obj\stm32f10x_it.d)
+I (stm32f10x_it.h)(0x598A83E2)
 I (stm32f10x.h)(0x59898CD6)
 I (..\MiniBalance_COER\core_cm3.h)(0x59898CD6)
 I (D:\Program Files\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5475F300)
@@ -91,7 +91,7 @@ I (..\STM32F10x_FWLib\inc\stm32f10x_tim.h)(0x59898CD6)
 I (..\STM32F10x_FWLib\inc\stm32f10x_usart.h)(0x59898CD6)
 I (..\STM32F10x_FWLib\inc\stm32f10x_wwdg.h)(0x59898CD6)
 I (..\STM32F10x_FWLib\inc\misc.h)(0x59898CD6)
-F (.\system_stm32f10x.c)(0x59898CD6)(-c --cpu Cortex-M3 -g -O0 --apcs=interwork -I..\User -I..\MiniBalance_COER -I..\STM32F10x_FWLib\inc -I..\MiniBalance_HARDWARE -I..\SYSTEM -I..\SYSTEM\delay -I..\SYSTEM\syss -I..\SYSTEM\usart -I..\MiniBalance_HARDWARE\DMP -I..\MiniBalance_HARDWARE\IIC -I..\MiniBalance_HARDWARE\MPU6050 -I..\MiniBalance_HARDWARE\ENCODER -I..\MiniBalance_HARDWARE\OLED -I..\MiniBalance\show -I..\MiniBalance_HARDWARE\LED -I..\MiniBalance_HARDWARE\KEY -I..\MiniBalance_HARDWARE\ADC -I..\MiniBalance_HARDWARE\MOTOR -I..\MiniBalance_HARDWARE\TIMER -I..\MiniBalance_HARDWARE\EXTI -I..\MiniBalance\DataScope_DP -I..\MiniBalance\filter -I..\MiniBalance_HARDWARE\STMFLASH -I..\MiniBalance_HARDWARE\USARTX -I..\MiniBalance_HARDWARE\NRF24L01 -I..\MiniBalance_HARDWARE\SPI -I..\MiniBalance_HARDWARE\CAN -I..\MiniBalance\Experiment-I D:\Project\vejoe\Balance_CarSoft\User\RTE-I "D:\Program Files\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\Include"-I "D:\Program Files\Keil_v5\ARM\CMSIS\Include"-D__UVISION_VERSION="514" -DSTM32F10X_HD -DSTM32F10X_ -DHD -DUSE_STDPERIPH_DRIVER-o ..\obj\system_stm32f10x.o --omf_browse ..\obj\system_stm32f10x.crf --depend ..\obj\system_stm32f10x.d)
+F (.\system_stm32f10x.c)(0x59898CD6)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork -I..\User -I..\MiniBalance_COER -I..\STM32F10x_FWLib\inc -I..\MiniBalance_HARDWARE -I..\SYSTEM -I..\SYSTEM\delay -I..\SYSTEM\syss -I..\SYSTEM\usart -I..\MiniBalance_HARDWARE\DMP -I..\MiniBalance_HARDWARE\IIC -I..\MiniBalance_HARDWARE\MPU6050 -I..\MiniBalance_HARDWARE\ENCODER -I..\MiniBalance_HARDWARE\OLED -I..\MiniBalance\show -I..\MiniBalance_HARDWARE\LED -I..\MiniBalance_HARDWARE\KEY -I..\MiniBalance_HARDWARE\ADC -I..\MiniBalance_HARDWARE\MOTOR -I..\MiniBalance_HARDWARE\TIMER -I..\MiniBalance_HARDWARE\EXTI -I..\MiniBalance\DataScope_DP -I..\MiniBalance\filter -I..\MiniBalance_HARDWARE\STMFLASH -I..\MiniBalance_HARDWARE\USARTX -I..\MiniBalance_HARDWARE\NRF24L01 -I..\MiniBalance_HARDWARE\SPI -I..\MiniBalance_HARDWARE\CAN -I..\MiniBalance\Experiment-I D:\Project\vejoe\Balance_CarSoft\User\RTE-I "D:\Program Files\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\Include"-I "D:\Program Files\Keil_v5\ARM\CMSIS\Include"-D__UVISION_VERSION="514" -DSTM32F10X_HD -DSTM32F10X_ -DHD -DUSE_STDPERIPH_DRIVER-o ..\obj\system_stm32f10x.o --omf_browse ..\obj\system_stm32f10x.crf --depend ..\obj\system_stm32f10x.d)
 I (stm32f10x.h)(0x59898CD6)
 I (..\MiniBalance_COER\core_cm3.h)(0x59898CD6)
 I (D:\Program Files\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5475F300)
@@ -121,9 +121,9 @@ I (..\STM32F10x_FWLib\inc\stm32f10x_tim.h)(0x59898CD6)
 I (..\STM32F10x_FWLib\inc\stm32f10x_usart.h)(0x59898CD6)
 I (..\STM32F10x_FWLib\inc\stm32f10x_wwdg.h)(0x59898CD6)
 I (..\STM32F10x_FWLib\inc\misc.h)(0x59898CD6)
-F (.\Sensor_Test.c)(0x598A7C61)(-c --cpu Cortex-M3 -g -O0 --apcs=interwork -I..\User -I..\MiniBalance_COER -I..\STM32F10x_FWLib\inc -I..\MiniBalance_HARDWARE -I..\SYSTEM -I..\SYSTEM\delay -I..\SYSTEM\syss -I..\SYSTEM\usart -I..\MiniBalance_HARDWARE\DMP -I..\MiniBalance_HARDWARE\IIC -I..\MiniBalance_HARDWARE\MPU6050 -I..\MiniBalance_HARDWARE\ENCODER -I..\MiniBalance_HARDWARE\OLED -I..\MiniBalance\show -I..\MiniBalance_HARDWARE\LED -I..\MiniBalance_HARDWARE\KEY -I..\MiniBalance_HARDWARE\ADC -I..\MiniBalance_HARDWARE\MOTOR -I..\MiniBalance_HARDWARE\TIMER -I..\MiniBalance_HARDWARE\EXTI -I..\MiniBalance\DataScope_DP -I..\MiniBalance\filter -I..\MiniBalance_HARDWARE\STMFLASH -I..\MiniBalance_HARDWARE\USARTX -I..\MiniBalance_HARDWARE\NRF24L01 -I..\MiniBalance_HARDWARE\SPI -I..\MiniBalance_HARDWARE\CAN -I..\MiniBalance\Experiment-I D:\Project\vejoe\Balance_CarSoft\User\RTE-I "D:\Program Files\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\Include"-I "D:\Program Files\Keil_v5\ARM\CMSIS\Include"-D__UVISION_VERSION="514" -DSTM32F10X_HD -DSTM32F10X_ -DHD -DUSE_STDPERIPH_DRIVER-o ..\obj\sensor_test.o --omf_browse ..\obj\sensor_test.crf --depend ..\obj\sensor_test.d)
+F (.\Sensor_Test.c)(0x598A7C61)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork -I..\User -I..\MiniBalance_COER -I..\STM32F10x_FWLib\inc -I..\MiniBalance_HARDWARE -I..\SYSTEM -I..\SYSTEM\delay -I..\SYSTEM\syss -I..\SYSTEM\usart -I..\MiniBalance_HARDWARE\DMP -I..\MiniBalance_HARDWARE\IIC -I..\MiniBalance_HARDWARE\MPU6050 -I..\MiniBalance_HARDWARE\ENCODER -I..\MiniBalance_HARDWARE\OLED -I..\MiniBalance\show -I..\MiniBalance_HARDWARE\LED -I..\MiniBalance_HARDWARE\KEY -I..\MiniBalance_HARDWARE\ADC -I..\MiniBalance_HARDWARE\MOTOR -I..\MiniBalance_HARDWARE\TIMER -I..\MiniBalance_HARDWARE\EXTI -I..\MiniBalance\DataScope_DP -I..\MiniBalance\filter -I..\MiniBalance_HARDWARE\STMFLASH -I..\MiniBalance_HARDWARE\USARTX -I..\MiniBalance_HARDWARE\NRF24L01 -I..\MiniBalance_HARDWARE\SPI -I..\MiniBalance_HARDWARE\CAN -I..\MiniBalance\Experiment-I D:\Project\vejoe\Balance_CarSoft\User\RTE-I "D:\Program Files\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\Include"-I "D:\Program Files\Keil_v5\ARM\CMSIS\Include"-D__UVISION_VERSION="514" -DSTM32F10X_HD -DSTM32F10X_ -DHD -DUSE_STDPERIPH_DRIVER-o ..\obj\sensor_test.o --omf_browse ..\obj\sensor_test.crf --depend ..\obj\sensor_test.d)
 I (Sensor_Test.h)(0x598A7A01)
-I (..\SYSTEM\syss\sys.h)(0x598A7B8F)
+I (..\SYSTEM\syss\sys.h)(0x598A84AC)
 I (..\User\stm32f10x.h)(0x59898CD6)
 I (..\MiniBalance_COER\core_cm3.h)(0x59898CD6)
 I (D:\Program Files\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5475F300)
@@ -166,13 +166,13 @@ I (..\MiniBalance_HARDWARE\ENCODER\encoder.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\IIC\ioi2c.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\MPU6050\mpu6050.h)(0x59898CD6)
 I (..\MiniBalance\show\show.h)(0x59898CD6)
-I (..\MiniBalance_HARDWARE\EXTI\exti.h)(0x59898E1B)
+I (..\MiniBalance_HARDWARE\EXTI\exti.h)(0x598A83E2)
 I (..\MiniBalance\DataScope_DP\DataScope_DP.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\STMFLASH\stmflash.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\SPI\spi.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\NRF24L01\24l01.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\CAN\can.h)(0x59898CD6)
-I (..\MiniBalance\Experiment\labyrinth.h)(0x598A7F4E)
+I (..\MiniBalance\Experiment\labyrinth.h)(0x598A84C5)
 I (..\MiniBalance_HARDWARE\DMP\inv_mpu.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\DMP\inv_mpu_dmp_motion_driver.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\DMP\dmpKey.h)(0x59898CD6)
@@ -180,10 +180,10 @@ I (..\MiniBalance_HARDWARE\DMP\dmpmap.h)(0x59898CD6)
 I (D:\Program Files\Keil_v5\ARM\ARMCC\include\string.h)(0x5475F300)
 I (D:\Program Files\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x5475F300)
 I (D:\Program Files\Keil_v5\ARM\ARMCC\include\math.h)(0x5475F2FE)
-F (.\Check_OverLoad.c)(0x59898CD6)(-c --cpu Cortex-M3 -g -O0 --apcs=interwork -I..\User -I..\MiniBalance_COER -I..\STM32F10x_FWLib\inc -I..\MiniBalance_HARDWARE -I..\SYSTEM -I..\SYSTEM\delay -I..\SYSTEM\syss -I..\SYSTEM\usart -I..\MiniBalance_HARDWARE\DMP -I..\MiniBalance_HARDWARE\IIC -I..\MiniBalance_HARDWARE\MPU6050 -I..\MiniBalance_HARDWARE\ENCODER -I..\MiniBalance_HARDWARE\OLED -I..\MiniBalance\show -I..\MiniBalance_HARDWARE\LED -I..\MiniBalance_HARDWARE\KEY -I..\MiniBalance_HARDWARE\ADC -I..\MiniBalance_HARDWARE\MOTOR -I..\MiniBalance_HARDWARE\TIMER -I..\MiniBalance_HARDWARE\EXTI -I..\MiniBalance\DataScope_DP -I..\MiniBalance\filter -I..\MiniBalance_HARDWARE\STMFLASH -I..\MiniBalance_HARDWARE\USARTX -I..\MiniBalance_HARDWARE\NRF24L01 -I..\MiniBalance_HARDWARE\SPI -I..\MiniBalance_HARDWARE\CAN -I..\MiniBalance\Experiment-I D:\Project\vejoe\Balance_CarSoft\User\RTE-I "D:\Program Files\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\Include"-I "D:\Program Files\Keil_v5\ARM\CMSIS\Include"-D__UVISION_VERSION="514" -DSTM32F10X_HD -DSTM32F10X_ -DHD -DUSE_STDPERIPH_DRIVER-o ..\obj\check_overload.o --omf_browse ..\obj\check_overload.crf --depend ..\obj\check_overload.d)
+F (.\Check_OverLoad.c)(0x59898CD6)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork -I..\User -I..\MiniBalance_COER -I..\STM32F10x_FWLib\inc -I..\MiniBalance_HARDWARE -I..\SYSTEM -I..\SYSTEM\delay -I..\SYSTEM\syss -I..\SYSTEM\usart -I..\MiniBalance_HARDWARE\DMP -I..\MiniBalance_HARDWARE\IIC -I..\MiniBalance_HARDWARE\MPU6050 -I..\MiniBalance_HARDWARE\ENCODER -I..\MiniBalance_HARDWARE\OLED -I..\MiniBalance\show -I..\MiniBalance_HARDWARE\LED -I..\MiniBalance_HARDWARE\KEY -I..\MiniBalance_HARDWARE\ADC -I..\MiniBalance_HARDWARE\MOTOR -I..\MiniBalance_HARDWARE\TIMER -I..\MiniBalance_HARDWARE\EXTI -I..\MiniBalance\DataScope_DP -I..\MiniBalance\filter -I..\MiniBalance_HARDWARE\STMFLASH -I..\MiniBalance_HARDWARE\USARTX -I..\MiniBalance_HARDWARE\NRF24L01 -I..\MiniBalance_HARDWARE\SPI -I..\MiniBalance_HARDWARE\CAN -I..\MiniBalance\Experiment-I D:\Project\vejoe\Balance_CarSoft\User\RTE-I "D:\Program Files\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\Include"-I "D:\Program Files\Keil_v5\ARM\CMSIS\Include"-D__UVISION_VERSION="514" -DSTM32F10X_HD -DSTM32F10X_ -DHD -DUSE_STDPERIPH_DRIVER-o ..\obj\check_overload.o --omf_browse ..\obj\check_overload.crf --depend ..\obj\check_overload.d)
 I (Check_OverLoad.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\TIMER\timer.h)(0x59898CD6)
-I (..\SYSTEM\syss\sys.h)(0x598A7B8F)
+I (..\SYSTEM\syss\sys.h)(0x598A84AC)
 I (..\User\stm32f10x.h)(0x59898CD6)
 I (..\MiniBalance_COER\core_cm3.h)(0x59898CD6)
 I (D:\Program Files\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5475F300)
@@ -225,13 +225,13 @@ I (..\MiniBalance_HARDWARE\ENCODER\encoder.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\IIC\ioi2c.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\MPU6050\mpu6050.h)(0x59898CD6)
 I (..\MiniBalance\show\show.h)(0x59898CD6)
-I (..\MiniBalance_HARDWARE\EXTI\exti.h)(0x59898E1B)
+I (..\MiniBalance_HARDWARE\EXTI\exti.h)(0x598A83E2)
 I (..\MiniBalance\DataScope_DP\DataScope_DP.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\STMFLASH\stmflash.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\SPI\spi.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\NRF24L01\24l01.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\CAN\can.h)(0x59898CD6)
-I (..\MiniBalance\Experiment\labyrinth.h)(0x598A7F4E)
+I (..\MiniBalance\Experiment\labyrinth.h)(0x598A84C5)
 I (..\MiniBalance_HARDWARE\DMP\inv_mpu.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\DMP\inv_mpu_dmp_motion_driver.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\DMP\dmpKey.h)(0x59898CD6)
@@ -240,10 +240,10 @@ I (D:\Program Files\Keil_v5\ARM\ARMCC\include\string.h)(0x5475F300)
 I (D:\Program Files\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x5475F300)
 I (D:\Program Files\Keil_v5\ARM\ARMCC\include\math.h)(0x5475F2FE)
 I (Sensor_Test.h)(0x598A7A01)
-F (..\MiniBalance_COER\core_cm3.c)(0x59898CD6)(-c --cpu Cortex-M3 -g -O0 --apcs=interwork -I..\User -I..\MiniBalance_COER -I..\STM32F10x_FWLib\inc -I..\MiniBalance_HARDWARE -I..\SYSTEM -I..\SYSTEM\delay -I..\SYSTEM\syss -I..\SYSTEM\usart -I..\MiniBalance_HARDWARE\DMP -I..\MiniBalance_HARDWARE\IIC -I..\MiniBalance_HARDWARE\MPU6050 -I..\MiniBalance_HARDWARE\ENCODER -I..\MiniBalance_HARDWARE\OLED -I..\MiniBalance\show -I..\MiniBalance_HARDWARE\LED -I..\MiniBalance_HARDWARE\KEY -I..\MiniBalance_HARDWARE\ADC -I..\MiniBalance_HARDWARE\MOTOR -I..\MiniBalance_HARDWARE\TIMER -I..\MiniBalance_HARDWARE\EXTI -I..\MiniBalance\DataScope_DP -I..\MiniBalance\filter -I..\MiniBalance_HARDWARE\STMFLASH -I..\MiniBalance_HARDWARE\USARTX -I..\MiniBalance_HARDWARE\NRF24L01 -I..\MiniBalance_HARDWARE\SPI -I..\MiniBalance_HARDWARE\CAN -I..\MiniBalance\Experiment-I D:\Project\vejoe\Balance_CarSoft\User\RTE-I "D:\Program Files\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\Include"-I "D:\Program Files\Keil_v5\ARM\CMSIS\Include"-D__UVISION_VERSION="514" -DSTM32F10X_HD -DSTM32F10X_ -DHD -DUSE_STDPERIPH_DRIVER-o ..\obj\core_cm3.o --omf_browse ..\obj\core_cm3.crf --depend ..\obj\core_cm3.d)
+F (..\MiniBalance_COER\core_cm3.c)(0x59898CD6)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork -I..\User -I..\MiniBalance_COER -I..\STM32F10x_FWLib\inc -I..\MiniBalance_HARDWARE -I..\SYSTEM -I..\SYSTEM\delay -I..\SYSTEM\syss -I..\SYSTEM\usart -I..\MiniBalance_HARDWARE\DMP -I..\MiniBalance_HARDWARE\IIC -I..\MiniBalance_HARDWARE\MPU6050 -I..\MiniBalance_HARDWARE\ENCODER -I..\MiniBalance_HARDWARE\OLED -I..\MiniBalance\show -I..\MiniBalance_HARDWARE\LED -I..\MiniBalance_HARDWARE\KEY -I..\MiniBalance_HARDWARE\ADC -I..\MiniBalance_HARDWARE\MOTOR -I..\MiniBalance_HARDWARE\TIMER -I..\MiniBalance_HARDWARE\EXTI -I..\MiniBalance\DataScope_DP -I..\MiniBalance\filter -I..\MiniBalance_HARDWARE\STMFLASH -I..\MiniBalance_HARDWARE\USARTX -I..\MiniBalance_HARDWARE\NRF24L01 -I..\MiniBalance_HARDWARE\SPI -I..\MiniBalance_HARDWARE\CAN -I..\MiniBalance\Experiment-I D:\Project\vejoe\Balance_CarSoft\User\RTE-I "D:\Program Files\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\Include"-I "D:\Program Files\Keil_v5\ARM\CMSIS\Include"-D__UVISION_VERSION="514" -DSTM32F10X_HD -DSTM32F10X_ -DHD -DUSE_STDPERIPH_DRIVER-o ..\obj\core_cm3.o --omf_browse ..\obj\core_cm3.crf --depend ..\obj\core_cm3.d)
 I (D:\Program Files\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5475F300)
-F (..\MiniBalance_COER\startup_stm32f10x_hd.s)(0x59898CD6)(--cpu Cortex-M3 -g --apcs=interwork -I D:\Project\vejoe\Balance_CarSoft\User\RTE-I "D:\Program Files\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\Include"-I "D:\Program Files\Keil_v5\ARM\CMSIS\Include"--pd "__UVISION_VERSION SETA 514" --pd "STM32F10X_HD SETA 1"--list .\startup_stm32f10x_hd.lst --xref -o ..\obj\startup_stm32f10x_hd.o --depend ..\obj\startup_stm32f10x_hd.d)
-F (..\STM32F10x_FWLib\src\misc.c)(0x59898CD6)(-c --cpu Cortex-M3 -g -O0 --apcs=interwork -I..\User -I..\MiniBalance_COER -I..\STM32F10x_FWLib\inc -I..\MiniBalance_HARDWARE -I..\SYSTEM -I..\SYSTEM\delay -I..\SYSTEM\syss -I..\SYSTEM\usart -I..\MiniBalance_HARDWARE\DMP -I..\MiniBalance_HARDWARE\IIC -I..\MiniBalance_HARDWARE\MPU6050 -I..\MiniBalance_HARDWARE\ENCODER -I..\MiniBalance_HARDWARE\OLED -I..\MiniBalance\show -I..\MiniBalance_HARDWARE\LED -I..\MiniBalance_HARDWARE\KEY -I..\MiniBalance_HARDWARE\ADC -I..\MiniBalance_HARDWARE\MOTOR -I..\MiniBalance_HARDWARE\TIMER -I..\MiniBalance_HARDWARE\EXTI -I..\MiniBalance\DataScope_DP -I..\MiniBalance\filter -I..\MiniBalance_HARDWARE\STMFLASH -I..\MiniBalance_HARDWARE\USARTX -I..\MiniBalance_HARDWARE\NRF24L01 -I..\MiniBalance_HARDWARE\SPI -I..\MiniBalance_HARDWARE\CAN -I..\MiniBalance\Experiment-I D:\Project\vejoe\Balance_CarSoft\User\RTE-I "D:\Program Files\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\Include"-I "D:\Program Files\Keil_v5\ARM\CMSIS\Include"-D__UVISION_VERSION="514" -DSTM32F10X_HD -DSTM32F10X_ -DHD -DUSE_STDPERIPH_DRIVER-o ..\obj\misc.o --omf_browse ..\obj\misc.crf --depend ..\obj\misc.d)
+F (..\MiniBalance_COER\startup_stm32f10x_hd.s)(0x59898CD6)(--cpu Cortex-M3 -g --apcs=interwork --pd "__MICROLIB SETA 1"-I D:\Project\vejoe\Balance_CarSoft\User\RTE-I "D:\Program Files\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\Include"-I "D:\Program Files\Keil_v5\ARM\CMSIS\Include"--pd "__UVISION_VERSION SETA 514" --pd "STM32F10X_HD SETA 1"--list .\startup_stm32f10x_hd.lst --xref -o ..\obj\startup_stm32f10x_hd.o --depend ..\obj\startup_stm32f10x_hd.d)
+F (..\STM32F10x_FWLib\src\misc.c)(0x59898CD6)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork -I..\User -I..\MiniBalance_COER -I..\STM32F10x_FWLib\inc -I..\MiniBalance_HARDWARE -I..\SYSTEM -I..\SYSTEM\delay -I..\SYSTEM\syss -I..\SYSTEM\usart -I..\MiniBalance_HARDWARE\DMP -I..\MiniBalance_HARDWARE\IIC -I..\MiniBalance_HARDWARE\MPU6050 -I..\MiniBalance_HARDWARE\ENCODER -I..\MiniBalance_HARDWARE\OLED -I..\MiniBalance\show -I..\MiniBalance_HARDWARE\LED -I..\MiniBalance_HARDWARE\KEY -I..\MiniBalance_HARDWARE\ADC -I..\MiniBalance_HARDWARE\MOTOR -I..\MiniBalance_HARDWARE\TIMER -I..\MiniBalance_HARDWARE\EXTI -I..\MiniBalance\DataScope_DP -I..\MiniBalance\filter -I..\MiniBalance_HARDWARE\STMFLASH -I..\MiniBalance_HARDWARE\USARTX -I..\MiniBalance_HARDWARE\NRF24L01 -I..\MiniBalance_HARDWARE\SPI -I..\MiniBalance_HARDWARE\CAN -I..\MiniBalance\Experiment-I D:\Project\vejoe\Balance_CarSoft\User\RTE-I "D:\Program Files\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\Include"-I "D:\Program Files\Keil_v5\ARM\CMSIS\Include"-D__UVISION_VERSION="514" -DSTM32F10X_HD -DSTM32F10X_ -DHD -DUSE_STDPERIPH_DRIVER-o ..\obj\misc.o --omf_browse ..\obj\misc.crf --depend ..\obj\misc.d)
 I (..\STM32F10x_FWLib\inc\misc.h)(0x59898CD6)
 I (..\User\stm32f10x.h)(0x59898CD6)
 I (..\MiniBalance_COER\core_cm3.h)(0x59898CD6)
@@ -272,7 +272,7 @@ I (..\STM32F10x_FWLib\inc\stm32f10x_spi.h)(0x59898CD6)
 I (..\STM32F10x_FWLib\inc\stm32f10x_tim.h)(0x59898CD6)
 I (..\STM32F10x_FWLib\inc\stm32f10x_usart.h)(0x59898CD6)
 I (..\STM32F10x_FWLib\inc\stm32f10x_wwdg.h)(0x59898CD6)
-F (..\STM32F10x_FWLib\src\stm32f10x_adc.c)(0x59898CD6)(-c --cpu Cortex-M3 -g -O0 --apcs=interwork -I..\User -I..\MiniBalance_COER -I..\STM32F10x_FWLib\inc -I..\MiniBalance_HARDWARE -I..\SYSTEM -I..\SYSTEM\delay -I..\SYSTEM\syss -I..\SYSTEM\usart -I..\MiniBalance_HARDWARE\DMP -I..\MiniBalance_HARDWARE\IIC -I..\MiniBalance_HARDWARE\MPU6050 -I..\MiniBalance_HARDWARE\ENCODER -I..\MiniBalance_HARDWARE\OLED -I..\MiniBalance\show -I..\MiniBalance_HARDWARE\LED -I..\MiniBalance_HARDWARE\KEY -I..\MiniBalance_HARDWARE\ADC -I..\MiniBalance_HARDWARE\MOTOR -I..\MiniBalance_HARDWARE\TIMER -I..\MiniBalance_HARDWARE\EXTI -I..\MiniBalance\DataScope_DP -I..\MiniBalance\filter -I..\MiniBalance_HARDWARE\STMFLASH -I..\MiniBalance_HARDWARE\USARTX -I..\MiniBalance_HARDWARE\NRF24L01 -I..\MiniBalance_HARDWARE\SPI -I..\MiniBalance_HARDWARE\CAN -I..\MiniBalance\Experiment-I D:\Project\vejoe\Balance_CarSoft\User\RTE-I "D:\Program Files\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\Include"-I "D:\Program Files\Keil_v5\ARM\CMSIS\Include"-D__UVISION_VERSION="514" -DSTM32F10X_HD -DSTM32F10X_ -DHD -DUSE_STDPERIPH_DRIVER-o ..\obj\stm32f10x_adc.o --omf_browse ..\obj\stm32f10x_adc.crf --depend ..\obj\stm32f10x_adc.d)
+F (..\STM32F10x_FWLib\src\stm32f10x_adc.c)(0x59898CD6)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork -I..\User -I..\MiniBalance_COER -I..\STM32F10x_FWLib\inc -I..\MiniBalance_HARDWARE -I..\SYSTEM -I..\SYSTEM\delay -I..\SYSTEM\syss -I..\SYSTEM\usart -I..\MiniBalance_HARDWARE\DMP -I..\MiniBalance_HARDWARE\IIC -I..\MiniBalance_HARDWARE\MPU6050 -I..\MiniBalance_HARDWARE\ENCODER -I..\MiniBalance_HARDWARE\OLED -I..\MiniBalance\show -I..\MiniBalance_HARDWARE\LED -I..\MiniBalance_HARDWARE\KEY -I..\MiniBalance_HARDWARE\ADC -I..\MiniBalance_HARDWARE\MOTOR -I..\MiniBalance_HARDWARE\TIMER -I..\MiniBalance_HARDWARE\EXTI -I..\MiniBalance\DataScope_DP -I..\MiniBalance\filter -I..\MiniBalance_HARDWARE\STMFLASH -I..\MiniBalance_HARDWARE\USARTX -I..\MiniBalance_HARDWARE\NRF24L01 -I..\MiniBalance_HARDWARE\SPI -I..\MiniBalance_HARDWARE\CAN -I..\MiniBalance\Experiment-I D:\Project\vejoe\Balance_CarSoft\User\RTE-I "D:\Program Files\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\Include"-I "D:\Program Files\Keil_v5\ARM\CMSIS\Include"-D__UVISION_VERSION="514" -DSTM32F10X_HD -DSTM32F10X_ -DHD -DUSE_STDPERIPH_DRIVER-o ..\obj\stm32f10x_adc.o --omf_browse ..\obj\stm32f10x_adc.crf --depend ..\obj\stm32f10x_adc.d)
 I (..\STM32F10x_FWLib\inc\stm32f10x_adc.h)(0x59898CD6)
 I (..\User\stm32f10x.h)(0x59898CD6)
 I (..\MiniBalance_COER\core_cm3.h)(0x59898CD6)
@@ -301,7 +301,7 @@ I (..\STM32F10x_FWLib\inc\stm32f10x_tim.h)(0x59898CD6)
 I (..\STM32F10x_FWLib\inc\stm32f10x_usart.h)(0x59898CD6)
 I (..\STM32F10x_FWLib\inc\stm32f10x_wwdg.h)(0x59898CD6)
 I (..\STM32F10x_FWLib\inc\misc.h)(0x59898CD6)
-F (..\STM32F10x_FWLib\src\stm32f10x_bkp.c)(0x59898CD6)(-c --cpu Cortex-M3 -g -O0 --apcs=interwork -I..\User -I..\MiniBalance_COER -I..\STM32F10x_FWLib\inc -I..\MiniBalance_HARDWARE -I..\SYSTEM -I..\SYSTEM\delay -I..\SYSTEM\syss -I..\SYSTEM\usart -I..\MiniBalance_HARDWARE\DMP -I..\MiniBalance_HARDWARE\IIC -I..\MiniBalance_HARDWARE\MPU6050 -I..\MiniBalance_HARDWARE\ENCODER -I..\MiniBalance_HARDWARE\OLED -I..\MiniBalance\show -I..\MiniBalance_HARDWARE\LED -I..\MiniBalance_HARDWARE\KEY -I..\MiniBalance_HARDWARE\ADC -I..\MiniBalance_HARDWARE\MOTOR -I..\MiniBalance_HARDWARE\TIMER -I..\MiniBalance_HARDWARE\EXTI -I..\MiniBalance\DataScope_DP -I..\MiniBalance\filter -I..\MiniBalance_HARDWARE\STMFLASH -I..\MiniBalance_HARDWARE\USARTX -I..\MiniBalance_HARDWARE\NRF24L01 -I..\MiniBalance_HARDWARE\SPI -I..\MiniBalance_HARDWARE\CAN -I..\MiniBalance\Experiment-I D:\Project\vejoe\Balance_CarSoft\User\RTE-I "D:\Program Files\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\Include"-I "D:\Program Files\Keil_v5\ARM\CMSIS\Include"-D__UVISION_VERSION="514" -DSTM32F10X_HD -DSTM32F10X_ -DHD -DUSE_STDPERIPH_DRIVER-o ..\obj\stm32f10x_bkp.o --omf_browse ..\obj\stm32f10x_bkp.crf --depend ..\obj\stm32f10x_bkp.d)
+F (..\STM32F10x_FWLib\src\stm32f10x_bkp.c)(0x59898CD6)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork -I..\User -I..\MiniBalance_COER -I..\STM32F10x_FWLib\inc -I..\MiniBalance_HARDWARE -I..\SYSTEM -I..\SYSTEM\delay -I..\SYSTEM\syss -I..\SYSTEM\usart -I..\MiniBalance_HARDWARE\DMP -I..\MiniBalance_HARDWARE\IIC -I..\MiniBalance_HARDWARE\MPU6050 -I..\MiniBalance_HARDWARE\ENCODER -I..\MiniBalance_HARDWARE\OLED -I..\MiniBalance\show -I..\MiniBalance_HARDWARE\LED -I..\MiniBalance_HARDWARE\KEY -I..\MiniBalance_HARDWARE\ADC -I..\MiniBalance_HARDWARE\MOTOR -I..\MiniBalance_HARDWARE\TIMER -I..\MiniBalance_HARDWARE\EXTI -I..\MiniBalance\DataScope_DP -I..\MiniBalance\filter -I..\MiniBalance_HARDWARE\STMFLASH -I..\MiniBalance_HARDWARE\USARTX -I..\MiniBalance_HARDWARE\NRF24L01 -I..\MiniBalance_HARDWARE\SPI -I..\MiniBalance_HARDWARE\CAN -I..\MiniBalance\Experiment-I D:\Project\vejoe\Balance_CarSoft\User\RTE-I "D:\Program Files\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\Include"-I "D:\Program Files\Keil_v5\ARM\CMSIS\Include"-D__UVISION_VERSION="514" -DSTM32F10X_HD -DSTM32F10X_ -DHD -DUSE_STDPERIPH_DRIVER-o ..\obj\stm32f10x_bkp.o --omf_browse ..\obj\stm32f10x_bkp.crf --depend ..\obj\stm32f10x_bkp.d)
 I (..\STM32F10x_FWLib\inc\stm32f10x_bkp.h)(0x59898CD6)
 I (..\User\stm32f10x.h)(0x59898CD6)
 I (..\MiniBalance_COER\core_cm3.h)(0x59898CD6)
@@ -330,7 +330,7 @@ I (..\STM32F10x_FWLib\inc\stm32f10x_tim.h)(0x59898CD6)
 I (..\STM32F10x_FWLib\inc\stm32f10x_usart.h)(0x59898CD6)
 I (..\STM32F10x_FWLib\inc\stm32f10x_wwdg.h)(0x59898CD6)
 I (..\STM32F10x_FWLib\inc\misc.h)(0x59898CD6)
-F (..\STM32F10x_FWLib\src\stm32f10x_can.c)(0x59898CD6)(-c --cpu Cortex-M3 -g -O0 --apcs=interwork -I..\User -I..\MiniBalance_COER -I..\STM32F10x_FWLib\inc -I..\MiniBalance_HARDWARE -I..\SYSTEM -I..\SYSTEM\delay -I..\SYSTEM\syss -I..\SYSTEM\usart -I..\MiniBalance_HARDWARE\DMP -I..\MiniBalance_HARDWARE\IIC -I..\MiniBalance_HARDWARE\MPU6050 -I..\MiniBalance_HARDWARE\ENCODER -I..\MiniBalance_HARDWARE\OLED -I..\MiniBalance\show -I..\MiniBalance_HARDWARE\LED -I..\MiniBalance_HARDWARE\KEY -I..\MiniBalance_HARDWARE\ADC -I..\MiniBalance_HARDWARE\MOTOR -I..\MiniBalance_HARDWARE\TIMER -I..\MiniBalance_HARDWARE\EXTI -I..\MiniBalance\DataScope_DP -I..\MiniBalance\filter -I..\MiniBalance_HARDWARE\STMFLASH -I..\MiniBalance_HARDWARE\USARTX -I..\MiniBalance_HARDWARE\NRF24L01 -I..\MiniBalance_HARDWARE\SPI -I..\MiniBalance_HARDWARE\CAN -I..\MiniBalance\Experiment-I D:\Project\vejoe\Balance_CarSoft\User\RTE-I "D:\Program Files\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\Include"-I "D:\Program Files\Keil_v5\ARM\CMSIS\Include"-D__UVISION_VERSION="514" -DSTM32F10X_HD -DSTM32F10X_ -DHD -DUSE_STDPERIPH_DRIVER-o ..\obj\stm32f10x_can.o --omf_browse ..\obj\stm32f10x_can.crf --depend ..\obj\stm32f10x_can.d)
+F (..\STM32F10x_FWLib\src\stm32f10x_can.c)(0x59898CD6)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork -I..\User -I..\MiniBalance_COER -I..\STM32F10x_FWLib\inc -I..\MiniBalance_HARDWARE -I..\SYSTEM -I..\SYSTEM\delay -I..\SYSTEM\syss -I..\SYSTEM\usart -I..\MiniBalance_HARDWARE\DMP -I..\MiniBalance_HARDWARE\IIC -I..\MiniBalance_HARDWARE\MPU6050 -I..\MiniBalance_HARDWARE\ENCODER -I..\MiniBalance_HARDWARE\OLED -I..\MiniBalance\show -I..\MiniBalance_HARDWARE\LED -I..\MiniBalance_HARDWARE\KEY -I..\MiniBalance_HARDWARE\ADC -I..\MiniBalance_HARDWARE\MOTOR -I..\MiniBalance_HARDWARE\TIMER -I..\MiniBalance_HARDWARE\EXTI -I..\MiniBalance\DataScope_DP -I..\MiniBalance\filter -I..\MiniBalance_HARDWARE\STMFLASH -I..\MiniBalance_HARDWARE\USARTX -I..\MiniBalance_HARDWARE\NRF24L01 -I..\MiniBalance_HARDWARE\SPI -I..\MiniBalance_HARDWARE\CAN -I..\MiniBalance\Experiment-I D:\Project\vejoe\Balance_CarSoft\User\RTE-I "D:\Program Files\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\Include"-I "D:\Program Files\Keil_v5\ARM\CMSIS\Include"-D__UVISION_VERSION="514" -DSTM32F10X_HD -DSTM32F10X_ -DHD -DUSE_STDPERIPH_DRIVER-o ..\obj\stm32f10x_can.o --omf_browse ..\obj\stm32f10x_can.crf --depend ..\obj\stm32f10x_can.d)
 I (..\STM32F10x_FWLib\inc\stm32f10x_can.h)(0x59898CD6)
 I (..\User\stm32f10x.h)(0x59898CD6)
 I (..\MiniBalance_COER\core_cm3.h)(0x59898CD6)
@@ -359,7 +359,7 @@ I (..\STM32F10x_FWLib\inc\stm32f10x_tim.h)(0x59898CD6)
 I (..\STM32F10x_FWLib\inc\stm32f10x_usart.h)(0x59898CD6)
 I (..\STM32F10x_FWLib\inc\stm32f10x_wwdg.h)(0x59898CD6)
 I (..\STM32F10x_FWLib\inc\misc.h)(0x59898CD6)
-F (..\STM32F10x_FWLib\src\stm32f10x_cec.c)(0x59898CD6)(-c --cpu Cortex-M3 -g -O0 --apcs=interwork -I..\User -I..\MiniBalance_COER -I..\STM32F10x_FWLib\inc -I..\MiniBalance_HARDWARE -I..\SYSTEM -I..\SYSTEM\delay -I..\SYSTEM\syss -I..\SYSTEM\usart -I..\MiniBalance_HARDWARE\DMP -I..\MiniBalance_HARDWARE\IIC -I..\MiniBalance_HARDWARE\MPU6050 -I..\MiniBalance_HARDWARE\ENCODER -I..\MiniBalance_HARDWARE\OLED -I..\MiniBalance\show -I..\MiniBalance_HARDWARE\LED -I..\MiniBalance_HARDWARE\KEY -I..\MiniBalance_HARDWARE\ADC -I..\MiniBalance_HARDWARE\MOTOR -I..\MiniBalance_HARDWARE\TIMER -I..\MiniBalance_HARDWARE\EXTI -I..\MiniBalance\DataScope_DP -I..\MiniBalance\filter -I..\MiniBalance_HARDWARE\STMFLASH -I..\MiniBalance_HARDWARE\USARTX -I..\MiniBalance_HARDWARE\NRF24L01 -I..\MiniBalance_HARDWARE\SPI -I..\MiniBalance_HARDWARE\CAN -I..\MiniBalance\Experiment-I D:\Project\vejoe\Balance_CarSoft\User\RTE-I "D:\Program Files\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\Include"-I "D:\Program Files\Keil_v5\ARM\CMSIS\Include"-D__UVISION_VERSION="514" -DSTM32F10X_HD -DSTM32F10X_ -DHD -DUSE_STDPERIPH_DRIVER-o ..\obj\stm32f10x_cec.o --omf_browse ..\obj\stm32f10x_cec.crf --depend ..\obj\stm32f10x_cec.d)
+F (..\STM32F10x_FWLib\src\stm32f10x_cec.c)(0x59898CD6)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork -I..\User -I..\MiniBalance_COER -I..\STM32F10x_FWLib\inc -I..\MiniBalance_HARDWARE -I..\SYSTEM -I..\SYSTEM\delay -I..\SYSTEM\syss -I..\SYSTEM\usart -I..\MiniBalance_HARDWARE\DMP -I..\MiniBalance_HARDWARE\IIC -I..\MiniBalance_HARDWARE\MPU6050 -I..\MiniBalance_HARDWARE\ENCODER -I..\MiniBalance_HARDWARE\OLED -I..\MiniBalance\show -I..\MiniBalance_HARDWARE\LED -I..\MiniBalance_HARDWARE\KEY -I..\MiniBalance_HARDWARE\ADC -I..\MiniBalance_HARDWARE\MOTOR -I..\MiniBalance_HARDWARE\TIMER -I..\MiniBalance_HARDWARE\EXTI -I..\MiniBalance\DataScope_DP -I..\MiniBalance\filter -I..\MiniBalance_HARDWARE\STMFLASH -I..\MiniBalance_HARDWARE\USARTX -I..\MiniBalance_HARDWARE\NRF24L01 -I..\MiniBalance_HARDWARE\SPI -I..\MiniBalance_HARDWARE\CAN -I..\MiniBalance\Experiment-I D:\Project\vejoe\Balance_CarSoft\User\RTE-I "D:\Program Files\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\Include"-I "D:\Program Files\Keil_v5\ARM\CMSIS\Include"-D__UVISION_VERSION="514" -DSTM32F10X_HD -DSTM32F10X_ -DHD -DUSE_STDPERIPH_DRIVER-o ..\obj\stm32f10x_cec.o --omf_browse ..\obj\stm32f10x_cec.crf --depend ..\obj\stm32f10x_cec.d)
 I (..\STM32F10x_FWLib\inc\stm32f10x_cec.h)(0x59898CD6)
 I (..\User\stm32f10x.h)(0x59898CD6)
 I (..\MiniBalance_COER\core_cm3.h)(0x59898CD6)
@@ -388,7 +388,7 @@ I (..\STM32F10x_FWLib\inc\stm32f10x_tim.h)(0x59898CD6)
 I (..\STM32F10x_FWLib\inc\stm32f10x_usart.h)(0x59898CD6)
 I (..\STM32F10x_FWLib\inc\stm32f10x_wwdg.h)(0x59898CD6)
 I (..\STM32F10x_FWLib\inc\misc.h)(0x59898CD6)
-F (..\STM32F10x_FWLib\src\stm32f10x_crc.c)(0x59898CD6)(-c --cpu Cortex-M3 -g -O0 --apcs=interwork -I..\User -I..\MiniBalance_COER -I..\STM32F10x_FWLib\inc -I..\MiniBalance_HARDWARE -I..\SYSTEM -I..\SYSTEM\delay -I..\SYSTEM\syss -I..\SYSTEM\usart -I..\MiniBalance_HARDWARE\DMP -I..\MiniBalance_HARDWARE\IIC -I..\MiniBalance_HARDWARE\MPU6050 -I..\MiniBalance_HARDWARE\ENCODER -I..\MiniBalance_HARDWARE\OLED -I..\MiniBalance\show -I..\MiniBalance_HARDWARE\LED -I..\MiniBalance_HARDWARE\KEY -I..\MiniBalance_HARDWARE\ADC -I..\MiniBalance_HARDWARE\MOTOR -I..\MiniBalance_HARDWARE\TIMER -I..\MiniBalance_HARDWARE\EXTI -I..\MiniBalance\DataScope_DP -I..\MiniBalance\filter -I..\MiniBalance_HARDWARE\STMFLASH -I..\MiniBalance_HARDWARE\USARTX -I..\MiniBalance_HARDWARE\NRF24L01 -I..\MiniBalance_HARDWARE\SPI -I..\MiniBalance_HARDWARE\CAN -I..\MiniBalance\Experiment-I D:\Project\vejoe\Balance_CarSoft\User\RTE-I "D:\Program Files\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\Include"-I "D:\Program Files\Keil_v5\ARM\CMSIS\Include"-D__UVISION_VERSION="514" -DSTM32F10X_HD -DSTM32F10X_ -DHD -DUSE_STDPERIPH_DRIVER-o ..\obj\stm32f10x_crc.o --omf_browse ..\obj\stm32f10x_crc.crf --depend ..\obj\stm32f10x_crc.d)
+F (..\STM32F10x_FWLib\src\stm32f10x_crc.c)(0x59898CD6)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork -I..\User -I..\MiniBalance_COER -I..\STM32F10x_FWLib\inc -I..\MiniBalance_HARDWARE -I..\SYSTEM -I..\SYSTEM\delay -I..\SYSTEM\syss -I..\SYSTEM\usart -I..\MiniBalance_HARDWARE\DMP -I..\MiniBalance_HARDWARE\IIC -I..\MiniBalance_HARDWARE\MPU6050 -I..\MiniBalance_HARDWARE\ENCODER -I..\MiniBalance_HARDWARE\OLED -I..\MiniBalance\show -I..\MiniBalance_HARDWARE\LED -I..\MiniBalance_HARDWARE\KEY -I..\MiniBalance_HARDWARE\ADC -I..\MiniBalance_HARDWARE\MOTOR -I..\MiniBalance_HARDWARE\TIMER -I..\MiniBalance_HARDWARE\EXTI -I..\MiniBalance\DataScope_DP -I..\MiniBalance\filter -I..\MiniBalance_HARDWARE\STMFLASH -I..\MiniBalance_HARDWARE\USARTX -I..\MiniBalance_HARDWARE\NRF24L01 -I..\MiniBalance_HARDWARE\SPI -I..\MiniBalance_HARDWARE\CAN -I..\MiniBalance\Experiment-I D:\Project\vejoe\Balance_CarSoft\User\RTE-I "D:\Program Files\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\Include"-I "D:\Program Files\Keil_v5\ARM\CMSIS\Include"-D__UVISION_VERSION="514" -DSTM32F10X_HD -DSTM32F10X_ -DHD -DUSE_STDPERIPH_DRIVER-o ..\obj\stm32f10x_crc.o --omf_browse ..\obj\stm32f10x_crc.crf --depend ..\obj\stm32f10x_crc.d)
 I (..\STM32F10x_FWLib\inc\stm32f10x_crc.h)(0x59898CD6)
 I (..\User\stm32f10x.h)(0x59898CD6)
 I (..\MiniBalance_COER\core_cm3.h)(0x59898CD6)
@@ -417,7 +417,7 @@ I (..\STM32F10x_FWLib\inc\stm32f10x_tim.h)(0x59898CD6)
 I (..\STM32F10x_FWLib\inc\stm32f10x_usart.h)(0x59898CD6)
 I (..\STM32F10x_FWLib\inc\stm32f10x_wwdg.h)(0x59898CD6)
 I (..\STM32F10x_FWLib\inc\misc.h)(0x59898CD6)
-F (..\STM32F10x_FWLib\src\stm32f10x_dac.c)(0x59898CD6)(-c --cpu Cortex-M3 -g -O0 --apcs=interwork -I..\User -I..\MiniBalance_COER -I..\STM32F10x_FWLib\inc -I..\MiniBalance_HARDWARE -I..\SYSTEM -I..\SYSTEM\delay -I..\SYSTEM\syss -I..\SYSTEM\usart -I..\MiniBalance_HARDWARE\DMP -I..\MiniBalance_HARDWARE\IIC -I..\MiniBalance_HARDWARE\MPU6050 -I..\MiniBalance_HARDWARE\ENCODER -I..\MiniBalance_HARDWARE\OLED -I..\MiniBalance\show -I..\MiniBalance_HARDWARE\LED -I..\MiniBalance_HARDWARE\KEY -I..\MiniBalance_HARDWARE\ADC -I..\MiniBalance_HARDWARE\MOTOR -I..\MiniBalance_HARDWARE\TIMER -I..\MiniBalance_HARDWARE\EXTI -I..\MiniBalance\DataScope_DP -I..\MiniBalance\filter -I..\MiniBalance_HARDWARE\STMFLASH -I..\MiniBalance_HARDWARE\USARTX -I..\MiniBalance_HARDWARE\NRF24L01 -I..\MiniBalance_HARDWARE\SPI -I..\MiniBalance_HARDWARE\CAN -I..\MiniBalance\Experiment-I D:\Project\vejoe\Balance_CarSoft\User\RTE-I "D:\Program Files\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\Include"-I "D:\Program Files\Keil_v5\ARM\CMSIS\Include"-D__UVISION_VERSION="514" -DSTM32F10X_HD -DSTM32F10X_ -DHD -DUSE_STDPERIPH_DRIVER-o ..\obj\stm32f10x_dac.o --omf_browse ..\obj\stm32f10x_dac.crf --depend ..\obj\stm32f10x_dac.d)
+F (..\STM32F10x_FWLib\src\stm32f10x_dac.c)(0x59898CD6)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork -I..\User -I..\MiniBalance_COER -I..\STM32F10x_FWLib\inc -I..\MiniBalance_HARDWARE -I..\SYSTEM -I..\SYSTEM\delay -I..\SYSTEM\syss -I..\SYSTEM\usart -I..\MiniBalance_HARDWARE\DMP -I..\MiniBalance_HARDWARE\IIC -I..\MiniBalance_HARDWARE\MPU6050 -I..\MiniBalance_HARDWARE\ENCODER -I..\MiniBalance_HARDWARE\OLED -I..\MiniBalance\show -I..\MiniBalance_HARDWARE\LED -I..\MiniBalance_HARDWARE\KEY -I..\MiniBalance_HARDWARE\ADC -I..\MiniBalance_HARDWARE\MOTOR -I..\MiniBalance_HARDWARE\TIMER -I..\MiniBalance_HARDWARE\EXTI -I..\MiniBalance\DataScope_DP -I..\MiniBalance\filter -I..\MiniBalance_HARDWARE\STMFLASH -I..\MiniBalance_HARDWARE\USARTX -I..\MiniBalance_HARDWARE\NRF24L01 -I..\MiniBalance_HARDWARE\SPI -I..\MiniBalance_HARDWARE\CAN -I..\MiniBalance\Experiment-I D:\Project\vejoe\Balance_CarSoft\User\RTE-I "D:\Program Files\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\Include"-I "D:\Program Files\Keil_v5\ARM\CMSIS\Include"-D__UVISION_VERSION="514" -DSTM32F10X_HD -DSTM32F10X_ -DHD -DUSE_STDPERIPH_DRIVER-o ..\obj\stm32f10x_dac.o --omf_browse ..\obj\stm32f10x_dac.crf --depend ..\obj\stm32f10x_dac.d)
 I (..\STM32F10x_FWLib\inc\stm32f10x_dac.h)(0x59898CD6)
 I (..\User\stm32f10x.h)(0x59898CD6)
 I (..\MiniBalance_COER\core_cm3.h)(0x59898CD6)
@@ -446,7 +446,7 @@ I (..\STM32F10x_FWLib\inc\stm32f10x_tim.h)(0x59898CD6)
 I (..\STM32F10x_FWLib\inc\stm32f10x_usart.h)(0x59898CD6)
 I (..\STM32F10x_FWLib\inc\stm32f10x_wwdg.h)(0x59898CD6)
 I (..\STM32F10x_FWLib\inc\misc.h)(0x59898CD6)
-F (..\STM32F10x_FWLib\src\stm32f10x_dbgmcu.c)(0x59898CD6)(-c --cpu Cortex-M3 -g -O0 --apcs=interwork -I..\User -I..\MiniBalance_COER -I..\STM32F10x_FWLib\inc -I..\MiniBalance_HARDWARE -I..\SYSTEM -I..\SYSTEM\delay -I..\SYSTEM\syss -I..\SYSTEM\usart -I..\MiniBalance_HARDWARE\DMP -I..\MiniBalance_HARDWARE\IIC -I..\MiniBalance_HARDWARE\MPU6050 -I..\MiniBalance_HARDWARE\ENCODER -I..\MiniBalance_HARDWARE\OLED -I..\MiniBalance\show -I..\MiniBalance_HARDWARE\LED -I..\MiniBalance_HARDWARE\KEY -I..\MiniBalance_HARDWARE\ADC -I..\MiniBalance_HARDWARE\MOTOR -I..\MiniBalance_HARDWARE\TIMER -I..\MiniBalance_HARDWARE\EXTI -I..\MiniBalance\DataScope_DP -I..\MiniBalance\filter -I..\MiniBalance_HARDWARE\STMFLASH -I..\MiniBalance_HARDWARE\USARTX -I..\MiniBalance_HARDWARE\NRF24L01 -I..\MiniBalance_HARDWARE\SPI -I..\MiniBalance_HARDWARE\CAN -I..\MiniBalance\Experiment-I D:\Project\vejoe\Balance_CarSoft\User\RTE-I "D:\Program Files\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\Include"-I "D:\Program Files\Keil_v5\ARM\CMSIS\Include"-D__UVISION_VERSION="514" -DSTM32F10X_HD -DSTM32F10X_ -DHD -DUSE_STDPERIPH_DRIVER-o ..\obj\stm32f10x_dbgmcu.o --omf_browse ..\obj\stm32f10x_dbgmcu.crf --depend ..\obj\stm32f10x_dbgmcu.d)
+F (..\STM32F10x_FWLib\src\stm32f10x_dbgmcu.c)(0x59898CD6)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork -I..\User -I..\MiniBalance_COER -I..\STM32F10x_FWLib\inc -I..\MiniBalance_HARDWARE -I..\SYSTEM -I..\SYSTEM\delay -I..\SYSTEM\syss -I..\SYSTEM\usart -I..\MiniBalance_HARDWARE\DMP -I..\MiniBalance_HARDWARE\IIC -I..\MiniBalance_HARDWARE\MPU6050 -I..\MiniBalance_HARDWARE\ENCODER -I..\MiniBalance_HARDWARE\OLED -I..\MiniBalance\show -I..\MiniBalance_HARDWARE\LED -I..\MiniBalance_HARDWARE\KEY -I..\MiniBalance_HARDWARE\ADC -I..\MiniBalance_HARDWARE\MOTOR -I..\MiniBalance_HARDWARE\TIMER -I..\MiniBalance_HARDWARE\EXTI -I..\MiniBalance\DataScope_DP -I..\MiniBalance\filter -I..\MiniBalance_HARDWARE\STMFLASH -I..\MiniBalance_HARDWARE\USARTX -I..\MiniBalance_HARDWARE\NRF24L01 -I..\MiniBalance_HARDWARE\SPI -I..\MiniBalance_HARDWARE\CAN -I..\MiniBalance\Experiment-I D:\Project\vejoe\Balance_CarSoft\User\RTE-I "D:\Program Files\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\Include"-I "D:\Program Files\Keil_v5\ARM\CMSIS\Include"-D__UVISION_VERSION="514" -DSTM32F10X_HD -DSTM32F10X_ -DHD -DUSE_STDPERIPH_DRIVER-o ..\obj\stm32f10x_dbgmcu.o --omf_browse ..\obj\stm32f10x_dbgmcu.crf --depend ..\obj\stm32f10x_dbgmcu.d)
 I (..\STM32F10x_FWLib\inc\stm32f10x_dbgmcu.h)(0x59898CD6)
 I (..\User\stm32f10x.h)(0x59898CD6)
 I (..\MiniBalance_COER\core_cm3.h)(0x59898CD6)
@@ -475,7 +475,7 @@ I (..\STM32F10x_FWLib\inc\stm32f10x_tim.h)(0x59898CD6)
 I (..\STM32F10x_FWLib\inc\stm32f10x_usart.h)(0x59898CD6)
 I (..\STM32F10x_FWLib\inc\stm32f10x_wwdg.h)(0x59898CD6)
 I (..\STM32F10x_FWLib\inc\misc.h)(0x59898CD6)
-F (..\STM32F10x_FWLib\src\stm32f10x_dma.c)(0x59898CD6)(-c --cpu Cortex-M3 -g -O0 --apcs=interwork -I..\User -I..\MiniBalance_COER -I..\STM32F10x_FWLib\inc -I..\MiniBalance_HARDWARE -I..\SYSTEM -I..\SYSTEM\delay -I..\SYSTEM\syss -I..\SYSTEM\usart -I..\MiniBalance_HARDWARE\DMP -I..\MiniBalance_HARDWARE\IIC -I..\MiniBalance_HARDWARE\MPU6050 -I..\MiniBalance_HARDWARE\ENCODER -I..\MiniBalance_HARDWARE\OLED -I..\MiniBalance\show -I..\MiniBalance_HARDWARE\LED -I..\MiniBalance_HARDWARE\KEY -I..\MiniBalance_HARDWARE\ADC -I..\MiniBalance_HARDWARE\MOTOR -I..\MiniBalance_HARDWARE\TIMER -I..\MiniBalance_HARDWARE\EXTI -I..\MiniBalance\DataScope_DP -I..\MiniBalance\filter -I..\MiniBalance_HARDWARE\STMFLASH -I..\MiniBalance_HARDWARE\USARTX -I..\MiniBalance_HARDWARE\NRF24L01 -I..\MiniBalance_HARDWARE\SPI -I..\MiniBalance_HARDWARE\CAN -I..\MiniBalance\Experiment-I D:\Project\vejoe\Balance_CarSoft\User\RTE-I "D:\Program Files\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\Include"-I "D:\Program Files\Keil_v5\ARM\CMSIS\Include"-D__UVISION_VERSION="514" -DSTM32F10X_HD -DSTM32F10X_ -DHD -DUSE_STDPERIPH_DRIVER-o ..\obj\stm32f10x_dma.o --omf_browse ..\obj\stm32f10x_dma.crf --depend ..\obj\stm32f10x_dma.d)
+F (..\STM32F10x_FWLib\src\stm32f10x_dma.c)(0x59898CD6)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork -I..\User -I..\MiniBalance_COER -I..\STM32F10x_FWLib\inc -I..\MiniBalance_HARDWARE -I..\SYSTEM -I..\SYSTEM\delay -I..\SYSTEM\syss -I..\SYSTEM\usart -I..\MiniBalance_HARDWARE\DMP -I..\MiniBalance_HARDWARE\IIC -I..\MiniBalance_HARDWARE\MPU6050 -I..\MiniBalance_HARDWARE\ENCODER -I..\MiniBalance_HARDWARE\OLED -I..\MiniBalance\show -I..\MiniBalance_HARDWARE\LED -I..\MiniBalance_HARDWARE\KEY -I..\MiniBalance_HARDWARE\ADC -I..\MiniBalance_HARDWARE\MOTOR -I..\MiniBalance_HARDWARE\TIMER -I..\MiniBalance_HARDWARE\EXTI -I..\MiniBalance\DataScope_DP -I..\MiniBalance\filter -I..\MiniBalance_HARDWARE\STMFLASH -I..\MiniBalance_HARDWARE\USARTX -I..\MiniBalance_HARDWARE\NRF24L01 -I..\MiniBalance_HARDWARE\SPI -I..\MiniBalance_HARDWARE\CAN -I..\MiniBalance\Experiment-I D:\Project\vejoe\Balance_CarSoft\User\RTE-I "D:\Program Files\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\Include"-I "D:\Program Files\Keil_v5\ARM\CMSIS\Include"-D__UVISION_VERSION="514" -DSTM32F10X_HD -DSTM32F10X_ -DHD -DUSE_STDPERIPH_DRIVER-o ..\obj\stm32f10x_dma.o --omf_browse ..\obj\stm32f10x_dma.crf --depend ..\obj\stm32f10x_dma.d)
 I (..\STM32F10x_FWLib\inc\stm32f10x_dma.h)(0x59898CD6)
 I (..\User\stm32f10x.h)(0x59898CD6)
 I (..\MiniBalance_COER\core_cm3.h)(0x59898CD6)
@@ -504,7 +504,7 @@ I (..\STM32F10x_FWLib\inc\stm32f10x_tim.h)(0x59898CD6)
 I (..\STM32F10x_FWLib\inc\stm32f10x_usart.h)(0x59898CD6)
 I (..\STM32F10x_FWLib\inc\stm32f10x_wwdg.h)(0x59898CD6)
 I (..\STM32F10x_FWLib\inc\misc.h)(0x59898CD6)
-F (..\STM32F10x_FWLib\src\stm32f10x_exti.c)(0x59898CD6)(-c --cpu Cortex-M3 -g -O0 --apcs=interwork -I..\User -I..\MiniBalance_COER -I..\STM32F10x_FWLib\inc -I..\MiniBalance_HARDWARE -I..\SYSTEM -I..\SYSTEM\delay -I..\SYSTEM\syss -I..\SYSTEM\usart -I..\MiniBalance_HARDWARE\DMP -I..\MiniBalance_HARDWARE\IIC -I..\MiniBalance_HARDWARE\MPU6050 -I..\MiniBalance_HARDWARE\ENCODER -I..\MiniBalance_HARDWARE\OLED -I..\MiniBalance\show -I..\MiniBalance_HARDWARE\LED -I..\MiniBalance_HARDWARE\KEY -I..\MiniBalance_HARDWARE\ADC -I..\MiniBalance_HARDWARE\MOTOR -I..\MiniBalance_HARDWARE\TIMER -I..\MiniBalance_HARDWARE\EXTI -I..\MiniBalance\DataScope_DP -I..\MiniBalance\filter -I..\MiniBalance_HARDWARE\STMFLASH -I..\MiniBalance_HARDWARE\USARTX -I..\MiniBalance_HARDWARE\NRF24L01 -I..\MiniBalance_HARDWARE\SPI -I..\MiniBalance_HARDWARE\CAN -I..\MiniBalance\Experiment-I D:\Project\vejoe\Balance_CarSoft\User\RTE-I "D:\Program Files\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\Include"-I "D:\Program Files\Keil_v5\ARM\CMSIS\Include"-D__UVISION_VERSION="514" -DSTM32F10X_HD -DSTM32F10X_ -DHD -DUSE_STDPERIPH_DRIVER-o ..\obj\stm32f10x_exti.o --omf_browse ..\obj\stm32f10x_exti.crf --depend ..\obj\stm32f10x_exti.d)
+F (..\STM32F10x_FWLib\src\stm32f10x_exti.c)(0x59898CD6)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork -I..\User -I..\MiniBalance_COER -I..\STM32F10x_FWLib\inc -I..\MiniBalance_HARDWARE -I..\SYSTEM -I..\SYSTEM\delay -I..\SYSTEM\syss -I..\SYSTEM\usart -I..\MiniBalance_HARDWARE\DMP -I..\MiniBalance_HARDWARE\IIC -I..\MiniBalance_HARDWARE\MPU6050 -I..\MiniBalance_HARDWARE\ENCODER -I..\MiniBalance_HARDWARE\OLED -I..\MiniBalance\show -I..\MiniBalance_HARDWARE\LED -I..\MiniBalance_HARDWARE\KEY -I..\MiniBalance_HARDWARE\ADC -I..\MiniBalance_HARDWARE\MOTOR -I..\MiniBalance_HARDWARE\TIMER -I..\MiniBalance_HARDWARE\EXTI -I..\MiniBalance\DataScope_DP -I..\MiniBalance\filter -I..\MiniBalance_HARDWARE\STMFLASH -I..\MiniBalance_HARDWARE\USARTX -I..\MiniBalance_HARDWARE\NRF24L01 -I..\MiniBalance_HARDWARE\SPI -I..\MiniBalance_HARDWARE\CAN -I..\MiniBalance\Experiment-I D:\Project\vejoe\Balance_CarSoft\User\RTE-I "D:\Program Files\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\Include"-I "D:\Program Files\Keil_v5\ARM\CMSIS\Include"-D__UVISION_VERSION="514" -DSTM32F10X_HD -DSTM32F10X_ -DHD -DUSE_STDPERIPH_DRIVER-o ..\obj\stm32f10x_exti.o --omf_browse ..\obj\stm32f10x_exti.crf --depend ..\obj\stm32f10x_exti.d)
 I (..\STM32F10x_FWLib\inc\stm32f10x_exti.h)(0x59898CD6)
 I (..\User\stm32f10x.h)(0x59898CD6)
 I (..\MiniBalance_COER\core_cm3.h)(0x59898CD6)
@@ -533,7 +533,7 @@ I (..\STM32F10x_FWLib\inc\stm32f10x_tim.h)(0x59898CD6)
 I (..\STM32F10x_FWLib\inc\stm32f10x_usart.h)(0x59898CD6)
 I (..\STM32F10x_FWLib\inc\stm32f10x_wwdg.h)(0x59898CD6)
 I (..\STM32F10x_FWLib\inc\misc.h)(0x59898CD6)
-F (..\STM32F10x_FWLib\src\stm32f10x_flash.c)(0x59898CD6)(-c --cpu Cortex-M3 -g -O0 --apcs=interwork -I..\User -I..\MiniBalance_COER -I..\STM32F10x_FWLib\inc -I..\MiniBalance_HARDWARE -I..\SYSTEM -I..\SYSTEM\delay -I..\SYSTEM\syss -I..\SYSTEM\usart -I..\MiniBalance_HARDWARE\DMP -I..\MiniBalance_HARDWARE\IIC -I..\MiniBalance_HARDWARE\MPU6050 -I..\MiniBalance_HARDWARE\ENCODER -I..\MiniBalance_HARDWARE\OLED -I..\MiniBalance\show -I..\MiniBalance_HARDWARE\LED -I..\MiniBalance_HARDWARE\KEY -I..\MiniBalance_HARDWARE\ADC -I..\MiniBalance_HARDWARE\MOTOR -I..\MiniBalance_HARDWARE\TIMER -I..\MiniBalance_HARDWARE\EXTI -I..\MiniBalance\DataScope_DP -I..\MiniBalance\filter -I..\MiniBalance_HARDWARE\STMFLASH -I..\MiniBalance_HARDWARE\USARTX -I..\MiniBalance_HARDWARE\NRF24L01 -I..\MiniBalance_HARDWARE\SPI -I..\MiniBalance_HARDWARE\CAN -I..\MiniBalance\Experiment-I D:\Project\vejoe\Balance_CarSoft\User\RTE-I "D:\Program Files\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\Include"-I "D:\Program Files\Keil_v5\ARM\CMSIS\Include"-D__UVISION_VERSION="514" -DSTM32F10X_HD -DSTM32F10X_ -DHD -DUSE_STDPERIPH_DRIVER-o ..\obj\stm32f10x_flash.o --omf_browse ..\obj\stm32f10x_flash.crf --depend ..\obj\stm32f10x_flash.d)
+F (..\STM32F10x_FWLib\src\stm32f10x_flash.c)(0x59898CD6)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork -I..\User -I..\MiniBalance_COER -I..\STM32F10x_FWLib\inc -I..\MiniBalance_HARDWARE -I..\SYSTEM -I..\SYSTEM\delay -I..\SYSTEM\syss -I..\SYSTEM\usart -I..\MiniBalance_HARDWARE\DMP -I..\MiniBalance_HARDWARE\IIC -I..\MiniBalance_HARDWARE\MPU6050 -I..\MiniBalance_HARDWARE\ENCODER -I..\MiniBalance_HARDWARE\OLED -I..\MiniBalance\show -I..\MiniBalance_HARDWARE\LED -I..\MiniBalance_HARDWARE\KEY -I..\MiniBalance_HARDWARE\ADC -I..\MiniBalance_HARDWARE\MOTOR -I..\MiniBalance_HARDWARE\TIMER -I..\MiniBalance_HARDWARE\EXTI -I..\MiniBalance\DataScope_DP -I..\MiniBalance\filter -I..\MiniBalance_HARDWARE\STMFLASH -I..\MiniBalance_HARDWARE\USARTX -I..\MiniBalance_HARDWARE\NRF24L01 -I..\MiniBalance_HARDWARE\SPI -I..\MiniBalance_HARDWARE\CAN -I..\MiniBalance\Experiment-I D:\Project\vejoe\Balance_CarSoft\User\RTE-I "D:\Program Files\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\Include"-I "D:\Program Files\Keil_v5\ARM\CMSIS\Include"-D__UVISION_VERSION="514" -DSTM32F10X_HD -DSTM32F10X_ -DHD -DUSE_STDPERIPH_DRIVER-o ..\obj\stm32f10x_flash.o --omf_browse ..\obj\stm32f10x_flash.crf --depend ..\obj\stm32f10x_flash.d)
 I (..\STM32F10x_FWLib\inc\stm32f10x_flash.h)(0x59898CD6)
 I (..\User\stm32f10x.h)(0x59898CD6)
 I (..\MiniBalance_COER\core_cm3.h)(0x59898CD6)
@@ -562,7 +562,7 @@ I (..\STM32F10x_FWLib\inc\stm32f10x_tim.h)(0x59898CD6)
 I (..\STM32F10x_FWLib\inc\stm32f10x_usart.h)(0x59898CD6)
 I (..\STM32F10x_FWLib\inc\stm32f10x_wwdg.h)(0x59898CD6)
 I (..\STM32F10x_FWLib\inc\misc.h)(0x59898CD6)
-F (..\STM32F10x_FWLib\src\stm32f10x_fsmc.c)(0x59898CD6)(-c --cpu Cortex-M3 -g -O0 --apcs=interwork -I..\User -I..\MiniBalance_COER -I..\STM32F10x_FWLib\inc -I..\MiniBalance_HARDWARE -I..\SYSTEM -I..\SYSTEM\delay -I..\SYSTEM\syss -I..\SYSTEM\usart -I..\MiniBalance_HARDWARE\DMP -I..\MiniBalance_HARDWARE\IIC -I..\MiniBalance_HARDWARE\MPU6050 -I..\MiniBalance_HARDWARE\ENCODER -I..\MiniBalance_HARDWARE\OLED -I..\MiniBalance\show -I..\MiniBalance_HARDWARE\LED -I..\MiniBalance_HARDWARE\KEY -I..\MiniBalance_HARDWARE\ADC -I..\MiniBalance_HARDWARE\MOTOR -I..\MiniBalance_HARDWARE\TIMER -I..\MiniBalance_HARDWARE\EXTI -I..\MiniBalance\DataScope_DP -I..\MiniBalance\filter -I..\MiniBalance_HARDWARE\STMFLASH -I..\MiniBalance_HARDWARE\USARTX -I..\MiniBalance_HARDWARE\NRF24L01 -I..\MiniBalance_HARDWARE\SPI -I..\MiniBalance_HARDWARE\CAN -I..\MiniBalance\Experiment-I D:\Project\vejoe\Balance_CarSoft\User\RTE-I "D:\Program Files\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\Include"-I "D:\Program Files\Keil_v5\ARM\CMSIS\Include"-D__UVISION_VERSION="514" -DSTM32F10X_HD -DSTM32F10X_ -DHD -DUSE_STDPERIPH_DRIVER-o ..\obj\stm32f10x_fsmc.o --omf_browse ..\obj\stm32f10x_fsmc.crf --depend ..\obj\stm32f10x_fsmc.d)
+F (..\STM32F10x_FWLib\src\stm32f10x_fsmc.c)(0x59898CD6)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork -I..\User -I..\MiniBalance_COER -I..\STM32F10x_FWLib\inc -I..\MiniBalance_HARDWARE -I..\SYSTEM -I..\SYSTEM\delay -I..\SYSTEM\syss -I..\SYSTEM\usart -I..\MiniBalance_HARDWARE\DMP -I..\MiniBalance_HARDWARE\IIC -I..\MiniBalance_HARDWARE\MPU6050 -I..\MiniBalance_HARDWARE\ENCODER -I..\MiniBalance_HARDWARE\OLED -I..\MiniBalance\show -I..\MiniBalance_HARDWARE\LED -I..\MiniBalance_HARDWARE\KEY -I..\MiniBalance_HARDWARE\ADC -I..\MiniBalance_HARDWARE\MOTOR -I..\MiniBalance_HARDWARE\TIMER -I..\MiniBalance_HARDWARE\EXTI -I..\MiniBalance\DataScope_DP -I..\MiniBalance\filter -I..\MiniBalance_HARDWARE\STMFLASH -I..\MiniBalance_HARDWARE\USARTX -I..\MiniBalance_HARDWARE\NRF24L01 -I..\MiniBalance_HARDWARE\SPI -I..\MiniBalance_HARDWARE\CAN -I..\MiniBalance\Experiment-I D:\Project\vejoe\Balance_CarSoft\User\RTE-I "D:\Program Files\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\Include"-I "D:\Program Files\Keil_v5\ARM\CMSIS\Include"-D__UVISION_VERSION="514" -DSTM32F10X_HD -DSTM32F10X_ -DHD -DUSE_STDPERIPH_DRIVER-o ..\obj\stm32f10x_fsmc.o --omf_browse ..\obj\stm32f10x_fsmc.crf --depend ..\obj\stm32f10x_fsmc.d)
 I (..\STM32F10x_FWLib\inc\stm32f10x_fsmc.h)(0x59898CD6)
 I (..\User\stm32f10x.h)(0x59898CD6)
 I (..\MiniBalance_COER\core_cm3.h)(0x59898CD6)
@@ -591,7 +591,7 @@ I (..\STM32F10x_FWLib\inc\stm32f10x_tim.h)(0x59898CD6)
 I (..\STM32F10x_FWLib\inc\stm32f10x_usart.h)(0x59898CD6)
 I (..\STM32F10x_FWLib\inc\stm32f10x_wwdg.h)(0x59898CD6)
 I (..\STM32F10x_FWLib\inc\misc.h)(0x59898CD6)
-F (..\STM32F10x_FWLib\src\stm32f10x_gpio.c)(0x59898CD6)(-c --cpu Cortex-M3 -g -O0 --apcs=interwork -I..\User -I..\MiniBalance_COER -I..\STM32F10x_FWLib\inc -I..\MiniBalance_HARDWARE -I..\SYSTEM -I..\SYSTEM\delay -I..\SYSTEM\syss -I..\SYSTEM\usart -I..\MiniBalance_HARDWARE\DMP -I..\MiniBalance_HARDWARE\IIC -I..\MiniBalance_HARDWARE\MPU6050 -I..\MiniBalance_HARDWARE\ENCODER -I..\MiniBalance_HARDWARE\OLED -I..\MiniBalance\show -I..\MiniBalance_HARDWARE\LED -I..\MiniBalance_HARDWARE\KEY -I..\MiniBalance_HARDWARE\ADC -I..\MiniBalance_HARDWARE\MOTOR -I..\MiniBalance_HARDWARE\TIMER -I..\MiniBalance_HARDWARE\EXTI -I..\MiniBalance\DataScope_DP -I..\MiniBalance\filter -I..\MiniBalance_HARDWARE\STMFLASH -I..\MiniBalance_HARDWARE\USARTX -I..\MiniBalance_HARDWARE\NRF24L01 -I..\MiniBalance_HARDWARE\SPI -I..\MiniBalance_HARDWARE\CAN -I..\MiniBalance\Experiment-I D:\Project\vejoe\Balance_CarSoft\User\RTE-I "D:\Program Files\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\Include"-I "D:\Program Files\Keil_v5\ARM\CMSIS\Include"-D__UVISION_VERSION="514" -DSTM32F10X_HD -DSTM32F10X_ -DHD -DUSE_STDPERIPH_DRIVER-o ..\obj\stm32f10x_gpio.o --omf_browse ..\obj\stm32f10x_gpio.crf --depend ..\obj\stm32f10x_gpio.d)
+F (..\STM32F10x_FWLib\src\stm32f10x_gpio.c)(0x59898CD6)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork -I..\User -I..\MiniBalance_COER -I..\STM32F10x_FWLib\inc -I..\MiniBalance_HARDWARE -I..\SYSTEM -I..\SYSTEM\delay -I..\SYSTEM\syss -I..\SYSTEM\usart -I..\MiniBalance_HARDWARE\DMP -I..\MiniBalance_HARDWARE\IIC -I..\MiniBalance_HARDWARE\MPU6050 -I..\MiniBalance_HARDWARE\ENCODER -I..\MiniBalance_HARDWARE\OLED -I..\MiniBalance\show -I..\MiniBalance_HARDWARE\LED -I..\MiniBalance_HARDWARE\KEY -I..\MiniBalance_HARDWARE\ADC -I..\MiniBalance_HARDWARE\MOTOR -I..\MiniBalance_HARDWARE\TIMER -I..\MiniBalance_HARDWARE\EXTI -I..\MiniBalance\DataScope_DP -I..\MiniBalance\filter -I..\MiniBalance_HARDWARE\STMFLASH -I..\MiniBalance_HARDWARE\USARTX -I..\MiniBalance_HARDWARE\NRF24L01 -I..\MiniBalance_HARDWARE\SPI -I..\MiniBalance_HARDWARE\CAN -I..\MiniBalance\Experiment-I D:\Project\vejoe\Balance_CarSoft\User\RTE-I "D:\Program Files\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\Include"-I "D:\Program Files\Keil_v5\ARM\CMSIS\Include"-D__UVISION_VERSION="514" -DSTM32F10X_HD -DSTM32F10X_ -DHD -DUSE_STDPERIPH_DRIVER-o ..\obj\stm32f10x_gpio.o --omf_browse ..\obj\stm32f10x_gpio.crf --depend ..\obj\stm32f10x_gpio.d)
 I (..\STM32F10x_FWLib\inc\stm32f10x_gpio.h)(0x59898CD6)
 I (..\User\stm32f10x.h)(0x59898CD6)
 I (..\MiniBalance_COER\core_cm3.h)(0x59898CD6)
@@ -620,7 +620,7 @@ I (..\STM32F10x_FWLib\inc\stm32f10x_tim.h)(0x59898CD6)
 I (..\STM32F10x_FWLib\inc\stm32f10x_usart.h)(0x59898CD6)
 I (..\STM32F10x_FWLib\inc\stm32f10x_wwdg.h)(0x59898CD6)
 I (..\STM32F10x_FWLib\inc\misc.h)(0x59898CD6)
-F (..\STM32F10x_FWLib\src\stm32f10x_i2c.c)(0x59898CD6)(-c --cpu Cortex-M3 -g -O0 --apcs=interwork -I..\User -I..\MiniBalance_COER -I..\STM32F10x_FWLib\inc -I..\MiniBalance_HARDWARE -I..\SYSTEM -I..\SYSTEM\delay -I..\SYSTEM\syss -I..\SYSTEM\usart -I..\MiniBalance_HARDWARE\DMP -I..\MiniBalance_HARDWARE\IIC -I..\MiniBalance_HARDWARE\MPU6050 -I..\MiniBalance_HARDWARE\ENCODER -I..\MiniBalance_HARDWARE\OLED -I..\MiniBalance\show -I..\MiniBalance_HARDWARE\LED -I..\MiniBalance_HARDWARE\KEY -I..\MiniBalance_HARDWARE\ADC -I..\MiniBalance_HARDWARE\MOTOR -I..\MiniBalance_HARDWARE\TIMER -I..\MiniBalance_HARDWARE\EXTI -I..\MiniBalance\DataScope_DP -I..\MiniBalance\filter -I..\MiniBalance_HARDWARE\STMFLASH -I..\MiniBalance_HARDWARE\USARTX -I..\MiniBalance_HARDWARE\NRF24L01 -I..\MiniBalance_HARDWARE\SPI -I..\MiniBalance_HARDWARE\CAN -I..\MiniBalance\Experiment-I D:\Project\vejoe\Balance_CarSoft\User\RTE-I "D:\Program Files\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\Include"-I "D:\Program Files\Keil_v5\ARM\CMSIS\Include"-D__UVISION_VERSION="514" -DSTM32F10X_HD -DSTM32F10X_ -DHD -DUSE_STDPERIPH_DRIVER-o ..\obj\stm32f10x_i2c.o --omf_browse ..\obj\stm32f10x_i2c.crf --depend ..\obj\stm32f10x_i2c.d)
+F (..\STM32F10x_FWLib\src\stm32f10x_i2c.c)(0x59898CD6)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork -I..\User -I..\MiniBalance_COER -I..\STM32F10x_FWLib\inc -I..\MiniBalance_HARDWARE -I..\SYSTEM -I..\SYSTEM\delay -I..\SYSTEM\syss -I..\SYSTEM\usart -I..\MiniBalance_HARDWARE\DMP -I..\MiniBalance_HARDWARE\IIC -I..\MiniBalance_HARDWARE\MPU6050 -I..\MiniBalance_HARDWARE\ENCODER -I..\MiniBalance_HARDWARE\OLED -I..\MiniBalance\show -I..\MiniBalance_HARDWARE\LED -I..\MiniBalance_HARDWARE\KEY -I..\MiniBalance_HARDWARE\ADC -I..\MiniBalance_HARDWARE\MOTOR -I..\MiniBalance_HARDWARE\TIMER -I..\MiniBalance_HARDWARE\EXTI -I..\MiniBalance\DataScope_DP -I..\MiniBalance\filter -I..\MiniBalance_HARDWARE\STMFLASH -I..\MiniBalance_HARDWARE\USARTX -I..\MiniBalance_HARDWARE\NRF24L01 -I..\MiniBalance_HARDWARE\SPI -I..\MiniBalance_HARDWARE\CAN -I..\MiniBalance\Experiment-I D:\Project\vejoe\Balance_CarSoft\User\RTE-I "D:\Program Files\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\Include"-I "D:\Program Files\Keil_v5\ARM\CMSIS\Include"-D__UVISION_VERSION="514" -DSTM32F10X_HD -DSTM32F10X_ -DHD -DUSE_STDPERIPH_DRIVER-o ..\obj\stm32f10x_i2c.o --omf_browse ..\obj\stm32f10x_i2c.crf --depend ..\obj\stm32f10x_i2c.d)
 I (..\STM32F10x_FWLib\inc\stm32f10x_i2c.h)(0x59898CD6)
 I (..\User\stm32f10x.h)(0x59898CD6)
 I (..\MiniBalance_COER\core_cm3.h)(0x59898CD6)
@@ -649,7 +649,7 @@ I (..\STM32F10x_FWLib\inc\stm32f10x_tim.h)(0x59898CD6)
 I (..\STM32F10x_FWLib\inc\stm32f10x_usart.h)(0x59898CD6)
 I (..\STM32F10x_FWLib\inc\stm32f10x_wwdg.h)(0x59898CD6)
 I (..\STM32F10x_FWLib\inc\misc.h)(0x59898CD6)
-F (..\STM32F10x_FWLib\src\stm32f10x_iwdg.c)(0x59898CD6)(-c --cpu Cortex-M3 -g -O0 --apcs=interwork -I..\User -I..\MiniBalance_COER -I..\STM32F10x_FWLib\inc -I..\MiniBalance_HARDWARE -I..\SYSTEM -I..\SYSTEM\delay -I..\SYSTEM\syss -I..\SYSTEM\usart -I..\MiniBalance_HARDWARE\DMP -I..\MiniBalance_HARDWARE\IIC -I..\MiniBalance_HARDWARE\MPU6050 -I..\MiniBalance_HARDWARE\ENCODER -I..\MiniBalance_HARDWARE\OLED -I..\MiniBalance\show -I..\MiniBalance_HARDWARE\LED -I..\MiniBalance_HARDWARE\KEY -I..\MiniBalance_HARDWARE\ADC -I..\MiniBalance_HARDWARE\MOTOR -I..\MiniBalance_HARDWARE\TIMER -I..\MiniBalance_HARDWARE\EXTI -I..\MiniBalance\DataScope_DP -I..\MiniBalance\filter -I..\MiniBalance_HARDWARE\STMFLASH -I..\MiniBalance_HARDWARE\USARTX -I..\MiniBalance_HARDWARE\NRF24L01 -I..\MiniBalance_HARDWARE\SPI -I..\MiniBalance_HARDWARE\CAN -I..\MiniBalance\Experiment-I D:\Project\vejoe\Balance_CarSoft\User\RTE-I "D:\Program Files\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\Include"-I "D:\Program Files\Keil_v5\ARM\CMSIS\Include"-D__UVISION_VERSION="514" -DSTM32F10X_HD -DSTM32F10X_ -DHD -DUSE_STDPERIPH_DRIVER-o ..\obj\stm32f10x_iwdg.o --omf_browse ..\obj\stm32f10x_iwdg.crf --depend ..\obj\stm32f10x_iwdg.d)
+F (..\STM32F10x_FWLib\src\stm32f10x_iwdg.c)(0x59898CD6)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork -I..\User -I..\MiniBalance_COER -I..\STM32F10x_FWLib\inc -I..\MiniBalance_HARDWARE -I..\SYSTEM -I..\SYSTEM\delay -I..\SYSTEM\syss -I..\SYSTEM\usart -I..\MiniBalance_HARDWARE\DMP -I..\MiniBalance_HARDWARE\IIC -I..\MiniBalance_HARDWARE\MPU6050 -I..\MiniBalance_HARDWARE\ENCODER -I..\MiniBalance_HARDWARE\OLED -I..\MiniBalance\show -I..\MiniBalance_HARDWARE\LED -I..\MiniBalance_HARDWARE\KEY -I..\MiniBalance_HARDWARE\ADC -I..\MiniBalance_HARDWARE\MOTOR -I..\MiniBalance_HARDWARE\TIMER -I..\MiniBalance_HARDWARE\EXTI -I..\MiniBalance\DataScope_DP -I..\MiniBalance\filter -I..\MiniBalance_HARDWARE\STMFLASH -I..\MiniBalance_HARDWARE\USARTX -I..\MiniBalance_HARDWARE\NRF24L01 -I..\MiniBalance_HARDWARE\SPI -I..\MiniBalance_HARDWARE\CAN -I..\MiniBalance\Experiment-I D:\Project\vejoe\Balance_CarSoft\User\RTE-I "D:\Program Files\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\Include"-I "D:\Program Files\Keil_v5\ARM\CMSIS\Include"-D__UVISION_VERSION="514" -DSTM32F10X_HD -DSTM32F10X_ -DHD -DUSE_STDPERIPH_DRIVER-o ..\obj\stm32f10x_iwdg.o --omf_browse ..\obj\stm32f10x_iwdg.crf --depend ..\obj\stm32f10x_iwdg.d)
 I (..\STM32F10x_FWLib\inc\stm32f10x_iwdg.h)(0x59898CD6)
 I (..\User\stm32f10x.h)(0x59898CD6)
 I (..\MiniBalance_COER\core_cm3.h)(0x59898CD6)
@@ -678,7 +678,7 @@ I (..\STM32F10x_FWLib\inc\stm32f10x_tim.h)(0x59898CD6)
 I (..\STM32F10x_FWLib\inc\stm32f10x_usart.h)(0x59898CD6)
 I (..\STM32F10x_FWLib\inc\stm32f10x_wwdg.h)(0x59898CD6)
 I (..\STM32F10x_FWLib\inc\misc.h)(0x59898CD6)
-F (..\STM32F10x_FWLib\src\stm32f10x_pwr.c)(0x59898CD6)(-c --cpu Cortex-M3 -g -O0 --apcs=interwork -I..\User -I..\MiniBalance_COER -I..\STM32F10x_FWLib\inc -I..\MiniBalance_HARDWARE -I..\SYSTEM -I..\SYSTEM\delay -I..\SYSTEM\syss -I..\SYSTEM\usart -I..\MiniBalance_HARDWARE\DMP -I..\MiniBalance_HARDWARE\IIC -I..\MiniBalance_HARDWARE\MPU6050 -I..\MiniBalance_HARDWARE\ENCODER -I..\MiniBalance_HARDWARE\OLED -I..\MiniBalance\show -I..\MiniBalance_HARDWARE\LED -I..\MiniBalance_HARDWARE\KEY -I..\MiniBalance_HARDWARE\ADC -I..\MiniBalance_HARDWARE\MOTOR -I..\MiniBalance_HARDWARE\TIMER -I..\MiniBalance_HARDWARE\EXTI -I..\MiniBalance\DataScope_DP -I..\MiniBalance\filter -I..\MiniBalance_HARDWARE\STMFLASH -I..\MiniBalance_HARDWARE\USARTX -I..\MiniBalance_HARDWARE\NRF24L01 -I..\MiniBalance_HARDWARE\SPI -I..\MiniBalance_HARDWARE\CAN -I..\MiniBalance\Experiment-I D:\Project\vejoe\Balance_CarSoft\User\RTE-I "D:\Program Files\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\Include"-I "D:\Program Files\Keil_v5\ARM\CMSIS\Include"-D__UVISION_VERSION="514" -DSTM32F10X_HD -DSTM32F10X_ -DHD -DUSE_STDPERIPH_DRIVER-o ..\obj\stm32f10x_pwr.o --omf_browse ..\obj\stm32f10x_pwr.crf --depend ..\obj\stm32f10x_pwr.d)
+F (..\STM32F10x_FWLib\src\stm32f10x_pwr.c)(0x59898CD6)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork -I..\User -I..\MiniBalance_COER -I..\STM32F10x_FWLib\inc -I..\MiniBalance_HARDWARE -I..\SYSTEM -I..\SYSTEM\delay -I..\SYSTEM\syss -I..\SYSTEM\usart -I..\MiniBalance_HARDWARE\DMP -I..\MiniBalance_HARDWARE\IIC -I..\MiniBalance_HARDWARE\MPU6050 -I..\MiniBalance_HARDWARE\ENCODER -I..\MiniBalance_HARDWARE\OLED -I..\MiniBalance\show -I..\MiniBalance_HARDWARE\LED -I..\MiniBalance_HARDWARE\KEY -I..\MiniBalance_HARDWARE\ADC -I..\MiniBalance_HARDWARE\MOTOR -I..\MiniBalance_HARDWARE\TIMER -I..\MiniBalance_HARDWARE\EXTI -I..\MiniBalance\DataScope_DP -I..\MiniBalance\filter -I..\MiniBalance_HARDWARE\STMFLASH -I..\MiniBalance_HARDWARE\USARTX -I..\MiniBalance_HARDWARE\NRF24L01 -I..\MiniBalance_HARDWARE\SPI -I..\MiniBalance_HARDWARE\CAN -I..\MiniBalance\Experiment-I D:\Project\vejoe\Balance_CarSoft\User\RTE-I "D:\Program Files\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\Include"-I "D:\Program Files\Keil_v5\ARM\CMSIS\Include"-D__UVISION_VERSION="514" -DSTM32F10X_HD -DSTM32F10X_ -DHD -DUSE_STDPERIPH_DRIVER-o ..\obj\stm32f10x_pwr.o --omf_browse ..\obj\stm32f10x_pwr.crf --depend ..\obj\stm32f10x_pwr.d)
 I (..\STM32F10x_FWLib\inc\stm32f10x_pwr.h)(0x59898CD6)
 I (..\User\stm32f10x.h)(0x59898CD6)
 I (..\MiniBalance_COER\core_cm3.h)(0x59898CD6)
@@ -707,7 +707,7 @@ I (..\STM32F10x_FWLib\inc\stm32f10x_tim.h)(0x59898CD6)
 I (..\STM32F10x_FWLib\inc\stm32f10x_usart.h)(0x59898CD6)
 I (..\STM32F10x_FWLib\inc\stm32f10x_wwdg.h)(0x59898CD6)
 I (..\STM32F10x_FWLib\inc\misc.h)(0x59898CD6)
-F (..\STM32F10x_FWLib\src\stm32f10x_rcc.c)(0x59898CD6)(-c --cpu Cortex-M3 -g -O0 --apcs=interwork -I..\User -I..\MiniBalance_COER -I..\STM32F10x_FWLib\inc -I..\MiniBalance_HARDWARE -I..\SYSTEM -I..\SYSTEM\delay -I..\SYSTEM\syss -I..\SYSTEM\usart -I..\MiniBalance_HARDWARE\DMP -I..\MiniBalance_HARDWARE\IIC -I..\MiniBalance_HARDWARE\MPU6050 -I..\MiniBalance_HARDWARE\ENCODER -I..\MiniBalance_HARDWARE\OLED -I..\MiniBalance\show -I..\MiniBalance_HARDWARE\LED -I..\MiniBalance_HARDWARE\KEY -I..\MiniBalance_HARDWARE\ADC -I..\MiniBalance_HARDWARE\MOTOR -I..\MiniBalance_HARDWARE\TIMER -I..\MiniBalance_HARDWARE\EXTI -I..\MiniBalance\DataScope_DP -I..\MiniBalance\filter -I..\MiniBalance_HARDWARE\STMFLASH -I..\MiniBalance_HARDWARE\USARTX -I..\MiniBalance_HARDWARE\NRF24L01 -I..\MiniBalance_HARDWARE\SPI -I..\MiniBalance_HARDWARE\CAN -I..\MiniBalance\Experiment-I D:\Project\vejoe\Balance_CarSoft\User\RTE-I "D:\Program Files\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\Include"-I "D:\Program Files\Keil_v5\ARM\CMSIS\Include"-D__UVISION_VERSION="514" -DSTM32F10X_HD -DSTM32F10X_ -DHD -DUSE_STDPERIPH_DRIVER-o ..\obj\stm32f10x_rcc.o --omf_browse ..\obj\stm32f10x_rcc.crf --depend ..\obj\stm32f10x_rcc.d)
+F (..\STM32F10x_FWLib\src\stm32f10x_rcc.c)(0x59898CD6)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork -I..\User -I..\MiniBalance_COER -I..\STM32F10x_FWLib\inc -I..\MiniBalance_HARDWARE -I..\SYSTEM -I..\SYSTEM\delay -I..\SYSTEM\syss -I..\SYSTEM\usart -I..\MiniBalance_HARDWARE\DMP -I..\MiniBalance_HARDWARE\IIC -I..\MiniBalance_HARDWARE\MPU6050 -I..\MiniBalance_HARDWARE\ENCODER -I..\MiniBalance_HARDWARE\OLED -I..\MiniBalance\show -I..\MiniBalance_HARDWARE\LED -I..\MiniBalance_HARDWARE\KEY -I..\MiniBalance_HARDWARE\ADC -I..\MiniBalance_HARDWARE\MOTOR -I..\MiniBalance_HARDWARE\TIMER -I..\MiniBalance_HARDWARE\EXTI -I..\MiniBalance\DataScope_DP -I..\MiniBalance\filter -I..\MiniBalance_HARDWARE\STMFLASH -I..\MiniBalance_HARDWARE\USARTX -I..\MiniBalance_HARDWARE\NRF24L01 -I..\MiniBalance_HARDWARE\SPI -I..\MiniBalance_HARDWARE\CAN -I..\MiniBalance\Experiment-I D:\Project\vejoe\Balance_CarSoft\User\RTE-I "D:\Program Files\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\Include"-I "D:\Program Files\Keil_v5\ARM\CMSIS\Include"-D__UVISION_VERSION="514" -DSTM32F10X_HD -DSTM32F10X_ -DHD -DUSE_STDPERIPH_DRIVER-o ..\obj\stm32f10x_rcc.o --omf_browse ..\obj\stm32f10x_rcc.crf --depend ..\obj\stm32f10x_rcc.d)
 I (..\STM32F10x_FWLib\inc\stm32f10x_rcc.h)(0x59898CD6)
 I (..\User\stm32f10x.h)(0x59898CD6)
 I (..\MiniBalance_COER\core_cm3.h)(0x59898CD6)
@@ -736,7 +736,7 @@ I (..\STM32F10x_FWLib\inc\stm32f10x_tim.h)(0x59898CD6)
 I (..\STM32F10x_FWLib\inc\stm32f10x_usart.h)(0x59898CD6)
 I (..\STM32F10x_FWLib\inc\stm32f10x_wwdg.h)(0x59898CD6)
 I (..\STM32F10x_FWLib\inc\misc.h)(0x59898CD6)
-F (..\STM32F10x_FWLib\src\stm32f10x_rtc.c)(0x59898CD6)(-c --cpu Cortex-M3 -g -O0 --apcs=interwork -I..\User -I..\MiniBalance_COER -I..\STM32F10x_FWLib\inc -I..\MiniBalance_HARDWARE -I..\SYSTEM -I..\SYSTEM\delay -I..\SYSTEM\syss -I..\SYSTEM\usart -I..\MiniBalance_HARDWARE\DMP -I..\MiniBalance_HARDWARE\IIC -I..\MiniBalance_HARDWARE\MPU6050 -I..\MiniBalance_HARDWARE\ENCODER -I..\MiniBalance_HARDWARE\OLED -I..\MiniBalance\show -I..\MiniBalance_HARDWARE\LED -I..\MiniBalance_HARDWARE\KEY -I..\MiniBalance_HARDWARE\ADC -I..\MiniBalance_HARDWARE\MOTOR -I..\MiniBalance_HARDWARE\TIMER -I..\MiniBalance_HARDWARE\EXTI -I..\MiniBalance\DataScope_DP -I..\MiniBalance\filter -I..\MiniBalance_HARDWARE\STMFLASH -I..\MiniBalance_HARDWARE\USARTX -I..\MiniBalance_HARDWARE\NRF24L01 -I..\MiniBalance_HARDWARE\SPI -I..\MiniBalance_HARDWARE\CAN -I..\MiniBalance\Experiment-I D:\Project\vejoe\Balance_CarSoft\User\RTE-I "D:\Program Files\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\Include"-I "D:\Program Files\Keil_v5\ARM\CMSIS\Include"-D__UVISION_VERSION="514" -DSTM32F10X_HD -DSTM32F10X_ -DHD -DUSE_STDPERIPH_DRIVER-o ..\obj\stm32f10x_rtc.o --omf_browse ..\obj\stm32f10x_rtc.crf --depend ..\obj\stm32f10x_rtc.d)
+F (..\STM32F10x_FWLib\src\stm32f10x_rtc.c)(0x59898CD6)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork -I..\User -I..\MiniBalance_COER -I..\STM32F10x_FWLib\inc -I..\MiniBalance_HARDWARE -I..\SYSTEM -I..\SYSTEM\delay -I..\SYSTEM\syss -I..\SYSTEM\usart -I..\MiniBalance_HARDWARE\DMP -I..\MiniBalance_HARDWARE\IIC -I..\MiniBalance_HARDWARE\MPU6050 -I..\MiniBalance_HARDWARE\ENCODER -I..\MiniBalance_HARDWARE\OLED -I..\MiniBalance\show -I..\MiniBalance_HARDWARE\LED -I..\MiniBalance_HARDWARE\KEY -I..\MiniBalance_HARDWARE\ADC -I..\MiniBalance_HARDWARE\MOTOR -I..\MiniBalance_HARDWARE\TIMER -I..\MiniBalance_HARDWARE\EXTI -I..\MiniBalance\DataScope_DP -I..\MiniBalance\filter -I..\MiniBalance_HARDWARE\STMFLASH -I..\MiniBalance_HARDWARE\USARTX -I..\MiniBalance_HARDWARE\NRF24L01 -I..\MiniBalance_HARDWARE\SPI -I..\MiniBalance_HARDWARE\CAN -I..\MiniBalance\Experiment-I D:\Project\vejoe\Balance_CarSoft\User\RTE-I "D:\Program Files\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\Include"-I "D:\Program Files\Keil_v5\ARM\CMSIS\Include"-D__UVISION_VERSION="514" -DSTM32F10X_HD -DSTM32F10X_ -DHD -DUSE_STDPERIPH_DRIVER-o ..\obj\stm32f10x_rtc.o --omf_browse ..\obj\stm32f10x_rtc.crf --depend ..\obj\stm32f10x_rtc.d)
 I (..\STM32F10x_FWLib\inc\stm32f10x_rtc.h)(0x59898CD6)
 I (..\User\stm32f10x.h)(0x59898CD6)
 I (..\MiniBalance_COER\core_cm3.h)(0x59898CD6)
@@ -765,7 +765,7 @@ I (..\STM32F10x_FWLib\inc\stm32f10x_tim.h)(0x59898CD6)
 I (..\STM32F10x_FWLib\inc\stm32f10x_usart.h)(0x59898CD6)
 I (..\STM32F10x_FWLib\inc\stm32f10x_wwdg.h)(0x59898CD6)
 I (..\STM32F10x_FWLib\inc\misc.h)(0x59898CD6)
-F (..\STM32F10x_FWLib\src\stm32f10x_sdio.c)(0x59898CD6)(-c --cpu Cortex-M3 -g -O0 --apcs=interwork -I..\User -I..\MiniBalance_COER -I..\STM32F10x_FWLib\inc -I..\MiniBalance_HARDWARE -I..\SYSTEM -I..\SYSTEM\delay -I..\SYSTEM\syss -I..\SYSTEM\usart -I..\MiniBalance_HARDWARE\DMP -I..\MiniBalance_HARDWARE\IIC -I..\MiniBalance_HARDWARE\MPU6050 -I..\MiniBalance_HARDWARE\ENCODER -I..\MiniBalance_HARDWARE\OLED -I..\MiniBalance\show -I..\MiniBalance_HARDWARE\LED -I..\MiniBalance_HARDWARE\KEY -I..\MiniBalance_HARDWARE\ADC -I..\MiniBalance_HARDWARE\MOTOR -I..\MiniBalance_HARDWARE\TIMER -I..\MiniBalance_HARDWARE\EXTI -I..\MiniBalance\DataScope_DP -I..\MiniBalance\filter -I..\MiniBalance_HARDWARE\STMFLASH -I..\MiniBalance_HARDWARE\USARTX -I..\MiniBalance_HARDWARE\NRF24L01 -I..\MiniBalance_HARDWARE\SPI -I..\MiniBalance_HARDWARE\CAN -I..\MiniBalance\Experiment-I D:\Project\vejoe\Balance_CarSoft\User\RTE-I "D:\Program Files\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\Include"-I "D:\Program Files\Keil_v5\ARM\CMSIS\Include"-D__UVISION_VERSION="514" -DSTM32F10X_HD -DSTM32F10X_ -DHD -DUSE_STDPERIPH_DRIVER-o ..\obj\stm32f10x_sdio.o --omf_browse ..\obj\stm32f10x_sdio.crf --depend ..\obj\stm32f10x_sdio.d)
+F (..\STM32F10x_FWLib\src\stm32f10x_sdio.c)(0x59898CD6)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork -I..\User -I..\MiniBalance_COER -I..\STM32F10x_FWLib\inc -I..\MiniBalance_HARDWARE -I..\SYSTEM -I..\SYSTEM\delay -I..\SYSTEM\syss -I..\SYSTEM\usart -I..\MiniBalance_HARDWARE\DMP -I..\MiniBalance_HARDWARE\IIC -I..\MiniBalance_HARDWARE\MPU6050 -I..\MiniBalance_HARDWARE\ENCODER -I..\MiniBalance_HARDWARE\OLED -I..\MiniBalance\show -I..\MiniBalance_HARDWARE\LED -I..\MiniBalance_HARDWARE\KEY -I..\MiniBalance_HARDWARE\ADC -I..\MiniBalance_HARDWARE\MOTOR -I..\MiniBalance_HARDWARE\TIMER -I..\MiniBalance_HARDWARE\EXTI -I..\MiniBalance\DataScope_DP -I..\MiniBalance\filter -I..\MiniBalance_HARDWARE\STMFLASH -I..\MiniBalance_HARDWARE\USARTX -I..\MiniBalance_HARDWARE\NRF24L01 -I..\MiniBalance_HARDWARE\SPI -I..\MiniBalance_HARDWARE\CAN -I..\MiniBalance\Experiment-I D:\Project\vejoe\Balance_CarSoft\User\RTE-I "D:\Program Files\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\Include"-I "D:\Program Files\Keil_v5\ARM\CMSIS\Include"-D__UVISION_VERSION="514" -DSTM32F10X_HD -DSTM32F10X_ -DHD -DUSE_STDPERIPH_DRIVER-o ..\obj\stm32f10x_sdio.o --omf_browse ..\obj\stm32f10x_sdio.crf --depend ..\obj\stm32f10x_sdio.d)
 I (..\STM32F10x_FWLib\inc\stm32f10x_sdio.h)(0x59898CD6)
 I (..\User\stm32f10x.h)(0x59898CD6)
 I (..\MiniBalance_COER\core_cm3.h)(0x59898CD6)
@@ -794,7 +794,7 @@ I (..\STM32F10x_FWLib\inc\stm32f10x_tim.h)(0x59898CD6)
 I (..\STM32F10x_FWLib\inc\stm32f10x_usart.h)(0x59898CD6)
 I (..\STM32F10x_FWLib\inc\stm32f10x_wwdg.h)(0x59898CD6)
 I (..\STM32F10x_FWLib\inc\misc.h)(0x59898CD6)
-F (..\STM32F10x_FWLib\src\stm32f10x_spi.c)(0x59898CD6)(-c --cpu Cortex-M3 -g -O0 --apcs=interwork -I..\User -I..\MiniBalance_COER -I..\STM32F10x_FWLib\inc -I..\MiniBalance_HARDWARE -I..\SYSTEM -I..\SYSTEM\delay -I..\SYSTEM\syss -I..\SYSTEM\usart -I..\MiniBalance_HARDWARE\DMP -I..\MiniBalance_HARDWARE\IIC -I..\MiniBalance_HARDWARE\MPU6050 -I..\MiniBalance_HARDWARE\ENCODER -I..\MiniBalance_HARDWARE\OLED -I..\MiniBalance\show -I..\MiniBalance_HARDWARE\LED -I..\MiniBalance_HARDWARE\KEY -I..\MiniBalance_HARDWARE\ADC -I..\MiniBalance_HARDWARE\MOTOR -I..\MiniBalance_HARDWARE\TIMER -I..\MiniBalance_HARDWARE\EXTI -I..\MiniBalance\DataScope_DP -I..\MiniBalance\filter -I..\MiniBalance_HARDWARE\STMFLASH -I..\MiniBalance_HARDWARE\USARTX -I..\MiniBalance_HARDWARE\NRF24L01 -I..\MiniBalance_HARDWARE\SPI -I..\MiniBalance_HARDWARE\CAN -I..\MiniBalance\Experiment-I D:\Project\vejoe\Balance_CarSoft\User\RTE-I "D:\Program Files\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\Include"-I "D:\Program Files\Keil_v5\ARM\CMSIS\Include"-D__UVISION_VERSION="514" -DSTM32F10X_HD -DSTM32F10X_ -DHD -DUSE_STDPERIPH_DRIVER-o ..\obj\stm32f10x_spi.o --omf_browse ..\obj\stm32f10x_spi.crf --depend ..\obj\stm32f10x_spi.d)
+F (..\STM32F10x_FWLib\src\stm32f10x_spi.c)(0x59898CD6)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork -I..\User -I..\MiniBalance_COER -I..\STM32F10x_FWLib\inc -I..\MiniBalance_HARDWARE -I..\SYSTEM -I..\SYSTEM\delay -I..\SYSTEM\syss -I..\SYSTEM\usart -I..\MiniBalance_HARDWARE\DMP -I..\MiniBalance_HARDWARE\IIC -I..\MiniBalance_HARDWARE\MPU6050 -I..\MiniBalance_HARDWARE\ENCODER -I..\MiniBalance_HARDWARE\OLED -I..\MiniBalance\show -I..\MiniBalance_HARDWARE\LED -I..\MiniBalance_HARDWARE\KEY -I..\MiniBalance_HARDWARE\ADC -I..\MiniBalance_HARDWARE\MOTOR -I..\MiniBalance_HARDWARE\TIMER -I..\MiniBalance_HARDWARE\EXTI -I..\MiniBalance\DataScope_DP -I..\MiniBalance\filter -I..\MiniBalance_HARDWARE\STMFLASH -I..\MiniBalance_HARDWARE\USARTX -I..\MiniBalance_HARDWARE\NRF24L01 -I..\MiniBalance_HARDWARE\SPI -I..\MiniBalance_HARDWARE\CAN -I..\MiniBalance\Experiment-I D:\Project\vejoe\Balance_CarSoft\User\RTE-I "D:\Program Files\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\Include"-I "D:\Program Files\Keil_v5\ARM\CMSIS\Include"-D__UVISION_VERSION="514" -DSTM32F10X_HD -DSTM32F10X_ -DHD -DUSE_STDPERIPH_DRIVER-o ..\obj\stm32f10x_spi.o --omf_browse ..\obj\stm32f10x_spi.crf --depend ..\obj\stm32f10x_spi.d)
 I (..\STM32F10x_FWLib\inc\stm32f10x_spi.h)(0x59898CD6)
 I (..\User\stm32f10x.h)(0x59898CD6)
 I (..\MiniBalance_COER\core_cm3.h)(0x59898CD6)
@@ -823,7 +823,7 @@ I (..\STM32F10x_FWLib\inc\stm32f10x_tim.h)(0x59898CD6)
 I (..\STM32F10x_FWLib\inc\stm32f10x_usart.h)(0x59898CD6)
 I (..\STM32F10x_FWLib\inc\stm32f10x_wwdg.h)(0x59898CD6)
 I (..\STM32F10x_FWLib\inc\misc.h)(0x59898CD6)
-F (..\STM32F10x_FWLib\src\stm32f10x_tim.c)(0x59898CD6)(-c --cpu Cortex-M3 -g -O0 --apcs=interwork -I..\User -I..\MiniBalance_COER -I..\STM32F10x_FWLib\inc -I..\MiniBalance_HARDWARE -I..\SYSTEM -I..\SYSTEM\delay -I..\SYSTEM\syss -I..\SYSTEM\usart -I..\MiniBalance_HARDWARE\DMP -I..\MiniBalance_HARDWARE\IIC -I..\MiniBalance_HARDWARE\MPU6050 -I..\MiniBalance_HARDWARE\ENCODER -I..\MiniBalance_HARDWARE\OLED -I..\MiniBalance\show -I..\MiniBalance_HARDWARE\LED -I..\MiniBalance_HARDWARE\KEY -I..\MiniBalance_HARDWARE\ADC -I..\MiniBalance_HARDWARE\MOTOR -I..\MiniBalance_HARDWARE\TIMER -I..\MiniBalance_HARDWARE\EXTI -I..\MiniBalance\DataScope_DP -I..\MiniBalance\filter -I..\MiniBalance_HARDWARE\STMFLASH -I..\MiniBalance_HARDWARE\USARTX -I..\MiniBalance_HARDWARE\NRF24L01 -I..\MiniBalance_HARDWARE\SPI -I..\MiniBalance_HARDWARE\CAN -I..\MiniBalance\Experiment-I D:\Project\vejoe\Balance_CarSoft\User\RTE-I "D:\Program Files\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\Include"-I "D:\Program Files\Keil_v5\ARM\CMSIS\Include"-D__UVISION_VERSION="514" -DSTM32F10X_HD -DSTM32F10X_ -DHD -DUSE_STDPERIPH_DRIVER-o ..\obj\stm32f10x_tim.o --omf_browse ..\obj\stm32f10x_tim.crf --depend ..\obj\stm32f10x_tim.d)
+F (..\STM32F10x_FWLib\src\stm32f10x_tim.c)(0x59898CD6)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork -I..\User -I..\MiniBalance_COER -I..\STM32F10x_FWLib\inc -I..\MiniBalance_HARDWARE -I..\SYSTEM -I..\SYSTEM\delay -I..\SYSTEM\syss -I..\SYSTEM\usart -I..\MiniBalance_HARDWARE\DMP -I..\MiniBalance_HARDWARE\IIC -I..\MiniBalance_HARDWARE\MPU6050 -I..\MiniBalance_HARDWARE\ENCODER -I..\MiniBalance_HARDWARE\OLED -I..\MiniBalance\show -I..\MiniBalance_HARDWARE\LED -I..\MiniBalance_HARDWARE\KEY -I..\MiniBalance_HARDWARE\ADC -I..\MiniBalance_HARDWARE\MOTOR -I..\MiniBalance_HARDWARE\TIMER -I..\MiniBalance_HARDWARE\EXTI -I..\MiniBalance\DataScope_DP -I..\MiniBalance\filter -I..\MiniBalance_HARDWARE\STMFLASH -I..\MiniBalance_HARDWARE\USARTX -I..\MiniBalance_HARDWARE\NRF24L01 -I..\MiniBalance_HARDWARE\SPI -I..\MiniBalance_HARDWARE\CAN -I..\MiniBalance\Experiment-I D:\Project\vejoe\Balance_CarSoft\User\RTE-I "D:\Program Files\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\Include"-I "D:\Program Files\Keil_v5\ARM\CMSIS\Include"-D__UVISION_VERSION="514" -DSTM32F10X_HD -DSTM32F10X_ -DHD -DUSE_STDPERIPH_DRIVER-o ..\obj\stm32f10x_tim.o --omf_browse ..\obj\stm32f10x_tim.crf --depend ..\obj\stm32f10x_tim.d)
 I (..\STM32F10x_FWLib\inc\stm32f10x_tim.h)(0x59898CD6)
 I (..\User\stm32f10x.h)(0x59898CD6)
 I (..\MiniBalance_COER\core_cm3.h)(0x59898CD6)
@@ -852,7 +852,7 @@ I (..\STM32F10x_FWLib\inc\stm32f10x_spi.h)(0x59898CD6)
 I (..\STM32F10x_FWLib\inc\stm32f10x_usart.h)(0x59898CD6)
 I (..\STM32F10x_FWLib\inc\stm32f10x_wwdg.h)(0x59898CD6)
 I (..\STM32F10x_FWLib\inc\misc.h)(0x59898CD6)
-F (..\STM32F10x_FWLib\src\stm32f10x_usart.c)(0x59898CD6)(-c --cpu Cortex-M3 -g -O0 --apcs=interwork -I..\User -I..\MiniBalance_COER -I..\STM32F10x_FWLib\inc -I..\MiniBalance_HARDWARE -I..\SYSTEM -I..\SYSTEM\delay -I..\SYSTEM\syss -I..\SYSTEM\usart -I..\MiniBalance_HARDWARE\DMP -I..\MiniBalance_HARDWARE\IIC -I..\MiniBalance_HARDWARE\MPU6050 -I..\MiniBalance_HARDWARE\ENCODER -I..\MiniBalance_HARDWARE\OLED -I..\MiniBalance\show -I..\MiniBalance_HARDWARE\LED -I..\MiniBalance_HARDWARE\KEY -I..\MiniBalance_HARDWARE\ADC -I..\MiniBalance_HARDWARE\MOTOR -I..\MiniBalance_HARDWARE\TIMER -I..\MiniBalance_HARDWARE\EXTI -I..\MiniBalance\DataScope_DP -I..\MiniBalance\filter -I..\MiniBalance_HARDWARE\STMFLASH -I..\MiniBalance_HARDWARE\USARTX -I..\MiniBalance_HARDWARE\NRF24L01 -I..\MiniBalance_HARDWARE\SPI -I..\MiniBalance_HARDWARE\CAN -I..\MiniBalance\Experiment-I D:\Project\vejoe\Balance_CarSoft\User\RTE-I "D:\Program Files\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\Include"-I "D:\Program Files\Keil_v5\ARM\CMSIS\Include"-D__UVISION_VERSION="514" -DSTM32F10X_HD -DSTM32F10X_ -DHD -DUSE_STDPERIPH_DRIVER-o ..\obj\stm32f10x_usart.o --omf_browse ..\obj\stm32f10x_usart.crf --depend ..\obj\stm32f10x_usart.d)
+F (..\STM32F10x_FWLib\src\stm32f10x_usart.c)(0x59898CD6)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork -I..\User -I..\MiniBalance_COER -I..\STM32F10x_FWLib\inc -I..\MiniBalance_HARDWARE -I..\SYSTEM -I..\SYSTEM\delay -I..\SYSTEM\syss -I..\SYSTEM\usart -I..\MiniBalance_HARDWARE\DMP -I..\MiniBalance_HARDWARE\IIC -I..\MiniBalance_HARDWARE\MPU6050 -I..\MiniBalance_HARDWARE\ENCODER -I..\MiniBalance_HARDWARE\OLED -I..\MiniBalance\show -I..\MiniBalance_HARDWARE\LED -I..\MiniBalance_HARDWARE\KEY -I..\MiniBalance_HARDWARE\ADC -I..\MiniBalance_HARDWARE\MOTOR -I..\MiniBalance_HARDWARE\TIMER -I..\MiniBalance_HARDWARE\EXTI -I..\MiniBalance\DataScope_DP -I..\MiniBalance\filter -I..\MiniBalance_HARDWARE\STMFLASH -I..\MiniBalance_HARDWARE\USARTX -I..\MiniBalance_HARDWARE\NRF24L01 -I..\MiniBalance_HARDWARE\SPI -I..\MiniBalance_HARDWARE\CAN -I..\MiniBalance\Experiment-I D:\Project\vejoe\Balance_CarSoft\User\RTE-I "D:\Program Files\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\Include"-I "D:\Program Files\Keil_v5\ARM\CMSIS\Include"-D__UVISION_VERSION="514" -DSTM32F10X_HD -DSTM32F10X_ -DHD -DUSE_STDPERIPH_DRIVER-o ..\obj\stm32f10x_usart.o --omf_browse ..\obj\stm32f10x_usart.crf --depend ..\obj\stm32f10x_usart.d)
 I (..\STM32F10x_FWLib\inc\stm32f10x_usart.h)(0x59898CD6)
 I (..\User\stm32f10x.h)(0x59898CD6)
 I (..\MiniBalance_COER\core_cm3.h)(0x59898CD6)
@@ -881,7 +881,7 @@ I (..\STM32F10x_FWLib\inc\stm32f10x_spi.h)(0x59898CD6)
 I (..\STM32F10x_FWLib\inc\stm32f10x_tim.h)(0x59898CD6)
 I (..\STM32F10x_FWLib\inc\stm32f10x_wwdg.h)(0x59898CD6)
 I (..\STM32F10x_FWLib\inc\misc.h)(0x59898CD6)
-F (..\STM32F10x_FWLib\src\stm32f10x_wwdg.c)(0x59898CD6)(-c --cpu Cortex-M3 -g -O0 --apcs=interwork -I..\User -I..\MiniBalance_COER -I..\STM32F10x_FWLib\inc -I..\MiniBalance_HARDWARE -I..\SYSTEM -I..\SYSTEM\delay -I..\SYSTEM\syss -I..\SYSTEM\usart -I..\MiniBalance_HARDWARE\DMP -I..\MiniBalance_HARDWARE\IIC -I..\MiniBalance_HARDWARE\MPU6050 -I..\MiniBalance_HARDWARE\ENCODER -I..\MiniBalance_HARDWARE\OLED -I..\MiniBalance\show -I..\MiniBalance_HARDWARE\LED -I..\MiniBalance_HARDWARE\KEY -I..\MiniBalance_HARDWARE\ADC -I..\MiniBalance_HARDWARE\MOTOR -I..\MiniBalance_HARDWARE\TIMER -I..\MiniBalance_HARDWARE\EXTI -I..\MiniBalance\DataScope_DP -I..\MiniBalance\filter -I..\MiniBalance_HARDWARE\STMFLASH -I..\MiniBalance_HARDWARE\USARTX -I..\MiniBalance_HARDWARE\NRF24L01 -I..\MiniBalance_HARDWARE\SPI -I..\MiniBalance_HARDWARE\CAN -I..\MiniBalance\Experiment-I D:\Project\vejoe\Balance_CarSoft\User\RTE-I "D:\Program Files\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\Include"-I "D:\Program Files\Keil_v5\ARM\CMSIS\Include"-D__UVISION_VERSION="514" -DSTM32F10X_HD -DSTM32F10X_ -DHD -DUSE_STDPERIPH_DRIVER-o ..\obj\stm32f10x_wwdg.o --omf_browse ..\obj\stm32f10x_wwdg.crf --depend ..\obj\stm32f10x_wwdg.d)
+F (..\STM32F10x_FWLib\src\stm32f10x_wwdg.c)(0x59898CD6)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork -I..\User -I..\MiniBalance_COER -I..\STM32F10x_FWLib\inc -I..\MiniBalance_HARDWARE -I..\SYSTEM -I..\SYSTEM\delay -I..\SYSTEM\syss -I..\SYSTEM\usart -I..\MiniBalance_HARDWARE\DMP -I..\MiniBalance_HARDWARE\IIC -I..\MiniBalance_HARDWARE\MPU6050 -I..\MiniBalance_HARDWARE\ENCODER -I..\MiniBalance_HARDWARE\OLED -I..\MiniBalance\show -I..\MiniBalance_HARDWARE\LED -I..\MiniBalance_HARDWARE\KEY -I..\MiniBalance_HARDWARE\ADC -I..\MiniBalance_HARDWARE\MOTOR -I..\MiniBalance_HARDWARE\TIMER -I..\MiniBalance_HARDWARE\EXTI -I..\MiniBalance\DataScope_DP -I..\MiniBalance\filter -I..\MiniBalance_HARDWARE\STMFLASH -I..\MiniBalance_HARDWARE\USARTX -I..\MiniBalance_HARDWARE\NRF24L01 -I..\MiniBalance_HARDWARE\SPI -I..\MiniBalance_HARDWARE\CAN -I..\MiniBalance\Experiment-I D:\Project\vejoe\Balance_CarSoft\User\RTE-I "D:\Program Files\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\Include"-I "D:\Program Files\Keil_v5\ARM\CMSIS\Include"-D__UVISION_VERSION="514" -DSTM32F10X_HD -DSTM32F10X_ -DHD -DUSE_STDPERIPH_DRIVER-o ..\obj\stm32f10x_wwdg.o --omf_browse ..\obj\stm32f10x_wwdg.crf --depend ..\obj\stm32f10x_wwdg.d)
 I (..\STM32F10x_FWLib\inc\stm32f10x_wwdg.h)(0x59898CD6)
 I (..\User\stm32f10x.h)(0x59898CD6)
 I (..\MiniBalance_COER\core_cm3.h)(0x59898CD6)
@@ -910,9 +910,9 @@ I (..\STM32F10x_FWLib\inc\stm32f10x_spi.h)(0x59898CD6)
 I (..\STM32F10x_FWLib\inc\stm32f10x_tim.h)(0x59898CD6)
 I (..\STM32F10x_FWLib\inc\stm32f10x_usart.h)(0x59898CD6)
 I (..\STM32F10x_FWLib\inc\misc.h)(0x59898CD6)
-F (..\SYSTEM\delay\delay.c)(0x59898CD6)(-c --cpu Cortex-M3 -g -O0 --apcs=interwork -I..\User -I..\MiniBalance_COER -I..\STM32F10x_FWLib\inc -I..\MiniBalance_HARDWARE -I..\SYSTEM -I..\SYSTEM\delay -I..\SYSTEM\syss -I..\SYSTEM\usart -I..\MiniBalance_HARDWARE\DMP -I..\MiniBalance_HARDWARE\IIC -I..\MiniBalance_HARDWARE\MPU6050 -I..\MiniBalance_HARDWARE\ENCODER -I..\MiniBalance_HARDWARE\OLED -I..\MiniBalance\show -I..\MiniBalance_HARDWARE\LED -I..\MiniBalance_HARDWARE\KEY -I..\MiniBalance_HARDWARE\ADC -I..\MiniBalance_HARDWARE\MOTOR -I..\MiniBalance_HARDWARE\TIMER -I..\MiniBalance_HARDWARE\EXTI -I..\MiniBalance\DataScope_DP -I..\MiniBalance\filter -I..\MiniBalance_HARDWARE\STMFLASH -I..\MiniBalance_HARDWARE\USARTX -I..\MiniBalance_HARDWARE\NRF24L01 -I..\MiniBalance_HARDWARE\SPI -I..\MiniBalance_HARDWARE\CAN -I..\MiniBalance\Experiment-I D:\Project\vejoe\Balance_CarSoft\User\RTE-I "D:\Program Files\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\Include"-I "D:\Program Files\Keil_v5\ARM\CMSIS\Include"-D__UVISION_VERSION="514" -DSTM32F10X_HD -DSTM32F10X_ -DHD -DUSE_STDPERIPH_DRIVER-o ..\obj\delay.o --omf_browse ..\obj\delay.crf --depend ..\obj\delay.d)
+F (..\SYSTEM\delay\delay.c)(0x59898CD6)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork -I..\User -I..\MiniBalance_COER -I..\STM32F10x_FWLib\inc -I..\MiniBalance_HARDWARE -I..\SYSTEM -I..\SYSTEM\delay -I..\SYSTEM\syss -I..\SYSTEM\usart -I..\MiniBalance_HARDWARE\DMP -I..\MiniBalance_HARDWARE\IIC -I..\MiniBalance_HARDWARE\MPU6050 -I..\MiniBalance_HARDWARE\ENCODER -I..\MiniBalance_HARDWARE\OLED -I..\MiniBalance\show -I..\MiniBalance_HARDWARE\LED -I..\MiniBalance_HARDWARE\KEY -I..\MiniBalance_HARDWARE\ADC -I..\MiniBalance_HARDWARE\MOTOR -I..\MiniBalance_HARDWARE\TIMER -I..\MiniBalance_HARDWARE\EXTI -I..\MiniBalance\DataScope_DP -I..\MiniBalance\filter -I..\MiniBalance_HARDWARE\STMFLASH -I..\MiniBalance_HARDWARE\USARTX -I..\MiniBalance_HARDWARE\NRF24L01 -I..\MiniBalance_HARDWARE\SPI -I..\MiniBalance_HARDWARE\CAN -I..\MiniBalance\Experiment-I D:\Project\vejoe\Balance_CarSoft\User\RTE-I "D:\Program Files\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\Include"-I "D:\Program Files\Keil_v5\ARM\CMSIS\Include"-D__UVISION_VERSION="514" -DSTM32F10X_HD -DSTM32F10X_ -DHD -DUSE_STDPERIPH_DRIVER-o ..\obj\delay.o --omf_browse ..\obj\delay.crf --depend ..\obj\delay.d)
 I (..\SYSTEM\delay\delay.h)(0x59898CD6)
-I (..\SYSTEM\syss\sys.h)(0x598A7B8F)
+I (..\SYSTEM\syss\sys.h)(0x598A84AC)
 I (..\User\stm32f10x.h)(0x59898CD6)
 I (..\MiniBalance_COER\core_cm3.h)(0x59898CD6)
 I (D:\Program Files\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5475F300)
@@ -954,13 +954,13 @@ I (..\MiniBalance_HARDWARE\ENCODER\encoder.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\IIC\ioi2c.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\MPU6050\mpu6050.h)(0x59898CD6)
 I (..\MiniBalance\show\show.h)(0x59898CD6)
-I (..\MiniBalance_HARDWARE\EXTI\exti.h)(0x59898E1B)
+I (..\MiniBalance_HARDWARE\EXTI\exti.h)(0x598A83E2)
 I (..\MiniBalance\DataScope_DP\DataScope_DP.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\STMFLASH\stmflash.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\SPI\spi.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\NRF24L01\24l01.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\CAN\can.h)(0x59898CD6)
-I (..\MiniBalance\Experiment\labyrinth.h)(0x598A7F4E)
+I (..\MiniBalance\Experiment\labyrinth.h)(0x598A84C5)
 I (..\MiniBalance_HARDWARE\DMP\inv_mpu.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\DMP\inv_mpu_dmp_motion_driver.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\DMP\dmpKey.h)(0x59898CD6)
@@ -968,8 +968,8 @@ I (..\MiniBalance_HARDWARE\DMP\dmpmap.h)(0x59898CD6)
 I (D:\Program Files\Keil_v5\ARM\ARMCC\include\string.h)(0x5475F300)
 I (D:\Program Files\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x5475F300)
 I (D:\Program Files\Keil_v5\ARM\ARMCC\include\math.h)(0x5475F2FE)
-F (..\SYSTEM\usart\usart.c)(0x59898CD6)(-c --cpu Cortex-M3 -g -O0 --apcs=interwork -I..\User -I..\MiniBalance_COER -I..\STM32F10x_FWLib\inc -I..\MiniBalance_HARDWARE -I..\SYSTEM -I..\SYSTEM\delay -I..\SYSTEM\syss -I..\SYSTEM\usart -I..\MiniBalance_HARDWARE\DMP -I..\MiniBalance_HARDWARE\IIC -I..\MiniBalance_HARDWARE\MPU6050 -I..\MiniBalance_HARDWARE\ENCODER -I..\MiniBalance_HARDWARE\OLED -I..\MiniBalance\show -I..\MiniBalance_HARDWARE\LED -I..\MiniBalance_HARDWARE\KEY -I..\MiniBalance_HARDWARE\ADC -I..\MiniBalance_HARDWARE\MOTOR -I..\MiniBalance_HARDWARE\TIMER -I..\MiniBalance_HARDWARE\EXTI -I..\MiniBalance\DataScope_DP -I..\MiniBalance\filter -I..\MiniBalance_HARDWARE\STMFLASH -I..\MiniBalance_HARDWARE\USARTX -I..\MiniBalance_HARDWARE\NRF24L01 -I..\MiniBalance_HARDWARE\SPI -I..\MiniBalance_HARDWARE\CAN -I..\MiniBalance\Experiment-I D:\Project\vejoe\Balance_CarSoft\User\RTE-I "D:\Program Files\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\Include"-I "D:\Program Files\Keil_v5\ARM\CMSIS\Include"-D__UVISION_VERSION="514" -DSTM32F10X_HD -DSTM32F10X_ -DHD -DUSE_STDPERIPH_DRIVER-o ..\obj\usart.o --omf_browse ..\obj\usart.crf --depend ..\obj\usart.d)
-I (..\SYSTEM\syss\sys.h)(0x598A7B8F)
+F (..\SYSTEM\usart\usart.c)(0x59898CD6)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork -I..\User -I..\MiniBalance_COER -I..\STM32F10x_FWLib\inc -I..\MiniBalance_HARDWARE -I..\SYSTEM -I..\SYSTEM\delay -I..\SYSTEM\syss -I..\SYSTEM\usart -I..\MiniBalance_HARDWARE\DMP -I..\MiniBalance_HARDWARE\IIC -I..\MiniBalance_HARDWARE\MPU6050 -I..\MiniBalance_HARDWARE\ENCODER -I..\MiniBalance_HARDWARE\OLED -I..\MiniBalance\show -I..\MiniBalance_HARDWARE\LED -I..\MiniBalance_HARDWARE\KEY -I..\MiniBalance_HARDWARE\ADC -I..\MiniBalance_HARDWARE\MOTOR -I..\MiniBalance_HARDWARE\TIMER -I..\MiniBalance_HARDWARE\EXTI -I..\MiniBalance\DataScope_DP -I..\MiniBalance\filter -I..\MiniBalance_HARDWARE\STMFLASH -I..\MiniBalance_HARDWARE\USARTX -I..\MiniBalance_HARDWARE\NRF24L01 -I..\MiniBalance_HARDWARE\SPI -I..\MiniBalance_HARDWARE\CAN -I..\MiniBalance\Experiment-I D:\Project\vejoe\Balance_CarSoft\User\RTE-I "D:\Program Files\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\Include"-I "D:\Program Files\Keil_v5\ARM\CMSIS\Include"-D__UVISION_VERSION="514" -DSTM32F10X_HD -DSTM32F10X_ -DHD -DUSE_STDPERIPH_DRIVER-o ..\obj\usart.o --omf_browse ..\obj\usart.crf --depend ..\obj\usart.d)
+I (..\SYSTEM\syss\sys.h)(0x598A84AC)
 I (..\User\stm32f10x.h)(0x59898CD6)
 I (..\MiniBalance_COER\core_cm3.h)(0x59898CD6)
 I (D:\Program Files\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5475F300)
@@ -1012,13 +1012,13 @@ I (..\MiniBalance_HARDWARE\ENCODER\encoder.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\IIC\ioi2c.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\MPU6050\mpu6050.h)(0x59898CD6)
 I (..\MiniBalance\show\show.h)(0x59898CD6)
-I (..\MiniBalance_HARDWARE\EXTI\exti.h)(0x59898E1B)
+I (..\MiniBalance_HARDWARE\EXTI\exti.h)(0x598A83E2)
 I (..\MiniBalance\DataScope_DP\DataScope_DP.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\STMFLASH\stmflash.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\SPI\spi.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\NRF24L01\24l01.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\CAN\can.h)(0x59898CD6)
-I (..\MiniBalance\Experiment\labyrinth.h)(0x598A7F4E)
+I (..\MiniBalance\Experiment\labyrinth.h)(0x598A84C5)
 I (..\MiniBalance_HARDWARE\DMP\inv_mpu.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\DMP\inv_mpu_dmp_motion_driver.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\DMP\dmpKey.h)(0x59898CD6)
@@ -1026,8 +1026,8 @@ I (..\MiniBalance_HARDWARE\DMP\dmpmap.h)(0x59898CD6)
 I (D:\Program Files\Keil_v5\ARM\ARMCC\include\string.h)(0x5475F300)
 I (D:\Program Files\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x5475F300)
 I (D:\Program Files\Keil_v5\ARM\ARMCC\include\math.h)(0x5475F2FE)
-F (..\SYSTEM\syss\sys.c)(0x59898CD6)(-c --cpu Cortex-M3 -g -O0 --apcs=interwork -I..\User -I..\MiniBalance_COER -I..\STM32F10x_FWLib\inc -I..\MiniBalance_HARDWARE -I..\SYSTEM -I..\SYSTEM\delay -I..\SYSTEM\syss -I..\SYSTEM\usart -I..\MiniBalance_HARDWARE\DMP -I..\MiniBalance_HARDWARE\IIC -I..\MiniBalance_HARDWARE\MPU6050 -I..\MiniBalance_HARDWARE\ENCODER -I..\MiniBalance_HARDWARE\OLED -I..\MiniBalance\show -I..\MiniBalance_HARDWARE\LED -I..\MiniBalance_HARDWARE\KEY -I..\MiniBalance_HARDWARE\ADC -I..\MiniBalance_HARDWARE\MOTOR -I..\MiniBalance_HARDWARE\TIMER -I..\MiniBalance_HARDWARE\EXTI -I..\MiniBalance\DataScope_DP -I..\MiniBalance\filter -I..\MiniBalance_HARDWARE\STMFLASH -I..\MiniBalance_HARDWARE\USARTX -I..\MiniBalance_HARDWARE\NRF24L01 -I..\MiniBalance_HARDWARE\SPI -I..\MiniBalance_HARDWARE\CAN -I..\MiniBalance\Experiment-I D:\Project\vejoe\Balance_CarSoft\User\RTE-I "D:\Program Files\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\Include"-I "D:\Program Files\Keil_v5\ARM\CMSIS\Include"-D__UVISION_VERSION="514" -DSTM32F10X_HD -DSTM32F10X_ -DHD -DUSE_STDPERIPH_DRIVER-o ..\obj\sys.o --omf_browse ..\obj\sys.crf --depend ..\obj\sys.d)
-I (..\SYSTEM\syss\sys.h)(0x598A7B8F)
+F (..\SYSTEM\syss\sys.c)(0x59898CD6)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork -I..\User -I..\MiniBalance_COER -I..\STM32F10x_FWLib\inc -I..\MiniBalance_HARDWARE -I..\SYSTEM -I..\SYSTEM\delay -I..\SYSTEM\syss -I..\SYSTEM\usart -I..\MiniBalance_HARDWARE\DMP -I..\MiniBalance_HARDWARE\IIC -I..\MiniBalance_HARDWARE\MPU6050 -I..\MiniBalance_HARDWARE\ENCODER -I..\MiniBalance_HARDWARE\OLED -I..\MiniBalance\show -I..\MiniBalance_HARDWARE\LED -I..\MiniBalance_HARDWARE\KEY -I..\MiniBalance_HARDWARE\ADC -I..\MiniBalance_HARDWARE\MOTOR -I..\MiniBalance_HARDWARE\TIMER -I..\MiniBalance_HARDWARE\EXTI -I..\MiniBalance\DataScope_DP -I..\MiniBalance\filter -I..\MiniBalance_HARDWARE\STMFLASH -I..\MiniBalance_HARDWARE\USARTX -I..\MiniBalance_HARDWARE\NRF24L01 -I..\MiniBalance_HARDWARE\SPI -I..\MiniBalance_HARDWARE\CAN -I..\MiniBalance\Experiment-I D:\Project\vejoe\Balance_CarSoft\User\RTE-I "D:\Program Files\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\Include"-I "D:\Program Files\Keil_v5\ARM\CMSIS\Include"-D__UVISION_VERSION="514" -DSTM32F10X_HD -DSTM32F10X_ -DHD -DUSE_STDPERIPH_DRIVER-o ..\obj\sys.o --omf_browse ..\obj\sys.crf --depend ..\obj\sys.d)
+I (..\SYSTEM\syss\sys.h)(0x598A84AC)
 I (..\User\stm32f10x.h)(0x59898CD6)
 I (..\MiniBalance_COER\core_cm3.h)(0x59898CD6)
 I (D:\Program Files\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5475F300)
@@ -1070,13 +1070,13 @@ I (..\MiniBalance_HARDWARE\ENCODER\encoder.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\IIC\ioi2c.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\MPU6050\mpu6050.h)(0x59898CD6)
 I (..\MiniBalance\show\show.h)(0x59898CD6)
-I (..\MiniBalance_HARDWARE\EXTI\exti.h)(0x59898E1B)
+I (..\MiniBalance_HARDWARE\EXTI\exti.h)(0x598A83E2)
 I (..\MiniBalance\DataScope_DP\DataScope_DP.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\STMFLASH\stmflash.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\SPI\spi.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\NRF24L01\24l01.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\CAN\can.h)(0x59898CD6)
-I (..\MiniBalance\Experiment\labyrinth.h)(0x598A7F4E)
+I (..\MiniBalance\Experiment\labyrinth.h)(0x598A84C5)
 I (..\MiniBalance_HARDWARE\DMP\inv_mpu.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\DMP\inv_mpu_dmp_motion_driver.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\DMP\dmpKey.h)(0x59898CD6)
@@ -1084,9 +1084,9 @@ I (..\MiniBalance_HARDWARE\DMP\dmpmap.h)(0x59898CD6)
 I (D:\Program Files\Keil_v5\ARM\ARMCC\include\string.h)(0x5475F300)
 I (D:\Program Files\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x5475F300)
 I (D:\Program Files\Keil_v5\ARM\ARMCC\include\math.h)(0x5475F2FE)
-F (..\MiniBalance_HARDWARE\LED\LED.C)(0x59898CD6)(-c --cpu Cortex-M3 -g -O0 --apcs=interwork -I..\User -I..\MiniBalance_COER -I..\STM32F10x_FWLib\inc -I..\MiniBalance_HARDWARE -I..\SYSTEM -I..\SYSTEM\delay -I..\SYSTEM\syss -I..\SYSTEM\usart -I..\MiniBalance_HARDWARE\DMP -I..\MiniBalance_HARDWARE\IIC -I..\MiniBalance_HARDWARE\MPU6050 -I..\MiniBalance_HARDWARE\ENCODER -I..\MiniBalance_HARDWARE\OLED -I..\MiniBalance\show -I..\MiniBalance_HARDWARE\LED -I..\MiniBalance_HARDWARE\KEY -I..\MiniBalance_HARDWARE\ADC -I..\MiniBalance_HARDWARE\MOTOR -I..\MiniBalance_HARDWARE\TIMER -I..\MiniBalance_HARDWARE\EXTI -I..\MiniBalance\DataScope_DP -I..\MiniBalance\filter -I..\MiniBalance_HARDWARE\STMFLASH -I..\MiniBalance_HARDWARE\USARTX -I..\MiniBalance_HARDWARE\NRF24L01 -I..\MiniBalance_HARDWARE\SPI -I..\MiniBalance_HARDWARE\CAN -I..\MiniBalance\Experiment-I D:\Project\vejoe\Balance_CarSoft\User\RTE-I "D:\Program Files\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\Include"-I "D:\Program Files\Keil_v5\ARM\CMSIS\Include"-D__UVISION_VERSION="514" -DSTM32F10X_HD -DSTM32F10X_ -DHD -DUSE_STDPERIPH_DRIVER-o ..\obj\led.o --omf_browse ..\obj\led.crf --depend ..\obj\led.d)
+F (..\MiniBalance_HARDWARE\LED\LED.C)(0x59898CD6)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork -I..\User -I..\MiniBalance_COER -I..\STM32F10x_FWLib\inc -I..\MiniBalance_HARDWARE -I..\SYSTEM -I..\SYSTEM\delay -I..\SYSTEM\syss -I..\SYSTEM\usart -I..\MiniBalance_HARDWARE\DMP -I..\MiniBalance_HARDWARE\IIC -I..\MiniBalance_HARDWARE\MPU6050 -I..\MiniBalance_HARDWARE\ENCODER -I..\MiniBalance_HARDWARE\OLED -I..\MiniBalance\show -I..\MiniBalance_HARDWARE\LED -I..\MiniBalance_HARDWARE\KEY -I..\MiniBalance_HARDWARE\ADC -I..\MiniBalance_HARDWARE\MOTOR -I..\MiniBalance_HARDWARE\TIMER -I..\MiniBalance_HARDWARE\EXTI -I..\MiniBalance\DataScope_DP -I..\MiniBalance\filter -I..\MiniBalance_HARDWARE\STMFLASH -I..\MiniBalance_HARDWARE\USARTX -I..\MiniBalance_HARDWARE\NRF24L01 -I..\MiniBalance_HARDWARE\SPI -I..\MiniBalance_HARDWARE\CAN -I..\MiniBalance\Experiment-I D:\Project\vejoe\Balance_CarSoft\User\RTE-I "D:\Program Files\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\Include"-I "D:\Program Files\Keil_v5\ARM\CMSIS\Include"-D__UVISION_VERSION="514" -DSTM32F10X_HD -DSTM32F10X_ -DHD -DUSE_STDPERIPH_DRIVER-o ..\obj\led.o --omf_browse ..\obj\led.crf --depend ..\obj\led.d)
 I (..\MiniBalance_HARDWARE\LED\led.h)(0x59898CD6)
-I (..\SYSTEM\syss\sys.h)(0x598A7B8F)
+I (..\SYSTEM\syss\sys.h)(0x598A84AC)
 I (..\User\stm32f10x.h)(0x59898CD6)
 I (..\MiniBalance_COER\core_cm3.h)(0x59898CD6)
 I (D:\Program Files\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5475F300)
@@ -1128,13 +1128,13 @@ I (..\MiniBalance_HARDWARE\ENCODER\encoder.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\IIC\ioi2c.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\MPU6050\mpu6050.h)(0x59898CD6)
 I (..\MiniBalance\show\show.h)(0x59898CD6)
-I (..\MiniBalance_HARDWARE\EXTI\exti.h)(0x59898E1B)
+I (..\MiniBalance_HARDWARE\EXTI\exti.h)(0x598A83E2)
 I (..\MiniBalance\DataScope_DP\DataScope_DP.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\STMFLASH\stmflash.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\SPI\spi.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\NRF24L01\24l01.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\CAN\can.h)(0x59898CD6)
-I (..\MiniBalance\Experiment\labyrinth.h)(0x598A7F4E)
+I (..\MiniBalance\Experiment\labyrinth.h)(0x598A84C5)
 I (..\MiniBalance_HARDWARE\DMP\inv_mpu.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\DMP\inv_mpu_dmp_motion_driver.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\DMP\dmpKey.h)(0x59898CD6)
@@ -1142,9 +1142,9 @@ I (..\MiniBalance_HARDWARE\DMP\dmpmap.h)(0x59898CD6)
 I (D:\Program Files\Keil_v5\ARM\ARMCC\include\string.h)(0x5475F300)
 I (D:\Program Files\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x5475F300)
 I (D:\Program Files\Keil_v5\ARM\ARMCC\include\math.h)(0x5475F2FE)
-F (..\MiniBalance_HARDWARE\KEY\key.c)(0x59898CD6)(-c --cpu Cortex-M3 -g -O0 --apcs=interwork -I..\User -I..\MiniBalance_COER -I..\STM32F10x_FWLib\inc -I..\MiniBalance_HARDWARE -I..\SYSTEM -I..\SYSTEM\delay -I..\SYSTEM\syss -I..\SYSTEM\usart -I..\MiniBalance_HARDWARE\DMP -I..\MiniBalance_HARDWARE\IIC -I..\MiniBalance_HARDWARE\MPU6050 -I..\MiniBalance_HARDWARE\ENCODER -I..\MiniBalance_HARDWARE\OLED -I..\MiniBalance\show -I..\MiniBalance_HARDWARE\LED -I..\MiniBalance_HARDWARE\KEY -I..\MiniBalance_HARDWARE\ADC -I..\MiniBalance_HARDWARE\MOTOR -I..\MiniBalance_HARDWARE\TIMER -I..\MiniBalance_HARDWARE\EXTI -I..\MiniBalance\DataScope_DP -I..\MiniBalance\filter -I..\MiniBalance_HARDWARE\STMFLASH -I..\MiniBalance_HARDWARE\USARTX -I..\MiniBalance_HARDWARE\NRF24L01 -I..\MiniBalance_HARDWARE\SPI -I..\MiniBalance_HARDWARE\CAN -I..\MiniBalance\Experiment-I D:\Project\vejoe\Balance_CarSoft\User\RTE-I "D:\Program Files\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\Include"-I "D:\Program Files\Keil_v5\ARM\CMSIS\Include"-D__UVISION_VERSION="514" -DSTM32F10X_HD -DSTM32F10X_ -DHD -DUSE_STDPERIPH_DRIVER-o ..\obj\key.o --omf_browse ..\obj\key.crf --depend ..\obj\key.d)
+F (..\MiniBalance_HARDWARE\KEY\key.c)(0x59898CD6)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork -I..\User -I..\MiniBalance_COER -I..\STM32F10x_FWLib\inc -I..\MiniBalance_HARDWARE -I..\SYSTEM -I..\SYSTEM\delay -I..\SYSTEM\syss -I..\SYSTEM\usart -I..\MiniBalance_HARDWARE\DMP -I..\MiniBalance_HARDWARE\IIC -I..\MiniBalance_HARDWARE\MPU6050 -I..\MiniBalance_HARDWARE\ENCODER -I..\MiniBalance_HARDWARE\OLED -I..\MiniBalance\show -I..\MiniBalance_HARDWARE\LED -I..\MiniBalance_HARDWARE\KEY -I..\MiniBalance_HARDWARE\ADC -I..\MiniBalance_HARDWARE\MOTOR -I..\MiniBalance_HARDWARE\TIMER -I..\MiniBalance_HARDWARE\EXTI -I..\MiniBalance\DataScope_DP -I..\MiniBalance\filter -I..\MiniBalance_HARDWARE\STMFLASH -I..\MiniBalance_HARDWARE\USARTX -I..\MiniBalance_HARDWARE\NRF24L01 -I..\MiniBalance_HARDWARE\SPI -I..\MiniBalance_HARDWARE\CAN -I..\MiniBalance\Experiment-I D:\Project\vejoe\Balance_CarSoft\User\RTE-I "D:\Program Files\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\Include"-I "D:\Program Files\Keil_v5\ARM\CMSIS\Include"-D__UVISION_VERSION="514" -DSTM32F10X_HD -DSTM32F10X_ -DHD -DUSE_STDPERIPH_DRIVER-o ..\obj\key.o --omf_browse ..\obj\key.crf --depend ..\obj\key.d)
 I (..\MiniBalance_HARDWARE\KEY\key.h)(0x59898CD6)
-I (..\SYSTEM\syss\sys.h)(0x598A7B8F)
+I (..\SYSTEM\syss\sys.h)(0x598A84AC)
 I (..\User\stm32f10x.h)(0x59898CD6)
 I (..\MiniBalance_COER\core_cm3.h)(0x59898CD6)
 I (D:\Program Files\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5475F300)
@@ -1186,13 +1186,13 @@ I (..\MiniBalance_HARDWARE\ENCODER\encoder.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\IIC\ioi2c.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\MPU6050\mpu6050.h)(0x59898CD6)
 I (..\MiniBalance\show\show.h)(0x59898CD6)
-I (..\MiniBalance_HARDWARE\EXTI\exti.h)(0x59898E1B)
+I (..\MiniBalance_HARDWARE\EXTI\exti.h)(0x598A83E2)
 I (..\MiniBalance\DataScope_DP\DataScope_DP.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\STMFLASH\stmflash.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\SPI\spi.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\NRF24L01\24l01.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\CAN\can.h)(0x59898CD6)
-I (..\MiniBalance\Experiment\labyrinth.h)(0x598A7F4E)
+I (..\MiniBalance\Experiment\labyrinth.h)(0x598A84C5)
 I (..\MiniBalance_HARDWARE\DMP\inv_mpu.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\DMP\inv_mpu_dmp_motion_driver.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\DMP\dmpKey.h)(0x59898CD6)
@@ -1200,9 +1200,9 @@ I (..\MiniBalance_HARDWARE\DMP\dmpmap.h)(0x59898CD6)
 I (D:\Program Files\Keil_v5\ARM\ARMCC\include\string.h)(0x5475F300)
 I (D:\Program Files\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x5475F300)
 I (D:\Program Files\Keil_v5\ARM\ARMCC\include\math.h)(0x5475F2FE)
-F (..\MiniBalance_HARDWARE\OLED\oled.c)(0x59898CD6)(-c --cpu Cortex-M3 -g -O0 --apcs=interwork -I..\User -I..\MiniBalance_COER -I..\STM32F10x_FWLib\inc -I..\MiniBalance_HARDWARE -I..\SYSTEM -I..\SYSTEM\delay -I..\SYSTEM\syss -I..\SYSTEM\usart -I..\MiniBalance_HARDWARE\DMP -I..\MiniBalance_HARDWARE\IIC -I..\MiniBalance_HARDWARE\MPU6050 -I..\MiniBalance_HARDWARE\ENCODER -I..\MiniBalance_HARDWARE\OLED -I..\MiniBalance\show -I..\MiniBalance_HARDWARE\LED -I..\MiniBalance_HARDWARE\KEY -I..\MiniBalance_HARDWARE\ADC -I..\MiniBalance_HARDWARE\MOTOR -I..\MiniBalance_HARDWARE\TIMER -I..\MiniBalance_HARDWARE\EXTI -I..\MiniBalance\DataScope_DP -I..\MiniBalance\filter -I..\MiniBalance_HARDWARE\STMFLASH -I..\MiniBalance_HARDWARE\USARTX -I..\MiniBalance_HARDWARE\NRF24L01 -I..\MiniBalance_HARDWARE\SPI -I..\MiniBalance_HARDWARE\CAN -I..\MiniBalance\Experiment-I D:\Project\vejoe\Balance_CarSoft\User\RTE-I "D:\Program Files\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\Include"-I "D:\Program Files\Keil_v5\ARM\CMSIS\Include"-D__UVISION_VERSION="514" -DSTM32F10X_HD -DSTM32F10X_ -DHD -DUSE_STDPERIPH_DRIVER-o ..\obj\oled.o --omf_browse ..\obj\oled.crf --depend ..\obj\oled.d)
+F (..\MiniBalance_HARDWARE\OLED\oled.c)(0x59898CD6)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork -I..\User -I..\MiniBalance_COER -I..\STM32F10x_FWLib\inc -I..\MiniBalance_HARDWARE -I..\SYSTEM -I..\SYSTEM\delay -I..\SYSTEM\syss -I..\SYSTEM\usart -I..\MiniBalance_HARDWARE\DMP -I..\MiniBalance_HARDWARE\IIC -I..\MiniBalance_HARDWARE\MPU6050 -I..\MiniBalance_HARDWARE\ENCODER -I..\MiniBalance_HARDWARE\OLED -I..\MiniBalance\show -I..\MiniBalance_HARDWARE\LED -I..\MiniBalance_HARDWARE\KEY -I..\MiniBalance_HARDWARE\ADC -I..\MiniBalance_HARDWARE\MOTOR -I..\MiniBalance_HARDWARE\TIMER -I..\MiniBalance_HARDWARE\EXTI -I..\MiniBalance\DataScope_DP -I..\MiniBalance\filter -I..\MiniBalance_HARDWARE\STMFLASH -I..\MiniBalance_HARDWARE\USARTX -I..\MiniBalance_HARDWARE\NRF24L01 -I..\MiniBalance_HARDWARE\SPI -I..\MiniBalance_HARDWARE\CAN -I..\MiniBalance\Experiment-I D:\Project\vejoe\Balance_CarSoft\User\RTE-I "D:\Program Files\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\Include"-I "D:\Program Files\Keil_v5\ARM\CMSIS\Include"-D__UVISION_VERSION="514" -DSTM32F10X_HD -DSTM32F10X_ -DHD -DUSE_STDPERIPH_DRIVER-o ..\obj\oled.o --omf_browse ..\obj\oled.crf --depend ..\obj\oled.d)
 I (..\MiniBalance_HARDWARE\OLED\oled.h)(0x59898CD6)
-I (..\SYSTEM\syss\sys.h)(0x598A7B8F)
+I (..\SYSTEM\syss\sys.h)(0x598A84AC)
 I (..\User\stm32f10x.h)(0x59898CD6)
 I (..\MiniBalance_COER\core_cm3.h)(0x59898CD6)
 I (D:\Program Files\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5475F300)
@@ -1244,13 +1244,13 @@ I (..\MiniBalance_HARDWARE\ENCODER\encoder.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\IIC\ioi2c.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\MPU6050\mpu6050.h)(0x59898CD6)
 I (..\MiniBalance\show\show.h)(0x59898CD6)
-I (..\MiniBalance_HARDWARE\EXTI\exti.h)(0x59898E1B)
+I (..\MiniBalance_HARDWARE\EXTI\exti.h)(0x598A83E2)
 I (..\MiniBalance\DataScope_DP\DataScope_DP.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\STMFLASH\stmflash.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\SPI\spi.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\NRF24L01\24l01.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\CAN\can.h)(0x59898CD6)
-I (..\MiniBalance\Experiment\labyrinth.h)(0x598A7F4E)
+I (..\MiniBalance\Experiment\labyrinth.h)(0x598A84C5)
 I (..\MiniBalance_HARDWARE\DMP\inv_mpu.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\DMP\inv_mpu_dmp_motion_driver.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\DMP\dmpKey.h)(0x59898CD6)
@@ -1259,9 +1259,9 @@ I (D:\Program Files\Keil_v5\ARM\ARMCC\include\string.h)(0x5475F300)
 I (D:\Program Files\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x5475F300)
 I (D:\Program Files\Keil_v5\ARM\ARMCC\include\math.h)(0x5475F2FE)
 I (..\MiniBalance_HARDWARE\OLED\oledfont.h)(0x59898CD6)
-F (..\MiniBalance_HARDWARE\ADC\adc.c)(0x59898CD6)(-c --cpu Cortex-M3 -g -O0 --apcs=interwork -I..\User -I..\MiniBalance_COER -I..\STM32F10x_FWLib\inc -I..\MiniBalance_HARDWARE -I..\SYSTEM -I..\SYSTEM\delay -I..\SYSTEM\syss -I..\SYSTEM\usart -I..\MiniBalance_HARDWARE\DMP -I..\MiniBalance_HARDWARE\IIC -I..\MiniBalance_HARDWARE\MPU6050 -I..\MiniBalance_HARDWARE\ENCODER -I..\MiniBalance_HARDWARE\OLED -I..\MiniBalance\show -I..\MiniBalance_HARDWARE\LED -I..\MiniBalance_HARDWARE\KEY -I..\MiniBalance_HARDWARE\ADC -I..\MiniBalance_HARDWARE\MOTOR -I..\MiniBalance_HARDWARE\TIMER -I..\MiniBalance_HARDWARE\EXTI -I..\MiniBalance\DataScope_DP -I..\MiniBalance\filter -I..\MiniBalance_HARDWARE\STMFLASH -I..\MiniBalance_HARDWARE\USARTX -I..\MiniBalance_HARDWARE\NRF24L01 -I..\MiniBalance_HARDWARE\SPI -I..\MiniBalance_HARDWARE\CAN -I..\MiniBalance\Experiment-I D:\Project\vejoe\Balance_CarSoft\User\RTE-I "D:\Program Files\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\Include"-I "D:\Program Files\Keil_v5\ARM\CMSIS\Include"-D__UVISION_VERSION="514" -DSTM32F10X_HD -DSTM32F10X_ -DHD -DUSE_STDPERIPH_DRIVER-o ..\obj\adc.o --omf_browse ..\obj\adc.crf --depend ..\obj\adc.d)
+F (..\MiniBalance_HARDWARE\ADC\adc.c)(0x59898CD6)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork -I..\User -I..\MiniBalance_COER -I..\STM32F10x_FWLib\inc -I..\MiniBalance_HARDWARE -I..\SYSTEM -I..\SYSTEM\delay -I..\SYSTEM\syss -I..\SYSTEM\usart -I..\MiniBalance_HARDWARE\DMP -I..\MiniBalance_HARDWARE\IIC -I..\MiniBalance_HARDWARE\MPU6050 -I..\MiniBalance_HARDWARE\ENCODER -I..\MiniBalance_HARDWARE\OLED -I..\MiniBalance\show -I..\MiniBalance_HARDWARE\LED -I..\MiniBalance_HARDWARE\KEY -I..\MiniBalance_HARDWARE\ADC -I..\MiniBalance_HARDWARE\MOTOR -I..\MiniBalance_HARDWARE\TIMER -I..\MiniBalance_HARDWARE\EXTI -I..\MiniBalance\DataScope_DP -I..\MiniBalance\filter -I..\MiniBalance_HARDWARE\STMFLASH -I..\MiniBalance_HARDWARE\USARTX -I..\MiniBalance_HARDWARE\NRF24L01 -I..\MiniBalance_HARDWARE\SPI -I..\MiniBalance_HARDWARE\CAN -I..\MiniBalance\Experiment-I D:\Project\vejoe\Balance_CarSoft\User\RTE-I "D:\Program Files\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\Include"-I "D:\Program Files\Keil_v5\ARM\CMSIS\Include"-D__UVISION_VERSION="514" -DSTM32F10X_HD -DSTM32F10X_ -DHD -DUSE_STDPERIPH_DRIVER-o ..\obj\adc.o --omf_browse ..\obj\adc.crf --depend ..\obj\adc.d)
 I (..\MiniBalance_HARDWARE\ADC\adc.h)(0x59898CD6)
-I (..\SYSTEM\syss\sys.h)(0x598A7B8F)
+I (..\SYSTEM\syss\sys.h)(0x598A84AC)
 I (..\User\stm32f10x.h)(0x59898CD6)
 I (..\MiniBalance_COER\core_cm3.h)(0x59898CD6)
 I (D:\Program Files\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5475F300)
@@ -1303,13 +1303,13 @@ I (..\MiniBalance_HARDWARE\ENCODER\encoder.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\IIC\ioi2c.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\MPU6050\mpu6050.h)(0x59898CD6)
 I (..\MiniBalance\show\show.h)(0x59898CD6)
-I (..\MiniBalance_HARDWARE\EXTI\exti.h)(0x59898E1B)
+I (..\MiniBalance_HARDWARE\EXTI\exti.h)(0x598A83E2)
 I (..\MiniBalance\DataScope_DP\DataScope_DP.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\STMFLASH\stmflash.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\SPI\spi.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\NRF24L01\24l01.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\CAN\can.h)(0x59898CD6)
-I (..\MiniBalance\Experiment\labyrinth.h)(0x598A7F4E)
+I (..\MiniBalance\Experiment\labyrinth.h)(0x598A84C5)
 I (..\MiniBalance_HARDWARE\DMP\inv_mpu.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\DMP\inv_mpu_dmp_motion_driver.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\DMP\dmpKey.h)(0x59898CD6)
@@ -1317,9 +1317,9 @@ I (..\MiniBalance_HARDWARE\DMP\dmpmap.h)(0x59898CD6)
 I (D:\Program Files\Keil_v5\ARM\ARMCC\include\string.h)(0x5475F300)
 I (D:\Program Files\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x5475F300)
 I (D:\Program Files\Keil_v5\ARM\ARMCC\include\math.h)(0x5475F2FE)
-F (..\MiniBalance_HARDWARE\TIMER\timer.c)(0x59898E1B)(-c --cpu Cortex-M3 -g -O0 --apcs=interwork -I..\User -I..\MiniBalance_COER -I..\STM32F10x_FWLib\inc -I..\MiniBalance_HARDWARE -I..\SYSTEM -I..\SYSTEM\delay -I..\SYSTEM\syss -I..\SYSTEM\usart -I..\MiniBalance_HARDWARE\DMP -I..\MiniBalance_HARDWARE\IIC -I..\MiniBalance_HARDWARE\MPU6050 -I..\MiniBalance_HARDWARE\ENCODER -I..\MiniBalance_HARDWARE\OLED -I..\MiniBalance\show -I..\MiniBalance_HARDWARE\LED -I..\MiniBalance_HARDWARE\KEY -I..\MiniBalance_HARDWARE\ADC -I..\MiniBalance_HARDWARE\MOTOR -I..\MiniBalance_HARDWARE\TIMER -I..\MiniBalance_HARDWARE\EXTI -I..\MiniBalance\DataScope_DP -I..\MiniBalance\filter -I..\MiniBalance_HARDWARE\STMFLASH -I..\MiniBalance_HARDWARE\USARTX -I..\MiniBalance_HARDWARE\NRF24L01 -I..\MiniBalance_HARDWARE\SPI -I..\MiniBalance_HARDWARE\CAN -I..\MiniBalance\Experiment-I D:\Project\vejoe\Balance_CarSoft\User\RTE-I "D:\Program Files\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\Include"-I "D:\Program Files\Keil_v5\ARM\CMSIS\Include"-D__UVISION_VERSION="514" -DSTM32F10X_HD -DSTM32F10X_ -DHD -DUSE_STDPERIPH_DRIVER-o ..\obj\timer.o --omf_browse ..\obj\timer.crf --depend ..\obj\timer.d)
+F (..\MiniBalance_HARDWARE\TIMER\timer.c)(0x598A83E2)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork -I..\User -I..\MiniBalance_COER -I..\STM32F10x_FWLib\inc -I..\MiniBalance_HARDWARE -I..\SYSTEM -I..\SYSTEM\delay -I..\SYSTEM\syss -I..\SYSTEM\usart -I..\MiniBalance_HARDWARE\DMP -I..\MiniBalance_HARDWARE\IIC -I..\MiniBalance_HARDWARE\MPU6050 -I..\MiniBalance_HARDWARE\ENCODER -I..\MiniBalance_HARDWARE\OLED -I..\MiniBalance\show -I..\MiniBalance_HARDWARE\LED -I..\MiniBalance_HARDWARE\KEY -I..\MiniBalance_HARDWARE\ADC -I..\MiniBalance_HARDWARE\MOTOR -I..\MiniBalance_HARDWARE\TIMER -I..\MiniBalance_HARDWARE\EXTI -I..\MiniBalance\DataScope_DP -I..\MiniBalance\filter -I..\MiniBalance_HARDWARE\STMFLASH -I..\MiniBalance_HARDWARE\USARTX -I..\MiniBalance_HARDWARE\NRF24L01 -I..\MiniBalance_HARDWARE\SPI -I..\MiniBalance_HARDWARE\CAN -I..\MiniBalance\Experiment-I D:\Project\vejoe\Balance_CarSoft\User\RTE-I "D:\Program Files\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\Include"-I "D:\Program Files\Keil_v5\ARM\CMSIS\Include"-D__UVISION_VERSION="514" -DSTM32F10X_HD -DSTM32F10X_ -DHD -DUSE_STDPERIPH_DRIVER-o ..\obj\timer.o --omf_browse ..\obj\timer.crf --depend ..\obj\timer.d)
 I (..\MiniBalance_HARDWARE\TIMER\timer.h)(0x59898CD6)
-I (..\SYSTEM\syss\sys.h)(0x598A7B8F)
+I (..\SYSTEM\syss\sys.h)(0x598A84AC)
 I (..\User\stm32f10x.h)(0x59898CD6)
 I (..\MiniBalance_COER\core_cm3.h)(0x59898CD6)
 I (D:\Program Files\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5475F300)
@@ -1361,13 +1361,13 @@ I (..\MiniBalance_HARDWARE\ENCODER\encoder.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\IIC\ioi2c.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\MPU6050\mpu6050.h)(0x59898CD6)
 I (..\MiniBalance\show\show.h)(0x59898CD6)
-I (..\MiniBalance_HARDWARE\EXTI\exti.h)(0x59898E1B)
+I (..\MiniBalance_HARDWARE\EXTI\exti.h)(0x598A83E2)
 I (..\MiniBalance\DataScope_DP\DataScope_DP.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\STMFLASH\stmflash.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\SPI\spi.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\NRF24L01\24l01.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\CAN\can.h)(0x59898CD6)
-I (..\MiniBalance\Experiment\labyrinth.h)(0x598A7F4E)
+I (..\MiniBalance\Experiment\labyrinth.h)(0x598A84C5)
 I (..\MiniBalance_HARDWARE\DMP\inv_mpu.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\DMP\inv_mpu_dmp_motion_driver.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\DMP\dmpKey.h)(0x59898CD6)
@@ -1375,9 +1375,9 @@ I (..\MiniBalance_HARDWARE\DMP\dmpmap.h)(0x59898CD6)
 I (D:\Program Files\Keil_v5\ARM\ARMCC\include\string.h)(0x5475F300)
 I (D:\Program Files\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x5475F300)
 I (D:\Program Files\Keil_v5\ARM\ARMCC\include\math.h)(0x5475F2FE)
-F (..\MiniBalance_HARDWARE\MOTOR\motor.c)(0x59898CD6)(-c --cpu Cortex-M3 -g -O0 --apcs=interwork -I..\User -I..\MiniBalance_COER -I..\STM32F10x_FWLib\inc -I..\MiniBalance_HARDWARE -I..\SYSTEM -I..\SYSTEM\delay -I..\SYSTEM\syss -I..\SYSTEM\usart -I..\MiniBalance_HARDWARE\DMP -I..\MiniBalance_HARDWARE\IIC -I..\MiniBalance_HARDWARE\MPU6050 -I..\MiniBalance_HARDWARE\ENCODER -I..\MiniBalance_HARDWARE\OLED -I..\MiniBalance\show -I..\MiniBalance_HARDWARE\LED -I..\MiniBalance_HARDWARE\KEY -I..\MiniBalance_HARDWARE\ADC -I..\MiniBalance_HARDWARE\MOTOR -I..\MiniBalance_HARDWARE\TIMER -I..\MiniBalance_HARDWARE\EXTI -I..\MiniBalance\DataScope_DP -I..\MiniBalance\filter -I..\MiniBalance_HARDWARE\STMFLASH -I..\MiniBalance_HARDWARE\USARTX -I..\MiniBalance_HARDWARE\NRF24L01 -I..\MiniBalance_HARDWARE\SPI -I..\MiniBalance_HARDWARE\CAN -I..\MiniBalance\Experiment-I D:\Project\vejoe\Balance_CarSoft\User\RTE-I "D:\Program Files\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\Include"-I "D:\Program Files\Keil_v5\ARM\CMSIS\Include"-D__UVISION_VERSION="514" -DSTM32F10X_HD -DSTM32F10X_ -DHD -DUSE_STDPERIPH_DRIVER-o ..\obj\motor.o --omf_browse ..\obj\motor.crf --depend ..\obj\motor.d)
+F (..\MiniBalance_HARDWARE\MOTOR\motor.c)(0x59898CD6)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork -I..\User -I..\MiniBalance_COER -I..\STM32F10x_FWLib\inc -I..\MiniBalance_HARDWARE -I..\SYSTEM -I..\SYSTEM\delay -I..\SYSTEM\syss -I..\SYSTEM\usart -I..\MiniBalance_HARDWARE\DMP -I..\MiniBalance_HARDWARE\IIC -I..\MiniBalance_HARDWARE\MPU6050 -I..\MiniBalance_HARDWARE\ENCODER -I..\MiniBalance_HARDWARE\OLED -I..\MiniBalance\show -I..\MiniBalance_HARDWARE\LED -I..\MiniBalance_HARDWARE\KEY -I..\MiniBalance_HARDWARE\ADC -I..\MiniBalance_HARDWARE\MOTOR -I..\MiniBalance_HARDWARE\TIMER -I..\MiniBalance_HARDWARE\EXTI -I..\MiniBalance\DataScope_DP -I..\MiniBalance\filter -I..\MiniBalance_HARDWARE\STMFLASH -I..\MiniBalance_HARDWARE\USARTX -I..\MiniBalance_HARDWARE\NRF24L01 -I..\MiniBalance_HARDWARE\SPI -I..\MiniBalance_HARDWARE\CAN -I..\MiniBalance\Experiment-I D:\Project\vejoe\Balance_CarSoft\User\RTE-I "D:\Program Files\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\Include"-I "D:\Program Files\Keil_v5\ARM\CMSIS\Include"-D__UVISION_VERSION="514" -DSTM32F10X_HD -DSTM32F10X_ -DHD -DUSE_STDPERIPH_DRIVER-o ..\obj\motor.o --omf_browse ..\obj\motor.crf --depend ..\obj\motor.d)
 I (..\MiniBalance_HARDWARE\MOTOR\motor.h)(0x59898CD6)
-I (..\SYSTEM\syss\sys.h)(0x598A7B8F)
+I (..\SYSTEM\syss\sys.h)(0x598A84AC)
 I (..\User\stm32f10x.h)(0x59898CD6)
 I (..\MiniBalance_COER\core_cm3.h)(0x59898CD6)
 I (D:\Program Files\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5475F300)
@@ -1419,13 +1419,13 @@ I (..\MiniBalance_HARDWARE\ENCODER\encoder.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\IIC\ioi2c.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\MPU6050\mpu6050.h)(0x59898CD6)
 I (..\MiniBalance\show\show.h)(0x59898CD6)
-I (..\MiniBalance_HARDWARE\EXTI\exti.h)(0x59898E1B)
+I (..\MiniBalance_HARDWARE\EXTI\exti.h)(0x598A83E2)
 I (..\MiniBalance\DataScope_DP\DataScope_DP.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\STMFLASH\stmflash.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\SPI\spi.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\NRF24L01\24l01.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\CAN\can.h)(0x59898CD6)
-I (..\MiniBalance\Experiment\labyrinth.h)(0x598A7F4E)
+I (..\MiniBalance\Experiment\labyrinth.h)(0x598A84C5)
 I (..\MiniBalance_HARDWARE\DMP\inv_mpu.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\DMP\inv_mpu_dmp_motion_driver.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\DMP\dmpKey.h)(0x59898CD6)
@@ -1433,9 +1433,9 @@ I (..\MiniBalance_HARDWARE\DMP\dmpmap.h)(0x59898CD6)
 I (D:\Program Files\Keil_v5\ARM\ARMCC\include\string.h)(0x5475F300)
 I (D:\Program Files\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x5475F300)
 I (D:\Program Files\Keil_v5\ARM\ARMCC\include\math.h)(0x5475F2FE)
-F (..\MiniBalance_HARDWARE\ENCODER\encoder.c)(0x59898E1B)(-c --cpu Cortex-M3 -g -O0 --apcs=interwork -I..\User -I..\MiniBalance_COER -I..\STM32F10x_FWLib\inc -I..\MiniBalance_HARDWARE -I..\SYSTEM -I..\SYSTEM\delay -I..\SYSTEM\syss -I..\SYSTEM\usart -I..\MiniBalance_HARDWARE\DMP -I..\MiniBalance_HARDWARE\IIC -I..\MiniBalance_HARDWARE\MPU6050 -I..\MiniBalance_HARDWARE\ENCODER -I..\MiniBalance_HARDWARE\OLED -I..\MiniBalance\show -I..\MiniBalance_HARDWARE\LED -I..\MiniBalance_HARDWARE\KEY -I..\MiniBalance_HARDWARE\ADC -I..\MiniBalance_HARDWARE\MOTOR -I..\MiniBalance_HARDWARE\TIMER -I..\MiniBalance_HARDWARE\EXTI -I..\MiniBalance\DataScope_DP -I..\MiniBalance\filter -I..\MiniBalance_HARDWARE\STMFLASH -I..\MiniBalance_HARDWARE\USARTX -I..\MiniBalance_HARDWARE\NRF24L01 -I..\MiniBalance_HARDWARE\SPI -I..\MiniBalance_HARDWARE\CAN -I..\MiniBalance\Experiment-I D:\Project\vejoe\Balance_CarSoft\User\RTE-I "D:\Program Files\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\Include"-I "D:\Program Files\Keil_v5\ARM\CMSIS\Include"-D__UVISION_VERSION="514" -DSTM32F10X_HD -DSTM32F10X_ -DHD -DUSE_STDPERIPH_DRIVER-o ..\obj\encoder.o --omf_browse ..\obj\encoder.crf --depend ..\obj\encoder.d)
+F (..\MiniBalance_HARDWARE\ENCODER\encoder.c)(0x598A83E2)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork -I..\User -I..\MiniBalance_COER -I..\STM32F10x_FWLib\inc -I..\MiniBalance_HARDWARE -I..\SYSTEM -I..\SYSTEM\delay -I..\SYSTEM\syss -I..\SYSTEM\usart -I..\MiniBalance_HARDWARE\DMP -I..\MiniBalance_HARDWARE\IIC -I..\MiniBalance_HARDWARE\MPU6050 -I..\MiniBalance_HARDWARE\ENCODER -I..\MiniBalance_HARDWARE\OLED -I..\MiniBalance\show -I..\MiniBalance_HARDWARE\LED -I..\MiniBalance_HARDWARE\KEY -I..\MiniBalance_HARDWARE\ADC -I..\MiniBalance_HARDWARE\MOTOR -I..\MiniBalance_HARDWARE\TIMER -I..\MiniBalance_HARDWARE\EXTI -I..\MiniBalance\DataScope_DP -I..\MiniBalance\filter -I..\MiniBalance_HARDWARE\STMFLASH -I..\MiniBalance_HARDWARE\USARTX -I..\MiniBalance_HARDWARE\NRF24L01 -I..\MiniBalance_HARDWARE\SPI -I..\MiniBalance_HARDWARE\CAN -I..\MiniBalance\Experiment-I D:\Project\vejoe\Balance_CarSoft\User\RTE-I "D:\Program Files\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\Include"-I "D:\Program Files\Keil_v5\ARM\CMSIS\Include"-D__UVISION_VERSION="514" -DSTM32F10X_HD -DSTM32F10X_ -DHD -DUSE_STDPERIPH_DRIVER-o ..\obj\encoder.o --omf_browse ..\obj\encoder.crf --depend ..\obj\encoder.d)
 I (..\MiniBalance_HARDWARE\ENCODER\encoder.h)(0x59898CD6)
-I (..\SYSTEM\syss\sys.h)(0x598A7B8F)
+I (..\SYSTEM\syss\sys.h)(0x598A84AC)
 I (..\User\stm32f10x.h)(0x59898CD6)
 I (..\MiniBalance_COER\core_cm3.h)(0x59898CD6)
 I (D:\Program Files\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5475F300)
@@ -1477,13 +1477,13 @@ I (..\MiniBalance_HARDWARE\MOTOR\motor.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\IIC\ioi2c.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\MPU6050\mpu6050.h)(0x59898CD6)
 I (..\MiniBalance\show\show.h)(0x59898CD6)
-I (..\MiniBalance_HARDWARE\EXTI\exti.h)(0x59898E1B)
+I (..\MiniBalance_HARDWARE\EXTI\exti.h)(0x598A83E2)
 I (..\MiniBalance\DataScope_DP\DataScope_DP.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\STMFLASH\stmflash.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\SPI\spi.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\NRF24L01\24l01.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\CAN\can.h)(0x59898CD6)
-I (..\MiniBalance\Experiment\labyrinth.h)(0x598A7F4E)
+I (..\MiniBalance\Experiment\labyrinth.h)(0x598A84C5)
 I (..\MiniBalance_HARDWARE\DMP\inv_mpu.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\DMP\inv_mpu_dmp_motion_driver.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\DMP\dmpKey.h)(0x59898CD6)
@@ -1491,7 +1491,7 @@ I (..\MiniBalance_HARDWARE\DMP\dmpmap.h)(0x59898CD6)
 I (D:\Program Files\Keil_v5\ARM\ARMCC\include\string.h)(0x5475F300)
 I (D:\Program Files\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x5475F300)
 I (D:\Program Files\Keil_v5\ARM\ARMCC\include\math.h)(0x5475F2FE)
-F (..\MiniBalance_HARDWARE\IIC\IOI2C.c)(0x59898CD6)(-c --cpu Cortex-M3 -g -O0 --apcs=interwork -I..\User -I..\MiniBalance_COER -I..\STM32F10x_FWLib\inc -I..\MiniBalance_HARDWARE -I..\SYSTEM -I..\SYSTEM\delay -I..\SYSTEM\syss -I..\SYSTEM\usart -I..\MiniBalance_HARDWARE\DMP -I..\MiniBalance_HARDWARE\IIC -I..\MiniBalance_HARDWARE\MPU6050 -I..\MiniBalance_HARDWARE\ENCODER -I..\MiniBalance_HARDWARE\OLED -I..\MiniBalance\show -I..\MiniBalance_HARDWARE\LED -I..\MiniBalance_HARDWARE\KEY -I..\MiniBalance_HARDWARE\ADC -I..\MiniBalance_HARDWARE\MOTOR -I..\MiniBalance_HARDWARE\TIMER -I..\MiniBalance_HARDWARE\EXTI -I..\MiniBalance\DataScope_DP -I..\MiniBalance\filter -I..\MiniBalance_HARDWARE\STMFLASH -I..\MiniBalance_HARDWARE\USARTX -I..\MiniBalance_HARDWARE\NRF24L01 -I..\MiniBalance_HARDWARE\SPI -I..\MiniBalance_HARDWARE\CAN -I..\MiniBalance\Experiment-I D:\Project\vejoe\Balance_CarSoft\User\RTE-I "D:\Program Files\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\Include"-I "D:\Program Files\Keil_v5\ARM\CMSIS\Include"-D__UVISION_VERSION="514" -DSTM32F10X_HD -DSTM32F10X_ -DHD -DUSE_STDPERIPH_DRIVER-o ..\obj\ioi2c.o --omf_browse ..\obj\ioi2c.crf --depend ..\obj\ioi2c.d)
+F (..\MiniBalance_HARDWARE\IIC\IOI2C.c)(0x59898CD6)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork -I..\User -I..\MiniBalance_COER -I..\STM32F10x_FWLib\inc -I..\MiniBalance_HARDWARE -I..\SYSTEM -I..\SYSTEM\delay -I..\SYSTEM\syss -I..\SYSTEM\usart -I..\MiniBalance_HARDWARE\DMP -I..\MiniBalance_HARDWARE\IIC -I..\MiniBalance_HARDWARE\MPU6050 -I..\MiniBalance_HARDWARE\ENCODER -I..\MiniBalance_HARDWARE\OLED -I..\MiniBalance\show -I..\MiniBalance_HARDWARE\LED -I..\MiniBalance_HARDWARE\KEY -I..\MiniBalance_HARDWARE\ADC -I..\MiniBalance_HARDWARE\MOTOR -I..\MiniBalance_HARDWARE\TIMER -I..\MiniBalance_HARDWARE\EXTI -I..\MiniBalance\DataScope_DP -I..\MiniBalance\filter -I..\MiniBalance_HARDWARE\STMFLASH -I..\MiniBalance_HARDWARE\USARTX -I..\MiniBalance_HARDWARE\NRF24L01 -I..\MiniBalance_HARDWARE\SPI -I..\MiniBalance_HARDWARE\CAN -I..\MiniBalance\Experiment-I D:\Project\vejoe\Balance_CarSoft\User\RTE-I "D:\Program Files\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\Include"-I "D:\Program Files\Keil_v5\ARM\CMSIS\Include"-D__UVISION_VERSION="514" -DSTM32F10X_HD -DSTM32F10X_ -DHD -DUSE_STDPERIPH_DRIVER-o ..\obj\ioi2c.o --omf_browse ..\obj\ioi2c.crf --depend ..\obj\ioi2c.d)
 I (..\MiniBalance_HARDWARE\IIC\ioi2c.h)(0x59898CD6)
 I (..\User\stm32f10x.h)(0x59898CD6)
 I (..\MiniBalance_COER\core_cm3.h)(0x59898CD6)
@@ -1521,7 +1521,7 @@ I (..\STM32F10x_FWLib\inc\stm32f10x_tim.h)(0x59898CD6)
 I (..\STM32F10x_FWLib\inc\stm32f10x_usart.h)(0x59898CD6)
 I (..\STM32F10x_FWLib\inc\stm32f10x_wwdg.h)(0x59898CD6)
 I (..\STM32F10x_FWLib\inc\misc.h)(0x59898CD6)
-I (..\SYSTEM\syss\sys.h)(0x598A7B8F)
+I (..\SYSTEM\syss\sys.h)(0x598A84AC)
 I (..\SYSTEM\delay\delay.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\LED\led.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\KEY\key.h)(0x59898CD6)
@@ -1535,13 +1535,13 @@ I (..\MiniBalance_HARDWARE\MOTOR\motor.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\ENCODER\encoder.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\MPU6050\mpu6050.h)(0x59898CD6)
 I (..\MiniBalance\show\show.h)(0x59898CD6)
-I (..\MiniBalance_HARDWARE\EXTI\exti.h)(0x59898E1B)
+I (..\MiniBalance_HARDWARE\EXTI\exti.h)(0x598A83E2)
 I (..\MiniBalance\DataScope_DP\DataScope_DP.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\STMFLASH\stmflash.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\SPI\spi.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\NRF24L01\24l01.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\CAN\can.h)(0x59898CD6)
-I (..\MiniBalance\Experiment\labyrinth.h)(0x598A7F4E)
+I (..\MiniBalance\Experiment\labyrinth.h)(0x598A84C5)
 I (..\MiniBalance_HARDWARE\DMP\inv_mpu.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\DMP\inv_mpu_dmp_motion_driver.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\DMP\dmpKey.h)(0x59898CD6)
@@ -1549,67 +1549,9 @@ I (..\MiniBalance_HARDWARE\DMP\dmpmap.h)(0x59898CD6)
 I (D:\Program Files\Keil_v5\ARM\ARMCC\include\string.h)(0x5475F300)
 I (D:\Program Files\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x5475F300)
 I (D:\Program Files\Keil_v5\ARM\ARMCC\include\math.h)(0x5475F2FE)
-F (..\MiniBalance_HARDWARE\EXTI\exti.c)(0x59898E1B)(-c --cpu Cortex-M3 -g -O0 --apcs=interwork -I..\User -I..\MiniBalance_COER -I..\STM32F10x_FWLib\inc -I..\MiniBalance_HARDWARE -I..\SYSTEM -I..\SYSTEM\delay -I..\SYSTEM\syss -I..\SYSTEM\usart -I..\MiniBalance_HARDWARE\DMP -I..\MiniBalance_HARDWARE\IIC -I..\MiniBalance_HARDWARE\MPU6050 -I..\MiniBalance_HARDWARE\ENCODER -I..\MiniBalance_HARDWARE\OLED -I..\MiniBalance\show -I..\MiniBalance_HARDWARE\LED -I..\MiniBalance_HARDWARE\KEY -I..\MiniBalance_HARDWARE\ADC -I..\MiniBalance_HARDWARE\MOTOR -I..\MiniBalance_HARDWARE\TIMER -I..\MiniBalance_HARDWARE\EXTI -I..\MiniBalance\DataScope_DP -I..\MiniBalance\filter -I..\MiniBalance_HARDWARE\STMFLASH -I..\MiniBalance_HARDWARE\USARTX -I..\MiniBalance_HARDWARE\NRF24L01 -I..\MiniBalance_HARDWARE\SPI -I..\MiniBalance_HARDWARE\CAN -I..\MiniBalance\Experiment-I D:\Project\vejoe\Balance_CarSoft\User\RTE-I "D:\Program Files\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\Include"-I "D:\Program Files\Keil_v5\ARM\CMSIS\Include"-D__UVISION_VERSION="514" -DSTM32F10X_HD -DSTM32F10X_ -DHD -DUSE_STDPERIPH_DRIVER-o ..\obj\exti.o --omf_browse ..\obj\exti.crf --depend ..\obj\exti.d)
-I (..\MiniBalance_HARDWARE\EXTI\exti.h)(0x59898E1B)
-I (..\SYSTEM\syss\sys.h)(0x598A7B8F)
-I (..\User\stm32f10x.h)(0x59898CD6)
-I (..\MiniBalance_COER\core_cm3.h)(0x59898CD6)
-I (D:\Program Files\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5475F300)
-I (..\User\system_stm32f10x.h)(0x59898CD6)
-I (..\User\stm32f10x_conf.h)(0x59898CD6)
-I (..\STM32F10x_FWLib\inc\stm32f10x_adc.h)(0x59898CD6)
-I (..\STM32F10x_FWLib\inc\stm32f10x_bkp.h)(0x59898CD6)
-I (..\STM32F10x_FWLib\inc\stm32f10x_can.h)(0x59898CD6)
-I (..\STM32F10x_FWLib\inc\stm32f10x_cec.h)(0x59898CD6)
-I (..\STM32F10x_FWLib\inc\stm32f10x_crc.h)(0x59898CD6)
-I (..\STM32F10x_FWLib\inc\stm32f10x_dac.h)(0x59898CD6)
-I (..\STM32F10x_FWLib\inc\stm32f10x_dbgmcu.h)(0x59898CD6)
-I (..\STM32F10x_FWLib\inc\stm32f10x_dma.h)(0x59898CD6)
-I (..\STM32F10x_FWLib\inc\stm32f10x_exti.h)(0x59898CD6)
-I (..\STM32F10x_FWLib\inc\stm32f10x_flash.h)(0x59898CD6)
-I (..\STM32F10x_FWLib\inc\stm32f10x_fsmc.h)(0x59898CD6)
-I (..\STM32F10x_FWLib\inc\stm32f10x_gpio.h)(0x59898CD6)
-I (..\STM32F10x_FWLib\inc\stm32f10x_i2c.h)(0x59898CD6)
-I (..\STM32F10x_FWLib\inc\stm32f10x_iwdg.h)(0x59898CD6)
-I (..\STM32F10x_FWLib\inc\stm32f10x_pwr.h)(0x59898CD6)
-I (..\STM32F10x_FWLib\inc\stm32f10x_rcc.h)(0x59898CD6)
-I (..\STM32F10x_FWLib\inc\stm32f10x_rtc.h)(0x59898CD6)
-I (..\STM32F10x_FWLib\inc\stm32f10x_sdio.h)(0x59898CD6)
-I (..\STM32F10x_FWLib\inc\stm32f10x_spi.h)(0x59898CD6)
-I (..\STM32F10x_FWLib\inc\stm32f10x_tim.h)(0x59898CD6)
-I (..\STM32F10x_FWLib\inc\stm32f10x_usart.h)(0x59898CD6)
-I (..\STM32F10x_FWLib\inc\stm32f10x_wwdg.h)(0x59898CD6)
-I (..\STM32F10x_FWLib\inc\misc.h)(0x59898CD6)
-I (..\SYSTEM\delay\delay.h)(0x59898CD6)
-I (..\MiniBalance_HARDWARE\LED\led.h)(0x59898CD6)
-I (..\MiniBalance_HARDWARE\KEY\key.h)(0x59898CD6)
-I (..\MiniBalance_HARDWARE\OLED\oled.h)(0x59898CD6)
-I (..\SYSTEM\usart\usart.h)(0x59898CD6)
-I (D:\Program Files\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5475F300)
-I (..\MiniBalance_HARDWARE\USARTX\usartx.h)(0x59898CD6)
-I (..\MiniBalance_HARDWARE\ADC\adc.h)(0x59898CD6)
-I (..\MiniBalance_HARDWARE\TIMER\timer.h)(0x59898CD6)
-I (..\MiniBalance_HARDWARE\MOTOR\motor.h)(0x59898CD6)
-I (..\MiniBalance_HARDWARE\ENCODER\encoder.h)(0x59898CD6)
-I (..\MiniBalance_HARDWARE\IIC\ioi2c.h)(0x59898CD6)
-I (..\MiniBalance_HARDWARE\MPU6050\mpu6050.h)(0x59898CD6)
-I (..\MiniBalance\show\show.h)(0x59898CD6)
-I (..\MiniBalance\DataScope_DP\DataScope_DP.h)(0x59898CD6)
-I (..\MiniBalance_HARDWARE\STMFLASH\stmflash.h)(0x59898CD6)
-I (..\MiniBalance_HARDWARE\SPI\spi.h)(0x59898CD6)
-I (..\MiniBalance_HARDWARE\NRF24L01\24l01.h)(0x59898CD6)
-I (..\MiniBalance_HARDWARE\CAN\can.h)(0x59898CD6)
-I (..\MiniBalance\Experiment\labyrinth.h)(0x598A7F4E)
-I (..\MiniBalance_HARDWARE\DMP\inv_mpu.h)(0x59898CD6)
-I (..\MiniBalance_HARDWARE\DMP\inv_mpu_dmp_motion_driver.h)(0x59898CD6)
-I (..\MiniBalance_HARDWARE\DMP\dmpKey.h)(0x59898CD6)
-I (..\MiniBalance_HARDWARE\DMP\dmpmap.h)(0x59898CD6)
-I (D:\Program Files\Keil_v5\ARM\ARMCC\include\string.h)(0x5475F300)
-I (D:\Program Files\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x5475F300)
-I (D:\Program Files\Keil_v5\ARM\ARMCC\include\math.h)(0x5475F2FE)
-F (..\MiniBalance_HARDWARE\STMFLASH\stmflash.c)(0x59898CD6)(-c --cpu Cortex-M3 -g -O0 --apcs=interwork -I..\User -I..\MiniBalance_COER -I..\STM32F10x_FWLib\inc -I..\MiniBalance_HARDWARE -I..\SYSTEM -I..\SYSTEM\delay -I..\SYSTEM\syss -I..\SYSTEM\usart -I..\MiniBalance_HARDWARE\DMP -I..\MiniBalance_HARDWARE\IIC -I..\MiniBalance_HARDWARE\MPU6050 -I..\MiniBalance_HARDWARE\ENCODER -I..\MiniBalance_HARDWARE\OLED -I..\MiniBalance\show -I..\MiniBalance_HARDWARE\LED -I..\MiniBalance_HARDWARE\KEY -I..\MiniBalance_HARDWARE\ADC -I..\MiniBalance_HARDWARE\MOTOR -I..\MiniBalance_HARDWARE\TIMER -I..\MiniBalance_HARDWARE\EXTI -I..\MiniBalance\DataScope_DP -I..\MiniBalance\filter -I..\MiniBalance_HARDWARE\STMFLASH -I..\MiniBalance_HARDWARE\USARTX -I..\MiniBalance_HARDWARE\NRF24L01 -I..\MiniBalance_HARDWARE\SPI -I..\MiniBalance_HARDWARE\CAN -I..\MiniBalance\Experiment-I D:\Project\vejoe\Balance_CarSoft\User\RTE-I "D:\Program Files\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\Include"-I "D:\Program Files\Keil_v5\ARM\CMSIS\Include"-D__UVISION_VERSION="514" -DSTM32F10X_HD -DSTM32F10X_ -DHD -DUSE_STDPERIPH_DRIVER-o ..\obj\stmflash.o --omf_browse ..\obj\stmflash.crf --depend ..\obj\stmflash.d)
-I (..\MiniBalance_HARDWARE\STMFLASH\stmflash.h)(0x59898CD6)
-I (..\SYSTEM\syss\sys.h)(0x598A7B8F)
+F (..\MiniBalance_HARDWARE\EXTI\exti.c)(0x598A83E2)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork -I..\User -I..\MiniBalance_COER -I..\STM32F10x_FWLib\inc -I..\MiniBalance_HARDWARE -I..\SYSTEM -I..\SYSTEM\delay -I..\SYSTEM\syss -I..\SYSTEM\usart -I..\MiniBalance_HARDWARE\DMP -I..\MiniBalance_HARDWARE\IIC -I..\MiniBalance_HARDWARE\MPU6050 -I..\MiniBalance_HARDWARE\ENCODER -I..\MiniBalance_HARDWARE\OLED -I..\MiniBalance\show -I..\MiniBalance_HARDWARE\LED -I..\MiniBalance_HARDWARE\KEY -I..\MiniBalance_HARDWARE\ADC -I..\MiniBalance_HARDWARE\MOTOR -I..\MiniBalance_HARDWARE\TIMER -I..\MiniBalance_HARDWARE\EXTI -I..\MiniBalance\DataScope_DP -I..\MiniBalance\filter -I..\MiniBalance_HARDWARE\STMFLASH -I..\MiniBalance_HARDWARE\USARTX -I..\MiniBalance_HARDWARE\NRF24L01 -I..\MiniBalance_HARDWARE\SPI -I..\MiniBalance_HARDWARE\CAN -I..\MiniBalance\Experiment-I D:\Project\vejoe\Balance_CarSoft\User\RTE-I "D:\Program Files\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\Include"-I "D:\Program Files\Keil_v5\ARM\CMSIS\Include"-D__UVISION_VERSION="514" -DSTM32F10X_HD -DSTM32F10X_ -DHD -DUSE_STDPERIPH_DRIVER-o ..\obj\exti.o --omf_browse ..\obj\exti.crf --depend ..\obj\exti.d)
+I (..\MiniBalance_HARDWARE\EXTI\exti.h)(0x598A83E2)
+I (..\SYSTEM\syss\sys.h)(0x598A84AC)
 I (..\User\stm32f10x.h)(0x59898CD6)
 I (..\MiniBalance_COER\core_cm3.h)(0x59898CD6)
 I (D:\Program Files\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5475F300)
@@ -1652,70 +1594,12 @@ I (..\MiniBalance_HARDWARE\ENCODER\encoder.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\IIC\ioi2c.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\MPU6050\mpu6050.h)(0x59898CD6)
 I (..\MiniBalance\show\show.h)(0x59898CD6)
-I (..\MiniBalance_HARDWARE\EXTI\exti.h)(0x59898E1B)
-I (..\MiniBalance\DataScope_DP\DataScope_DP.h)(0x59898CD6)
-I (..\MiniBalance_HARDWARE\SPI\spi.h)(0x59898CD6)
-I (..\MiniBalance_HARDWARE\NRF24L01\24l01.h)(0x59898CD6)
-I (..\MiniBalance_HARDWARE\CAN\can.h)(0x59898CD6)
-I (..\MiniBalance\Experiment\labyrinth.h)(0x598A7F4E)
-I (..\MiniBalance_HARDWARE\DMP\inv_mpu.h)(0x59898CD6)
-I (..\MiniBalance_HARDWARE\DMP\inv_mpu_dmp_motion_driver.h)(0x59898CD6)
-I (..\MiniBalance_HARDWARE\DMP\dmpKey.h)(0x59898CD6)
-I (..\MiniBalance_HARDWARE\DMP\dmpmap.h)(0x59898CD6)
-I (D:\Program Files\Keil_v5\ARM\ARMCC\include\string.h)(0x5475F300)
-I (D:\Program Files\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x5475F300)
-I (D:\Program Files\Keil_v5\ARM\ARMCC\include\math.h)(0x5475F2FE)
-F (..\MiniBalance_HARDWARE\USARTX\usartx.c)(0x59898CD6)(-c --cpu Cortex-M3 -g -O0 --apcs=interwork -I..\User -I..\MiniBalance_COER -I..\STM32F10x_FWLib\inc -I..\MiniBalance_HARDWARE -I..\SYSTEM -I..\SYSTEM\delay -I..\SYSTEM\syss -I..\SYSTEM\usart -I..\MiniBalance_HARDWARE\DMP -I..\MiniBalance_HARDWARE\IIC -I..\MiniBalance_HARDWARE\MPU6050 -I..\MiniBalance_HARDWARE\ENCODER -I..\MiniBalance_HARDWARE\OLED -I..\MiniBalance\show -I..\MiniBalance_HARDWARE\LED -I..\MiniBalance_HARDWARE\KEY -I..\MiniBalance_HARDWARE\ADC -I..\MiniBalance_HARDWARE\MOTOR -I..\MiniBalance_HARDWARE\TIMER -I..\MiniBalance_HARDWARE\EXTI -I..\MiniBalance\DataScope_DP -I..\MiniBalance\filter -I..\MiniBalance_HARDWARE\STMFLASH -I..\MiniBalance_HARDWARE\USARTX -I..\MiniBalance_HARDWARE\NRF24L01 -I..\MiniBalance_HARDWARE\SPI -I..\MiniBalance_HARDWARE\CAN -I..\MiniBalance\Experiment-I D:\Project\vejoe\Balance_CarSoft\User\RTE-I "D:\Program Files\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\Include"-I "D:\Program Files\Keil_v5\ARM\CMSIS\Include"-D__UVISION_VERSION="514" -DSTM32F10X_HD -DSTM32F10X_ -DHD -DUSE_STDPERIPH_DRIVER-o ..\obj\usartx.o --omf_browse ..\obj\usartx.crf --depend ..\obj\usartx.d)
-I (..\MiniBalance_HARDWARE\USARTX\usartx.h)(0x59898CD6)
-I (..\SYSTEM\syss\sys.h)(0x598A7B8F)
-I (..\User\stm32f10x.h)(0x59898CD6)
-I (..\MiniBalance_COER\core_cm3.h)(0x59898CD6)
-I (D:\Program Files\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5475F300)
-I (..\User\system_stm32f10x.h)(0x59898CD6)
-I (..\User\stm32f10x_conf.h)(0x59898CD6)
-I (..\STM32F10x_FWLib\inc\stm32f10x_adc.h)(0x59898CD6)
-I (..\STM32F10x_FWLib\inc\stm32f10x_bkp.h)(0x59898CD6)
-I (..\STM32F10x_FWLib\inc\stm32f10x_can.h)(0x59898CD6)
-I (..\STM32F10x_FWLib\inc\stm32f10x_cec.h)(0x59898CD6)
-I (..\STM32F10x_FWLib\inc\stm32f10x_crc.h)(0x59898CD6)
-I (..\STM32F10x_FWLib\inc\stm32f10x_dac.h)(0x59898CD6)
-I (..\STM32F10x_FWLib\inc\stm32f10x_dbgmcu.h)(0x59898CD6)
-I (..\STM32F10x_FWLib\inc\stm32f10x_dma.h)(0x59898CD6)
-I (..\STM32F10x_FWLib\inc\stm32f10x_exti.h)(0x59898CD6)
-I (..\STM32F10x_FWLib\inc\stm32f10x_flash.h)(0x59898CD6)
-I (..\STM32F10x_FWLib\inc\stm32f10x_fsmc.h)(0x59898CD6)
-I (..\STM32F10x_FWLib\inc\stm32f10x_gpio.h)(0x59898CD6)
-I (..\STM32F10x_FWLib\inc\stm32f10x_i2c.h)(0x59898CD6)
-I (..\STM32F10x_FWLib\inc\stm32f10x_iwdg.h)(0x59898CD6)
-I (..\STM32F10x_FWLib\inc\stm32f10x_pwr.h)(0x59898CD6)
-I (..\STM32F10x_FWLib\inc\stm32f10x_rcc.h)(0x59898CD6)
-I (..\STM32F10x_FWLib\inc\stm32f10x_rtc.h)(0x59898CD6)
-I (..\STM32F10x_FWLib\inc\stm32f10x_sdio.h)(0x59898CD6)
-I (..\STM32F10x_FWLib\inc\stm32f10x_spi.h)(0x59898CD6)
-I (..\STM32F10x_FWLib\inc\stm32f10x_tim.h)(0x59898CD6)
-I (..\STM32F10x_FWLib\inc\stm32f10x_usart.h)(0x59898CD6)
-I (..\STM32F10x_FWLib\inc\stm32f10x_wwdg.h)(0x59898CD6)
-I (..\STM32F10x_FWLib\inc\misc.h)(0x59898CD6)
-I (..\SYSTEM\delay\delay.h)(0x59898CD6)
-I (..\MiniBalance_HARDWARE\LED\led.h)(0x59898CD6)
-I (..\MiniBalance_HARDWARE\KEY\key.h)(0x59898CD6)
-I (..\MiniBalance_HARDWARE\OLED\oled.h)(0x59898CD6)
-I (..\SYSTEM\usart\usart.h)(0x59898CD6)
-I (D:\Program Files\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5475F300)
-I (..\MiniBalance_HARDWARE\ADC\adc.h)(0x59898CD6)
-I (..\MiniBalance_HARDWARE\TIMER\timer.h)(0x59898CD6)
-I (..\MiniBalance_HARDWARE\MOTOR\motor.h)(0x59898CD6)
-I (..\MiniBalance_HARDWARE\ENCODER\encoder.h)(0x59898CD6)
-I (..\MiniBalance_HARDWARE\IIC\ioi2c.h)(0x59898CD6)
-I (..\MiniBalance_HARDWARE\MPU6050\mpu6050.h)(0x59898CD6)
-I (..\MiniBalance\show\show.h)(0x59898CD6)
-I (..\MiniBalance_HARDWARE\EXTI\exti.h)(0x59898E1B)
 I (..\MiniBalance\DataScope_DP\DataScope_DP.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\STMFLASH\stmflash.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\SPI\spi.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\NRF24L01\24l01.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\CAN\can.h)(0x59898CD6)
-I (..\MiniBalance\Experiment\labyrinth.h)(0x598A7F4E)
+I (..\MiniBalance\Experiment\labyrinth.h)(0x598A84C5)
 I (..\MiniBalance_HARDWARE\DMP\inv_mpu.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\DMP\inv_mpu_dmp_motion_driver.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\DMP\dmpKey.h)(0x59898CD6)
@@ -1723,9 +1607,9 @@ I (..\MiniBalance_HARDWARE\DMP\dmpmap.h)(0x59898CD6)
 I (D:\Program Files\Keil_v5\ARM\ARMCC\include\string.h)(0x5475F300)
 I (D:\Program Files\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x5475F300)
 I (D:\Program Files\Keil_v5\ARM\ARMCC\include\math.h)(0x5475F2FE)
-F (..\MiniBalance_HARDWARE\NRF24L01\24l01.c)(0x59898CD6)(-c --cpu Cortex-M3 -g -O0 --apcs=interwork -I..\User -I..\MiniBalance_COER -I..\STM32F10x_FWLib\inc -I..\MiniBalance_HARDWARE -I..\SYSTEM -I..\SYSTEM\delay -I..\SYSTEM\syss -I..\SYSTEM\usart -I..\MiniBalance_HARDWARE\DMP -I..\MiniBalance_HARDWARE\IIC -I..\MiniBalance_HARDWARE\MPU6050 -I..\MiniBalance_HARDWARE\ENCODER -I..\MiniBalance_HARDWARE\OLED -I..\MiniBalance\show -I..\MiniBalance_HARDWARE\LED -I..\MiniBalance_HARDWARE\KEY -I..\MiniBalance_HARDWARE\ADC -I..\MiniBalance_HARDWARE\MOTOR -I..\MiniBalance_HARDWARE\TIMER -I..\MiniBalance_HARDWARE\EXTI -I..\MiniBalance\DataScope_DP -I..\MiniBalance\filter -I..\MiniBalance_HARDWARE\STMFLASH -I..\MiniBalance_HARDWARE\USARTX -I..\MiniBalance_HARDWARE\NRF24L01 -I..\MiniBalance_HARDWARE\SPI -I..\MiniBalance_HARDWARE\CAN -I..\MiniBalance\Experiment-I D:\Project\vejoe\Balance_CarSoft\User\RTE-I "D:\Program Files\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\Include"-I "D:\Program Files\Keil_v5\ARM\CMSIS\Include"-D__UVISION_VERSION="514" -DSTM32F10X_HD -DSTM32F10X_ -DHD -DUSE_STDPERIPH_DRIVER-o ..\obj\24l01.o --omf_browse ..\obj\24l01.crf --depend ..\obj\24l01.d)
-I (..\MiniBalance_HARDWARE\NRF24L01\24l01.h)(0x59898CD6)
-I (..\SYSTEM\syss\sys.h)(0x598A7B8F)
+F (..\MiniBalance_HARDWARE\STMFLASH\stmflash.c)(0x59898CD6)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork -I..\User -I..\MiniBalance_COER -I..\STM32F10x_FWLib\inc -I..\MiniBalance_HARDWARE -I..\SYSTEM -I..\SYSTEM\delay -I..\SYSTEM\syss -I..\SYSTEM\usart -I..\MiniBalance_HARDWARE\DMP -I..\MiniBalance_HARDWARE\IIC -I..\MiniBalance_HARDWARE\MPU6050 -I..\MiniBalance_HARDWARE\ENCODER -I..\MiniBalance_HARDWARE\OLED -I..\MiniBalance\show -I..\MiniBalance_HARDWARE\LED -I..\MiniBalance_HARDWARE\KEY -I..\MiniBalance_HARDWARE\ADC -I..\MiniBalance_HARDWARE\MOTOR -I..\MiniBalance_HARDWARE\TIMER -I..\MiniBalance_HARDWARE\EXTI -I..\MiniBalance\DataScope_DP -I..\MiniBalance\filter -I..\MiniBalance_HARDWARE\STMFLASH -I..\MiniBalance_HARDWARE\USARTX -I..\MiniBalance_HARDWARE\NRF24L01 -I..\MiniBalance_HARDWARE\SPI -I..\MiniBalance_HARDWARE\CAN -I..\MiniBalance\Experiment-I D:\Project\vejoe\Balance_CarSoft\User\RTE-I "D:\Program Files\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\Include"-I "D:\Program Files\Keil_v5\ARM\CMSIS\Include"-D__UVISION_VERSION="514" -DSTM32F10X_HD -DSTM32F10X_ -DHD -DUSE_STDPERIPH_DRIVER-o ..\obj\stmflash.o --omf_browse ..\obj\stmflash.crf --depend ..\obj\stmflash.d)
+I (..\MiniBalance_HARDWARE\STMFLASH\stmflash.h)(0x59898CD6)
+I (..\SYSTEM\syss\sys.h)(0x598A84AC)
 I (..\User\stm32f10x.h)(0x59898CD6)
 I (..\MiniBalance_COER\core_cm3.h)(0x59898CD6)
 I (D:\Program Files\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5475F300)
@@ -1768,12 +1652,12 @@ I (..\MiniBalance_HARDWARE\ENCODER\encoder.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\IIC\ioi2c.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\MPU6050\mpu6050.h)(0x59898CD6)
 I (..\MiniBalance\show\show.h)(0x59898CD6)
-I (..\MiniBalance_HARDWARE\EXTI\exti.h)(0x59898E1B)
+I (..\MiniBalance_HARDWARE\EXTI\exti.h)(0x598A83E2)
 I (..\MiniBalance\DataScope_DP\DataScope_DP.h)(0x59898CD6)
-I (..\MiniBalance_HARDWARE\STMFLASH\stmflash.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\SPI\spi.h)(0x59898CD6)
+I (..\MiniBalance_HARDWARE\NRF24L01\24l01.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\CAN\can.h)(0x59898CD6)
-I (..\MiniBalance\Experiment\labyrinth.h)(0x598A7F4E)
+I (..\MiniBalance\Experiment\labyrinth.h)(0x598A84C5)
 I (..\MiniBalance_HARDWARE\DMP\inv_mpu.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\DMP\inv_mpu_dmp_motion_driver.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\DMP\dmpKey.h)(0x59898CD6)
@@ -1781,9 +1665,67 @@ I (..\MiniBalance_HARDWARE\DMP\dmpmap.h)(0x59898CD6)
 I (D:\Program Files\Keil_v5\ARM\ARMCC\include\string.h)(0x5475F300)
 I (D:\Program Files\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x5475F300)
 I (D:\Program Files\Keil_v5\ARM\ARMCC\include\math.h)(0x5475F2FE)
-F (..\MiniBalance_HARDWARE\SPI\spi.c)(0x59898CD6)(-c --cpu Cortex-M3 -g -O0 --apcs=interwork -I..\User -I..\MiniBalance_COER -I..\STM32F10x_FWLib\inc -I..\MiniBalance_HARDWARE -I..\SYSTEM -I..\SYSTEM\delay -I..\SYSTEM\syss -I..\SYSTEM\usart -I..\MiniBalance_HARDWARE\DMP -I..\MiniBalance_HARDWARE\IIC -I..\MiniBalance_HARDWARE\MPU6050 -I..\MiniBalance_HARDWARE\ENCODER -I..\MiniBalance_HARDWARE\OLED -I..\MiniBalance\show -I..\MiniBalance_HARDWARE\LED -I..\MiniBalance_HARDWARE\KEY -I..\MiniBalance_HARDWARE\ADC -I..\MiniBalance_HARDWARE\MOTOR -I..\MiniBalance_HARDWARE\TIMER -I..\MiniBalance_HARDWARE\EXTI -I..\MiniBalance\DataScope_DP -I..\MiniBalance\filter -I..\MiniBalance_HARDWARE\STMFLASH -I..\MiniBalance_HARDWARE\USARTX -I..\MiniBalance_HARDWARE\NRF24L01 -I..\MiniBalance_HARDWARE\SPI -I..\MiniBalance_HARDWARE\CAN -I..\MiniBalance\Experiment-I D:\Project\vejoe\Balance_CarSoft\User\RTE-I "D:\Program Files\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\Include"-I "D:\Program Files\Keil_v5\ARM\CMSIS\Include"-D__UVISION_VERSION="514" -DSTM32F10X_HD -DSTM32F10X_ -DHD -DUSE_STDPERIPH_DRIVER-o ..\obj\spi.o --omf_browse ..\obj\spi.crf --depend ..\obj\spi.d)
+F (..\MiniBalance_HARDWARE\USARTX\usartx.c)(0x59898CD6)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork -I..\User -I..\MiniBalance_COER -I..\STM32F10x_FWLib\inc -I..\MiniBalance_HARDWARE -I..\SYSTEM -I..\SYSTEM\delay -I..\SYSTEM\syss -I..\SYSTEM\usart -I..\MiniBalance_HARDWARE\DMP -I..\MiniBalance_HARDWARE\IIC -I..\MiniBalance_HARDWARE\MPU6050 -I..\MiniBalance_HARDWARE\ENCODER -I..\MiniBalance_HARDWARE\OLED -I..\MiniBalance\show -I..\MiniBalance_HARDWARE\LED -I..\MiniBalance_HARDWARE\KEY -I..\MiniBalance_HARDWARE\ADC -I..\MiniBalance_HARDWARE\MOTOR -I..\MiniBalance_HARDWARE\TIMER -I..\MiniBalance_HARDWARE\EXTI -I..\MiniBalance\DataScope_DP -I..\MiniBalance\filter -I..\MiniBalance_HARDWARE\STMFLASH -I..\MiniBalance_HARDWARE\USARTX -I..\MiniBalance_HARDWARE\NRF24L01 -I..\MiniBalance_HARDWARE\SPI -I..\MiniBalance_HARDWARE\CAN -I..\MiniBalance\Experiment-I D:\Project\vejoe\Balance_CarSoft\User\RTE-I "D:\Program Files\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\Include"-I "D:\Program Files\Keil_v5\ARM\CMSIS\Include"-D__UVISION_VERSION="514" -DSTM32F10X_HD -DSTM32F10X_ -DHD -DUSE_STDPERIPH_DRIVER-o ..\obj\usartx.o --omf_browse ..\obj\usartx.crf --depend ..\obj\usartx.d)
+I (..\MiniBalance_HARDWARE\USARTX\usartx.h)(0x59898CD6)
+I (..\SYSTEM\syss\sys.h)(0x598A84AC)
+I (..\User\stm32f10x.h)(0x59898CD6)
+I (..\MiniBalance_COER\core_cm3.h)(0x59898CD6)
+I (D:\Program Files\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5475F300)
+I (..\User\system_stm32f10x.h)(0x59898CD6)
+I (..\User\stm32f10x_conf.h)(0x59898CD6)
+I (..\STM32F10x_FWLib\inc\stm32f10x_adc.h)(0x59898CD6)
+I (..\STM32F10x_FWLib\inc\stm32f10x_bkp.h)(0x59898CD6)
+I (..\STM32F10x_FWLib\inc\stm32f10x_can.h)(0x59898CD6)
+I (..\STM32F10x_FWLib\inc\stm32f10x_cec.h)(0x59898CD6)
+I (..\STM32F10x_FWLib\inc\stm32f10x_crc.h)(0x59898CD6)
+I (..\STM32F10x_FWLib\inc\stm32f10x_dac.h)(0x59898CD6)
+I (..\STM32F10x_FWLib\inc\stm32f10x_dbgmcu.h)(0x59898CD6)
+I (..\STM32F10x_FWLib\inc\stm32f10x_dma.h)(0x59898CD6)
+I (..\STM32F10x_FWLib\inc\stm32f10x_exti.h)(0x59898CD6)
+I (..\STM32F10x_FWLib\inc\stm32f10x_flash.h)(0x59898CD6)
+I (..\STM32F10x_FWLib\inc\stm32f10x_fsmc.h)(0x59898CD6)
+I (..\STM32F10x_FWLib\inc\stm32f10x_gpio.h)(0x59898CD6)
+I (..\STM32F10x_FWLib\inc\stm32f10x_i2c.h)(0x59898CD6)
+I (..\STM32F10x_FWLib\inc\stm32f10x_iwdg.h)(0x59898CD6)
+I (..\STM32F10x_FWLib\inc\stm32f10x_pwr.h)(0x59898CD6)
+I (..\STM32F10x_FWLib\inc\stm32f10x_rcc.h)(0x59898CD6)
+I (..\STM32F10x_FWLib\inc\stm32f10x_rtc.h)(0x59898CD6)
+I (..\STM32F10x_FWLib\inc\stm32f10x_sdio.h)(0x59898CD6)
+I (..\STM32F10x_FWLib\inc\stm32f10x_spi.h)(0x59898CD6)
+I (..\STM32F10x_FWLib\inc\stm32f10x_tim.h)(0x59898CD6)
+I (..\STM32F10x_FWLib\inc\stm32f10x_usart.h)(0x59898CD6)
+I (..\STM32F10x_FWLib\inc\stm32f10x_wwdg.h)(0x59898CD6)
+I (..\STM32F10x_FWLib\inc\misc.h)(0x59898CD6)
+I (..\SYSTEM\delay\delay.h)(0x59898CD6)
+I (..\MiniBalance_HARDWARE\LED\led.h)(0x59898CD6)
+I (..\MiniBalance_HARDWARE\KEY\key.h)(0x59898CD6)
+I (..\MiniBalance_HARDWARE\OLED\oled.h)(0x59898CD6)
+I (..\SYSTEM\usart\usart.h)(0x59898CD6)
+I (D:\Program Files\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5475F300)
+I (..\MiniBalance_HARDWARE\ADC\adc.h)(0x59898CD6)
+I (..\MiniBalance_HARDWARE\TIMER\timer.h)(0x59898CD6)
+I (..\MiniBalance_HARDWARE\MOTOR\motor.h)(0x59898CD6)
+I (..\MiniBalance_HARDWARE\ENCODER\encoder.h)(0x59898CD6)
+I (..\MiniBalance_HARDWARE\IIC\ioi2c.h)(0x59898CD6)
+I (..\MiniBalance_HARDWARE\MPU6050\mpu6050.h)(0x59898CD6)
+I (..\MiniBalance\show\show.h)(0x59898CD6)
+I (..\MiniBalance_HARDWARE\EXTI\exti.h)(0x598A83E2)
+I (..\MiniBalance\DataScope_DP\DataScope_DP.h)(0x59898CD6)
+I (..\MiniBalance_HARDWARE\STMFLASH\stmflash.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\SPI\spi.h)(0x59898CD6)
-I (..\SYSTEM\syss\sys.h)(0x598A7B8F)
+I (..\MiniBalance_HARDWARE\NRF24L01\24l01.h)(0x59898CD6)
+I (..\MiniBalance_HARDWARE\CAN\can.h)(0x59898CD6)
+I (..\MiniBalance\Experiment\labyrinth.h)(0x598A84C5)
+I (..\MiniBalance_HARDWARE\DMP\inv_mpu.h)(0x59898CD6)
+I (..\MiniBalance_HARDWARE\DMP\inv_mpu_dmp_motion_driver.h)(0x59898CD6)
+I (..\MiniBalance_HARDWARE\DMP\dmpKey.h)(0x59898CD6)
+I (..\MiniBalance_HARDWARE\DMP\dmpmap.h)(0x59898CD6)
+I (D:\Program Files\Keil_v5\ARM\ARMCC\include\string.h)(0x5475F300)
+I (D:\Program Files\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x5475F300)
+I (D:\Program Files\Keil_v5\ARM\ARMCC\include\math.h)(0x5475F2FE)
+F (..\MiniBalance_HARDWARE\NRF24L01\24l01.c)(0x59898CD6)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork -I..\User -I..\MiniBalance_COER -I..\STM32F10x_FWLib\inc -I..\MiniBalance_HARDWARE -I..\SYSTEM -I..\SYSTEM\delay -I..\SYSTEM\syss -I..\SYSTEM\usart -I..\MiniBalance_HARDWARE\DMP -I..\MiniBalance_HARDWARE\IIC -I..\MiniBalance_HARDWARE\MPU6050 -I..\MiniBalance_HARDWARE\ENCODER -I..\MiniBalance_HARDWARE\OLED -I..\MiniBalance\show -I..\MiniBalance_HARDWARE\LED -I..\MiniBalance_HARDWARE\KEY -I..\MiniBalance_HARDWARE\ADC -I..\MiniBalance_HARDWARE\MOTOR -I..\MiniBalance_HARDWARE\TIMER -I..\MiniBalance_HARDWARE\EXTI -I..\MiniBalance\DataScope_DP -I..\MiniBalance\filter -I..\MiniBalance_HARDWARE\STMFLASH -I..\MiniBalance_HARDWARE\USARTX -I..\MiniBalance_HARDWARE\NRF24L01 -I..\MiniBalance_HARDWARE\SPI -I..\MiniBalance_HARDWARE\CAN -I..\MiniBalance\Experiment-I D:\Project\vejoe\Balance_CarSoft\User\RTE-I "D:\Program Files\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\Include"-I "D:\Program Files\Keil_v5\ARM\CMSIS\Include"-D__UVISION_VERSION="514" -DSTM32F10X_HD -DSTM32F10X_ -DHD -DUSE_STDPERIPH_DRIVER-o ..\obj\24l01.o --omf_browse ..\obj\24l01.crf --depend ..\obj\24l01.d)
+I (..\MiniBalance_HARDWARE\NRF24L01\24l01.h)(0x59898CD6)
+I (..\SYSTEM\syss\sys.h)(0x598A84AC)
 I (..\User\stm32f10x.h)(0x59898CD6)
 I (..\MiniBalance_COER\core_cm3.h)(0x59898CD6)
 I (D:\Program Files\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5475F300)
@@ -1826,12 +1768,12 @@ I (..\MiniBalance_HARDWARE\ENCODER\encoder.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\IIC\ioi2c.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\MPU6050\mpu6050.h)(0x59898CD6)
 I (..\MiniBalance\show\show.h)(0x59898CD6)
-I (..\MiniBalance_HARDWARE\EXTI\exti.h)(0x59898E1B)
+I (..\MiniBalance_HARDWARE\EXTI\exti.h)(0x598A83E2)
 I (..\MiniBalance\DataScope_DP\DataScope_DP.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\STMFLASH\stmflash.h)(0x59898CD6)
-I (..\MiniBalance_HARDWARE\NRF24L01\24l01.h)(0x59898CD6)
+I (..\MiniBalance_HARDWARE\SPI\spi.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\CAN\can.h)(0x59898CD6)
-I (..\MiniBalance\Experiment\labyrinth.h)(0x598A7F4E)
+I (..\MiniBalance\Experiment\labyrinth.h)(0x598A84C5)
 I (..\MiniBalance_HARDWARE\DMP\inv_mpu.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\DMP\inv_mpu_dmp_motion_driver.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\DMP\dmpKey.h)(0x59898CD6)
@@ -1839,9 +1781,9 @@ I (..\MiniBalance_HARDWARE\DMP\dmpmap.h)(0x59898CD6)
 I (D:\Program Files\Keil_v5\ARM\ARMCC\include\string.h)(0x5475F300)
 I (D:\Program Files\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x5475F300)
 I (D:\Program Files\Keil_v5\ARM\ARMCC\include\math.h)(0x5475F2FE)
-F (..\MiniBalance_HARDWARE\CAN\can.c)(0x59898CD6)(-c --cpu Cortex-M3 -g -O0 --apcs=interwork -I..\User -I..\MiniBalance_COER -I..\STM32F10x_FWLib\inc -I..\MiniBalance_HARDWARE -I..\SYSTEM -I..\SYSTEM\delay -I..\SYSTEM\syss -I..\SYSTEM\usart -I..\MiniBalance_HARDWARE\DMP -I..\MiniBalance_HARDWARE\IIC -I..\MiniBalance_HARDWARE\MPU6050 -I..\MiniBalance_HARDWARE\ENCODER -I..\MiniBalance_HARDWARE\OLED -I..\MiniBalance\show -I..\MiniBalance_HARDWARE\LED -I..\MiniBalance_HARDWARE\KEY -I..\MiniBalance_HARDWARE\ADC -I..\MiniBalance_HARDWARE\MOTOR -I..\MiniBalance_HARDWARE\TIMER -I..\MiniBalance_HARDWARE\EXTI -I..\MiniBalance\DataScope_DP -I..\MiniBalance\filter -I..\MiniBalance_HARDWARE\STMFLASH -I..\MiniBalance_HARDWARE\USARTX -I..\MiniBalance_HARDWARE\NRF24L01 -I..\MiniBalance_HARDWARE\SPI -I..\MiniBalance_HARDWARE\CAN -I..\MiniBalance\Experiment-I D:\Project\vejoe\Balance_CarSoft\User\RTE-I "D:\Program Files\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\Include"-I "D:\Program Files\Keil_v5\ARM\CMSIS\Include"-D__UVISION_VERSION="514" -DSTM32F10X_HD -DSTM32F10X_ -DHD -DUSE_STDPERIPH_DRIVER-o ..\obj\can.o --omf_browse ..\obj\can.crf --depend ..\obj\can.d)
-I (..\MiniBalance_HARDWARE\CAN\can.h)(0x59898CD6)
-I (..\SYSTEM\syss\sys.h)(0x598A7B8F)
+F (..\MiniBalance_HARDWARE\SPI\spi.c)(0x59898CD6)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork -I..\User -I..\MiniBalance_COER -I..\STM32F10x_FWLib\inc -I..\MiniBalance_HARDWARE -I..\SYSTEM -I..\SYSTEM\delay -I..\SYSTEM\syss -I..\SYSTEM\usart -I..\MiniBalance_HARDWARE\DMP -I..\MiniBalance_HARDWARE\IIC -I..\MiniBalance_HARDWARE\MPU6050 -I..\MiniBalance_HARDWARE\ENCODER -I..\MiniBalance_HARDWARE\OLED -I..\MiniBalance\show -I..\MiniBalance_HARDWARE\LED -I..\MiniBalance_HARDWARE\KEY -I..\MiniBalance_HARDWARE\ADC -I..\MiniBalance_HARDWARE\MOTOR -I..\MiniBalance_HARDWARE\TIMER -I..\MiniBalance_HARDWARE\EXTI -I..\MiniBalance\DataScope_DP -I..\MiniBalance\filter -I..\MiniBalance_HARDWARE\STMFLASH -I..\MiniBalance_HARDWARE\USARTX -I..\MiniBalance_HARDWARE\NRF24L01 -I..\MiniBalance_HARDWARE\SPI -I..\MiniBalance_HARDWARE\CAN -I..\MiniBalance\Experiment-I D:\Project\vejoe\Balance_CarSoft\User\RTE-I "D:\Program Files\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\Include"-I "D:\Program Files\Keil_v5\ARM\CMSIS\Include"-D__UVISION_VERSION="514" -DSTM32F10X_HD -DSTM32F10X_ -DHD -DUSE_STDPERIPH_DRIVER-o ..\obj\spi.o --omf_browse ..\obj\spi.crf --depend ..\obj\spi.d)
+I (..\MiniBalance_HARDWARE\SPI\spi.h)(0x59898CD6)
+I (..\SYSTEM\syss\sys.h)(0x598A84AC)
 I (..\User\stm32f10x.h)(0x59898CD6)
 I (..\MiniBalance_COER\core_cm3.h)(0x59898CD6)
 I (D:\Program Files\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5475F300)
@@ -1884,12 +1826,12 @@ I (..\MiniBalance_HARDWARE\ENCODER\encoder.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\IIC\ioi2c.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\MPU6050\mpu6050.h)(0x59898CD6)
 I (..\MiniBalance\show\show.h)(0x59898CD6)
-I (..\MiniBalance_HARDWARE\EXTI\exti.h)(0x59898E1B)
+I (..\MiniBalance_HARDWARE\EXTI\exti.h)(0x598A83E2)
 I (..\MiniBalance\DataScope_DP\DataScope_DP.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\STMFLASH\stmflash.h)(0x59898CD6)
-I (..\MiniBalance_HARDWARE\SPI\spi.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\NRF24L01\24l01.h)(0x59898CD6)
-I (..\MiniBalance\Experiment\labyrinth.h)(0x598A7F4E)
+I (..\MiniBalance_HARDWARE\CAN\can.h)(0x59898CD6)
+I (..\MiniBalance\Experiment\labyrinth.h)(0x598A84C5)
 I (..\MiniBalance_HARDWARE\DMP\inv_mpu.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\DMP\inv_mpu_dmp_motion_driver.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\DMP\dmpKey.h)(0x59898CD6)
@@ -1897,9 +1839,67 @@ I (..\MiniBalance_HARDWARE\DMP\dmpmap.h)(0x59898CD6)
 I (D:\Program Files\Keil_v5\ARM\ARMCC\include\string.h)(0x5475F300)
 I (D:\Program Files\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x5475F300)
 I (D:\Program Files\Keil_v5\ARM\ARMCC\include\math.h)(0x5475F2FE)
-F (..\MiniBalance\CONTROL\control.c)(0x598A7947)(-c --cpu Cortex-M3 -g -O0 --apcs=interwork -I..\User -I..\MiniBalance_COER -I..\STM32F10x_FWLib\inc -I..\MiniBalance_HARDWARE -I..\SYSTEM -I..\SYSTEM\delay -I..\SYSTEM\syss -I..\SYSTEM\usart -I..\MiniBalance_HARDWARE\DMP -I..\MiniBalance_HARDWARE\IIC -I..\MiniBalance_HARDWARE\MPU6050 -I..\MiniBalance_HARDWARE\ENCODER -I..\MiniBalance_HARDWARE\OLED -I..\MiniBalance\show -I..\MiniBalance_HARDWARE\LED -I..\MiniBalance_HARDWARE\KEY -I..\MiniBalance_HARDWARE\ADC -I..\MiniBalance_HARDWARE\MOTOR -I..\MiniBalance_HARDWARE\TIMER -I..\MiniBalance_HARDWARE\EXTI -I..\MiniBalance\DataScope_DP -I..\MiniBalance\filter -I..\MiniBalance_HARDWARE\STMFLASH -I..\MiniBalance_HARDWARE\USARTX -I..\MiniBalance_HARDWARE\NRF24L01 -I..\MiniBalance_HARDWARE\SPI -I..\MiniBalance_HARDWARE\CAN -I..\MiniBalance\Experiment-I D:\Project\vejoe\Balance_CarSoft\User\RTE-I "D:\Program Files\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\Include"-I "D:\Program Files\Keil_v5\ARM\CMSIS\Include"-D__UVISION_VERSION="514" -DSTM32F10X_HD -DSTM32F10X_ -DHD -DUSE_STDPERIPH_DRIVER-o ..\obj\control.o --omf_browse ..\obj\control.crf --depend ..\obj\control.d)
+F (..\MiniBalance_HARDWARE\CAN\can.c)(0x59898CD6)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork -I..\User -I..\MiniBalance_COER -I..\STM32F10x_FWLib\inc -I..\MiniBalance_HARDWARE -I..\SYSTEM -I..\SYSTEM\delay -I..\SYSTEM\syss -I..\SYSTEM\usart -I..\MiniBalance_HARDWARE\DMP -I..\MiniBalance_HARDWARE\IIC -I..\MiniBalance_HARDWARE\MPU6050 -I..\MiniBalance_HARDWARE\ENCODER -I..\MiniBalance_HARDWARE\OLED -I..\MiniBalance\show -I..\MiniBalance_HARDWARE\LED -I..\MiniBalance_HARDWARE\KEY -I..\MiniBalance_HARDWARE\ADC -I..\MiniBalance_HARDWARE\MOTOR -I..\MiniBalance_HARDWARE\TIMER -I..\MiniBalance_HARDWARE\EXTI -I..\MiniBalance\DataScope_DP -I..\MiniBalance\filter -I..\MiniBalance_HARDWARE\STMFLASH -I..\MiniBalance_HARDWARE\USARTX -I..\MiniBalance_HARDWARE\NRF24L01 -I..\MiniBalance_HARDWARE\SPI -I..\MiniBalance_HARDWARE\CAN -I..\MiniBalance\Experiment-I D:\Project\vejoe\Balance_CarSoft\User\RTE-I "D:\Program Files\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\Include"-I "D:\Program Files\Keil_v5\ARM\CMSIS\Include"-D__UVISION_VERSION="514" -DSTM32F10X_HD -DSTM32F10X_ -DHD -DUSE_STDPERIPH_DRIVER-o ..\obj\can.o --omf_browse ..\obj\can.crf --depend ..\obj\can.d)
+I (..\MiniBalance_HARDWARE\CAN\can.h)(0x59898CD6)
+I (..\SYSTEM\syss\sys.h)(0x598A84AC)
+I (..\User\stm32f10x.h)(0x59898CD6)
+I (..\MiniBalance_COER\core_cm3.h)(0x59898CD6)
+I (D:\Program Files\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5475F300)
+I (..\User\system_stm32f10x.h)(0x59898CD6)
+I (..\User\stm32f10x_conf.h)(0x59898CD6)
+I (..\STM32F10x_FWLib\inc\stm32f10x_adc.h)(0x59898CD6)
+I (..\STM32F10x_FWLib\inc\stm32f10x_bkp.h)(0x59898CD6)
+I (..\STM32F10x_FWLib\inc\stm32f10x_can.h)(0x59898CD6)
+I (..\STM32F10x_FWLib\inc\stm32f10x_cec.h)(0x59898CD6)
+I (..\STM32F10x_FWLib\inc\stm32f10x_crc.h)(0x59898CD6)
+I (..\STM32F10x_FWLib\inc\stm32f10x_dac.h)(0x59898CD6)
+I (..\STM32F10x_FWLib\inc\stm32f10x_dbgmcu.h)(0x59898CD6)
+I (..\STM32F10x_FWLib\inc\stm32f10x_dma.h)(0x59898CD6)
+I (..\STM32F10x_FWLib\inc\stm32f10x_exti.h)(0x59898CD6)
+I (..\STM32F10x_FWLib\inc\stm32f10x_flash.h)(0x59898CD6)
+I (..\STM32F10x_FWLib\inc\stm32f10x_fsmc.h)(0x59898CD6)
+I (..\STM32F10x_FWLib\inc\stm32f10x_gpio.h)(0x59898CD6)
+I (..\STM32F10x_FWLib\inc\stm32f10x_i2c.h)(0x59898CD6)
+I (..\STM32F10x_FWLib\inc\stm32f10x_iwdg.h)(0x59898CD6)
+I (..\STM32F10x_FWLib\inc\stm32f10x_pwr.h)(0x59898CD6)
+I (..\STM32F10x_FWLib\inc\stm32f10x_rcc.h)(0x59898CD6)
+I (..\STM32F10x_FWLib\inc\stm32f10x_rtc.h)(0x59898CD6)
+I (..\STM32F10x_FWLib\inc\stm32f10x_sdio.h)(0x59898CD6)
+I (..\STM32F10x_FWLib\inc\stm32f10x_spi.h)(0x59898CD6)
+I (..\STM32F10x_FWLib\inc\stm32f10x_tim.h)(0x59898CD6)
+I (..\STM32F10x_FWLib\inc\stm32f10x_usart.h)(0x59898CD6)
+I (..\STM32F10x_FWLib\inc\stm32f10x_wwdg.h)(0x59898CD6)
+I (..\STM32F10x_FWLib\inc\misc.h)(0x59898CD6)
+I (..\SYSTEM\delay\delay.h)(0x59898CD6)
+I (..\MiniBalance_HARDWARE\LED\led.h)(0x59898CD6)
+I (..\MiniBalance_HARDWARE\KEY\key.h)(0x59898CD6)
+I (..\MiniBalance_HARDWARE\OLED\oled.h)(0x59898CD6)
+I (..\SYSTEM\usart\usart.h)(0x59898CD6)
+I (D:\Program Files\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5475F300)
+I (..\MiniBalance_HARDWARE\USARTX\usartx.h)(0x59898CD6)
+I (..\MiniBalance_HARDWARE\ADC\adc.h)(0x59898CD6)
+I (..\MiniBalance_HARDWARE\TIMER\timer.h)(0x59898CD6)
+I (..\MiniBalance_HARDWARE\MOTOR\motor.h)(0x59898CD6)
+I (..\MiniBalance_HARDWARE\ENCODER\encoder.h)(0x59898CD6)
+I (..\MiniBalance_HARDWARE\IIC\ioi2c.h)(0x59898CD6)
+I (..\MiniBalance_HARDWARE\MPU6050\mpu6050.h)(0x59898CD6)
+I (..\MiniBalance\show\show.h)(0x59898CD6)
+I (..\MiniBalance_HARDWARE\EXTI\exti.h)(0x598A83E2)
+I (..\MiniBalance\DataScope_DP\DataScope_DP.h)(0x59898CD6)
+I (..\MiniBalance_HARDWARE\STMFLASH\stmflash.h)(0x59898CD6)
+I (..\MiniBalance_HARDWARE\SPI\spi.h)(0x59898CD6)
+I (..\MiniBalance_HARDWARE\NRF24L01\24l01.h)(0x59898CD6)
+I (..\MiniBalance\Experiment\labyrinth.h)(0x598A84C5)
+I (..\MiniBalance_HARDWARE\DMP\inv_mpu.h)(0x59898CD6)
+I (..\MiniBalance_HARDWARE\DMP\inv_mpu_dmp_motion_driver.h)(0x59898CD6)
+I (..\MiniBalance_HARDWARE\DMP\dmpKey.h)(0x59898CD6)
+I (..\MiniBalance_HARDWARE\DMP\dmpmap.h)(0x59898CD6)
+I (D:\Program Files\Keil_v5\ARM\ARMCC\include\string.h)(0x5475F300)
+I (D:\Program Files\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x5475F300)
+I (D:\Program Files\Keil_v5\ARM\ARMCC\include\math.h)(0x5475F2FE)
+F (..\MiniBalance\CONTROL\control.c)(0x598A85A9)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork -I..\User -I..\MiniBalance_COER -I..\STM32F10x_FWLib\inc -I..\MiniBalance_HARDWARE -I..\SYSTEM -I..\SYSTEM\delay -I..\SYSTEM\syss -I..\SYSTEM\usart -I..\MiniBalance_HARDWARE\DMP -I..\MiniBalance_HARDWARE\IIC -I..\MiniBalance_HARDWARE\MPU6050 -I..\MiniBalance_HARDWARE\ENCODER -I..\MiniBalance_HARDWARE\OLED -I..\MiniBalance\show -I..\MiniBalance_HARDWARE\LED -I..\MiniBalance_HARDWARE\KEY -I..\MiniBalance_HARDWARE\ADC -I..\MiniBalance_HARDWARE\MOTOR -I..\MiniBalance_HARDWARE\TIMER -I..\MiniBalance_HARDWARE\EXTI -I..\MiniBalance\DataScope_DP -I..\MiniBalance\filter -I..\MiniBalance_HARDWARE\STMFLASH -I..\MiniBalance_HARDWARE\USARTX -I..\MiniBalance_HARDWARE\NRF24L01 -I..\MiniBalance_HARDWARE\SPI -I..\MiniBalance_HARDWARE\CAN -I..\MiniBalance\Experiment-I D:\Project\vejoe\Balance_CarSoft\User\RTE-I "D:\Program Files\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\Include"-I "D:\Program Files\Keil_v5\ARM\CMSIS\Include"-D__UVISION_VERSION="514" -DSTM32F10X_HD -DSTM32F10X_ -DHD -DUSE_STDPERIPH_DRIVER-o ..\obj\control.o --omf_browse ..\obj\control.crf --depend ..\obj\control.d)
 I (..\MiniBalance\CONTROL\control.h)(0x59898CD6)
-I (..\SYSTEM\syss\sys.h)(0x598A7B8F)
+I (..\SYSTEM\syss\sys.h)(0x598A84AC)
 I (..\User\stm32f10x.h)(0x59898CD6)
 I (..\MiniBalance_COER\core_cm3.h)(0x59898CD6)
 I (D:\Program Files\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5475F300)
@@ -1942,13 +1942,13 @@ I (..\MiniBalance_HARDWARE\ENCODER\encoder.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\IIC\ioi2c.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\MPU6050\mpu6050.h)(0x59898CD6)
 I (..\MiniBalance\show\show.h)(0x59898CD6)
-I (..\MiniBalance_HARDWARE\EXTI\exti.h)(0x59898E1B)
+I (..\MiniBalance_HARDWARE\EXTI\exti.h)(0x598A83E2)
 I (..\MiniBalance\DataScope_DP\DataScope_DP.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\STMFLASH\stmflash.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\SPI\spi.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\NRF24L01\24l01.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\CAN\can.h)(0x59898CD6)
-I (..\MiniBalance\Experiment\labyrinth.h)(0x598A7F4E)
+I (..\MiniBalance\Experiment\labyrinth.h)(0x598A84C5)
 I (..\MiniBalance_HARDWARE\DMP\inv_mpu.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\DMP\inv_mpu_dmp_motion_driver.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\DMP\dmpKey.h)(0x59898CD6)
@@ -1959,8 +1959,8 @@ I (D:\Program Files\Keil_v5\ARM\ARMCC\include\math.h)(0x5475F2FE)
 I (..\MiniBalance\filter\filter.h)(0x59898CD6)
 I (..\User\Check_OverLoad.h)(0x59898CD6)
 I (..\User\Sensor_Test.h)(0x598A7A01)
-F (..\MiniBalance\DMP\inv_mpu.c)(0x59898CD6)(-c --cpu Cortex-M3 -g -O0 --apcs=interwork -I..\User -I..\MiniBalance_COER -I..\STM32F10x_FWLib\inc -I..\MiniBalance_HARDWARE -I..\SYSTEM -I..\SYSTEM\delay -I..\SYSTEM\syss -I..\SYSTEM\usart -I..\MiniBalance_HARDWARE\DMP -I..\MiniBalance_HARDWARE\IIC -I..\MiniBalance_HARDWARE\MPU6050 -I..\MiniBalance_HARDWARE\ENCODER -I..\MiniBalance_HARDWARE\OLED -I..\MiniBalance\show -I..\MiniBalance_HARDWARE\LED -I..\MiniBalance_HARDWARE\KEY -I..\MiniBalance_HARDWARE\ADC -I..\MiniBalance_HARDWARE\MOTOR -I..\MiniBalance_HARDWARE\TIMER -I..\MiniBalance_HARDWARE\EXTI -I..\MiniBalance\DataScope_DP -I..\MiniBalance\filter -I..\MiniBalance_HARDWARE\STMFLASH -I..\MiniBalance_HARDWARE\USARTX -I..\MiniBalance_HARDWARE\NRF24L01 -I..\MiniBalance_HARDWARE\SPI -I..\MiniBalance_HARDWARE\CAN -I..\MiniBalance\Experiment-I D:\Project\vejoe\Balance_CarSoft\User\RTE-I "D:\Program Files\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\Include"-I "D:\Program Files\Keil_v5\ARM\CMSIS\Include"-D__UVISION_VERSION="514" -DSTM32F10X_HD -DSTM32F10X_ -DHD -DUSE_STDPERIPH_DRIVER-o ..\obj\inv_mpu.o --omf_browse ..\obj\inv_mpu.crf --depend ..\obj\inv_mpu.d)
-I (..\SYSTEM\syss\sys.h)(0x598A7B8F)
+F (..\MiniBalance\DMP\inv_mpu.c)(0x59898CD6)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork -I..\User -I..\MiniBalance_COER -I..\STM32F10x_FWLib\inc -I..\MiniBalance_HARDWARE -I..\SYSTEM -I..\SYSTEM\delay -I..\SYSTEM\syss -I..\SYSTEM\usart -I..\MiniBalance_HARDWARE\DMP -I..\MiniBalance_HARDWARE\IIC -I..\MiniBalance_HARDWARE\MPU6050 -I..\MiniBalance_HARDWARE\ENCODER -I..\MiniBalance_HARDWARE\OLED -I..\MiniBalance\show -I..\MiniBalance_HARDWARE\LED -I..\MiniBalance_HARDWARE\KEY -I..\MiniBalance_HARDWARE\ADC -I..\MiniBalance_HARDWARE\MOTOR -I..\MiniBalance_HARDWARE\TIMER -I..\MiniBalance_HARDWARE\EXTI -I..\MiniBalance\DataScope_DP -I..\MiniBalance\filter -I..\MiniBalance_HARDWARE\STMFLASH -I..\MiniBalance_HARDWARE\USARTX -I..\MiniBalance_HARDWARE\NRF24L01 -I..\MiniBalance_HARDWARE\SPI -I..\MiniBalance_HARDWARE\CAN -I..\MiniBalance\Experiment-I D:\Project\vejoe\Balance_CarSoft\User\RTE-I "D:\Program Files\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\Include"-I "D:\Program Files\Keil_v5\ARM\CMSIS\Include"-D__UVISION_VERSION="514" -DSTM32F10X_HD -DSTM32F10X_ -DHD -DUSE_STDPERIPH_DRIVER-o ..\obj\inv_mpu.o --omf_browse ..\obj\inv_mpu.crf --depend ..\obj\inv_mpu.d)
+I (..\SYSTEM\syss\sys.h)(0x598A84AC)
 I (..\User\stm32f10x.h)(0x59898CD6)
 I (..\MiniBalance_COER\core_cm3.h)(0x59898CD6)
 I (D:\Program Files\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5475F300)
@@ -2003,13 +2003,13 @@ I (..\MiniBalance_HARDWARE\ENCODER\encoder.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\IIC\ioi2c.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\MPU6050\mpu6050.h)(0x59898CD6)
 I (..\MiniBalance\show\show.h)(0x59898CD6)
-I (..\MiniBalance_HARDWARE\EXTI\exti.h)(0x59898E1B)
+I (..\MiniBalance_HARDWARE\EXTI\exti.h)(0x598A83E2)
 I (..\MiniBalance\DataScope_DP\DataScope_DP.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\STMFLASH\stmflash.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\SPI\spi.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\NRF24L01\24l01.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\CAN\can.h)(0x59898CD6)
-I (..\MiniBalance\Experiment\labyrinth.h)(0x598A7F4E)
+I (..\MiniBalance\Experiment\labyrinth.h)(0x598A84C5)
 I (..\MiniBalance_HARDWARE\DMP\inv_mpu.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\DMP\inv_mpu_dmp_motion_driver.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\DMP\dmpKey.h)(0x59898CD6)
@@ -2017,8 +2017,8 @@ I (..\MiniBalance_HARDWARE\DMP\dmpmap.h)(0x59898CD6)
 I (D:\Program Files\Keil_v5\ARM\ARMCC\include\string.h)(0x5475F300)
 I (D:\Program Files\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x5475F300)
 I (D:\Program Files\Keil_v5\ARM\ARMCC\include\math.h)(0x5475F2FE)
-F (..\MiniBalance\DMP\inv_mpu_dmp_motion_driver.c)(0x59898CD6)(-c --cpu Cortex-M3 -g -O0 --apcs=interwork -I..\User -I..\MiniBalance_COER -I..\STM32F10x_FWLib\inc -I..\MiniBalance_HARDWARE -I..\SYSTEM -I..\SYSTEM\delay -I..\SYSTEM\syss -I..\SYSTEM\usart -I..\MiniBalance_HARDWARE\DMP -I..\MiniBalance_HARDWARE\IIC -I..\MiniBalance_HARDWARE\MPU6050 -I..\MiniBalance_HARDWARE\ENCODER -I..\MiniBalance_HARDWARE\OLED -I..\MiniBalance\show -I..\MiniBalance_HARDWARE\LED -I..\MiniBalance_HARDWARE\KEY -I..\MiniBalance_HARDWARE\ADC -I..\MiniBalance_HARDWARE\MOTOR -I..\MiniBalance_HARDWARE\TIMER -I..\MiniBalance_HARDWARE\EXTI -I..\MiniBalance\DataScope_DP -I..\MiniBalance\filter -I..\MiniBalance_HARDWARE\STMFLASH -I..\MiniBalance_HARDWARE\USARTX -I..\MiniBalance_HARDWARE\NRF24L01 -I..\MiniBalance_HARDWARE\SPI -I..\MiniBalance_HARDWARE\CAN -I..\MiniBalance\Experiment-I D:\Project\vejoe\Balance_CarSoft\User\RTE-I "D:\Program Files\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\Include"-I "D:\Program Files\Keil_v5\ARM\CMSIS\Include"-D__UVISION_VERSION="514" -DSTM32F10X_HD -DSTM32F10X_ -DHD -DUSE_STDPERIPH_DRIVER-o ..\obj\inv_mpu_dmp_motion_driver.o --omf_browse ..\obj\inv_mpu_dmp_motion_driver.crf --depend ..\obj\inv_mpu_dmp_motion_driver.d)
-I (..\SYSTEM\syss\sys.h)(0x598A7B8F)
+F (..\MiniBalance\DMP\inv_mpu_dmp_motion_driver.c)(0x59898CD6)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork -I..\User -I..\MiniBalance_COER -I..\STM32F10x_FWLib\inc -I..\MiniBalance_HARDWARE -I..\SYSTEM -I..\SYSTEM\delay -I..\SYSTEM\syss -I..\SYSTEM\usart -I..\MiniBalance_HARDWARE\DMP -I..\MiniBalance_HARDWARE\IIC -I..\MiniBalance_HARDWARE\MPU6050 -I..\MiniBalance_HARDWARE\ENCODER -I..\MiniBalance_HARDWARE\OLED -I..\MiniBalance\show -I..\MiniBalance_HARDWARE\LED -I..\MiniBalance_HARDWARE\KEY -I..\MiniBalance_HARDWARE\ADC -I..\MiniBalance_HARDWARE\MOTOR -I..\MiniBalance_HARDWARE\TIMER -I..\MiniBalance_HARDWARE\EXTI -I..\MiniBalance\DataScope_DP -I..\MiniBalance\filter -I..\MiniBalance_HARDWARE\STMFLASH -I..\MiniBalance_HARDWARE\USARTX -I..\MiniBalance_HARDWARE\NRF24L01 -I..\MiniBalance_HARDWARE\SPI -I..\MiniBalance_HARDWARE\CAN -I..\MiniBalance\Experiment-I D:\Project\vejoe\Balance_CarSoft\User\RTE-I "D:\Program Files\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\Include"-I "D:\Program Files\Keil_v5\ARM\CMSIS\Include"-D__UVISION_VERSION="514" -DSTM32F10X_HD -DSTM32F10X_ -DHD -DUSE_STDPERIPH_DRIVER-o ..\obj\inv_mpu_dmp_motion_driver.o --omf_browse ..\obj\inv_mpu_dmp_motion_driver.crf --depend ..\obj\inv_mpu_dmp_motion_driver.d)
+I (..\SYSTEM\syss\sys.h)(0x598A84AC)
 I (..\User\stm32f10x.h)(0x59898CD6)
 I (..\MiniBalance_COER\core_cm3.h)(0x59898CD6)
 I (D:\Program Files\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5475F300)
@@ -2061,13 +2061,13 @@ I (..\MiniBalance_HARDWARE\ENCODER\encoder.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\IIC\ioi2c.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\MPU6050\mpu6050.h)(0x59898CD6)
 I (..\MiniBalance\show\show.h)(0x59898CD6)
-I (..\MiniBalance_HARDWARE\EXTI\exti.h)(0x59898E1B)
+I (..\MiniBalance_HARDWARE\EXTI\exti.h)(0x598A83E2)
 I (..\MiniBalance\DataScope_DP\DataScope_DP.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\STMFLASH\stmflash.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\SPI\spi.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\NRF24L01\24l01.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\CAN\can.h)(0x59898CD6)
-I (..\MiniBalance\Experiment\labyrinth.h)(0x598A7F4E)
+I (..\MiniBalance\Experiment\labyrinth.h)(0x598A84C5)
 I (..\MiniBalance_HARDWARE\DMP\inv_mpu.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\DMP\inv_mpu_dmp_motion_driver.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\DMP\dmpKey.h)(0x59898CD6)
@@ -2075,11 +2075,11 @@ I (..\MiniBalance_HARDWARE\DMP\dmpmap.h)(0x59898CD6)
 I (D:\Program Files\Keil_v5\ARM\ARMCC\include\string.h)(0x5475F300)
 I (D:\Program Files\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x5475F300)
 I (D:\Program Files\Keil_v5\ARM\ARMCC\include\math.h)(0x5475F2FE)
-F (..\MiniBalance\filter\filter.c)(0x59898CD6)(-c --cpu Cortex-M3 -g -O0 --apcs=interwork -I..\User -I..\MiniBalance_COER -I..\STM32F10x_FWLib\inc -I..\MiniBalance_HARDWARE -I..\SYSTEM -I..\SYSTEM\delay -I..\SYSTEM\syss -I..\SYSTEM\usart -I..\MiniBalance_HARDWARE\DMP -I..\MiniBalance_HARDWARE\IIC -I..\MiniBalance_HARDWARE\MPU6050 -I..\MiniBalance_HARDWARE\ENCODER -I..\MiniBalance_HARDWARE\OLED -I..\MiniBalance\show -I..\MiniBalance_HARDWARE\LED -I..\MiniBalance_HARDWARE\KEY -I..\MiniBalance_HARDWARE\ADC -I..\MiniBalance_HARDWARE\MOTOR -I..\MiniBalance_HARDWARE\TIMER -I..\MiniBalance_HARDWARE\EXTI -I..\MiniBalance\DataScope_DP -I..\MiniBalance\filter -I..\MiniBalance_HARDWARE\STMFLASH -I..\MiniBalance_HARDWARE\USARTX -I..\MiniBalance_HARDWARE\NRF24L01 -I..\MiniBalance_HARDWARE\SPI -I..\MiniBalance_HARDWARE\CAN -I..\MiniBalance\Experiment-I D:\Project\vejoe\Balance_CarSoft\User\RTE-I "D:\Program Files\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\Include"-I "D:\Program Files\Keil_v5\ARM\CMSIS\Include"-D__UVISION_VERSION="514" -DSTM32F10X_HD -DSTM32F10X_ -DHD -DUSE_STDPERIPH_DRIVER-o ..\obj\filter.o --omf_browse ..\obj\filter.crf --depend ..\obj\filter.d)
+F (..\MiniBalance\filter\filter.c)(0x59898CD6)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork -I..\User -I..\MiniBalance_COER -I..\STM32F10x_FWLib\inc -I..\MiniBalance_HARDWARE -I..\SYSTEM -I..\SYSTEM\delay -I..\SYSTEM\syss -I..\SYSTEM\usart -I..\MiniBalance_HARDWARE\DMP -I..\MiniBalance_HARDWARE\IIC -I..\MiniBalance_HARDWARE\MPU6050 -I..\MiniBalance_HARDWARE\ENCODER -I..\MiniBalance_HARDWARE\OLED -I..\MiniBalance\show -I..\MiniBalance_HARDWARE\LED -I..\MiniBalance_HARDWARE\KEY -I..\MiniBalance_HARDWARE\ADC -I..\MiniBalance_HARDWARE\MOTOR -I..\MiniBalance_HARDWARE\TIMER -I..\MiniBalance_HARDWARE\EXTI -I..\MiniBalance\DataScope_DP -I..\MiniBalance\filter -I..\MiniBalance_HARDWARE\STMFLASH -I..\MiniBalance_HARDWARE\USARTX -I..\MiniBalance_HARDWARE\NRF24L01 -I..\MiniBalance_HARDWARE\SPI -I..\MiniBalance_HARDWARE\CAN -I..\MiniBalance\Experiment-I D:\Project\vejoe\Balance_CarSoft\User\RTE-I "D:\Program Files\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\Include"-I "D:\Program Files\Keil_v5\ARM\CMSIS\Include"-D__UVISION_VERSION="514" -DSTM32F10X_HD -DSTM32F10X_ -DHD -DUSE_STDPERIPH_DRIVER-o ..\obj\filter.o --omf_browse ..\obj\filter.crf --depend ..\obj\filter.d)
 I (..\MiniBalance\filter\filter.h)(0x59898CD6)
-F (..\MiniBalance\MPU6050\MPU6050.c)(0x59898E1B)(-c --cpu Cortex-M3 -g -O0 --apcs=interwork -I..\User -I..\MiniBalance_COER -I..\STM32F10x_FWLib\inc -I..\MiniBalance_HARDWARE -I..\SYSTEM -I..\SYSTEM\delay -I..\SYSTEM\syss -I..\SYSTEM\usart -I..\MiniBalance_HARDWARE\DMP -I..\MiniBalance_HARDWARE\IIC -I..\MiniBalance_HARDWARE\MPU6050 -I..\MiniBalance_HARDWARE\ENCODER -I..\MiniBalance_HARDWARE\OLED -I..\MiniBalance\show -I..\MiniBalance_HARDWARE\LED -I..\MiniBalance_HARDWARE\KEY -I..\MiniBalance_HARDWARE\ADC -I..\MiniBalance_HARDWARE\MOTOR -I..\MiniBalance_HARDWARE\TIMER -I..\MiniBalance_HARDWARE\EXTI -I..\MiniBalance\DataScope_DP -I..\MiniBalance\filter -I..\MiniBalance_HARDWARE\STMFLASH -I..\MiniBalance_HARDWARE\USARTX -I..\MiniBalance_HARDWARE\NRF24L01 -I..\MiniBalance_HARDWARE\SPI -I..\MiniBalance_HARDWARE\CAN -I..\MiniBalance\Experiment-I D:\Project\vejoe\Balance_CarSoft\User\RTE-I "D:\Program Files\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\Include"-I "D:\Program Files\Keil_v5\ARM\CMSIS\Include"-D__UVISION_VERSION="514" -DSTM32F10X_HD -DSTM32F10X_ -DHD -DUSE_STDPERIPH_DRIVER-o ..\obj\mpu6050.o --omf_browse ..\obj\mpu6050.crf --depend ..\obj\mpu6050.d)
+F (..\MiniBalance\MPU6050\MPU6050.c)(0x598A83E2)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork -I..\User -I..\MiniBalance_COER -I..\STM32F10x_FWLib\inc -I..\MiniBalance_HARDWARE -I..\SYSTEM -I..\SYSTEM\delay -I..\SYSTEM\syss -I..\SYSTEM\usart -I..\MiniBalance_HARDWARE\DMP -I..\MiniBalance_HARDWARE\IIC -I..\MiniBalance_HARDWARE\MPU6050 -I..\MiniBalance_HARDWARE\ENCODER -I..\MiniBalance_HARDWARE\OLED -I..\MiniBalance\show -I..\MiniBalance_HARDWARE\LED -I..\MiniBalance_HARDWARE\KEY -I..\MiniBalance_HARDWARE\ADC -I..\MiniBalance_HARDWARE\MOTOR -I..\MiniBalance_HARDWARE\TIMER -I..\MiniBalance_HARDWARE\EXTI -I..\MiniBalance\DataScope_DP -I..\MiniBalance\filter -I..\MiniBalance_HARDWARE\STMFLASH -I..\MiniBalance_HARDWARE\USARTX -I..\MiniBalance_HARDWARE\NRF24L01 -I..\MiniBalance_HARDWARE\SPI -I..\MiniBalance_HARDWARE\CAN -I..\MiniBalance\Experiment-I D:\Project\vejoe\Balance_CarSoft\User\RTE-I "D:\Program Files\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\Include"-I "D:\Program Files\Keil_v5\ARM\CMSIS\Include"-D__UVISION_VERSION="514" -DSTM32F10X_HD -DSTM32F10X_ -DHD -DUSE_STDPERIPH_DRIVER-o ..\obj\mpu6050.o --omf_browse ..\obj\mpu6050.crf --depend ..\obj\mpu6050.d)
 I (..\MiniBalance\MPU6050\MPU6050.h)(0x59898CD6)
-I (..\SYSTEM\syss\sys.h)(0x598A7B8F)
+I (..\SYSTEM\syss\sys.h)(0x598A84AC)
 I (..\User\stm32f10x.h)(0x59898CD6)
 I (..\MiniBalance_COER\core_cm3.h)(0x59898CD6)
 I (D:\Program Files\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5475F300)
@@ -2122,13 +2122,13 @@ I (..\MiniBalance_HARDWARE\ENCODER\encoder.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\IIC\ioi2c.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\MPU6050\mpu6050.h)(0x59898CD6)
 I (..\MiniBalance\show\show.h)(0x59898CD6)
-I (..\MiniBalance_HARDWARE\EXTI\exti.h)(0x59898E1B)
+I (..\MiniBalance_HARDWARE\EXTI\exti.h)(0x598A83E2)
 I (..\MiniBalance\DataScope_DP\DataScope_DP.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\STMFLASH\stmflash.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\SPI\spi.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\NRF24L01\24l01.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\CAN\can.h)(0x59898CD6)
-I (..\MiniBalance\Experiment\labyrinth.h)(0x598A7F4E)
+I (..\MiniBalance\Experiment\labyrinth.h)(0x598A84C5)
 I (..\MiniBalance_HARDWARE\DMP\inv_mpu.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\DMP\inv_mpu_dmp_motion_driver.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\DMP\dmpKey.h)(0x59898CD6)
@@ -2136,9 +2136,9 @@ I (..\MiniBalance_HARDWARE\DMP\dmpmap.h)(0x59898CD6)
 I (D:\Program Files\Keil_v5\ARM\ARMCC\include\string.h)(0x5475F300)
 I (D:\Program Files\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x5475F300)
 I (D:\Program Files\Keil_v5\ARM\ARMCC\include\math.h)(0x5475F2FE)
-F (..\MiniBalance\show\show.c)(0x59898CD6)(-c --cpu Cortex-M3 -g -O0 --apcs=interwork -I..\User -I..\MiniBalance_COER -I..\STM32F10x_FWLib\inc -I..\MiniBalance_HARDWARE -I..\SYSTEM -I..\SYSTEM\delay -I..\SYSTEM\syss -I..\SYSTEM\usart -I..\MiniBalance_HARDWARE\DMP -I..\MiniBalance_HARDWARE\IIC -I..\MiniBalance_HARDWARE\MPU6050 -I..\MiniBalance_HARDWARE\ENCODER -I..\MiniBalance_HARDWARE\OLED -I..\MiniBalance\show -I..\MiniBalance_HARDWARE\LED -I..\MiniBalance_HARDWARE\KEY -I..\MiniBalance_HARDWARE\ADC -I..\MiniBalance_HARDWARE\MOTOR -I..\MiniBalance_HARDWARE\TIMER -I..\MiniBalance_HARDWARE\EXTI -I..\MiniBalance\DataScope_DP -I..\MiniBalance\filter -I..\MiniBalance_HARDWARE\STMFLASH -I..\MiniBalance_HARDWARE\USARTX -I..\MiniBalance_HARDWARE\NRF24L01 -I..\MiniBalance_HARDWARE\SPI -I..\MiniBalance_HARDWARE\CAN -I..\MiniBalance\Experiment-I D:\Project\vejoe\Balance_CarSoft\User\RTE-I "D:\Program Files\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\Include"-I "D:\Program Files\Keil_v5\ARM\CMSIS\Include"-D__UVISION_VERSION="514" -DSTM32F10X_HD -DSTM32F10X_ -DHD -DUSE_STDPERIPH_DRIVER-o ..\obj\show.o --omf_browse ..\obj\show.crf --depend ..\obj\show.d)
+F (..\MiniBalance\show\show.c)(0x59898CD6)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork -I..\User -I..\MiniBalance_COER -I..\STM32F10x_FWLib\inc -I..\MiniBalance_HARDWARE -I..\SYSTEM -I..\SYSTEM\delay -I..\SYSTEM\syss -I..\SYSTEM\usart -I..\MiniBalance_HARDWARE\DMP -I..\MiniBalance_HARDWARE\IIC -I..\MiniBalance_HARDWARE\MPU6050 -I..\MiniBalance_HARDWARE\ENCODER -I..\MiniBalance_HARDWARE\OLED -I..\MiniBalance\show -I..\MiniBalance_HARDWARE\LED -I..\MiniBalance_HARDWARE\KEY -I..\MiniBalance_HARDWARE\ADC -I..\MiniBalance_HARDWARE\MOTOR -I..\MiniBalance_HARDWARE\TIMER -I..\MiniBalance_HARDWARE\EXTI -I..\MiniBalance\DataScope_DP -I..\MiniBalance\filter -I..\MiniBalance_HARDWARE\STMFLASH -I..\MiniBalance_HARDWARE\USARTX -I..\MiniBalance_HARDWARE\NRF24L01 -I..\MiniBalance_HARDWARE\SPI -I..\MiniBalance_HARDWARE\CAN -I..\MiniBalance\Experiment-I D:\Project\vejoe\Balance_CarSoft\User\RTE-I "D:\Program Files\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\Include"-I "D:\Program Files\Keil_v5\ARM\CMSIS\Include"-D__UVISION_VERSION="514" -DSTM32F10X_HD -DSTM32F10X_ -DHD -DUSE_STDPERIPH_DRIVER-o ..\obj\show.o --omf_browse ..\obj\show.crf --depend ..\obj\show.d)
 I (..\MiniBalance\show\show.h)(0x59898CD6)
-I (..\SYSTEM\syss\sys.h)(0x598A7B8F)
+I (..\SYSTEM\syss\sys.h)(0x598A84AC)
 I (..\User\stm32f10x.h)(0x59898CD6)
 I (..\MiniBalance_COER\core_cm3.h)(0x59898CD6)
 I (D:\Program Files\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5475F300)
@@ -2180,13 +2180,13 @@ I (..\MiniBalance_HARDWARE\MOTOR\motor.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\ENCODER\encoder.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\IIC\ioi2c.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\MPU6050\mpu6050.h)(0x59898CD6)
-I (..\MiniBalance_HARDWARE\EXTI\exti.h)(0x59898E1B)
+I (..\MiniBalance_HARDWARE\EXTI\exti.h)(0x598A83E2)
 I (..\MiniBalance\DataScope_DP\DataScope_DP.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\STMFLASH\stmflash.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\SPI\spi.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\NRF24L01\24l01.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\CAN\can.h)(0x59898CD6)
-I (..\MiniBalance\Experiment\labyrinth.h)(0x598A7F4E)
+I (..\MiniBalance\Experiment\labyrinth.h)(0x598A84C5)
 I (..\MiniBalance_HARDWARE\DMP\inv_mpu.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\DMP\inv_mpu_dmp_motion_driver.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\DMP\dmpKey.h)(0x59898CD6)
@@ -2194,11 +2194,11 @@ I (..\MiniBalance_HARDWARE\DMP\dmpmap.h)(0x59898CD6)
 I (D:\Program Files\Keil_v5\ARM\ARMCC\include\string.h)(0x5475F300)
 I (D:\Program Files\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x5475F300)
 I (D:\Program Files\Keil_v5\ARM\ARMCC\include\math.h)(0x5475F2FE)
-F (..\MiniBalance\DataScope_DP\DataScope_DP.C)(0x59898CD6)(-c --cpu Cortex-M3 -g -O0 --apcs=interwork -I..\User -I..\MiniBalance_COER -I..\STM32F10x_FWLib\inc -I..\MiniBalance_HARDWARE -I..\SYSTEM -I..\SYSTEM\delay -I..\SYSTEM\syss -I..\SYSTEM\usart -I..\MiniBalance_HARDWARE\DMP -I..\MiniBalance_HARDWARE\IIC -I..\MiniBalance_HARDWARE\MPU6050 -I..\MiniBalance_HARDWARE\ENCODER -I..\MiniBalance_HARDWARE\OLED -I..\MiniBalance\show -I..\MiniBalance_HARDWARE\LED -I..\MiniBalance_HARDWARE\KEY -I..\MiniBalance_HARDWARE\ADC -I..\MiniBalance_HARDWARE\MOTOR -I..\MiniBalance_HARDWARE\TIMER -I..\MiniBalance_HARDWARE\EXTI -I..\MiniBalance\DataScope_DP -I..\MiniBalance\filter -I..\MiniBalance_HARDWARE\STMFLASH -I..\MiniBalance_HARDWARE\USARTX -I..\MiniBalance_HARDWARE\NRF24L01 -I..\MiniBalance_HARDWARE\SPI -I..\MiniBalance_HARDWARE\CAN -I..\MiniBalance\Experiment-I D:\Project\vejoe\Balance_CarSoft\User\RTE-I "D:\Program Files\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\Include"-I "D:\Program Files\Keil_v5\ARM\CMSIS\Include"-D__UVISION_VERSION="514" -DSTM32F10X_HD -DSTM32F10X_ -DHD -DUSE_STDPERIPH_DRIVER-o ..\obj\datascope_dp.o --omf_browse ..\obj\datascope_dp.crf --depend ..\obj\datascope_dp.d)
+F (..\MiniBalance\DataScope_DP\DataScope_DP.C)(0x59898CD6)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork -I..\User -I..\MiniBalance_COER -I..\STM32F10x_FWLib\inc -I..\MiniBalance_HARDWARE -I..\SYSTEM -I..\SYSTEM\delay -I..\SYSTEM\syss -I..\SYSTEM\usart -I..\MiniBalance_HARDWARE\DMP -I..\MiniBalance_HARDWARE\IIC -I..\MiniBalance_HARDWARE\MPU6050 -I..\MiniBalance_HARDWARE\ENCODER -I..\MiniBalance_HARDWARE\OLED -I..\MiniBalance\show -I..\MiniBalance_HARDWARE\LED -I..\MiniBalance_HARDWARE\KEY -I..\MiniBalance_HARDWARE\ADC -I..\MiniBalance_HARDWARE\MOTOR -I..\MiniBalance_HARDWARE\TIMER -I..\MiniBalance_HARDWARE\EXTI -I..\MiniBalance\DataScope_DP -I..\MiniBalance\filter -I..\MiniBalance_HARDWARE\STMFLASH -I..\MiniBalance_HARDWARE\USARTX -I..\MiniBalance_HARDWARE\NRF24L01 -I..\MiniBalance_HARDWARE\SPI -I..\MiniBalance_HARDWARE\CAN -I..\MiniBalance\Experiment-I D:\Project\vejoe\Balance_CarSoft\User\RTE-I "D:\Program Files\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\Include"-I "D:\Program Files\Keil_v5\ARM\CMSIS\Include"-D__UVISION_VERSION="514" -DSTM32F10X_HD -DSTM32F10X_ -DHD -DUSE_STDPERIPH_DRIVER-o ..\obj\datascope_dp.o --omf_browse ..\obj\datascope_dp.crf --depend ..\obj\datascope_dp.d)
 I (..\MiniBalance\DataScope_DP\DataScope_DP.h)(0x59898CD6)
-F (..\MiniBalance\Experiment\labyrinth.c)(0x598A7F59)(-c --cpu Cortex-M3 -g -O0 --apcs=interwork -I..\User -I..\MiniBalance_COER -I..\STM32F10x_FWLib\inc -I..\MiniBalance_HARDWARE -I..\SYSTEM -I..\SYSTEM\delay -I..\SYSTEM\syss -I..\SYSTEM\usart -I..\MiniBalance_HARDWARE\DMP -I..\MiniBalance_HARDWARE\IIC -I..\MiniBalance_HARDWARE\MPU6050 -I..\MiniBalance_HARDWARE\ENCODER -I..\MiniBalance_HARDWARE\OLED -I..\MiniBalance\show -I..\MiniBalance_HARDWARE\LED -I..\MiniBalance_HARDWARE\KEY -I..\MiniBalance_HARDWARE\ADC -I..\MiniBalance_HARDWARE\MOTOR -I..\MiniBalance_HARDWARE\TIMER -I..\MiniBalance_HARDWARE\EXTI -I..\MiniBalance\DataScope_DP -I..\MiniBalance\filter -I..\MiniBalance_HARDWARE\STMFLASH -I..\MiniBalance_HARDWARE\USARTX -I..\MiniBalance_HARDWARE\NRF24L01 -I..\MiniBalance_HARDWARE\SPI -I..\MiniBalance_HARDWARE\CAN -I..\MiniBalance\Experiment-I D:\Project\vejoe\Balance_CarSoft\User\RTE-I "D:\Program Files\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\Include"-I "D:\Program Files\Keil_v5\ARM\CMSIS\Include"-D__UVISION_VERSION="514" -DSTM32F10X_HD -DSTM32F10X_ -DHD -DUSE_STDPERIPH_DRIVER-o ..\obj\labyrinth.o --omf_browse ..\obj\labyrinth.crf --depend ..\obj\labyrinth.d)
-I (..\MiniBalance\Experiment\labyrinth.h)(0x598A7F4E)
-I (..\SYSTEM\syss\sys.h)(0x598A7B8F)
+F (..\MiniBalance\Experiment\labyrinth.c)(0x598A8564)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork -I..\User -I..\MiniBalance_COER -I..\STM32F10x_FWLib\inc -I..\MiniBalance_HARDWARE -I..\SYSTEM -I..\SYSTEM\delay -I..\SYSTEM\syss -I..\SYSTEM\usart -I..\MiniBalance_HARDWARE\DMP -I..\MiniBalance_HARDWARE\IIC -I..\MiniBalance_HARDWARE\MPU6050 -I..\MiniBalance_HARDWARE\ENCODER -I..\MiniBalance_HARDWARE\OLED -I..\MiniBalance\show -I..\MiniBalance_HARDWARE\LED -I..\MiniBalance_HARDWARE\KEY -I..\MiniBalance_HARDWARE\ADC -I..\MiniBalance_HARDWARE\MOTOR -I..\MiniBalance_HARDWARE\TIMER -I..\MiniBalance_HARDWARE\EXTI -I..\MiniBalance\DataScope_DP -I..\MiniBalance\filter -I..\MiniBalance_HARDWARE\STMFLASH -I..\MiniBalance_HARDWARE\USARTX -I..\MiniBalance_HARDWARE\NRF24L01 -I..\MiniBalance_HARDWARE\SPI -I..\MiniBalance_HARDWARE\CAN -I..\MiniBalance\Experiment-I D:\Project\vejoe\Balance_CarSoft\User\RTE-I "D:\Program Files\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\Include"-I "D:\Program Files\Keil_v5\ARM\CMSIS\Include"-D__UVISION_VERSION="514" -DSTM32F10X_HD -DSTM32F10X_ -DHD -DUSE_STDPERIPH_DRIVER-o ..\obj\labyrinth.o --omf_browse ..\obj\labyrinth.crf --depend ..\obj\labyrinth.d)
+I (..\MiniBalance\Experiment\labyrinth.h)(0x598A84C5)
+I (..\SYSTEM\syss\sys.h)(0x598A84AC)
 I (..\User\stm32f10x.h)(0x59898CD6)
 I (..\MiniBalance_COER\core_cm3.h)(0x59898CD6)
 I (D:\Program Files\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5475F300)
@@ -2241,7 +2241,7 @@ I (..\MiniBalance_HARDWARE\ENCODER\encoder.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\IIC\ioi2c.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\MPU6050\mpu6050.h)(0x59898CD6)
 I (..\MiniBalance\show\show.h)(0x59898CD6)
-I (..\MiniBalance_HARDWARE\EXTI\exti.h)(0x59898E1B)
+I (..\MiniBalance_HARDWARE\EXTI\exti.h)(0x598A83E2)
 I (..\MiniBalance\DataScope_DP\DataScope_DP.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\STMFLASH\stmflash.h)(0x59898CD6)
 I (..\MiniBalance_HARDWARE\SPI\spi.h)(0x59898CD6)
