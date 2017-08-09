@@ -89,6 +89,8 @@ int main(void)
 	CAN1_Mode_Init(1,2,3,6,0);		//=====CAN初始化,波特率1Mbps   
 	MiniBalance_EXTI_Init();        //=====MPU6050 5ms定时中断初始化
 
+	initialLabyrinthConfig();
+	
 	while(1)
 	{
 		if(Flash_Send==1)        //写入PID参数到Flash,由app控制该指令
@@ -115,6 +117,7 @@ int main(void)
 		Get_SampleValue(adc_filter_v[1]);
 		Temp_Cal(adc_filter_v[4]);
 		Infrared_SensorTest(adc_filter_v[5]);
+		calcUltrasonic_SensorTest();
 		Piezoelectric_WeighingSensor();
 		Get_Weight();
 		
@@ -125,6 +128,8 @@ int main(void)
 	//	delay_flag=1;	
 	//	delay_50=0;
 	//	while(delay_flag);	     //通过MPU6050的INT中断实现的50ms精准延时	
+		
+		labyrinthAlgorithmMain();	//迷宫算法		
 	} 
 }
 

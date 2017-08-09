@@ -52,6 +52,7 @@
 ..\obj\check_overload.o: ..\MiniBalance_HARDWARE\SPI\spi.h
 ..\obj\check_overload.o: ..\MiniBalance_HARDWARE\NRF24L01\24l01.h
 ..\obj\check_overload.o: ..\MiniBalance_HARDWARE\CAN\can.h
+..\obj\check_overload.o: ..\MiniBalance\Experiment\labyrinth.h
 ..\obj\check_overload.o: ..\MiniBalance_HARDWARE\DMP\inv_mpu.h
 ..\obj\check_overload.o: ..\MiniBalance_HARDWARE\DMP\inv_mpu_dmp_motion_driver.h
 ..\obj\check_overload.o: ..\MiniBalance_HARDWARE\DMP\dmpKey.h

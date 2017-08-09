@@ -370,6 +370,15 @@ void Infrared_SensorTest(uint16_t voltage)
 	d = b4 - k4 * voltage;	
 }
 
+
+int ultrasonicDistance = 0;
+void calcUltrasonic_SensorTest(void)
+{
+	Read_Distane();
+	ultrasonicDistance = Distance;
+}
+
+
 /*
 
 */
@@ -461,19 +470,32 @@ void Delay_us(uint16_t us_number)
 */
 void Display_SampleValue(void)
 {
-	OLED_ShowNumber(0,0, g_check_temperature/10, 2, 12);
-	OLED_ShowNumber(13,0,g_check_temperature%10, 1, 12);
-	OLED_ShowString(23,0,"C");
-	//distance.
-	OLED_ShowNumber(40,0, d/100,    1, 12);
-	OLED_ShowNumber(48,0, d%100/10, 1, 12);
-	OLED_ShowNumber(56,0, d%10,     1, 12);
-	OLED_ShowString(64,0, "MM");
-	//wieght
-	OLED_ShowNumber(90, 0, weight/100, 1, 12);
-	OLED_ShowNumber(98, 0, weight%100/10, 1, 12);
-	OLED_ShowNumber(106,0, weight%10, 1,  12);
-	OLED_ShowString(114,0, "g");		
+//	OLED_ShowNumber(0,0, g_check_temperature/10, 2, 12);
+//	OLED_ShowNumber(13,0,g_check_temperature%10, 1, 12);
+//	OLED_ShowString(23,0,"C");
+//	//红外distance.
+//	OLED_ShowNumber(40,0, d/100,    1, 12);
+//	OLED_ShowNumber(48,0, d%100/10, 1, 12);
+//	OLED_ShowNumber(56,0, d%10,     1, 12);
+//	OLED_ShowString(64,0, "MM");
+//	//wieght
+//	OLED_ShowNumber(90, 0, weight/100, 1, 12);
+//	OLED_ShowNumber(98, 0, weight%100/10, 1, 12);
+//	OLED_ShowNumber(106,0, weight%10, 1,  12);
+//	OLED_ShowString(114,0, "g");	
+	
+	//当前状态标志
+	OLED_ShowNumber(0,0, (int)labCarStatus, 2, 12);
+	//超声波距离	
+	OLED_ShowNumber(40,0, ultrasonicDistance/1000,    1, 12);
+	OLED_ShowNumber(48,0, ultrasonicDistance%1000/100, 1, 12);
+	OLED_ShowNumber(56,0, ultrasonicDistance%100/10,     1, 12);	
+	OLED_ShowNumber(64,0, ultrasonicDistance%10,     1, 12);
+	//前后左右标志
+	OLED_ShowNumber(90, 0, Flag_Qian, 1, 12);
+	OLED_ShowNumber(98, 0, Flag_Hou, 1, 12);
+	OLED_ShowNumber(106,0, Flag_Left, 1,  12);
+	OLED_ShowNumber(114,0, Flag_Right, 1,  12);		
 }
 /*
 FFT test.

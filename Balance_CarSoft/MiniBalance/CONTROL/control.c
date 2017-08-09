@@ -29,7 +29,7 @@ int EXTI2_IRQHandler(void)
 		if(Flag_Target==1)                                                  //5ms读取一次陀螺仪和加速度计的值，更高的采样频率可以改善卡尔曼滤波和互补滤波的效果
 		{
 			Get_Angle(Way_Angle);                                               //===更新姿态	
-			Get_MC6();                                                          //===读取航模遥控器的数据					
+//			Get_MC6();                                                          //===读取航模遥控器的数据					
 			if(++Flash_R_Count==150&&Angle_Balance>30)
 			Flash_Read();             //=====读取Flash的PID参数		
 			Voltage_Temp=Get_battery_volt();		                                //=====读取电池电压		
@@ -44,7 +44,7 @@ int EXTI2_IRQHandler(void)
 		Read_Distane();                                                     //===获取超声波测量距离值
 		if(Bi_zhang==0)Led_Flash(100);                                      //===LED闪烁;常规模式 1s改变一次指示灯的状态	
 		else           Led_Flash(0);                                        //===LED闪烁;超声波模式 指示灯常亮	
-		Key();                                                              //===扫描按键状态 单击双击可以改变小车运行状态
+//		Key();                                                              //===扫描按键状态 单击双击可以改变小车运行状态
 		Balance_Pwm =balance(Angle_Balance,Gyro_Balance);                   //===平衡PID控制	
 		Velocity_Pwm=velocity(Encoder_Left,Encoder_Right);                  //===速度环PID控制	 记住，速度反馈是正反馈，就是小车快的时候要慢下来就需要再跑快一点
 		Turn_Pwm    =turn(Encoder_Left,Encoder_Right,Gyro_Turn);            //===转向环PID控制     
@@ -214,13 +214,13 @@ void Xianfu_Pwm(void)
 **************************************************************************/
 void Key(void)
 {	
-//	u8 tmp,tmp2;
-//	tmp=click_N_Double(50); 
-////	if(tmp==1)Flag_Stop=!Flag_Stop;//单击控制小车的启停
-//	if(tmp==2)Flag_Show=!Flag_Show;//双击控制小车的显示状态
-////tmp2=Long_Press();    
-//	tmp2 = 1;
-//	if(tmp2==1) Bi_zhang=!Bi_zhang;		//长按控制小车是否进入超声波避障模式 
+	u8 tmp,tmp2;
+	tmp=click_N_Double(50); 
+//	if(tmp==1)Flag_Stop=!Flag_Stop;//单击控制小车的启停
+	if(tmp==2)Flag_Show=!Flag_Show;//双击控制小车的显示状态
+//tmp2=Long_Press();    
+	tmp2 = 1;
+	if(tmp2==1) Bi_zhang=!Bi_zhang;		//长按控制小车是否进入超声波避障模式 
 }
 
 /**************************************************************************

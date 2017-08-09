@@ -51,6 +51,7 @@
 ..\obj\exti.o: ..\MiniBalance_HARDWARE\SPI\spi.h
 ..\obj\exti.o: ..\MiniBalance_HARDWARE\NRF24L01\24l01.h
 ..\obj\exti.o: ..\MiniBalance_HARDWARE\CAN\can.h
+..\obj\exti.o: ..\MiniBalance\Experiment\labyrinth.h
 ..\obj\exti.o: ..\MiniBalance_HARDWARE\DMP\inv_mpu.h
 ..\obj\exti.o: ..\MiniBalance_HARDWARE\DMP\inv_mpu_dmp_motion_driver.h
 ..\obj\exti.o: ..\MiniBalance_HARDWARE\DMP\dmpKey.h

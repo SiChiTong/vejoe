@@ -60,6 +60,8 @@
 	void Set_SampleChannel(uint8_t adc, uint8_t ADC_Channel);
 	void ADC_DMAConfig(void);
 	void Get_ADCSampleValue(uint8_t channel, uint16_t *value);		
+	
+	void calcUltrasonic_SensorTest(void);
 
 	//---------------------------------///
 	uint16_t Weight_Filter(uint8_t filter_bit, u16 *order_value);
