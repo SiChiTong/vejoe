@@ -123,8 +123,7 @@ void labyrinthAlgorithmMain(void)
 	{
 		case labStatusMovingForward:
 		{
-			carMoveForward();
-			
+			carMoveForward();			
 			if(CheckMovingForwardIsEnd())
 			{
 				carMoveTurnLeft();
