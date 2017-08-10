@@ -40,6 +40,9 @@ u32 Remoter_Ch1=1500,Remoter_Ch2=1500;      //航模遥控接收变量
 
 int hallDiffCount = 0;
 int targetPulseForTurn;
+u8 labyrinthCanRunning = 0;
+int hallRightDiff = 0,hallLeftDiff = 0;
+u16 tempLeft,lastLeft,tempLeftDiff,tempRight,lastRight, tempRightDiff;
  
 int main(void)
 { 

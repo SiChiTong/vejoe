@@ -79,9 +79,9 @@ int Read_Encoder(u8 TIMX)
 	int Encoder_TIM;    
 	switch(TIMX)
 	{
-		case 2:  Encoder_TIM= (short)TIM2 -> CNT;  TIM2 -> CNT=0;break;
+		case 2:  Encoder_TIM= (short)TIM2 -> CNT;  break;
 		case 3:  Encoder_TIM= (short)TIM3 -> CNT;  TIM3 -> CNT=0;break;	
-		case 4:  Encoder_TIM= (short)TIM4 -> CNT;  TIM4 -> CNT=0;break;	
+		case 4:  Encoder_TIM= (short)TIM4 -> CNT;  break;	
 		default:  Encoder_TIM=0;
 	}
 	return Encoder_TIM;
@@ -96,7 +96,8 @@ void TIM4_IRQHandler(void)
 	if(TIM4->SR&0X0001)//溢出中断
 	{    				   				     	    	
 	}				   
-	TIM4->SR&=~(1<<0);//清除中断标志位 	    
+	TIM4->SR&=~(1<<0);//清除中断标志位 	
+	TIM4 -> CNT=0;	
 }
 /**************************************************************************
 函数功能：TIM2中断服务函数
@@ -108,6 +109,7 @@ void TIM2_IRQHandler(void)
 	if(TIM2->SR&0X0001)//溢出中断
 	{    				   				     	    	
 	}				   
-	TIM2->SR&=~(1<<0);//清除中断标志位 	    
+	TIM2->SR&=~(1<<0);//清除中断标志位 	 
+	TIM2 -> CNT=0;		
 }
 

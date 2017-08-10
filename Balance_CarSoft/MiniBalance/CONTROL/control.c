@@ -6,11 +6,33 @@
 #include "filter.h"	
 #include "Check_OverLoad.h"
 
-
+int lastEncoderLeft=0,lastEncoderRight=0,deltaEncoderLeft=0,deltaEncoderRight=0;
 int Balance_Pwm,Velocity_Pwm,Turn_Pwm;
 u8 Flag_Target;
 u32 Flash_R_Count;
 int Voltage_Temp,Voltage_Count,Voltage_All;
+
+void updateEcoderDelta(void)
+{
+	Encoder_Left=Read_Encoder(2);                                       //===读取编码器的值
+	Encoder_Right=Read_Encoder(4);                                      //===读取编码器的值
+	
+	deltaEncoderLeft = Encoder_Left - lastEncoderLeft;
+	deltaEncoderRight = Encoder_Right - lastEncoderRight;
+	
+	if(abs(deltaEncoderLeft) > ENCODER_TIM_PERIOD_HALF)
+	{//发生溢出，值的变化方向发生了反转
+		deltaEncoderLeft = ((Encoder_Left>lastEncoderLeft?lastEncoderLeft:Encoder_Left) + (ENCODER_TIM_PERIOD - (Encoder_Left>lastEncoderLeft?Encoder_Left:lastEncoderLeft)));
+	}
+	if(abs(deltaEncoderRight) > ENCODER_TIM_PERIOD_HALF)
+	{//发生溢出，值的变化方向发生了反转
+		deltaEncoderRight = ((Encoder_Right>lastEncoderRight?lastEncoderRight:Encoder_Right) + (ENCODER_TIM_PERIOD - (Encoder_Right>lastEncoderRight?Encoder_Right:lastEncoderRight)));
+	}
+	
+	lastEncoderLeft = Encoder_Left;
+	lastEncoderRight = Encoder_Right;
+}
+
 /**************************************************************************
 函数功能：所有的控制代码都在这里面
          5ms定时中断由MPU6050的INT引脚触发
@@ -38,22 +60,21 @@ int EXTI2_IRQHandler(void)
 			if(Voltage_Count==100) Voltage=Voltage_All/100,Voltage_All=0,Voltage_Count=0;//=====求平均值		
 			return 0;	                                               
 		}                                                                   //10ms控制一次，为了保证M法测速的时间基准，首先读取编码器数据
-		Encoder_Left=Read_Encoder(2);                                       //===读取编码器的值
-		Encoder_Right=Read_Encoder(4);                                      //===读取编码器的值
+		updateEcoderDelta();
 		Get_Angle(Way_Angle);                                               //===更新姿态	
 		Read_Distane();                                                     //===获取超声波测量距离值
 		if(Bi_zhang==0)Led_Flash(100);                                      //===LED闪烁;常规模式 1s改变一次指示灯的状态	
 		else           Led_Flash(0);                                        //===LED闪烁;超声波模式 指示灯常亮	
 //		Key();                                                              //===扫描按键状态 单击双击可以改变小车运行状态
 		Balance_Pwm =balance(Angle_Balance,Gyro_Balance);                   //===平衡PID控制	
-		Velocity_Pwm=velocity(Encoder_Left,Encoder_Right);                  //===速度环PID控制	 记住，速度反馈是正反馈，就是小车快的时候要慢下来就需要再跑快一点
-		Turn_Pwm    =turn(Encoder_Left,Encoder_Right,Gyro_Turn);            //===转向环PID控制     
+		Velocity_Pwm=velocity(deltaEncoderLeft,deltaEncoderRight);                  //===速度环PID控制	 记住，速度反馈是正反馈，就是小车快的时候要慢下来就需要再跑快一点
+		Turn_Pwm    =turn(deltaEncoderLeft,Encoder_Right,Gyro_Turn);            //===转向环PID控制     
 		Moto1=Balance_Pwm+Velocity_Pwm-Turn_Pwm;                            //===计算左轮电机最终PWM
 		Moto2=Balance_Pwm+Velocity_Pwm+Turn_Pwm;                            //===计算右轮电机最终PWM
 		Xianfu_Pwm();                                                       //===PWM限幅
-		if(Pick_Up(Acceleration_Z,Angle_Balance,Encoder_Left,Encoder_Right))//===检查是否小车被那起
+		if(Pick_Up(Acceleration_Z,Angle_Balance,Encoder_Left,deltaEncoderRight))//===检查是否小车被那起
 		Flag_Stop=1;	                                                      //===如果被拿起就关闭电机
-		if(Put_Down(Angle_Balance,Encoder_Left,Encoder_Right))              //===检查是否小车被放下
+		if(Put_Down(Angle_Balance,deltaEncoderLeft,deltaEncoderRight))              //===检查是否小车被放下
 		Flag_Stop=0;	                                                      //===如果被放下就启动电机
 		//
 		if(Turn_Off(Angle_Balance,Voltage)==0)                              //===如果不存在异常
@@ -105,7 +126,7 @@ int velocity(int encoder_left,int encoder_right)
 	static float Velocity,Encoder_Least,Encoder,Movement;
 	static float Encoder_Integral,Target_Velocity;
 	//=============遥控前进后退部分=======================// 
-	if(Flag_sudu==10)  Target_Velocity=30;				//转弯时，用更慢模式
+	if(Flag_sudu==10)  Target_Velocity=80;				//转弯时，用更慢模式
 	else if(Bi_zhang!=0&&Flag_sudu==1)  Target_Velocity=55;                 //如果进入避障模式,自动进入低速模式
 	else            Target_Velocity=110;   
 	

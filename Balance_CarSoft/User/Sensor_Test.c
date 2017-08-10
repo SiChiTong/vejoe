@@ -502,10 +502,10 @@ void Display_SampleValue(void)
 //	OLED_ShowNumber(106,0, Flag_Left, 1,  12);
 //	OLED_ShowNumber(114,0, Flag_Right, 1,  12);		
 
-	OLED_ShowNumber(90, 0, ultrasonicDistance/1000, 1, 12);
-	OLED_ShowNumber(98, 0, ultrasonicDistance%1000/100, 1, 12);
-	OLED_ShowNumber(106,0, ultrasonicDistance%100/10, 1,  12);
-	OLED_ShowNumber(114,0, ultrasonicDistance%10, 1,  12);		
+	OLED_ShowNumber(90, 0, targetPulseForTurn/1000, 1, 12);
+	OLED_ShowNumber(98, 0, targetPulseForTurn%1000/100, 1, 12);
+	OLED_ShowNumber(106,0, targetPulseForTurn%100/10, 1,  12);
+	OLED_ShowNumber(114,0, targetPulseForTurn%10, 1,  12);		
 
 }
 /*

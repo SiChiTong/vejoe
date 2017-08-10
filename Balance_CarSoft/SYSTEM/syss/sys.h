@@ -108,6 +108,9 @@ extern u32 Remoter_Ch1,Remoter_Ch2;
 
 extern labyrinthStatus labCarStatus;
 extern int hallDiffCount,targetPulseForTurn;
+extern u8 labyrinthCanRunning;
+extern int hallRightDiff,hallLeftDiff;
+extern u16 tempLeft,lastLeft,tempLeftDiff,tempRight,lastRight, tempRightDiff;
 
 /////////////////////////////////////////////////////////////////  
 void Stm32_Clock_Init(u8 PLL);  // ±÷”≥ı ºªØ  

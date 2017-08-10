@@ -4,8 +4,10 @@
 #define COLLIDE_MIN_DISTANCE 200 			//避撞最小距离mm
 #define PULSE_COUNT_ONE_ROUND  (11 * 4)	//一圈脉冲数
 #define RATIO_WHEEL_SPEED  30 					//减速比
-#define DIAMETER_WHEEL 66								//轮子直径mm
-#define AXIS_DISTANCE_WHEEL 180					//小车，两个轮子间距mm
+#define DIAMETER_WHEEL 68								//轮子直径mm
+#define AXIS_DISTANCE_WHEEL 192					//小车，两个轮子间距mm
+
+#define CAR_STOP_WAITTING_TIME_MS	1000	//小车暂停等待时间mm
 
 //迷宫中小车状态
 typedef enum
@@ -45,14 +47,6 @@ typedef enum
 
 //初始化变量
 void initialLabyrinthConfig(void);
-//左转、右转需要脉冲数
-void calcPulseForTurnSemiCircle(void);
-//调头需要脉冲数
-void calcPulseForTurnRound(void);
-//达到最小距离
-int CheckMovingForwardIsEnd(void);
-//达到转动角度
-int CheckTurningIsEnd(void);
 //算法主函数
 void labyrinthAlgorithmMain(void);
 

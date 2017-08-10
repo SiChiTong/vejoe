@@ -88,6 +88,10 @@ void SysTick_Handler(void)
 	{
 		timingDelay--;
 	}
+	else
+	{
+		labyrinthCanRunning = 1;
+	}
 }
 #endif
 
@@ -101,7 +105,7 @@ void delay_init()
 #if SYSTEM_SUPPORT_OS  							//如果需要支持OS.
 	u32 reload;
 #else
-	
+	SysTick_Config(72000);
 #endif
 	SysTick_CLKSourceConfig(SysTick_CLKSource_HCLK_Div8);	//选择外部时钟  HCLK/8
 	fac_us=SystemCoreClock/8000000;				//为系统时钟的1/8  
@@ -194,47 +198,14 @@ void delay_ms(u16 nms)
 	SysTick->CTRL&=~SysTick_CTRL_ENABLE_Msk;	//关闭计数器
 	SysTick->VAL =0X00;       					//清空计数器	  	    
 } 
+
 #endif 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+void delayMs_NOWait(u32 ms)
+{
+	timingDelay = ms;
+	labyrinthCanRunning = 0;
+}
 
 
