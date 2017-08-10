@@ -137,7 +137,7 @@ int velocity(int encoder_left,int encoder_right)
 	{
 		if(Distance<500)  Movement=-Target_Velocity/Flag_sudu;
 	}	
-	if(Bi_zhang==2&&Flag_Left!=1&&Flag_Right!=1)        //进入跟随模式
+	else if(Bi_zhang==2&&Flag_Left!=1&&Flag_Right!=1)        //进入跟随模式
 	{
 		if(Distance>100&&Distance<300)  Movement=Target_Velocity/Flag_sudu;
 	}
@@ -206,13 +206,7 @@ void Set_Pwm(int moto1,int moto2)
 	PWMA=myabs(moto1);
 	if(moto2>0)	BIN1=1,	BIN2=0;
 	else        BIN1=0,	BIN2=1;
-	PWMB=myabs(moto2);	
-//	if(moto1>0)	AIN2=0, AIN1=1;
-//	else AIN2=1, AIN1=0;
-//	PWMA=myabs(moto1);
-//	if(moto2>0)	BIN1=0,	BIN2=1;
-//	else        BIN1=1,	BIN2=0;
-//	PWMB=myabs(moto2);	
+	PWMB=myabs(moto2);
 }
 /**************************************************************************
 函数功能：限制PWM赋值 
@@ -227,8 +221,7 @@ void Xianfu_Pwm(void)
 	if(Moto1<-Amplitude) Moto1=-Amplitude;	
 	if(Moto1>Amplitude)  Moto1=Amplitude;	
 	if(Moto2<-Amplitude) Moto2=-Amplitude;	
-	if(Moto2>Amplitude)  Moto2=Amplitude;		
-	
+	if(Moto2>Amplitude)  Moto2=Amplitude;
 }
 /**************************************************************************
 函数功能：按键修改小车运行状态 
@@ -239,10 +232,9 @@ void Key(void)
 {	
 	u8 tmp,tmp2;
 	tmp=click_N_Double(50); 
-//	if(tmp==1)Flag_Stop=!Flag_Stop;//单击控制小车的启停
-	if(tmp==2)Flag_Show=!Flag_Show;//双击控制小车的显示状态
-//tmp2=Long_Press();    
-	tmp2 = 1;
+	if(tmp==1)Flag_Stop=!Flag_Stop;//单击控制小车的启停
+	else if(tmp==2)Flag_Show=!Flag_Show;//双击控制小车的显示状态
+	tmp2=Long_Press(); 
 	if(tmp2==1) Bi_zhang=!Bi_zhang;		//长按控制小车是否进入超声波避障模式 
 }
 

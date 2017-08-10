@@ -487,25 +487,20 @@ void Display_SampleValue(void)
 	//当前状态标志
 	OLED_ShowNumber(0,0, (int)labCarStatus, 2, 12);
 //	//超声波距离	
-//	OLED_ShowNumber(40,0, ultrasonicDistance/1000,    1, 12);
-//	OLED_ShowNumber(48,0, ultrasonicDistance%1000/100, 1, 12);
-//	OLED_ShowNumber(56,0, ultrasonicDistance%100/10,     1, 12);	
-//	OLED_ShowNumber(64,0, ultrasonicDistance%10,     1, 12);
-	//轮子相差距离	
-	OLED_ShowNumber(40,0, hallDiffCount/1000,    1, 12);
-	OLED_ShowNumber(48,0, hallDiffCount%1000/100, 1, 12);
-	OLED_ShowNumber(56,0, hallDiffCount%100/10,     1, 12);	
-	OLED_ShowNumber(64,0, hallDiffCount%10,     1, 12);
+	OLED_ShowNumber(40,0, ultrasonicDistance/1000,    1, 12);
+	OLED_ShowNumber(48,0, ultrasonicDistance%1000/100, 1, 12);
+	OLED_ShowNumber(56,0, ultrasonicDistance%100/10,     1, 12);	
+	OLED_ShowNumber(64,0, ultrasonicDistance%10,     1, 12);
 //	//前后左右标志
 //	OLED_ShowNumber(90, 0, Flag_Qian, 1, 12);
 //	OLED_ShowNumber(98, 0, Flag_Hou, 1, 12);
 //	OLED_ShowNumber(106,0, Flag_Left, 1,  12);
 //	OLED_ShowNumber(114,0, Flag_Right, 1,  12);		
-
-	OLED_ShowNumber(90, 0, targetPulseForTurn/1000, 1, 12);
-	OLED_ShowNumber(98, 0, targetPulseForTurn%1000/100, 1, 12);
-	OLED_ShowNumber(106,0, targetPulseForTurn%100/10, 1,  12);
-	OLED_ShowNumber(114,0, targetPulseForTurn%10, 1,  12);		
+	//轮子相差距离	
+	OLED_ShowNumber(90, 0, hallDiffCount/1000, 1, 12);
+	OLED_ShowNumber(98, 0, hallDiffCount%1000/100, 1, 12);
+	OLED_ShowNumber(106,0, hallDiffCount%100/10, 1,  12);
+	OLED_ShowNumber(114,0, hallDiffCount%10, 1,  12);		
 
 }
 /*

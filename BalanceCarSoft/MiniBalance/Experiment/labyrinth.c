@@ -2,10 +2,12 @@
 #include "sys.h"
 
 #define PI 3.14159265
+#define RATIO_ANGLE_MOTOR  1.3
 
 static float ratioPulse2Distance = 1.0f, ratioDistance2Angle = 1.0f;
 u8  carIsMoving=1;  //开始时要默认为运动状态
-//u16 tempLeft,lastLeft,tempLeftDiff,tempRight,lastRight, tempRightDiff;
+int hallRightDiff = 0,hallLeftDiff = 0;
+u16 tempLeft,lastLeft,tempLeftDiff,tempRight,lastRight, tempRightDiff;
 u16 oneDirectDistance,otherDirectDistance;
 u32 distanceLatestQueue[3] = {COLLIDE_MIN_DISTANCE,COLLIDE_MIN_DISTANCE,COLLIDE_MIN_DISTANCE};
 
@@ -47,12 +49,12 @@ int GetPulseAngle(int angle)
 
 void calcPulseForTurnSemiCircle(void)
 {
-	targetPulseForTurn = GetPulseAngle(90);
+	targetPulseForTurn = GetPulseAngle(90*RATIO_ANGLE_MOTOR);
 }
 
 void calcPulseForTurnRound(void)
 {
-	targetPulseForTurn = GetPulseAngle(180);
+	targetPulseForTurn = GetPulseAngle(180*RATIO_ANGLE_MOTOR);
 }
 
 void clearRememberParams(void)
