@@ -171,32 +171,53 @@
         <Bp>
           <Number>0</Number>
           <Type>0</Type>
+<<<<<<< HEAD
           <LineNumber>198</LineNumber>
           <EnabledFlag>1</EnabledFlag>
           <Address>134243206</Address>
+=======
+          <LineNumber>61</LineNumber>
+          <EnabledFlag>1</EnabledFlag>
+          <Address>134262724</Address>
+>>>>>>> 9651812b88b09b80e52554430c7cd2543e34ed1a
           <ByteObject>0</ByteObject>
           <HtxType>0</HtxType>
           <ManyObjects>0</ManyObjects>
           <SizeOfObject>0</SizeOfObject>
           <BreakByAccess>0</BreakByAccess>
           <BreakIfRCount>1</BreakIfRCount>
+<<<<<<< HEAD
           <Filename>..\MiniBalance_HARDWARE\CAN\can.c</Filename>
+=======
+          <Filename>..\MiniBalance\Experiment\labyrinth.c</Filename>
+>>>>>>> 9651812b88b09b80e52554430c7cd2543e34ed1a
           <ExecCommand></ExecCommand>
           <Expression></Expression>
         </Bp>
         <Bp>
           <Number>1</Number>
           <Type>0</Type>
+<<<<<<< HEAD
           <LineNumber>141</LineNumber>
           <EnabledFlag>1</EnabledFlag>
           <Address>0</Address>
+=======
+          <LineNumber>105</LineNumber>
+          <EnabledFlag>1</EnabledFlag>
+          <Address>134238092</Address>
+>>>>>>> 9651812b88b09b80e52554430c7cd2543e34ed1a
           <ByteObject>0</ByteObject>
           <HtxType>0</HtxType>
           <ManyObjects>0</ManyObjects>
           <SizeOfObject>0</SizeOfObject>
           <BreakByAccess>0</BreakByAccess>
+<<<<<<< HEAD
           <BreakIfRCount>0</BreakIfRCount>
           <Filename>..\MiniBalance\Experiment\labyrinth.c</Filename>
+=======
+          <BreakIfRCount>1</BreakIfRCount>
+          <Filename>..\MiniBalance_HARDWARE\ENCODER\encoder.c</Filename>
+>>>>>>> 9651812b88b09b80e52554430c7cd2543e34ed1a
           <ExecCommand></ExecCommand>
           <Expression></Expression>
         </Bp>
@@ -226,6 +247,16 @@
           <count>4</count>
           <WinNumber>1</WinNumber>
           <ItemText>g_right_motor_error</ItemText>
+        </Ww>
+        <Ww>
+          <count>5</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>Encoder_Left</ItemText>
+        </Ww>
+        <Ww>
+          <count>6</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>Encoder_Right</ItemText>
         </Ww>
       </WatchWindow1>
       <WatchWindow2>
@@ -405,7 +436,7 @@
 
   <Group>
     <GroupName>CORE</GroupName>
-    <tvExp>0</tvExp>
+    <tvExp>1</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>
@@ -983,7 +1014,7 @@
 
   <Group>
     <GroupName>Minibalance</GroupName>
-    <tvExp>0</tvExp>
+    <tvExp>1</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>

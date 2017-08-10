@@ -96,7 +96,7 @@ int main(void)
 	MiniBalance_EXTI_Init();        //=====MPU6050 5ms定时中断初始化
 
 	initialLabyrinthConfig();
-	
+
 	while(1)
 	{
 		if(Flash_Send==1)        //写入PID参数到Flash,由app控制该指令
@@ -135,7 +135,7 @@ int main(void)
 	//	delay_50=0;
 	//	while(delay_flag);	     //通过MPU6050的INT中断实现的50ms精准延时	
 		
-		labyrinthAlgorithmMain();	//迷宫算法		
+		labyrinthAlgorithmMain();	//迷宫算法
 	} 
 }
 

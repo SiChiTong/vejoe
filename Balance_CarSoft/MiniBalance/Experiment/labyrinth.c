@@ -15,7 +15,7 @@ labyrinthStatus labCarStatus;
 void initialLabyrinthConfig(void)
 {
 	//启动迷宫模式
-	labCarStatus = labStatusStart;//labStatusNone:停止
+	labCarStatus = labStatusStart;//labStatusNone：关闭
 	
 	ratioPulse2Distance = (1.0f *PULSE_COUNT_ONE_ROUND * RATIO_WHEEL_SPEED) / (PI * DIAMETER_WHEEL);	
 	ratioDistance2Angle = (AXIS_DISTANCE_WHEEL * PI) / 360.0f;
@@ -160,8 +160,8 @@ void labyrinthAlgorithmMain(void)
 	switch(labCarStatus)
 	{
 		case labStatusMovingForward:
-		{
-			if(carIsMoving)
+		{			
+			if(carIsMoving)				
 			{
 				carMoveForward();
 				CheckMovingForwardIsEnd();

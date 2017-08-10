@@ -15,12 +15,14 @@ void MiniBalance_EXTI_Init(void)
 	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_2;	            //端口配置
 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPU;         //上拉输入
 	GPIO_Init(GPIOB, &GPIO_InitStructure);					      //根据设定参数初始化GPIO
+	
 	GPIO_EXTILineConfig(GPIO_PortSourceGPIOB, GPIO_PinSource2);
 	EXTI_InitStructure.EXTI_Line=EXTI_Line2;
 	EXTI_InitStructure.EXTI_Mode = EXTI_Mode_Interrupt;	
 	EXTI_InitStructure.EXTI_Trigger = EXTI_Trigger_Falling;//下降沿触发
 	EXTI_InitStructure.EXTI_LineCmd = ENABLE;
 	EXTI_Init(&EXTI_InitStructure);	 	//根据EXTI_InitStruct中指定的参数初始化外设EXTI寄存器
+	
 	NVIC_InitStructure.NVIC_IRQChannel = EXTI2_IRQn;			//使能按键所在的外部中断通道
 	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0x01;	//抢占优先级2， 
 	NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0x01;					//子优先级1
