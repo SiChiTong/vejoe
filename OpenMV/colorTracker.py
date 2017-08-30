@@ -71,6 +71,9 @@ while(True):
     #区域是用哪个颜色阈值threshold识别出来的）。
     if blobs:
     #如果找到了目标颜色
+        if checkTargetExists(blobs):
+            moveLeftRight(blobs[tempAreaMaxIdx][5]);
+            moveForwardBackward(blobs[tempAreaMaxIdx][2] * blobs[tempAreaMaxIdx][3]);
         for b in blobs:
         #迭代找到的目标颜色区域
             # Draw a rect around the blob.
