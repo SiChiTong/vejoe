@@ -4,10 +4,6 @@
 
 using namespace std;
 
-#define  AREAS_MOTION	100
-#define  MIN_TARGET_AREAR		500
-#define  MAX_TARGET_AREAR		10000 
-
 ImageHandler::ImageHandler(void)
 {
 }

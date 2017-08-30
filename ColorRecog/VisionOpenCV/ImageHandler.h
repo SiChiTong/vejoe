@@ -10,6 +10,28 @@
 
 using namespace cv;
 
+struct HSVBoundray
+{
+	int HLow;
+	int SLow;
+	int VLow;
+	int HUp;
+	int SUp;
+	int VUp;
+};
+
+enum ColorType
+{
+	Red,
+	Blue,
+	Green,
+	Yello,
+	Purple,
+	Black,
+	White,
+	Gray
+};
+
 class ImageHandler
 {
 public:
@@ -17,10 +39,14 @@ public:
 	ImageHandler(void);
 	~ImageHandler(void);
 	
-	void edgeSobel(Mat);
-	void edgeLaplacian(Mat);
-	void edgeCanny(Mat);
+	void recoginceColor(Mat,ColorType);
 
 	void DemoImage(void);
+
+private:
+	HSVBoundray getColorBoundary(ColorType);
+
+	Mat element;
+	HSVBoundray HsvRed,HsvBlue,HsvGreen,HsvYellow,HsvPurple,HsvBlack,HsvWhite,HsvGray;
 };
 
