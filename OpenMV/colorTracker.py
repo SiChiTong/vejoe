@@ -46,18 +46,60 @@ noneTargetLastCount=0;
 targetIdx=-1;
 
 
+
+#确定目标是否存在（True:存在）
+def checkTargetExists(rects):
+    global NONE_TARGET_COUNT_MIN,noneTargetLastCount,targetIdx
+    targetIdx = checkTargetOnce(rects);
+    if targetIdx == -1:
+        noneTargetLastCount += 1;
+    else:
+        noneTargetLastCount = 0
+    return noneTargetLastCount < NONE_TARGET_COUNT_MIN
+
+
+#查找当前画面中，有效面积最大的矩形索引
+def checkTargetOnce(rects):
+    global AREA_PIXEL_MIN
+    rectIdx = 0
+    tempAreaMax = 0
+    tempAreaMaxIdx = -1
+    for item in rects:
+        tempArea = item[2] * item[3];
+        if tempArea > AREA_PIXEL_MIN and tempArea > tempAreaMax :
+            tempAreaMax = tempArea
+            tempAreaMaxIdx= rectIdx
+        rectIdx += 1;
+    return tempAreaMaxIdx
+
+#根据偏离中心位置距离，将成像画面转换为左右转动的速度
+def moveLeftRight(xCenter):
+    global IMAGE_WIDTH,turnDeltaSum,turnVelocity,turnDeltaLast,KP_TURN,KI_TURN, KD_TURN,DELTA_TIME_CHECK
+    deltaX = xCenter - (IMAGE_WIDTH / 2);
+    turnDeltaSum += deltaX;
+    turnVelocity = KP_TURN*deltaX + KI_TURN*turnDeltaSum + KD_TURN*(deltaX - turnDeltaLast)/DELTA_TIME_CHECK;
+    turnDeltaLast=deltaX;
+
+#根据跟标准面积的差距，将画面转换为前后速度
+def moveForwardBackward(area):
+    global IMAGE_AREA_SIZE_DEFAULT,moveDeltaSum,moveVelocity,moveDeltaLast,KP_MOVE,KI_MOVE,KD_MOVE,DELTA_TIME_CHECK
+    deltaX = area - IMAGE_AREA_SIZE_DEFAULT;
+    moveDeltaSum += deltaX;
+    moveVelocity = KP_MOVE*deltaX + KI_MOVE*moveDeltaSum + KD_MOVE*(deltaX - moveDeltaLast)/DELTA_TIME_CHECK;
+    moveDeltaLast = deltaX;
+
+
 sensor.reset() # Initialize the camera sensor.
 sensor.set_pixformat(sensor.RGB565) # use RGB565.
 sensor.set_framesize(sensor.QQVGA) # use QQVGA for speed.
 sensor.skip_frames(10) # Let new settings take affect.
-sensor.set_whitebal(False) # turn this off.
+sensor.set_auto_whitebal(False) # turn this off.
 #关闭白平衡。白平衡是默认开启的，在颜色识别中，需要关闭白平衡。
 clock = time.clock() # Tracks FPS.
 
 while(True):
     clock.tick() # Track elapsed milliseconds between snapshots().
     img = sensor.snapshot() # Take a picture and return the image.
-
     blobs = img.find_blobs([green_threshold])
     #find_blobs(thresholds, invert=False, roi=Auto),thresholds为颜色阈值，
     #是一个元组，需要用括号［ ］括起来。invert=1,反转颜色阈值，invert=False默认
@@ -71,52 +113,16 @@ while(True):
     #区域是用哪个颜色阈值threshold识别出来的）。
     if blobs:
     #如果找到了目标颜色
-        if checkTargetExists(blobs):
-            moveLeftRight(blobs[tempAreaMaxIdx][5]);
-            moveForwardBackward(blobs[tempAreaMaxIdx][2] * blobs[tempAreaMaxIdx][3]);
-        for b in blobs:
-        #迭代找到的目标颜色区域
-            # Draw a rect around the blob.
-            img.draw_rectangle(b[0:4]) # rect
-            #用矩形标记出目标颜色区域
-            img.draw_cross(b[5], b[6]) # cx, cy
-            #在目标颜色区域的中心画十字形标记
+        if checkTargetExists(blobs) :
+            #左右运动速度
+#            moveLeftRight(blobs[targetIdx][5]);
+            #前后运动速度
+#            moveForwardBackward(blobs[targetIdx][2] * blobs[targetIdx][3]);
+            #绘制目标方块
+            img.draw_rectangle(blobs[targetIdx][0:4]) # rect
+            #用矩形标记出目标中心点
+            img.draw_cross(blobs[targetIdx][5],blobs[targetIdx][6]) # cx, cy
     print(clock.fps()) # Note: Your OpenMV Cam runs about half as fast while
     # connected to your computer. The FPS should increase once disconnected.
 
-#确定目标是否存在（True:存在）
-def checkTargetExists(rects):
-    targetIdx = checkTargetOnce(rects);
-    if targetIdx == -1:
-        noneTargetLastCount++;
-    else
-        noneTargetLastCount = 0;
-    return noneTargetLastCount < NONE_TARGET_COUNT_MIN
 
-
-#查找当前画面中，有效面积最大的矩形索引
-def checkTargetOnce(rects):
-    rectIdx = 0
-    tempAreaMax = 0
-    tempAreaMaxIdx = -1
-    for item in rects:
-        tempArea = item[2] * item[3];
-        if tempArea > AREA_PIXEL_MIN and tempArea > tempAreaMax :
-            tempAreaMax = tempArea
-            tempAreaMaxIdx= rectIdx
-        rectIdx++;
-    return tempAreaMaxIdx
-
-#根据偏离中心位置距离，将成像画面转换为左右转动的速度
-def moveLeftRight(xCenter):
-    deltaX = xCenter - (IMAGE_WIDTH / 2);
-    turnDeltaSum += deltaX;
-    turnVelocity = KP_TURN*deltaX + KI_TURN*turnDeltaSum + KD_TURN*(deltaX - turnDeltaLast)/DELTA_TIME_CHECK;
-    turnDeltaLast=deltaX;
-
-#根据跟标准面积的差距，将画面转换为前后速度
-def moveForwardBackward(area):
-    deltaX = area - IMAGE_AREA_SIZE_DEFAULT;
-    moveDeltaSum += deltaX;
-    moveVelocity = KP_MOVE*deltaX + KI_MOVE*moveDeltaSum + KD_MOVE*(deltaX - moveDeltaLast)/DELTA_TIME_CHECK;
-    moveDeltaLast = deltaX;

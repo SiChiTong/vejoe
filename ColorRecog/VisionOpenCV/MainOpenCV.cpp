@@ -29,7 +29,7 @@ int main()
 		imshow("Source Image", sourceFrame);
 		moveWindow("Source Image",0,0);
 
-		imageTool.recoginceColor(sourceFrame,Red);
+		imageTool.recoginceColor(sourceFrame,Black);
 
 		//程序结束开关
 		if (waitKey(10) == 27)

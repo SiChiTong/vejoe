@@ -278,6 +278,7 @@ void Temp_Cal(uint16_t temp_adc)
 	int index = 0;	
 	//将ADC的值转化为阻值
 	resistance = 8192.0 / temp_adc * 100;
+	
 	if(resistance <= Temp_ADC[34][1]) 
 	{
 		if(resistance <= Temp_ADC[51][1])//51=34+17

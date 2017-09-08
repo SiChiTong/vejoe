@@ -76,7 +76,7 @@ void Encoder_Init_TIM4(void)
 **************************************************************************/
 int Read_Encoder(u8 TIMX)
 {
-	int Encoder_TIM;    
+	int Encoder_TIM;
 	switch(TIMX)
 	{
 		case 2:  Encoder_TIM= (short)TIM2 -> CNT;  break;
