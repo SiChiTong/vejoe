@@ -161,5 +161,21 @@
 #endif 
 //-----------------------End of USE_PID----------------------------------------	
 
-
+	
+//-----------------------GPIO Config---------------------------------------------
+#ifdef GPIO_CONFIGURATION
+	//通道类型
+	typedef enum
+	{
+		A = 0x01,
+		B,
+		C,
+		D,	
+		E,
+		F,
+		G		
+	}GPIOChannelType;
+	void setGPIOConfiguration(char channel,u8 port,GPIOMode_TypeDef mode, GPIOSpeed_TypeDef speed);
+#endif
+//-----------------------End of GPIO Config----------------------------------------	
 #endif   // _TOOLS_H

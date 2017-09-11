@@ -4189,6 +4189,29 @@ void main()
 	}
 #endif 
 //-----------------------End of USE_PID----------------------------------------	
-
-
-
+//-----------------------GPIO Config---------------------------------------------
+#ifdef GPIO_CONFIGURATION
+	void setGPIOConfiguration(GPIOChannelType channel,u8 ports,GPIOMode_TypeDef mode, GPIOSpeed_TypeDef speed)
+	{		
+		uint32_t rccChannel;
+		GPIO_TypeDef * initChannel;
+		switch(channel)
+		{
+			case A:				rccChannel = RCC_APB2Periph_GPIOA;				initChannel = GPIOA;			break;			
+			case B:				rccChannel = RCC_APB2Periph_GPIOA;				initChannel = GPIOA;			break;			
+			case C:				rccChannel = RCC_APB2Periph_GPIOC;				initChannel = GPIOC;			break;			
+			case D:				rccChannel = RCC_APB2Periph_GPIOD;				initChannel = GPIOD;			break;			
+			case E:				rccChannel = RCC_APB2Periph_GPIOE;				initChannel = GPIOE;			break;			
+			case F:				rccChannel = RCC_APB2Periph_GPIOF;				initChannel = GPIOF;			break;			
+			case G:				rccChannel = RCC_APB2Periph_GPIOG;				initChannel = GPIOG;			break;
+			default:return;
+		}
+		GPIO_InitTypeDef GPIO_InitStructure;
+		RCC_APB2PeriphClockCmd(rccChannel, ENABLE); //使能PB端口时钟		
+		GPIO_InitStructure.GPIO_Pin = ports;//端口配置
+		GPIO_InitStructure.GPIO_Mode = mode;      
+		GPIO_InitStructure.GPIO_Speed = speed;     //
+		GPIO_Init(initChannel, &GPIO_InitStructure);					      //根据设定参数初始化GPIO 
+	}
+#endif
+//-----------------------End of GPIO Config----------------------------------------	

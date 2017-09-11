@@ -18,3 +18,5 @@ Objects/
 *.lib
 *.a
 *.user
+*.s
+*.dep
