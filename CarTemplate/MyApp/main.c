@@ -4,9 +4,8 @@
 #include "Tools.h"
 #include "Components.h"
 
-
 int main(void)
-{
+{	
 	Hall_Encoder_Init(ChannelA,First,0,1);
 	Hall_Encoder_Init(ChannelB,Second,6,7);
 	
@@ -22,16 +21,30 @@ int main(void)
 		encoderRight = Read_ABS_Value(Second);
 		
 		OLED_ShowString(00,20,"LEFT");
-		if( encoderLeft<0)		OLED_ShowString(60,20,"-"),
+		if( encoderLeft<0)
+		{
+			OLED_ShowString(60,20,"-");
 		  OLED_ShowNumber(75,20,-encoderLeft,6,12);
-		else  OLED_ShowString(80,20,"+"),
+		}
+		else
+		{
+			OLED_ShowString(60,20,"+");
 		  OLED_ShowNumber(75,20, encoderLeft,6,12);
+		}
 		
-		 OLED_ShowString(00,30,"EncoRIGHT");
-		if(encoderRight<0)		  OLED_ShowString(60,30,"-"),
-		  OLED_ShowNumber(75,30,-encoderRight,4,12);
-		else  OLED_ShowString(80,30,"+"),
-		  OLED_ShowNumber(75,30,encoderRight,4,12);	
+		OLED_ShowString(00,30,"RIGHT");
+		if(encoderRight<0)		  
+		{
+			OLED_ShowString(60,30,"-");
+		  OLED_ShowNumber(75,30,-encoderRight,6,12);
+		}
+		else
+		{
+			OLED_ShowString(60,30,"+");
+			OLED_ShowNumber(75,30,encoderRight,6,12);	
+		}
+		
+		OLED_Refresh_Gram();
 	}
 }
 

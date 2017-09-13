@@ -7,7 +7,6 @@
 	#include "stm32f10x_pwr.h"
 	#include "stm32f10x_bkp.h"
 	
-	u8 configFinish = 0;
 	u8 oledRst,oledDc,oledScl,oledSda;
 	u8 OLED_GRAM[128][8];	
 	const unsigned char oled_asc2_1206[95][12]={
@@ -207,14 +206,7 @@
 	
 	
 	void OLED_WR_Byte(u8 dat,u8 cmd);	 
-	
-	void OLED_Config(GPIOChannelType channel, u8 portRst,u8 portDc,u8 portScl,u8 portSda)
-	{
-
 		
-		configFinish = 1;
-	}
-	
 	void OLED_RST_Clr(void)   //RST
 	{
 		PCout(oledRst)=0;
@@ -400,7 +392,7 @@
 	//³õÊ¼»¯OLED					    
 	void OLED_Init(GPIOChannelType channel, u8 portRst,u8 portDc,u8 portScl,u8 portSda)
 	{	
-		u8 gpioPort = portRst | portDc | portScl | portSda;
+		u8 gpioPort = getGPIOPortByNumber(portRst) | getGPIOPortByNumber(portDc) | getGPIOPortByNumber(portScl) | getGPIOPortByNumber(portSda);
 		oledRst = portRst;
 		oledDc = portDc;
 		oledScl = portScl;
@@ -466,7 +458,7 @@
 //-----------------------Hall------------------------------------------------------
 #ifdef COMPONENTS_HALL
 	
-	#define ENCODER_TIM_PERIOD (u16)(65535)
+	#define ENCODER_TIM_PERIOD (u16)(0xFFFF)
 	
 	int _TIM4_BaseCounter = 0;
 	int _TIM2_BaseCounter = 0;
@@ -475,9 +467,9 @@
 
 	void Hall_Encoder_Init(GPIOChannelType channel, HallEncoderIndex encoderIdx, u8 portOne,u8 portOther)
 	{
-		u8 gpioPort = portOne|portOther;
-		uint32_t rccChannel = RCC_APB1Periph_TIM2;
-		uint8_t IRQChannel = TIM2_IRQn;
+		u16 gpioPort = getGPIOPortByNumber(portOne)|getGPIOPortByNumber(portOther);
+		u32 rccChannel = RCC_APB1Periph_TIM2;
+		u8 IRQChannel = TIM2_IRQn;
 		TIM_TypeDef * pTimeType = TIM2;
 		if(encoderIdx != First && encoderIdx != Second)
 		{
@@ -533,8 +525,8 @@
 		TIM4 -> CNT=0;*/
 		if(TIM_GetITStatus(TIM4, TIM_IT_Update) != RESET)
 		{
-			if(TIM4->CNT <= 0x00FF) _TIM4_BaseCounter += 0xFFFF;
-			else if(TIM4->CNT >= 0xFF00) _TIM4_BaseCounter -= 0xFFFF;
+			if(TIM4->CNT <= 0x00FF) _TIM4_BaseCounter += ENCODER_TIM_PERIOD;
+			else if(TIM4->CNT >= 0xFF00) _TIM4_BaseCounter -= ENCODER_TIM_PERIOD;
 			TIM_ClearITPendingBit(TIM4, TIM_IT_Update); 
 		}	
 	}
@@ -552,8 +544,8 @@
 		TIM2 -> CNT=0;	*/
 		if(TIM_GetITStatus(TIM2, TIM_IT_Update) != RESET)
 		{
-			if(TIM2->CNT <= 0x00FF) _TIM2_BaseCounter += 0xFFFF;
-			else if(TIM2->CNT >= 0xFF00) _TIM2_BaseCounter -= 0xFFFF;
+			if(TIM2->CNT <= 0x00FF) _TIM2_BaseCounter += ENCODER_TIM_PERIOD;
+			else if(TIM2->CNT >= 0xFF00) _TIM2_BaseCounter -= ENCODER_TIM_PERIOD;
 			TIM_ClearITPendingBit(TIM2, TIM_IT_Update); 
 		}	
 	}

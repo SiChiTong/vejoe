@@ -4191,14 +4191,44 @@ void main()
 //-----------------------End of USE_PID----------------------------------------	
 //-----------------------GPIO Config---------------------------------------------
 #ifdef GPIO_CONFIGURATION
-	void setGPIOConfiguration(GPIOChannelType channel,u8 ports,GPIOMode_TypeDef mode, GPIOSpeed_TypeDef speed)
+	u16 getGPIOPortByNumber(u8 gpioNumber)
+	{
+		u16 tempResult = GPIO_Pin_0;
+//		if(gpioNumber <= 15)
+//		{
+//			tempResult = 1<<gpioNumber;
+//		}
+			switch(gpioNumber)
+			{
+				case 1:tempResult=GPIO_Pin_1;break;
+				case 2:tempResult=GPIO_Pin_2;break;
+				case 3:tempResult=GPIO_Pin_3;break;
+				case 4:tempResult=GPIO_Pin_4;break;
+				case 5:tempResult=GPIO_Pin_5;break;
+				case 6:tempResult=GPIO_Pin_6;break;
+				case 7:tempResult=GPIO_Pin_7;break;
+				case 8:tempResult=GPIO_Pin_8;break;
+				case 9:tempResult=GPIO_Pin_9;break;
+				case 10:tempResult=GPIO_Pin_10;break;
+				case 11:tempResult=GPIO_Pin_11;break;
+				case 12:tempResult=GPIO_Pin_12;break;
+				case 13:tempResult=GPIO_Pin_13;break;
+				case 14:tempResult=GPIO_Pin_14;break;
+				case 15:tempResult=GPIO_Pin_15;break;
+				case 255:tempResult=GPIO_Pin_All;break;
+				default:break;
+			}
+			return tempResult;
+	}
+	
+	void setGPIOConfiguration(GPIOChannelType channel,u16 ports,GPIOMode_TypeDef mode, GPIOSpeed_TypeDef speed)
 	{		
-		uint32_t rccChannel;
+		u32 rccChannel;
 		GPIO_TypeDef * initChannel;
 		switch(channel)
 		{
 			case ChannelA:				rccChannel = RCC_APB2Periph_GPIOA;				initChannel = GPIOA;			break;			
-			case ChannelB:				rccChannel = RCC_APB2Periph_GPIOA;				initChannel = GPIOA;			break;			
+			case ChannelB:				rccChannel = RCC_APB2Periph_GPIOB;				initChannel = GPIOB;			break;			
 			case ChannelC:				rccChannel = RCC_APB2Periph_GPIOC;				initChannel = GPIOC;			break;			
 			case ChannelD:				rccChannel = RCC_APB2Periph_GPIOD;				initChannel = GPIOD;			break;			
 			case ChannelE:				rccChannel = RCC_APB2Periph_GPIOE;				initChannel = GPIOE;			break;			
