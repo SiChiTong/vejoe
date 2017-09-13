@@ -7,13 +7,13 @@
 #define USE_MEM_MANAGER					//使用内存管理功能
 #define USE_GPIO								//使用GPIO
 #define USE_SYS_TICK       			//使用系统时钟
-#define USE_TIMER2_TICK					//使用定时器:(只用timer2,3,4)
+//#define USE_TIMER2_TICK					//使用定时器:(只用timer2,3,4)
 //#define USE_TIMER3_TICK				//使用定时器:(只用timer2,3,4)
 //#define USE_TIMER4_TICK				//使用定时器:(只用timer2,3,4)
 #define USE_TIMER1_CPWM					//使用互补的PWM：用于电机桥式驱动（通常只有timer1,8可用）
 //#define USE_TIMER8_CPWM				//使用互补的PWM：用于电机桥式驱动（通常只有timer1,8可用）
 //#define USE_TIMER2_ENCODER			//使用Timer2作为encoder的用途
-#define USE_TIMER4_ENCODER			//使用Timer4作为encoder的用途
+//#define USE_TIMER4_ENCODER			//使用Timer4作为encoder的用途
 #define USE_ADC				      	  //使用AD,固定使用DMA1， channel 11 中断
 
 //#define USE_PWM						//使用PWM
@@ -61,6 +61,12 @@
 //#define  USE_SCHEDULING
 //#define  USE_LCD_SSD1302
 //------------------------End of 设置Tools模块---------------------------------//
+
+//-----------------------设置 外设 模块-------------------------=---------------//
+#define GPIO_CONFIGURATION
+#define COMPONENTS_HALL
+#define COMPONENTS_OLED
+//-----------------------end of 设置 外设 模块-------------------------=---------------//
 
 #ifdef USE_GPIO
 #include "stm32f10x_rcc.h"  

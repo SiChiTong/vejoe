@@ -50,8 +50,8 @@ UINT16 Get_Current_Sample(void)
 	return Get_ADC_Value(1);
 }
 
-INT32 Get_Encoder(void)
-{
-	return Read_Encoder_TIM4();
-}
+//INT32 Get_Encoder(void)
+//{
+//	return Read_Encoder_TIM4();
+//}
 

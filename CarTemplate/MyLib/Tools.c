@@ -4197,13 +4197,13 @@ void main()
 		GPIO_TypeDef * initChannel;
 		switch(channel)
 		{
-			case A:				rccChannel = RCC_APB2Periph_GPIOA;				initChannel = GPIOA;			break;			
-			case B:				rccChannel = RCC_APB2Periph_GPIOA;				initChannel = GPIOA;			break;			
-			case C:				rccChannel = RCC_APB2Periph_GPIOC;				initChannel = GPIOC;			break;			
-			case D:				rccChannel = RCC_APB2Periph_GPIOD;				initChannel = GPIOD;			break;			
-			case E:				rccChannel = RCC_APB2Periph_GPIOE;				initChannel = GPIOE;			break;			
-			case F:				rccChannel = RCC_APB2Periph_GPIOF;				initChannel = GPIOF;			break;			
-			case G:				rccChannel = RCC_APB2Periph_GPIOG;				initChannel = GPIOG;			break;
+			case ChannelA:				rccChannel = RCC_APB2Periph_GPIOA;				initChannel = GPIOA;			break;			
+			case ChannelB:				rccChannel = RCC_APB2Periph_GPIOA;				initChannel = GPIOA;			break;			
+			case ChannelC:				rccChannel = RCC_APB2Periph_GPIOC;				initChannel = GPIOC;			break;			
+			case ChannelD:				rccChannel = RCC_APB2Periph_GPIOD;				initChannel = GPIOD;			break;			
+			case ChannelE:				rccChannel = RCC_APB2Periph_GPIOE;				initChannel = GPIOE;			break;			
+			case ChannelF:				rccChannel = RCC_APB2Periph_GPIOF;				initChannel = GPIOF;			break;			
+			case ChannelG:				rccChannel = RCC_APB2Periph_GPIOG;				initChannel = GPIOG;			break;
 			default:return;
 		}
 		GPIO_InitTypeDef GPIO_InitStructure;
