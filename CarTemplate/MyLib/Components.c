@@ -247,7 +247,7 @@
 			OLED_WR_Byte (0x00,OLED_CMD);      //设置显示位置—列低地址
 			OLED_WR_Byte (0x10,OLED_CMD);      //设置显示位置—列高地址   
 			for(n=0;n<128;n++)OLED_WR_Byte(OLED_GRAM[n][i],OLED_DATA); 
-		}   
+		}
 	}
 
 	//向OLED写入一个字节。
@@ -456,6 +456,7 @@
 		OLED_Init(ChannelC,15,0,13,14);
 		OLED_ShowString(00,20,"LEFT");
 		OLED_ShowNumber(75,20,123456,6,12);
+		OLED_Refresh_Gram();
 	}
 
 #endif
@@ -465,12 +466,13 @@
 #ifdef COMPONENTS_HALL
 	
 	#define ENCODER_TIM_PERIOD 0xFFFF	
+	#define MAX_NUMBER_COUNT 31
 	
 	int _TIM4_BaseCounter = 0;
 	int _TIM2_BaseCounter = 0;
 	int hallSpeedArray[2];
-	int hallValueArray[2][32];
-	u8 checkTimeLength=0, speedInitial = 0;	
+	int hallValueArray[2][MAX_NUMBER_COUNT];
+	u8 checkTimeLength=0, speedJumpCount = 0;	
 
 	void Hall_Encoder_Init(GPIOChannelType channel, HallEncoderIndex encoderIdx, u8 portOne,u8 portOther)
 	{
@@ -572,13 +574,19 @@
 	
 	void calcHallMoveSpeed(void)
 	{
+		if(speedJumpCount < checkTimeLength)
+		{
+			speedJumpCount ++;
+			return;
+		}
+		speedJumpCount = 0;
 		HallEncoderIndex encoderIdx;
 		for(int i=0;i<2;i++)
 		{
-			encoderIdx = i==0?First:Second;
-			moveArrayForward(checkTimeLength,hallValueArray[0]);
-			hallValueArray[0][checkTimeLength] = Read_ABS_Value(encoderIdx);
-			hallSpeedArray[0] = (hallValueArray[0][checkTimeLength] - hallValueArray[0][0]) / checkTimeLength;
+			encoderIdx = (i==0?First:Second);
+			moveArrayForward(MAX_NUMBER_COUNT,hallValueArray[i]);
+			hallValueArray[i][MAX_NUMBER_COUNT-1] = Read_ABS_Value(encoderIdx);
+			hallSpeedArray[i] = (hallValueArray[i][MAX_NUMBER_COUNT-1] - hallValueArray[i][MAX_NUMBER_COUNT-2]) * (1000 / 5 / checkTimeLength);
 		}
 	}
 	
@@ -592,21 +600,33 @@
 		Timer_Register(TIMER_3,calcHallMoveSpeed);
 	}	
 	
-	u16 getHallChangeSpeed(void)
+	int getHallChangeSpeed(HallEncoderIndex encoderIdx)
 	{
-		return 0;
+		int tempSpeed = hallSpeedArray[0];
+		
+		if(encoderIdx == Second)
+		{
+			tempSpeed = hallSpeedArray[1];
+		}
+		
+		return tempSpeed;
 	}
 	
 	//测试用例
 	void TEST_HallEncoder()
 	{
+		//获取霍尔传感器的数值
 		Hall_Encoder_Init(ChannelA,First,0,1);
-		int encoderLeft = Read_ABS_Value(First);
-		
+		int encoderLeft = Read_ABS_Value(First);		
 		Hall_Encoder_Init(ChannelB,Second,6,7);				
 		int encoderRight = Read_ABS_Value(Second);
 		
-		int clearWarnning = encoderLeft + encoderRight;
+		//获取霍尔传感器的变化速度
+		HallSpeedInitial(20);
+		int speedLeft = getHallChangeSpeed(First);
+		int speedRight = getHallChangeSpeed(Second);
+		
+		int clearWarnning = encoderLeft + encoderRight + speedLeft + speedRight;
 		clearWarnning = clearWarnning + 1;
 	}
 #endif

@@ -10,37 +10,43 @@ int main(void)
 	Hall_Encoder_Init(ChannelB,Second,6,7);
 	
 	OLED_Init(ChannelC,15,0,13,14);
+	HallSpeedInitial(20);
 	
-	int encoderLeft = 0;
-	int encoderRight = 0;
+	int encoderLeft = 0, speedLeft = 0;
+	int encoderRight = 0, speedRight = 0;
 	while(1)
-	{
-		
+	{		
 		encoderLeft = Read_ABS_Value(First);
 		encoderRight = Read_ABS_Value(Second);
 		
+		speedLeft = getHallChangeSpeed(First);
+		speedRight = getHallChangeSpeed(Second);
+		
+		OLED_ShowNumber(00,00,encoderLeft,6,12);
+		OLED_ShowNumber(60,00,encoderRight,6,12);
+		
 		OLED_ShowString(00,20,"LEFT");
-		if( encoderLeft<0)
+		if( speedLeft<0)
 		{
 			OLED_ShowString(60,20,"-");
-		  OLED_ShowNumber(75,20,-encoderLeft,6,12);
+		  OLED_ShowNumber(75,20,-speedLeft,6,12);
 		}
 		else
 		{
 			OLED_ShowString(60,20,"+");
-		  OLED_ShowNumber(75,20, encoderLeft,6,12);
+		  OLED_ShowNumber(75,20, speedLeft,6,12);
 		}
 		
 		OLED_ShowString(00,30,"RIGHT");
-		if(encoderRight<0)		  
+		if(speedRight<0)		  
 		{
 			OLED_ShowString(60,30,"-");
-		  OLED_ShowNumber(75,30,-encoderRight,6,12);
+		  OLED_ShowNumber(75,30,-speedRight,6,12);
 		}
 		else
 		{
 			OLED_ShowString(60,30,"+");
-			OLED_ShowNumber(75,30,encoderRight,6,12);	
+			OLED_ShowNumber(75,30,speedRight,6,12);	
 		}
 		
 		OLED_Refresh_Gram();

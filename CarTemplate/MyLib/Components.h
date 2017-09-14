@@ -48,6 +48,9 @@
 	void Hall_Encoder_Init(GPIOChannelType channel, HallEncoderIndex encoderIdx, u8 portOne,u8 portOther);
 	int Read_ABS_Value(HallEncoderIndex);
 	
+	void HallSpeedInitial(u8 timesFor5ms);
+	int getHallChangeSpeed(HallEncoderIndex encoderIdx);
+	
 #endif
 //-----------------------end of Hall------------------------------------------------------
 	
