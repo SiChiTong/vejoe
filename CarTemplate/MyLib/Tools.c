@@ -4245,3 +4245,33 @@ void main()
 	}
 #endif
 //-----------------------End of GPIO Config----------------------------------------	
+
+	
+
+//----------------------- 坐标系变换 ---------------------------------------------
+#ifdef EXCHANGE_COORDINATE
+	//将霍尔传感器的数值转换为小车的运动距离
+	void Hall_2_CarInitial(double ratio,double diameter)
+	{
+		
+	}
+	u16 SpeedHall_2_Car(u16 hallValue)
+	{
+		
+	}
+#endif
+//-----------------------End of  坐标系变换 ----------------------------------------	
+
+//----------------------- 滤波 ---------------------------------------------
+#ifdef DATA_FILTER
+	u16 filterByMean(u8 dataIdx,u16 sourceData)
+	{
+		
+	}
+	
+	u16 filterByMedium(u8 dataIdx,u16 sourceData)
+	{
+		
+	}
+#endif
+//-----------------------End of 滤波 ----------------------------------------	

@@ -8,7 +8,7 @@
 #define USE_GPIO								//使用GPIO
 #define USE_SYS_TICK       			//使用系统时钟
 //#define USE_TIMER2_TICK					//使用定时器:(只用timer2,3,4)
-//#define USE_TIMER3_TICK				//使用定时器:(只用timer2,3,4)
+#define USE_TIMER3_TICK				//使用定时器:(只用timer2,3,4)
 //#define USE_TIMER4_TICK				//使用定时器:(只用timer2,3,4)
 #define USE_TIMER1_CPWM					//使用互补的PWM：用于电机桥式驱动（通常只有timer1,8可用）
 //#define USE_TIMER8_CPWM				//使用互补的PWM：用于电机桥式驱动（通常只有timer1,8可用）

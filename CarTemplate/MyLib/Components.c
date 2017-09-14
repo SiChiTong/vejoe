@@ -458,12 +458,10 @@
 //-----------------------Hall------------------------------------------------------
 #ifdef COMPONENTS_HALL
 	
-	#define ENCODER_TIM_PERIOD (u16)(0xFFFF)
+	#define ENCODER_TIM_PERIOD 0xFFFF
 	
 	int _TIM4_BaseCounter = 0;
 	int _TIM2_BaseCounter = 0;
-	int _TIM2_Counter = 0;
-	int _TIM4_Counter = 0;
 
 	void Hall_Encoder_Init(GPIOChannelType channel, HallEncoderIndex encoderIdx, u8 portOne,u8 portOther)
 	{
@@ -495,8 +493,8 @@
 		NVIC_Init(&NVIC_InitStructure);
 
 		TIM_TimeBaseStructInit(&TIM_TimeBaseStructure);
-		TIM_TimeBaseStructure.TIM_Prescaler = 0x0; // 预分频器 
-		TIM_TimeBaseStructure.TIM_Period = ENCODER_TIM_PERIOD; //设定计数器自动重装值
+		TIM_TimeBaseStructure.TIM_Prescaler = 0x00; // 预分频器 
+		TIM_TimeBaseStructure.TIM_Period = ENCODER_TIM_PERIOD; //设置编码器中断溢出阈值
 		TIM_TimeBaseStructure.TIM_ClockDivision = TIM_CKD_DIV1;//选择时钟分频：不分频
 		TIM_TimeBaseStructure.TIM_CounterMode = TIM_CounterMode_Up;////TIM向上计数  
 		TIM_TimeBaseInit(pTimeType, &TIM_TimeBaseStructure);
@@ -506,8 +504,7 @@
 		TIM_ICInit(pTimeType, &TIM_ICInitStructure);
 		TIM_ClearFlag(pTimeType, TIM_FLAG_Update);//清除TIM的更新标志位
 		TIM_ITConfig(pTimeType, TIM_IT_Update, ENABLE);
-		//Reset counter
-		TIM_SetCounter(pTimeType,0);
+		TIM_SetCounter(pTimeType,0);//清零计数器初始值
 		TIM_Cmd(pTimeType, ENABLE); 
 	}
 	
@@ -555,13 +552,19 @@
 		int tempResult = 0;
 		if(encoderIdx == First)
 		{
-			tempResult = _TIM2_Counter = _TIM2_BaseCounter + (int)(TIM2->CNT);
+			tempResult = _TIM2_BaseCounter + (int)(TIM2->CNT);
 		}
 		else if(encoderIdx == Second)
 		{
-			tempResult = _TIM4_Counter = _TIM4_BaseCounter + (int)(TIM4->CNT);
+			tempResult = _TIM4_BaseCounter + (int)(TIM4->CNT);
 		}
 		return tempResult;
+	}
+	
+	
+	u16 getHallChangeSpeed()
+	{
+		
 	}
 #endif
 //-----------------------end of Hall------------------------------------------------------
