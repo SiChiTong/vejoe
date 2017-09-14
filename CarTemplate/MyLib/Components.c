@@ -450,6 +450,13 @@
 		OLED_Clear();
 	}  
 
+	//≤‚ ‘”√¿˝
+	void Test_OLED()
+	{
+		OLED_Init(ChannelC,15,0,13,14);
+		OLED_ShowString(00,20,"LEFT");
+		OLED_ShowNumber(75,20,123456,6,12);
+	}
 
 #endif
 //-----------------------end of OLED------------------------------------------------------
@@ -588,6 +595,19 @@
 	u16 getHallChangeSpeed(void)
 	{
 		return 0;
+	}
+	
+	//≤‚ ‘”√¿˝
+	void TEST_HallEncoder()
+	{
+		Hall_Encoder_Init(ChannelA,First,0,1);
+		int encoderLeft = Read_ABS_Value(First);
+		
+		Hall_Encoder_Init(ChannelB,Second,6,7);				
+		int encoderRight = Read_ABS_Value(Second);
+		
+		int clearWarnning = encoderLeft + encoderRight;
+		clearWarnning = clearWarnning + 1;
 	}
 #endif
 //-----------------------end of Hall------------------------------------------------------

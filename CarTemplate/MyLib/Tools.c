@@ -4130,11 +4130,14 @@ void main()
 		int averageResult[13],weightResult[13];
 		u8 aIdx = averageFilterInitial(3);
 		u8 wIdx = weightFilterInitial(3);
+		int clearWarnning=0;
 		for(int i=0;i<13;i++)
 		{
 			averageResult[i] = averageFilter(aIdx, filterTest[i]);
 			weightResult[i] = weightFilter(wIdx,filterTest[i]);
 		}
+		clearWarnning = averageResult[0] + weightResult[0];
+		clearWarnning = clearWarnning + 1;
 	}
 
 #endif 
@@ -4275,6 +4278,7 @@ void main()
 	}
 #endif 
 //-----------------------End of USE_PID----------------------------------------	
+	
 //-----------------------GPIO Config---------------------------------------------
 #ifdef GPIO_CONFIGURATION
 	u16 getGPIOPortByNumber(u8 gpioNumber)
@@ -4328,6 +4332,11 @@ void main()
 		GPIO_InitStructure.GPIO_Mode = mode;      
 		GPIO_InitStructure.GPIO_Speed = speed;     //
 		GPIO_Init(initChannel, &GPIO_InitStructure);					      //根据设定参数初始化GPIO 
+	}	
+	//测试用例
+	void TEST_SetGPIO()
+	{
+		setGPIOConfiguration(ChannelA, getGPIOPortByNumber(1)|getGPIOPortByNumber(2), GPIO_Mode_Out_PP, GPIO_Speed_2MHz);
 	}
 #endif
 //-----------------------End of GPIO Config----------------------------------------	
@@ -4350,6 +4359,7 @@ void main()
 	
 //----------------------- 数组操作 ---------------------------------------------
 #ifdef DATA_ARRAY_HANDLE
+	//数组前N个数前移一位
 	void moveArrayForward(u8 validLen, int *arrayData)
 	{
     for(int i = 0; i < (validLen - 1); i ++)
@@ -4357,6 +4367,13 @@ void main()
 		if((&(arrayData[i]) != 0) && (&(arrayData[i + 1]) != 0))
         arrayData[i] = arrayData[i + 1];
     }
+	}
+	
+	//测试用例
+	void TEST_MoveArray()
+	{
+		int data[10] = {1,2,3,4,5,6,7,8,9,10};
+		moveArrayForward(4,data);
 	}
 #endif
 //-----------------------End of 数组操作 ----------------------------------------	

@@ -13,7 +13,6 @@ int main(void)
 	
 	int encoderLeft = 0;
 	int encoderRight = 0;
-	
 	while(1)
 	{
 		
