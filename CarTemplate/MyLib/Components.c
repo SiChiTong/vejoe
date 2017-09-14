@@ -1,6 +1,5 @@
 #include "Components.h"
 
-
 //-----------------------OLED------------------------------------------------------
 #ifdef COMPONENTS_OLED
   
@@ -458,10 +457,13 @@
 //-----------------------Hall------------------------------------------------------
 #ifdef COMPONENTS_HALL
 	
-	#define ENCODER_TIM_PERIOD 0xFFFF
+	#define ENCODER_TIM_PERIOD 0xFFFF	
 	
 	int _TIM4_BaseCounter = 0;
 	int _TIM2_BaseCounter = 0;
+	int hallSpeedArray[2];
+	int hallValueArray[2][32];
+	u8 checkTimeLength=0, speedInitial = 0;	
 
 	void Hall_Encoder_Init(GPIOChannelType channel, HallEncoderIndex encoderIdx, u8 portOne,u8 portOther)
 	{
@@ -559,12 +561,33 @@
 			tempResult = _TIM4_BaseCounter + (int)(TIM4->CNT);
 		}
 		return tempResult;
+	}	
+	
+	void calcHallMoveSpeed(void)
+	{
+		HallEncoderIndex encoderIdx;
+		for(int i=0;i<2;i++)
+		{
+			encoderIdx = i==0?First:Second;
+			moveArrayForward(checkTimeLength,hallValueArray[0]);
+			hallValueArray[0][checkTimeLength] = Read_ABS_Value(encoderIdx);
+			hallSpeedArray[0] = (hallValueArray[0][checkTimeLength] - hallValueArray[0][0]) / checkTimeLength;
+		}
 	}
 	
-	
-	u16 getHallChangeSpeed()
+	void HallSpeedInitial(u8 timesFor5ms)
 	{
+		if(timesFor5ms <= 0) return;
 		
+		checkTimeLength = timesFor5ms;
+		
+		Config_TIMER(TIMER_3,1,200);//每秒200次中断（5ms一次）
+		Timer_Register(TIMER_3,calcHallMoveSpeed);
+	}	
+	
+	u16 getHallChangeSpeed(void)
+	{
+		return 0;
 	}
 #endif
 //-----------------------end of Hall------------------------------------------------------

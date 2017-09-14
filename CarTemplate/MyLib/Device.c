@@ -166,16 +166,16 @@ void Config_TIMER(UINT8 timer, UINT8 pri, UINT32 fcy)
   // Configure one bit for preemption priority
 	NVIC_PriorityGroupConfig(NVIC_PriorityGroup_1);
 	if(timer <= TIMER_4) NVIC_InitStructure.NVIC_IRQChannel = TIM2_IRQn + timer;// interrupt channel.
-	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0;
+	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = pri;
 	NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0;
 	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
 	NVIC_Init(&NVIC_InitStructure);  
 	
 	RCC_GetClocksFreq(&RCC_Clocks); //get system clock.
 	//timer config.
+	timer_struct.TIM_Prescaler = (RCC_Clocks.HCLK_Frequency / 1000000) - 1;
 	_timer_info[timer]._frequency = fcy ;
 	timer_struct.TIM_Period = 1000000 / _timer_info[timer]._frequency  - 1;
-	timer_struct.TIM_Prescaler = (RCC_Clocks.HCLK_Frequency / 1000000) - 1;
 	timer_struct.TIM_ClockDivision = 0x0;  	                              
 	timer_struct.TIM_CounterMode = TIM_CounterMode_Up; 	                  
 	// CCR1_Val = fcy >> 1;                                   //ÖÐ¶ÏÖÜÆÚ / 2.

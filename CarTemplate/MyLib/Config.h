@@ -60,6 +60,8 @@
 //#define USE_DS18B20
 //#define  USE_SCHEDULING
 //#define  USE_LCD_SSD1302
+#define USE_TIMER_TICK
+#define USE_TIMER3_TICK
 //------------------------End of 设置Tools模块---------------------------------//
 
 //-----------------------设置 外设 模块-------------------------=---------------//

@@ -31,7 +31,9 @@
 #ifdef COMPONENTS_HALL	
 	
 	#define GPIO_CONFIGURATION
+	#define DATA_ARRAY_HANDLE
 	#include "Tools.h"
+	#include "Device.h"
 	
 	//±àÂëÆ÷Ë÷Òý
 	typedef enum

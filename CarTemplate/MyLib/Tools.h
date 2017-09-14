@@ -77,6 +77,8 @@
 
 //-----------------------USE_FILTER---------------------------------------------
 #ifdef USE_FILTER
+	#define DATA_ARRAY_HANDLE
+	
 	struct _Filter_Data16_EX
 	{
 		UINT8 _filter_type;
@@ -88,6 +90,11 @@
 	
 	void Filter16_Init(struct _Filter_Data16_EX *filterData, UINT8 type, UINT8 width);
 	UINT16 Filter16_GetValue(struct _Filter_Data16_EX *filterData, UINT16 data);
+	
+	u8 averageFilterInitial(u8 filterWidowSize);
+	int averageFilter(u8 filterIdx, int newValue);
+	u8 weightFilterInitial(u8 filterWidowSize);
+	int weightFilter(u8 filterIdx, int newValue);
 #endif 
 //-----------------------End of USE_FILTER----------------------------------------		
 
@@ -231,11 +238,11 @@
 #endif
 //-----------------------End of  坐标系变换 ----------------------------------------	
 
-//----------------------- 滤波 ---------------------------------------------
-#ifdef DATA_FILTER
-	u16 filterByMean(u8 dataIdx,u16 sourceData);
-	u16 filterByMedium(u8 dataIdx,u16 sourceData);
+//----------------------- 数组操作 ---------------------------------------------
+#ifdef DATA_ARRAY_HANDLE
+	void moveArrayForward(u8 validLen, int *array);
 #endif
-//-----------------------End of 滤波 ----------------------------------------	
+//-----------------------End of 数组操作 ----------------------------------------	
+
 
 #endif   // _TOOLS_H

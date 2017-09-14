@@ -4035,6 +4035,13 @@ void main()
 
 //-----------------------USE_FILTER---------------------------------------------
 #ifdef USE_FILTER	
+
+	#define FILTER_MAX_COUNT 16	//最大同时滤波容量
+	#define FILTER_MAX_WINDOW_SIZE 32	//滤波最大窗口
+	
+	u8 weightCurrentIdx=0, averageCurrentIdx=0;
+	u8 weightwidowSize[FILTER_MAX_COUNT],averagewidowSize[FILTER_MAX_COUNT];
+	int weightDataArray[FILTER_MAX_COUNT][FILTER_MAX_WINDOW_SIZE],averageDataArray[16][FILTER_MAX_WINDOW_SIZE];
 	void Filter16_Init(struct _Filter_Data16_EX *filterData, UINT8 type, UINT8 width)
 	{
 		filterData->_filter_type = type;
@@ -4051,6 +4058,85 @@ void main()
 		filterData->_filtered_Data = filterData->_sum / filterData->_width;
 		return filterData->_filtered_Data;
 	}
+	
+	u8 weightFilterInitial(u8 filterWidowSize)
+	{
+		if(weightCurrentIdx >= FILTER_MAX_COUNT ||
+			 filterWidowSize <= 0 || filterWidowSize > FILTER_MAX_WINDOW_SIZE)
+		return 0;
+		
+		weightwidowSize[weightCurrentIdx] = filterWidowSize;
+		weightCurrentIdx++;
+		return weightCurrentIdx;
+	}
+	
+	u8 averageFilterInitial(u8 filterWidowSize)
+	{
+		if(averageCurrentIdx >= FILTER_MAX_COUNT ||
+			 filterWidowSize <= 0 || filterWidowSize > FILTER_MAX_WINDOW_SIZE)
+		return 0;
+		
+		averagewidowSize[averageCurrentIdx] = filterWidowSize;
+		averageCurrentIdx++;
+		return averageCurrentIdx;
+	}	
+
+	//权值滤波
+	//衰减率为1/2,即历史数据的权重衰减一半
+	int weightFilter(u8 filterIdx, int newValue)
+	{
+		if(filterIdx <=0 || filterIdx > FILTER_MAX_COUNT) return -1;
+		
+		u8 widowSize = weightwidowSize[filterIdx - 1];
+		int filterResult = 0;
+		int * tempDataArray = weightDataArray[filterIdx];
+				
+		moveArrayForward(widowSize, tempDataArray);
+		tempDataArray[widowSize-1] = newValue;
+		
+		for(int i = 0; i < widowSize ; i ++)
+		{
+			if(&(tempDataArray[i]) != 0)
+			filterResult += tempDataArray[i] >> (widowSize - i);
+		}
+		return filterResult;
+	}
+	
+	//均值滤波
+	int averageFilter(u8 filterIdx, int newValue)
+	{
+		if(filterIdx <=0 || filterIdx > FILTER_MAX_COUNT) return -1;
+		
+		u8 widowSize = averagewidowSize[filterIdx - 1];
+		int filterResult = 0;
+		int * tempDataArray = averageDataArray[filterIdx];
+				
+		moveArrayForward(widowSize, tempDataArray);
+		tempDataArray[widowSize-1] = newValue;
+		
+		for(int i = 0; i < widowSize ; i ++)
+		{
+			if(&(tempDataArray[i]) != 0)
+			filterResult += tempDataArray[i];
+		}
+		filterResult /= widowSize;
+		return filterResult;
+	}
+	
+	//测试用例
+	void TEST_Filter()
+	{
+		int filterTest[13] = {500,500,500,500,500,1100,500,500,500,100,500,500,500};
+		int averageResult[13],weightResult[13];
+		u8 aIdx = averageFilterInitial(3);
+		u8 wIdx = weightFilterInitial(3);
+		for(int i=0;i<13;i++)
+		{
+			averageResult[i] = averageFilter(aIdx, filterTest[i]);
+			weightResult[i] = weightFilter(wIdx,filterTest[i]);
+		}
+	}
+
 #endif 
 //-----------------------End of USE_FILTER----------------------------------------		
 
@@ -4261,17 +4347,16 @@ void main()
 	}
 #endif
 //-----------------------End of  坐标系变换 ----------------------------------------	
-
-//----------------------- 滤波 ---------------------------------------------
-#ifdef DATA_FILTER
-	u16 filterByMean(u8 dataIdx,u16 sourceData)
-	{
-		
-	}
 	
-	u16 filterByMedium(u8 dataIdx,u16 sourceData)
+//----------------------- 数组操作 ---------------------------------------------
+#ifdef DATA_ARRAY_HANDLE
+	void moveArrayForward(u8 validLen, int *arrayData)
 	{
-		
+    for(int i = 0; i < (validLen - 1); i ++)
+    {
+		if((&(arrayData[i]) != 0) && (&(arrayData[i + 1]) != 0))
+        arrayData[i] = arrayData[i + 1];
+    }
 	}
 #endif
-//-----------------------End of 滤波 ----------------------------------------	
+//-----------------------End of 数组操作 ----------------------------------------	
