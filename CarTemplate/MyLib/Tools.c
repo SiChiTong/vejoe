@@ -4281,6 +4281,7 @@ void main()
 	
 //-----------------------GPIO Config---------------------------------------------
 #ifdef GPIO_CONFIGURATION
+	
 	u16 getGPIOPortByNumber(u8 gpioNumber)
 	{
 		u16 tempResult = GPIO_Pin_0;
@@ -4311,6 +4312,20 @@ void main()
 			return tempResult;
 	}
 	
+	void setGPIOConfiguration2(GPIOConfigStruct* channels,u8 channelCount,GPIOMode_TypeDef mode, GPIOSpeed_TypeDef speed)
+	{
+		for(int i=0;i<channelCount;i++)
+		{
+			GPIOConfigStruct tempChannel = channels[i];
+			u16 tempPort = 0;
+			for(int j=0;j<tempChannel.portCount;j++)
+			{
+				tempPort |= getGPIOPortByNumber(tempChannel.portNumbers[j]);
+			}
+			setGPIOConfiguration(tempChannel.type,tempPort,mode,speed);
+		}
+	}
+	
 	void setGPIOConfiguration(GPIOChannelType channel,u16 ports,GPIOMode_TypeDef mode, GPIOSpeed_TypeDef speed)
 	{		
 		u32 rccChannel;
@@ -4337,22 +4352,34 @@ void main()
 	void TEST_SetGPIO()
 	{
 		setGPIOConfiguration(ChannelA, getGPIOPortByNumber(1)|getGPIOPortByNumber(2), GPIO_Mode_Out_PP, GPIO_Speed_2MHz);
+		
+		GPIOConfigStruct souceInfo[2] = {
+			{ChannelA,{1,2},2},
+			{ChannelB,{1,5,8},3},
+		};
+		setGPIOConfiguration2(souceInfo,2,GPIO_Mode_IN_FLOATING,GPIO_Speed_2MHz);
 	}
 #endif
 //-----------------------End of GPIO Config----------------------------------------	
 
-	
 
 //----------------------- 坐标系变换 ---------------------------------------------
 #ifdef EXCHANGE_COORDINATE
+	
+	#define PI 3.1415926f
+	
+	double exchangeRatioHallWheel;
 	//将霍尔传感器的数值转换为小车的运动距离
-	void Hall_2_CarInitial(double ratio,double diameter)
+	//pulseCountOneRound：一圈脉冲数
+	//hallWheelRatio：减速比
+	//wheelDiameter：轮子直径mm（跟速度同一单位维度）
+	void Hall_2_CarInitial(int pulseCountOneRound, int hallWheelRatio,int wheelDiameter)
 	{
-		
+		exchangeRatioHallWheel = (PI * wheelDiameter) / (pulseCountOneRound * hallWheelRatio);
 	}
 	u16 SpeedHall_2_Car(u16 hallValue)
 	{
-		
+		return exchangeRatioHallWheel * hallValue;
 	}
 #endif
 //-----------------------End of  坐标系变换 ----------------------------------------	

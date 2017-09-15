@@ -391,7 +391,7 @@
 	//初始化OLED					    
 	void OLED_Init(GPIOChannelType channel, u8 portRst,u8 portDc,u8 portScl,u8 portSda)
 	{	
-		u8 gpioPort = getGPIOPortByNumber(portRst) | getGPIOPortByNumber(portDc) | getGPIOPortByNumber(portScl) | getGPIOPortByNumber(portSda);
+		u16 gpioPort = getGPIOPortByNumber(portRst) | getGPIOPortByNumber(portDc) | getGPIOPortByNumber(portScl) | getGPIOPortByNumber(portSda);
 		oledRst = portRst;
 		oledDc = portDc;
 		oledScl = portScl;
@@ -401,14 +401,6 @@
 		//推挽输出,2M
 		setGPIOConfiguration(channel,gpioPort,GPIO_Mode_Out_PP,GPIO_Speed_2MHz);
 		
-		GPIO_InitTypeDef GPIO_InitStructure;
-		RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOC, ENABLE); //使能PB端口时钟
-		RCC_APB2PeriphClockCmd(RCC_APB2Periph_AFIO,ENABLE);//使能AFIO时钟
-		GPIO_InitStructure.GPIO_Pin = GPIO_Pin_0|GPIO_Pin_13|GPIO_Pin_14|GPIO_Pin_15;//端口配置
-		GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;      //推挽输出
-		GPIO_InitStructure.GPIO_Speed = GPIO_Speed_2MHz;     //2M
-		GPIO_Init(GPIOC, &GPIO_InitStructure);					      //根据设定参数初始化GPIO 
-
 		PWR_BackupAccessCmd(ENABLE);//允许修改RTC 和后备寄存器
 		RCC_LSEConfig(RCC_LSE_OFF);//关闭外部低速外部时钟信号功能 后，PC13 PC14 PC15 才可以当普通IO用。
 		BKP_TamperPinCmd(DISABLE);//关闭入侵检测功能，也就是 PC13，也可以当普通IO 使用
@@ -474,9 +466,8 @@
 	int hallValueArray[2][MAX_NUMBER_COUNT];
 	u8 checkTimeLength=0, speedJumpCount = 0;	
 
-	void Hall_Encoder_Init(GPIOChannelType channel, HallEncoderIndex encoderIdx, u8 portOne,u8 portOther)
+	void HallEncoderInit(GPIOConfigStruct* channelInfo, u8 channelCount, HallEncoderIndex encoderIdx)
 	{
-		u16 gpioPort = getGPIOPortByNumber(portOne)|getGPIOPortByNumber(portOther);
 		u32 rccChannel = RCC_APB1Periph_TIM2;
 		u8 IRQChannel = TIM2_IRQn;
 		TIM_TypeDef * pTimeType = TIM2;
@@ -489,9 +480,9 @@
 			rccChannel = RCC_APB1Periph_TIM4;	
 			IRQChannel=TIM4_IRQn;
 			pTimeType = TIM4;
-		}
-		setGPIOConfiguration(channel,gpioPort,GPIO_Mode_IN_FLOATING,GPIO_Speed_50MHz);		
+		}	
 		RCC_APB1PeriphClockCmd(rccChannel, ENABLE);
+		setGPIOConfiguration2(channelInfo,channelCount,GPIO_Mode_IN_FLOATING,GPIO_Speed_50MHz);	
 		
 		TIM_TimeBaseInitTypeDef TIM_TimeBaseStructure;  
 		TIM_ICInitTypeDef TIM_ICInitStructure;
@@ -616,10 +607,16 @@
 	void TEST_HallEncoder()
 	{
 		//获取霍尔传感器的数值
-		Hall_Encoder_Init(ChannelA,First,0,1);
+		GPIOConfigStruct hallEncoderConfig[2]=
+		{
+			{ChannelA,{0,1},2},
+			{ChannelB,{6,7},2}
+		};
+		HallEncoderInit(hallEncoderConfig,1,First);
 		int encoderLeft = Read_ABS_Value(First);		
-		Hall_Encoder_Init(ChannelB,Second,6,7);				
+		HallEncoderInit(&hallEncoderConfig[1],1,Second);	
 		int encoderRight = Read_ABS_Value(Second);
+		
 		
 		//获取霍尔传感器的变化速度
 		HallSpeedInitial(20);
@@ -631,3 +628,41 @@
 	}
 #endif
 //-----------------------end of Hall------------------------------------------------------
+
+//----------------------- 电机 ------------------------------------------------------
+#ifdef COMPONENTS_Motor
+	void PWMBalanceCarInitial(GPIOConfigStruct channelsMotor[],u8 channelMotorCount,GPIOConfigStruct channelsPwm[],u8 channelPwmCount,u16 period,u16 prescaler)
+	{
+		setGPIOConfiguration2(channelsMotor,channelMotorCount,GPIO_Mode_Out_PP, GPIO_Speed_50MHz);
+		setGPIOConfiguration2(channelsPwm,channelPwmCount,GPIO_Mode_AF_PP, GPIO_Speed_50MHz);
+		
+		TIM_TimeBaseInitTypeDef  TIM_TimeBaseStructure;
+		TIM_OCInitTypeDef  TIM_OCInitStructure;
+		RCC_APB2PeriphClockCmd(RCC_APB2Periph_TIM1, ENABLE);// 
+
+		TIM_TimeBaseStructure.TIM_Period = period; //设置在下一个更新事件装入活动的自动重装载寄存器周期的值	 
+		TIM_TimeBaseStructure.TIM_Prescaler =prescaler; //设置用来作为TIMx时钟频率除数的预分频值  不分频
+		TIM_TimeBaseStructure.TIM_ClockDivision = 0; //设置时钟分割:TDTS = Tck_tim
+		TIM_TimeBaseStructure.TIM_CounterMode = TIM_CounterMode_Up;  //TIM向上计数模式
+		TIM_TimeBaseInit(TIM1, &TIM_TimeBaseStructure); //根据TIM_TimeBaseInitStruct中指定的参数初始化TIMx的时间基数单位
+
+
+		TIM_OCInitStructure.TIM_OCMode = TIM_OCMode_PWM1; //选择定时器模式:TIM脉冲宽度调制模式1
+		TIM_OCInitStructure.TIM_OutputState = TIM_OutputState_Enable; //比较输出使能
+		TIM_OCInitStructure.TIM_Pulse = 0;                            //设置待装入捕获比较寄存器的脉冲值
+		TIM_OCInitStructure.TIM_OCPolarity = TIM_OCPolarity_High;     //输出极性:TIM输出比较极性高
+		TIM_OC1Init(TIM1, &TIM_OCInitStructure);  //根据TIM_OCInitStruct中指定的参数初始化外设TIMx
+		TIM_OC4Init(TIM1, &TIM_OCInitStructure);  //根据TIM_OCInitStruct中指定的参数初始化外设TIMx
+
+		TIM_CtrlPWMOutputs(TIM1,ENABLE);	//MOE 主输出使能	
+
+		TIM_OC1PreloadConfig(TIM1, TIM_OCPreload_Enable);  //CH1预装载使能	 
+		TIM_OC4PreloadConfig(TIM1, TIM_OCPreload_Enable);  //CH4预装载使能	 
+
+		TIM_ARRPreloadConfig(TIM1, ENABLE); //使能TIMx在ARR上的预装载寄存器
+
+		TIM_Cmd(TIM1, ENABLE);  //使能TIM1
+	}
+#endif
+	
+//-----------------------end of 电机 ------------------------------------------------------

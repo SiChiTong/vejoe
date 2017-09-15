@@ -6,11 +6,22 @@
 
 int main(void)
 {	
-	Hall_Encoder_Init(ChannelA,First,0,1);
-	Hall_Encoder_Init(ChannelB,Second,6,7);
-	
-	OLED_Init(ChannelC,15,0,13,14);
+	//霍尔编码器初始化
+	GPIOConfigStruct hallEncoderLeft={ChannelA,{0,1},2},hallEncoderRight= {ChannelB,{6,7},2};
+	HallEncoderInit(&hallEncoderLeft,1,First);
+	HallEncoderInit(&hallEncoderRight,1,Second);
 	HallSpeedInitial(20);
+	//OLED初始化
+	OLED_Init(ChannelC,15,0,13,14);
+//	//电机初始化
+	GPIOConfigStruct motorGPIOConfig[2] = {
+		{ChannelC,{8,9,12},3},
+		{ChannelA,{15},1},
+	};
+	GPIOConfigStruct pwmGPIOConfig[1] = {
+		{ChannelC,{8,11},2},
+	};
+	PWMBalanceCarInitial(motorGPIOConfig,2,pwmGPIOConfig,1,7199,0);
 	
 	int encoderLeft = 0, speedLeft = 0;
 	int encoderRight = 0, speedRight = 0;

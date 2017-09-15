@@ -182,8 +182,17 @@
 		ChannelF,
 		ChannelG
 	} GPIOChannelType;
+	
+	typedef struct
+	{
+		GPIOChannelType type;
+		u8 portNumbers[8];
+		u8 portCount;
+	} GPIOConfigStruct;
+	
 	u16 getGPIOPortByNumber(u8);
 	void setGPIOConfiguration(GPIOChannelType channel,u16 port,GPIOMode_TypeDef mode, GPIOSpeed_TypeDef speed);
+	void setGPIOConfiguration2(GPIOConfigStruct channels[],u8 channelCount,GPIOMode_TypeDef mode, GPIOSpeed_TypeDef speed);
 #endif
 //-----------------------End of GPIO Config----------------------------------------	
 	

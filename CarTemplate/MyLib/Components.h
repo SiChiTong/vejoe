@@ -45,7 +45,7 @@
 	void TIM4_IRQHandler(void);
 	void TIM2_IRQHandler(void);
 	
-	void Hall_Encoder_Init(GPIOChannelType channel, HallEncoderIndex encoderIdx, u8 portOne,u8 portOther);
+	void HallEncoderInit(GPIOConfigStruct * channelInfo, u8 channelCount, HallEncoderIndex encoderIdx);
 	int Read_ABS_Value(HallEncoderIndex);
 	
 	void HallSpeedInitial(u8 timesFor5ms);
@@ -53,6 +53,13 @@
 	
 #endif
 //-----------------------end of Hall------------------------------------------------------
-	
+
+//----------------------- 电机 ------------------------------------------------------
+#ifdef COMPONENTS_Motor
+	#define GPIO_CONFIGURATION
+	void PWMBalanceCarInitial(GPIOConfigStruct channelsMotor[],u8 channelMotorCount,GPIOConfigStruct channelsPwm[],u8 channelPwmCount,u16 period,u16 prescaler);
+#endif
+//-----------------------end of 电机 ------------------------------------------------------
+
 #endif   // _COMPONENTS_H
 
