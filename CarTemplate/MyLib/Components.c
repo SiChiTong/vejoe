@@ -630,7 +630,7 @@
 //-----------------------end of Hall------------------------------------------------------
 
 //----------------------- 电机 ------------------------------------------------------
-#ifdef COMPONENTS_Motor
+#ifdef COMPONENTS_MOTOR
 	void PWMBalanceCarInitial(GPIOConfigStruct channelsMotor[],u8 channelMotorCount,GPIOConfigStruct channelsPwm[],u8 channelPwmCount,u16 period,u16 prescaler)
 	{
 		setGPIOConfiguration2(channelsMotor,channelMotorCount,GPIO_Mode_Out_PP, GPIO_Speed_50MHz);
@@ -666,3 +666,69 @@
 #endif
 	
 //-----------------------end of 电机 ------------------------------------------------------
+
+//----------------------- 设备安全检查 ------------------------------------------------------
+#ifdef DEVICE_SAFETY_CHECK
+	#define CHECK_COUNT 		2
+	//所有ADC值默认的参考电压为3.3v
+	#define		ADC_RESOLUTION_10		1024		//10位AD的分辨率
+	#define  	ADC_RESOLUTION_12		4096		//12位AD的分辨率
+	
+	StructCheckOverload g_check_info[CHECK_COUNT];
+	
+	void motorSafetyCheckInitital(StructMotorSafeInfo initialInfo[],u8 infoCount)
+	{
+		if(infoCount > CHECK_COUNT) return;
+		u16 adcResolution = ADC_RESOLUTION_10;
+		#ifdef	ADC_12_BIT
+		adcResolution = ADC_RESOLUTION_12;
+		#endif
+		for(u8 i = 0; i < infoCount; i ++)
+		{
+			g_check_info[i].stall_time = initialInfo[i].stallTime;			//time is 500ms.
+			g_check_info[i].stall_current = initialInfo[i].stallCurrent;		//current is 4000ma.
+			g_check_info[i].free_time = initialInfo[i].freeTime;			//等待3S后，电机会恢复
+			g_check_info[i].max_voltage = initialInfo[i].maxWorkVoltage * initialInfo[i].voltageRatio * adcResolution / 3.3;
+			g_check_info[i].min_voltage = initialInfo[i].minWorkVoltage * initialInfo[i].voltageRatio * adcResolution / 3.3;
+			g_check_info[i].current_adc = 0;
+			g_check_info[i].current_error_time = 0;
+			g_check_info[i].stall_cmp = g_check_info[i].stall_current * 0.373; //默认0.744
+	//		GetDelayIdFunction(1, &g_check_info[i].offset_delay_id);
+		}
+	//	Timer_Register(TIMER_5, Check_ErrorTimer);
+	}
+	
+	void GeneralSafetyCheck(void)
+	{
+		//overcurrent.  sample current .
+		for(u8 i = 0; i < CHECK_COUNT; i ++)
+		{
+			g_check_info[i].cur_offset = g_check_info[i].current_adc - g_check_info[i].cur_last_value;
+			g_check_info[i].cur_offset_sum += g_check_info[i].cur_offset;	
+			g_check_info[i].cur_last_value = g_check_info[i].current_adc;
+			//get current offset sum.
+			if((g_check_info[i].cur_offset_sum > 0) && (g_check_info[i].cur_offset_sum >= g_check_info[i].stall_cmp))
+				g_check_info[i].overload_time_flag = 1;		//过载标志
+			else
+				g_check_info[i].overload_time_flag = 0;
+			
+			if(g_check_info[i].current_adc >= g_check_info[i].stall_sum)  //过流
+				g_check_info[i].overcurrent_time_flag = 1;
+			else
+				g_check_info[i].overcurrent_time_flag = 0;
+			//过压和欠压标志
+			if((g_check_info[i].max_voltage == 0) || (g_check_info[i].min_voltage == 0))return;
+			
+			if(g_check_info[i].voltage_adc >= g_check_info[i].max_voltage)
+				g_check_info[i].overvoltage_time_flag = 1;
+			else
+				g_check_info[i].overvoltage_time_flag = 0;
+			
+			if(g_check_info[i].voltage_adc <= g_check_info[i].min_voltage)
+				g_check_info[i].undervoltage_time_flag = 1;
+			else
+				g_check_info[i].undervoltage_time_flag = 0;
+		}
+	}
+#endif
+//-----------------------end of 设备安全检查 ------------------------------------------------------

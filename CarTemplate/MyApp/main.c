@@ -13,53 +13,56 @@ int main(void)
 	HallSpeedInitial(20);
 	//OLED初始化
 	OLED_Init(ChannelC,15,0,13,14);
-//	//电机初始化
+	//电机初始化
 	GPIOConfigStruct motorGPIOConfig[2] = {
 		{ChannelC,{8,9,12},3},
 		{ChannelA,{15},1},
 	};
 	GPIOConfigStruct pwmGPIOConfig[1] = {
-		{ChannelC,{8,11},2},
+		{ChannelA,{8,11},2},
 	};
 	PWMBalanceCarInitial(motorGPIOConfig,2,pwmGPIOConfig,1,7199,0);
-	
+	//电机安全检测
+	StructMotorSafeInfo motorSafeInfo[2] = {
+		{2500,500,1400,0.001, 14, 9},
+		{2500,500,1400,0.001, 14, 9}
+	};
+	motorSafetyCheckInitital(motorSafeInfo,2);
+	//局部变量
 	int encoderLeft = 0, speedLeft = 0;
 	int encoderRight = 0, speedRight = 0;
+	int showDirectNumber = 1;
+	char showDirectChar = '+';
 	while(1)
-	{		
+	{
+		//编码器数值显示
 		encoderLeft = Read_ABS_Value(First);
 		encoderRight = Read_ABS_Value(Second);
-		
-		speedLeft = getHallChangeSpeed(First);
-		speedRight = getHallChangeSpeed(Second);
-		
 		OLED_ShowNumber(00,00,encoderLeft,6,12);
 		OLED_ShowNumber(60,00,encoderRight,6,12);
-		
+		//左轮速度显示
+		speedLeft = getHallChangeSpeed(First);
+		speedRight = getHallChangeSpeed(Second);		
 		OLED_ShowString(00,20,"LEFT");
 		if( speedLeft<0)
 		{
-			OLED_ShowString(60,20,"-");
-		  OLED_ShowNumber(75,20,-speedLeft,6,12);
+			showDirectNumber = -1;
+			showDirectChar = '-';
 		}
-		else
-		{
-			OLED_ShowString(60,20,"+");
-		  OLED_ShowNumber(75,20, speedLeft,6,12);
-		}
-		
+		OLED_ShowChar(60,20,showDirectChar,12,1);
+		OLED_ShowNumber(75,20,showDirectNumber*speedLeft,6,12);
+		//右轮速度显示
 		OLED_ShowString(00,30,"RIGHT");
+		showDirectNumber = 1;
+		showDirectChar = '+';
 		if(speedRight<0)		  
 		{
-			OLED_ShowString(60,30,"-");
-		  OLED_ShowNumber(75,30,-speedRight,6,12);
+			showDirectNumber = -1;
+			showDirectChar = '-';
 		}
-		else
-		{
-			OLED_ShowString(60,30,"+");
-			OLED_ShowNumber(75,30,speedRight,6,12);	
-		}
-		
+		OLED_ShowChar(60,30,showDirectChar,12,1);
+		OLED_ShowNumber(75,30,showDirectNumber * speedRight,6,12);
+		//显示屏刷新
 		OLED_Refresh_Gram();
 	}
 }

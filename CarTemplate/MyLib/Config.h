@@ -68,7 +68,8 @@
 #define GPIO_CONFIGURATION
 #define COMPONENTS_HALL
 #define COMPONENTS_OLED
-#define COMPONENTS_Motor
+#define COMPONENTS_MOTOR
+#define DEVICE_SAFETY_CHECK
 //-----------------------end of 设置 外设 模块-------------------------=---------------//
 
 #ifdef USE_GPIO

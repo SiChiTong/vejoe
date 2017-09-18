@@ -55,11 +55,72 @@
 //-----------------------end of Hall------------------------------------------------------
 
 //----------------------- 电机 ------------------------------------------------------
-#ifdef COMPONENTS_Motor
+#ifdef COMPONENTS_MOTOR
 	#define GPIO_CONFIGURATION
 	void PWMBalanceCarInitial(GPIOConfigStruct channelsMotor[],u8 channelMotorCount,GPIOConfigStruct channelsPwm[],u8 channelPwmCount,u16 period,u16 prescaler);
 #endif
 //-----------------------end of 电机 ------------------------------------------------------
+
+//----------------------- 设备安全检查 ------------------------------------------------------
+#ifdef DEVICE_SAFETY_CHECK
+	#define		ADC_BUF_SIZE			8		
+	typedef struct 
+	{
+		u8  overload_flag;				//过载标志
+		u8	 overcurrent_flag;			//过流标志
+		u8  overvoltage_flag;			//过压标志
+		u8  undervoltage_flag;			//欠压标志
+		u8  overload_time_flag;		//过载计时开始
+		u8  overcurrent_time_flag;		//过流计时
+		u8  overvoltage_time_flag;
+		u8  undervoltage_time_flag;
+		
+		u8  offset_delay_id;			
+		u8  tolerant_cnt;				//
+		u16 load_error_time;			//错误时间
+		u16 free_load_error_time;		//free error 时间
+		u16 free_cur_error_time;
+		u16 current_error_time;
+		u16 overvoltage_error_time;		//
+		u16 undervoltage_error_time;
+		//堵转保护
+		u16 stall_current;				//堵转电流
+		u16 stall_time;				//堵转时间
+		u16 free_time;					//释放时间
+		u16 stall_cmp;					//堵转电流累计差产生的积分和
+		u16 stall_sum;					//堵转电流 + 中间偏置电压值
+		
+		u16 voltage_adc;				//电压ADC的值
+		u16 current_adc;				//电流ADC的值
+		u16 encode_value;				//编码器的实时读取值
+		u16 cur_diff_default;			//电流绝对偏差值
+		u16 max_voltage;				//最小电压值
+		u16 min_voltage;				//最大电压值
+		//---------------------//
+		u16 cur_waring_value;			//最大电流值
+		u16 cur_last_value;			//上一次电流值
+		u16 cur_offset_dc;				//电流最大偏差之和
+		int 	 cur_offset_sum;			//
+		int		 cur_offset;				//  
+		u16 cur_adc_buffer[ADC_BUF_SIZE];//电流ADC buf
+		//---------------------//
+		float    voltage_ratio;				//电压的分压比率
+	}StructCheckOverload;
+	
+	typedef struct
+	{
+		u16 freeTime;
+		u16 stallTime;
+		u16 stallCurrent;
+		float voltageRatio;
+		u16 maxWorkVoltage;
+		u16 minWorkVoltage;
+	}StructMotorSafeInfo;	
+	
+	void motorSafetyCheckInitital(StructMotorSafeInfo initialInfo[],u8 infoCount);
+	void GeneralSafetyCheck(void);
+#endif
+//-----------------------end of 设备安全检查 ------------------------------------------------------
 
 #endif   // _COMPONENTS_H
 
