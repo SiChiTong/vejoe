@@ -1,4 +1,5 @@
 #include "Components.h"
+#include "Device.h"
 
 //-----------------------OLED------------------------------------------------------
 #ifdef COMPONENTS_OLED
@@ -672,8 +673,9 @@
 	
 	#define USE_FILTER
 	#define DATA_ARRAY_HANDLE
+	#define USE_ADC
 	#include "Tools.h"
-	#include "Model.h"
+	#include "Device.h"
 	
 	#define 	CHECK_COUNT 									2
 	#define 	ADC_WEIGHT_FILTER_WINDOW_SIZE	16
@@ -681,6 +683,7 @@
 	#define		ADC_RESOLUTION_10		1024		//10位AD的分辨率
 	#define  	ADC_RESOLUTION_12		4096		//12位AD的分辨率
 	
+	StructAdcInfo adcInfoArray[CHECK_COUNT];
 	StructCheckOverload g_check_info[CHECK_COUNT];
 	StructAdcDelayInfo adcDelayInfo[CHECK_COUNT];
 	u8 adcValueChannelArray[ADC_VALUE_COUNT] = {ADC_Channel_3,ADC_Channel_4,ADC_Channel_5,ADC_Channel_6,ADC_Channel_7,ADC_Channel_14};
@@ -691,8 +694,110 @@
 		StructAdcInfo tempAdcInfo = adcInfoArray[HardWare_ADC1];
 		for(int i=0;i<ADC_VALUE_COUNT;i++)
 		{
+			tempAdcInfo.adcSourceValuesArray[i] = Get_ADC_Value(i);
+			tempAdcInfo.channelIdxArray[i] = adcValueChannelArray[i];
 			tempAdcInfo.adcWeightFilterValuesArray[i] = weightFilter(tempAdcInfo.weightFilterIdxArray[i],tempAdcInfo.adcSourceValuesArray[i]);
 			tempAdcInfo.adcFilterResultValuesArray[i] = averageFilter(tempAdcInfo.averageFilterIdxArray[i],tempAdcInfo.adcWeightFilterValuesArray[i]);
+		}
+	}
+	
+	void AdcDelayTimerCheck(void)
+	{
+		for(u8 i = 0; i < CHECK_COUNT; i ++)
+		{
+			if(!adcDelayInfo[i].StartFlag) continue;
+			
+			adcDelayInfo[i].TimeCount ++;
+			if(adcDelayInfo[i].TimeCount >= adcDelayInfo[i].Time)
+			{
+				adcDelayInfo[i].TimeCount = 0;
+				adcDelayInfo[i].Success = 1;
+				adcDelayInfo[i].StartFlag = 0;
+			}
+		}
+	}
+	
+	void AdcErrorTimerCheck(void)
+	{
+		for(u8 i = 0; i < CHECK_COUNT; i ++)
+		{	//过载计时
+			if(g_check_info[i].overload_time_flag)
+			{
+				g_check_info[i].load_error_time ++;
+				if(g_check_info[i].load_error_time >= g_check_info[i].stall_time)
+				{
+					g_check_info[i].load_error_time = 0;
+					g_check_info[i].overload_flag = 1;		//过载标志
+				}
+			}
+			else
+			{
+				g_check_info[i].load_error_time = 0;
+			}
+			//当检测到过流后，或者过载后，电机处于保护阶段，当过一段时间后，电机就恢复
+			if(g_check_info[i].overload_flag)
+			{
+				g_check_info[i].free_load_error_time ++;
+				if(g_check_info[i].free_load_error_time >= g_check_info[i].free_time)
+				{
+					g_check_info[i].free_load_error_time = 0;
+					g_check_info[i].overload_flag = 0;
+				}
+			}
+			//-------------------------------------------------//
+			if(g_check_info[i].overcurrent_time_flag)
+			{
+				g_check_info[i].current_error_time ++;
+				if(g_check_info[i].current_error_time >= g_check_info[i].stall_time)
+				{
+					g_check_info[i].current_error_time = 0;
+					g_check_info[i].overcurrent_flag = 1;
+				}
+			}
+			else
+			{
+				g_check_info[i].current_error_time = 0;
+			}
+			//当检测到过流后，或者过载后，电机处于保护阶段，当过一段时间后，电机就恢复
+			if(g_check_info[i].overcurrent_flag)
+			{
+				g_check_info[i].free_cur_error_time ++;
+				if(g_check_info[i].free_cur_error_time >= g_check_info[i].free_time)
+				{
+					g_check_info[i].free_cur_error_time = 0;
+					g_check_info[i].overcurrent_flag = 0;
+				}
+			}
+			//过压标志
+			if(g_check_info[i].overvoltage_time_flag)
+			{
+				g_check_info[i].overvoltage_error_time ++;
+				if(g_check_info[i].overvoltage_error_time >= g_check_info[i].stall_time)
+				{
+					g_check_info[i].overvoltage_error_time = 0;
+					g_check_info[i].overvoltage_flag = 1;
+				}
+			}
+			else
+			{
+				g_check_info[i].overvoltage_error_time = 0;
+				g_check_info[i].overvoltage_flag = 0;
+			}
+			//欠压标志
+			if(g_check_info[i].undervoltage_time_flag)
+			{
+				g_check_info[i].undervoltage_error_time ++;
+				if(g_check_info[i].undervoltage_error_time >= g_check_info[i].stall_time)
+				{
+					g_check_info[i].undervoltage_error_time = 0;
+					g_check_info[i].undervoltage_flag = 1;
+				}
+			}
+			else
+			{
+				g_check_info[i].undervoltage_error_time = 0;
+				g_check_info[i].undervoltage_flag = 0;
+			}	
 		}
 	}
 	
@@ -728,57 +833,41 @@
 		{
 			g_check_info[i].weightFilterIdx = weightFilterInitial(ADC_BUF_SIZE);
 		}
-		
-		Timer_Register(TIMER_3,AdcDelayCheck);
-		Timer_Register(TIMER_3,calcHallMoveSpeed);
-	}
-	
-	void AdcDelayCheck(void)
-	{
-		for(u8 i = 0; i < d_module_num; index ++)
-		{
-			if(!adcDelayInfo[i].StartFlag) continue;
-			
-			adcDelayInfo[i].TimeCount ++;
-			if(adcDelayInfo[i].TimeCount >= adcDelayInfo[index].Time)
-			{
-				adcDelayInfo[i].TimeCount = 0;
-				adcDelayInfo[i].Success = 1;
-				adcDelayInfo[i].StartFlag = 0;
-			}
-		}
+		//5ms为单位
+		Timer_Register(TIMER_3,AdcDelayTimerCheck);
+		Timer_Register(TIMER_3,AdcErrorTimerCheck);
 	}
 	
 	void GeneralSafetyCheck(void)
 	{
-		//overcurrent.  sample current .
 		for(u8 i = 0; i < CHECK_COUNT; i ++)
 		{
 			g_check_info[i].cur_offset = g_check_info[i].current_adc - g_check_info[i].cur_last_value;
 			g_check_info[i].cur_offset_sum += g_check_info[i].cur_offset;	
 			g_check_info[i].cur_last_value = g_check_info[i].current_adc;
-			//get current offset sum.
+			//过载检测
 			if((g_check_info[i].cur_offset_sum > 0) && (g_check_info[i].cur_offset_sum >= g_check_info[i].stall_cmp))
-				g_check_info[i].overload_time_flag = 1;		//过载标志
+				g_check_info[i].overload_time_flag = 1;		
 			else
 				g_check_info[i].overload_time_flag = 0;
-			
-			if(g_check_info[i].current_adc >= g_check_info[i].stall_sum)  //过流
+			//过流检测
+			if(g_check_info[i].current_adc >= g_check_info[i].stall_sum) 
 				g_check_info[i].overcurrent_time_flag = 1;
 			else
 				g_check_info[i].overcurrent_time_flag = 0;
-			//过压和欠压标志
-			if((g_check_info[i].max_voltage == 0) || (g_check_info[i].min_voltage == 0))return;
-			
-			if(g_check_info[i].voltage_adc >= g_check_info[i].max_voltage)
-				g_check_info[i].overvoltage_time_flag = 1;
-			else
-				g_check_info[i].overvoltage_time_flag = 0;
-			
-			if(g_check_info[i].voltage_adc <= g_check_info[i].min_voltage)
-				g_check_info[i].undervoltage_time_flag = 1;
-			else
-				g_check_info[i].undervoltage_time_flag = 0;
+			//过压和欠压检测
+			if(g_check_info[i].max_voltage > 0 && g_check_info[i].min_voltage > 0)
+			{				
+				if(g_check_info[i].voltage_adc >= g_check_info[i].max_voltage)
+					g_check_info[i].overvoltage_time_flag = 1;
+				else
+					g_check_info[i].overvoltage_time_flag = 0;
+				
+				if(g_check_info[i].voltage_adc <= g_check_info[i].min_voltage)
+					g_check_info[i].undervoltage_time_flag = 1;
+				else
+					g_check_info[i].undervoltage_time_flag = 0;
+			}
 		}
 	}
 #endif

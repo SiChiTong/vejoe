@@ -123,8 +123,17 @@ struct ADC_Info
 	UINT16 _adc_value;
 	UINT8 _index;
 };
-void Add_ADC_CH(UINT8 index, GPIO_TypeDef* GPIOx, uint16_t GPIO_Pin, uint8_t ADC_Channel);
-void Enable_ADC(void);
+
+typedef struct
+{
+	u16 GPIOPin;
+	u8 	ADCChannel;
+	GPIO_TypeDef* GPIOx;
+} StructAdcChannelInfo;
+
+void DeviceADCInitial(StructAdcChannelInfo channelInfo[],u8 channelCount);
+//void Add_ADC_CH(UINT8 index, GPIO_TypeDef* GPIOx, uint16_t GPIO_Pin, uint8_t ADC_Channel);
+//void Enable_ADC(void);
 UINT16 Get_ADC_Value(UINT8 index);
 void DMA1_Channel1_IRQHandler(void);
 #endif 

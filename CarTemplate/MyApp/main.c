@@ -1,5 +1,4 @@
 #include "Config.h"
-#include "Model.h"
 #include "Device.h"
 #include "PCB.h"
 #include "Tools.h"
@@ -8,7 +7,8 @@
 int main(void)
 {	
 	//霍尔编码器初始化
-	GPIOConfigStruct hallEncoderLeft={ChannelA,{0,1},2},hallEncoderRight= {ChannelB,{6,7},2};
+	GPIOConfigStruct hallEncoderLeft = {ChannelA,{0,1},2},
+									 hallEncoderRight= {ChannelB,{6,7},2};
 	HallEncoderInit(&hallEncoderLeft,1,First);
 	HallEncoderInit(&hallEncoderRight,1,Second);
 	HallSpeedInitial(20);
@@ -23,6 +23,16 @@ int main(void)
 		{ChannelA,{8,11},2},
 	};
 	PWMBalanceCarInitial(motorGPIOConfig,2,pwmGPIOConfig,1,7199,0);
+	//AD转换模块初始化
+	StructAdcChannelInfo adcChannelInfo[6] = {
+		{GPIO_Pin_3,ADC_Channel_3,GPIOA},
+		{GPIO_Pin_4,ADC_Channel_4,GPIOA},
+		{GPIO_Pin_5,ADC_Channel_5,GPIOA},
+		{GPIO_Pin_6,ADC_Channel_6,GPIOA},
+		{GPIO_Pin_7,ADC_Channel_7,GPIOA},
+		{GPIO_Pin_4,ADC_Channel_14,GPIOC}
+	};
+	DeviceADCInitial(adcChannelInfo,6);
 	//电机安全检测初始化
 	StructMotorSafeInfo motorSafeInfo[2] = {
 		{2500,500,1400,0.001, 14, 9},

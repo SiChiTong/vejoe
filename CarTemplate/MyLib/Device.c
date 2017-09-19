@@ -566,11 +566,11 @@ void Enable_ADC(void)
 	ADC_InitStructure.ADC_NbrOfChannel= _ADC_CH_Num;		//ADC的通道数
 	//--------------------------select channel---------------------------//
 	// Route the GPIO 
+	GPIO_InitTypeDef  ADC_GPIO_InitStructure;
+	ADC_GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AIN;
+	ADC_GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
 	for(UINT8 i = 0; i < _ADC_CH_Num; i++)
-	{
-		GPIO_InitTypeDef  ADC_GPIO_InitStructure;
-		ADC_GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AIN;
-		ADC_GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+	{		
 		ADC_GPIO_InitStructure.GPIO_Pin = _ADC_Info[i]._GPIO_Pin; 			
 		GPIO_Init(_ADC_Info[i]._GPIOx, &ADC_GPIO_InitStructure);
 	}
@@ -622,6 +622,16 @@ void Enable_ADC(void)
 	ADC_SoftwareStartConvCmd(ADC1, ENABLE);
 }
 
+
+void DeviceADCInitial(StructAdcChannelInfo channelInfo[],u8 channelCount)
+{
+	for(u8 i=0;i<channelCount;i++)
+	{
+		Add_ADC_CH(i,channelInfo[i].GPIOx,channelInfo[i].GPIOPin,channelInfo[i].ADCChannel);
+	}
+	Enable_ADC();
+}
+
 UINT16 Get_ADC_Value(UINT8 index)
 {
 	return _ADC_Info[index]._adc_value;
@@ -633,16 +643,17 @@ void DMA1_Channel1_IRQHandler(void)
 	{
 		for(UINT8 i = 0; i < _ADC_CH_Num; i++)
 		{
-			_ADC_Info[i]._adc_value_buffer[_ADC_Info[i]._index] = _ADC_Buffer[i];
-			_ADC_Info[i]._index++;
-			if(_ADC_Info[i]._index == 8) _ADC_Info[i]._index = 0;
-			
-			_ADC_Info[i]._adc_value = 0;
-			for(UINT8 j = 0; j < 8; j++)
-			{
-				_ADC_Info[i]._adc_value += _ADC_Info[i]._adc_value_buffer[j];
-			}
-			_ADC_Info[i]._adc_value = (_ADC_Info[i]._adc_value >> 3);
+			_ADC_Info[i]._adc_value = _ADC_Buffer[i];
+//			//之前的版本：默认做了一次均值滤波，现在改为独立做滤波
+//			_ADC_Info[i]._adc_value_buffer[_ADC_Info[i]._index] = _ADC_Buffer[i];
+//			_ADC_Info[i]._index++;
+//			if(_ADC_Info[i]._index == 8) _ADC_Info[i]._index = 0;
+//			_ADC_Info[i]._adc_value = 0;
+//			for(UINT8 j = 0; j < 8; j++)
+//			{
+//				_ADC_Info[i]._adc_value += _ADC_Info[i]._adc_value_buffer[j];
+//			}
+//			_ADC_Info[i]._adc_value = (_ADC_Info[i]._adc_value >> 3);
 		}
 		
 		DMA_ClearITPendingBit(DMA1_IT_GL1);

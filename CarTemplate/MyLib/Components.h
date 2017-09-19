@@ -63,7 +63,28 @@
 
 //----------------------- 设备安全检查 ------------------------------------------------------
 #ifdef DEVICE_SAFETY_CHECK
-	#define		ADC_BUF_SIZE			8		
+	#define		ADC_BUF_SIZE			8
+	#define 	ADC_VALUE_COUNT		6
+	
+	typedef struct 
+	{
+		u8 index;
+		u8 channelIdxArray[ADC_VALUE_COUNT];
+		u8 weightFilterIdxArray[ADC_VALUE_COUNT];
+		u8 averageFilterIdxArray[ADC_VALUE_COUNT];
+		u16  adcSourceValuesArray[ADC_VALUE_COUNT];
+		u16  adcWeightFilterValuesArray[ADC_VALUE_COUNT];
+		u16  adcFilterResultValuesArray[ADC_VALUE_COUNT];
+		
+		HANDLER08 callback;
+	}StructAdcInfo;
+	
+	enum
+	{
+		HardWare_ADC1 = 0,
+		HardWare_ADC2,
+		ADC_NUM
+	};	
 	typedef struct 
 	{
 		u8  overload_flag;				//过载标志
@@ -86,8 +107,8 @@
 		u16 overvoltage_error_time;		//
 		u16 undervoltage_error_time;
 		//堵转保护
-		u16 stall_current;				//堵转电流
-		u16 stall_time;				//堵转时间
+		u16 stall_current;			//堵转电流
+		u16 stall_time;				  //堵转时间
 		u16 free_time;					//释放时间
 		u16 stall_cmp;					//堵转电流累计差产生的积分和
 		u16 stall_sum;					//堵转电流 + 中间偏置电压值
@@ -111,7 +132,9 @@
 	
 	typedef struct
 	{
+		//休息一定次数后恢复
 		u16 freeTime;
+		//超出次数表示异常
 		u16 stallTime;
 		u16 stallCurrent;
 		float voltageRatio;
