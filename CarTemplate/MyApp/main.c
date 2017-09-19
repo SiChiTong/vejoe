@@ -3,6 +3,7 @@
 #include "PCB.h"
 #include "Tools.h"
 #include "Components.h"
+#include "APP.h"
 
 int main(void)
 {	
@@ -39,11 +40,12 @@ int main(void)
 		{2500,500,1400,0.001, 14, 9}
 	};
 	motorSafetyCheckInitital(motorSafeInfo,2);
+	//采用通道
+	ReadOffsetCurrentValue(0, 2);
+	ReadOffsetCurrentValue(1, 3);
 	//局部变量
 	int encoderLeft = 0, speedLeft = 0;
 	int encoderRight = 0, speedRight = 0;
-	int showDirectNumber = 1;
-	char showDirectChar = '+';
 	while(1)
 	{
 		//编码器数值显示
@@ -51,30 +53,15 @@ int main(void)
 		encoderRight = Read_ABS_Value(Second);
 		OLED_ShowNumber(00,00,encoderLeft,6,12);
 		OLED_ShowNumber(60,00,encoderRight,6,12);
-		//左轮速度显示
+		//速度显示
 		speedLeft = getHallChangeSpeed(First);
 		speedRight = getHallChangeSpeed(Second);		
-		OLED_ShowString(00,20,"LEFT");
-		if( speedLeft<0)
-		{
-			showDirectNumber = -1;
-			showDirectChar = '-';
-		}
-		OLED_ShowChar(60,20,showDirectChar,12,1);
-		OLED_ShowNumber(75,20,showDirectNumber*speedLeft,6,12);
-		//右轮速度显示
-		OLED_ShowString(00,30,"RIGHT");
-		showDirectNumber = 1;
-		showDirectChar = '+';
-		if(speedRight<0)		  
-		{
-			showDirectNumber = -1;
-			showDirectChar = '-';
-		}
-		OLED_ShowChar(60,30,showDirectChar,12,1);
-		OLED_ShowNumber(75,30,showDirectNumber * speedRight,6,12);
-		//显示屏刷新
-		OLED_Refresh_Gram();
+		showSpeedValue(speedLeft,speedRight);
+		//过流过载检测
+		FilterADCValue();
+		UpdateSampleValue(0,1,2);
+		UpdateSampleValue(1,1,3);
+		GeneralSafetyCheck();
 	}
 }
 

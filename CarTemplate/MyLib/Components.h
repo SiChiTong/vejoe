@@ -150,6 +150,9 @@
 		u16 TimeCount;
 	}StructAdcDelayInfo;
 	
+	void FilterADCValue(void);
+	void UpdateSampleValue(u8 chkIdx, u8 voltIdx, u8 curIdx);
+	void ReadOffsetCurrentValue(u8 chkIdx,u8 adcInfoIdx);
 	void motorSafetyCheckInitital(StructMotorSafeInfo initialInfo[],u8 infoCount);
 	void GeneralSafetyCheck(void);
 #endif

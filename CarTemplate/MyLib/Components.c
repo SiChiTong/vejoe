@@ -801,6 +801,29 @@
 		}
 	}
 	
+	void ReadOffsetCurrentValue(u8 chkIdx,u8 adcInfoIdx)
+	{
+		u8 adcDelayIdx = g_check_info[chkIdx].offset_delay_id;
+		adcDelayInfo[adcDelayIdx].Time = 200;
+		adcDelayInfo[adcDelayIdx].StartFlag = 0;
+		while(!adcDelayInfo[adcDelayIdx].Success)
+		{
+			FilterADCValue();
+			
+			u16 tempAdcValue = adcInfoArray[HardWare_ADC1].adcFilterResultValuesArray[adcInfoIdx];
+			g_check_info[chkIdx].cur_offset_dc = weightFilter(g_check_info[chkIdx].weightFilterIdx,tempAdcValue);
+		}
+		g_check_info[chkIdx].stall_sum = g_check_info[chkIdx].cur_offset_dc + g_check_info[chkIdx].stall_cmp;
+		g_check_info[chkIdx].cur_last_value = g_check_info[chkIdx].cur_offset_dc;
+		
+	}
+	
+	void UpdateSampleValue(u8 chkIdx, u8 voltIdx, u8 curIdx)
+	{
+		g_check_info[chkIdx].current_adc = adcInfoArray[HardWare_ADC1].adcFilterResultValuesArray[curIdx];
+		g_check_info[chkIdx].voltage_adc = adcInfoArray[HardWare_ADC1].adcFilterResultValuesArray[voltIdx];
+	}
+	
 	void motorSafetyCheckInitital(StructMotorSafeInfo initialInfo[],u8 infoCount)
 	{
 		if(infoCount > CHECK_COUNT) return;
@@ -821,7 +844,6 @@
 			g_check_info[i].stall_cmp = g_check_info[i].stall_current * 0.373; //Ä¬ÈÏ0.744
 	//		GetDelayIdFunction(1, &g_check_info[i].offset_delay_id);
 		}
-	//	Timer_Register(TIMER_5, Check_ErrorTimer);
 		//³õÊ¼»¯ÂË²¨Æ÷
 		for(i=0;i<ADC_VALUE_COUNT;i++)
 		{
