@@ -1,4 +1,5 @@
 #include "Config.h"
+#include "Model.h"
 #include "Device.h"
 #include "PCB.h"
 #include "Tools.h"
@@ -22,7 +23,7 @@ int main(void)
 		{ChannelA,{8,11},2},
 	};
 	PWMBalanceCarInitial(motorGPIOConfig,2,pwmGPIOConfig,1,7199,0);
-	//电机安全检测
+	//电机安全检测初始化
 	StructMotorSafeInfo motorSafeInfo[2] = {
 		{2500,500,1400,0.001, 14, 9},
 		{2500,500,1400,0.001, 14, 9}

@@ -669,12 +669,32 @@
 
 //----------------------- 设备安全检查 ------------------------------------------------------
 #ifdef DEVICE_SAFETY_CHECK
-	#define CHECK_COUNT 		2
+	
+	#define USE_FILTER
+	#define DATA_ARRAY_HANDLE
+	#include "Tools.h"
+	#include "Model.h"
+	
+	#define 	CHECK_COUNT 									2
+	#define 	ADC_WEIGHT_FILTER_WINDOW_SIZE	16
 	//所有ADC值默认的参考电压为3.3v
 	#define		ADC_RESOLUTION_10		1024		//10位AD的分辨率
 	#define  	ADC_RESOLUTION_12		4096		//12位AD的分辨率
 	
 	StructCheckOverload g_check_info[CHECK_COUNT];
+	StructAdcDelayInfo adcDelayInfo[CHECK_COUNT];
+	u8 adcValueChannelArray[ADC_VALUE_COUNT] = {ADC_Channel_3,ADC_Channel_4,ADC_Channel_5,ADC_Channel_6,ADC_Channel_7,ADC_Channel_14};
+	u8 adcValueChannelIdx[ADC_VALUE_COUNT];
+	
+	void FilterADCValue(void)
+	{
+		StructAdcInfo tempAdcInfo = adcInfoArray[HardWare_ADC1];
+		for(int i=0;i<ADC_VALUE_COUNT;i++)
+		{
+			tempAdcInfo.adcWeightFilterValuesArray[i] = weightFilter(tempAdcInfo.weightFilterIdxArray[i],tempAdcInfo.adcSourceValuesArray[i]);
+			tempAdcInfo.adcFilterResultValuesArray[i] = averageFilter(tempAdcInfo.averageFilterIdxArray[i],tempAdcInfo.adcWeightFilterValuesArray[i]);
+		}
+	}
 	
 	void motorSafetyCheckInitital(StructMotorSafeInfo initialInfo[],u8 infoCount)
 	{
@@ -683,7 +703,8 @@
 		#ifdef	ADC_12_BIT
 		adcResolution = ADC_RESOLUTION_12;
 		#endif
-		for(u8 i = 0; i < infoCount; i ++)
+		u8 i;
+		for(i = 0; i < infoCount; i ++)
 		{
 			g_check_info[i].stall_time = initialInfo[i].stallTime;			//time is 500ms.
 			g_check_info[i].stall_current = initialInfo[i].stallCurrent;		//current is 4000ma.
@@ -696,6 +717,36 @@
 	//		GetDelayIdFunction(1, &g_check_info[i].offset_delay_id);
 		}
 	//	Timer_Register(TIMER_5, Check_ErrorTimer);
+		//初始化滤波器
+		for(i=0;i<ADC_VALUE_COUNT;i++)
+		{
+			adcInfoArray[HardWare_ADC1].channelIdxArray[i] = adcValueChannelArray[i];
+			adcInfoArray[HardWare_ADC1].weightFilterIdxArray[i] = weightFilterInitial(16);
+			adcInfoArray[HardWare_ADC1].averageFilterIdxArray[i] = averageFilterInitial(32);
+		}
+		for(i=0;i<CHECK_COUNT;i++)
+		{
+			g_check_info[i].weightFilterIdx = weightFilterInitial(ADC_BUF_SIZE);
+		}
+		
+		Timer_Register(TIMER_3,AdcDelayCheck);
+		Timer_Register(TIMER_3,calcHallMoveSpeed);
+	}
+	
+	void AdcDelayCheck(void)
+	{
+		for(u8 i = 0; i < d_module_num; index ++)
+		{
+			if(!adcDelayInfo[i].StartFlag) continue;
+			
+			adcDelayInfo[i].TimeCount ++;
+			if(adcDelayInfo[i].TimeCount >= adcDelayInfo[index].Time)
+			{
+				adcDelayInfo[i].TimeCount = 0;
+				adcDelayInfo[i].Success = 1;
+				adcDelayInfo[i].StartFlag = 0;
+			}
+		}
 	}
 	
 	void GeneralSafetyCheck(void)

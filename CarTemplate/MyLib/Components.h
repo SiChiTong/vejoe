@@ -67,13 +67,15 @@
 	typedef struct 
 	{
 		u8  overload_flag;				//过载标志
-		u8	 overcurrent_flag;			//过流标志
+		u8	overcurrent_flag;			//过流标志
 		u8  overvoltage_flag;			//过压标志
 		u8  undervoltage_flag;			//欠压标志
 		u8  overload_time_flag;		//过载计时开始
 		u8  overcurrent_time_flag;		//过流计时
 		u8  overvoltage_time_flag;
 		u8  undervoltage_time_flag;
+		
+		u8  weightFilterIdx;		//权值滤波索引
 		
 		u8  offset_delay_id;			
 		u8  tolerant_cnt;				//
@@ -116,6 +118,14 @@
 		u16 maxWorkVoltage;
 		u16 minWorkVoltage;
 	}StructMotorSafeInfo;	
+	
+	typedef	struct 
+	{
+		u8 StartFlag;
+		u8 Success;
+		u16 Time;
+		u16 TimeCount;
+	}StructAdcDelayInfo;
 	
 	void motorSafetyCheckInitital(StructMotorSafeInfo initialInfo[],u8 infoCount);
 	void GeneralSafetyCheck(void);
