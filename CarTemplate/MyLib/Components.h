@@ -56,8 +56,15 @@
 
 //----------------------- 电机 ------------------------------------------------------
 #ifdef COMPONENTS_MOTOR
-	#define GPIO_CONFIGURATION
-	void PWMBalanceCarInitial(GPIOConfigStruct channelsMotor[],u8 channelMotorCount,GPIOConfigStruct channelsPwm[],u8 channelPwmCount,u16 period,u16 prescaler);
+	typedef struct
+	{		
+		GPIOChannelType forwardType;
+		u8 forwardGPIOPin;
+		GPIOChannelType backwardType;
+		u8 backwardGPIOPin;		
+	} WheelGPIOInfo;
+	void PWMBalanceCarInitial(GPIOConfigStruct channelsMotor[],u8 channelMotorCount,WheelGPIOInfo wheelConfig[],GPIOConfigStruct channelsPwm[],u8 channelPwmCount,u16 period,u16 prescaler);
+	void SetPwmValue(int leftPwm,int rightPwm);
 #endif
 //-----------------------end of 电机 ------------------------------------------------------
 
@@ -69,7 +76,6 @@
 	typedef struct 
 	{
 		u8 index;
-		u8 channelIdxArray[ADC_VALUE_COUNT];
 		u8 weightFilterIdxArray[ADC_VALUE_COUNT];
 		u8 averageFilterIdxArray[ADC_VALUE_COUNT];
 		u16  adcSourceValuesArray[ADC_VALUE_COUNT];
@@ -151,7 +157,8 @@
 	}StructAdcDelayInfo;
 	
 	void FilterADCValue(void);
-	void UpdateSampleValue(u8 chkIdx, u8 voltIdx, u8 curIdx);
+	void GetVolCurValue(u8 chkIdx, u8 * voltage, u8 * current);
+	void UpdateVolCurValue(u8 chkIdx, u8 voltIdx, u8 curIdx);
 	void ReadOffsetCurrentValue(u8 chkIdx,u8 adcInfoIdx);
 	void motorSafetyCheckInitital(StructMotorSafeInfo initialInfo[],u8 infoCount);
 	void GeneralSafetyCheck(void);

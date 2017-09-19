@@ -573,6 +573,11 @@
               <FileType>1</FileType>
               <FilePath>.\MyApp\PCB.c</FilePath>
             </File>
+            <File>
+              <FileName>APP.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\MyApp\APP.c</FilePath>
+            </File>
           </Files>
         </Group>
       </Groups>

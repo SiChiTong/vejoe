@@ -28,3 +28,20 @@
 		//ÏÔÊ¾ÆÁË¢ÐÂ
 		OLED_Refresh_Gram();
 	}
+	
+	void ShowVolCurValue(int encodeIdx, u8 voltage,u8 current)
+	{
+		u8 showLocation = 40;		
+		u8* strEncoder = "Lvc";
+		if( encodeIdx > 0)
+		{
+			strEncoder = "Rvc";
+			showLocation = 50;		
+		}
+		OLED_ShowString(00,showLocation,strEncoder);
+		OLED_ShowNumber(50,showLocation,voltage,4,12);
+		OLED_ShowNumber(80,showLocation,current,4,12);
+		
+		//ÏÔÊ¾ÆÁË¢ÐÂ
+		OLED_Refresh_Gram();
+	}

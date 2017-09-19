@@ -20,10 +20,14 @@ int main(void)
 		{ChannelC,{8,9,12},3},
 		{ChannelA,{15},1},
 	};
+	WheelGPIOInfo wheelGPIOConfig[2] = {
+		{ChannelC,9,ChannelC,8},
+		{ChannelA,15,ChannelC,12}
+	};
 	GPIOConfigStruct pwmGPIOConfig[1] = {
 		{ChannelA,{8,11},2},
 	};
-	PWMBalanceCarInitial(motorGPIOConfig,2,pwmGPIOConfig,1,7199,0);
+	PWMBalanceCarInitial(motorGPIOConfig,2,wheelGPIOConfig,pwmGPIOConfig,1,7199,0);
 	//AD转换模块初始化
 	StructAdcChannelInfo adcChannelInfo[6] = {
 		{GPIO_Pin_3,ADC_Channel_3,GPIOA},
@@ -40,12 +44,12 @@ int main(void)
 		{2500,500,1400,0.001, 14, 9}
 	};
 	motorSafetyCheckInitital(motorSafeInfo,2);
-	//采用通道
+	//采集通道数据
 	ReadOffsetCurrentValue(0, 2);
 	ReadOffsetCurrentValue(1, 3);
 	//局部变量
-	int encoderLeft = 0, speedLeft = 0;
-	int encoderRight = 0, speedRight = 0;
+	int encoderLeft, encoderRight, speedLeft, speedRight;
+	u8 leftVol, leftCur, rightVol, rightCur;
 	while(1)
 	{
 		//编码器数值显示
@@ -57,11 +61,18 @@ int main(void)
 		speedLeft = getHallChangeSpeed(First);
 		speedRight = getHallChangeSpeed(Second);		
 		showSpeedValue(speedLeft,speedRight);
-		//过流过载检测
+		//电机安全检测
 		FilterADCValue();
-		UpdateSampleValue(0,1,2);
-		UpdateSampleValue(1,1,3);
+		UpdateVolCurValue(0,1,2);
+		UpdateVolCurValue(1,1,3);
 		GeneralSafetyCheck();
+		//显示电流电压值
+		GetVolCurValue(0, &leftVol,&leftCur);
+		GetVolCurValue(1, &rightVol,&rightCur);
+		ShowVolCurValue(0,leftVol,leftCur);
+		ShowVolCurValue(1,rightVol,rightCur);
+		//控制小车轮子转动
+		SetPwmValue(1000,3000);
 	}
 }
 

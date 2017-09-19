@@ -173,7 +173,7 @@
           <Type>0</Type>
           <LineNumber>198</LineNumber>
           <EnabledFlag>1</EnabledFlag>
-          <Address>134243206</Address>
+          <Address>134243326</Address>
           <ByteObject>0</ByteObject>
           <HtxType>0</HtxType>
           <ManyObjects>0</ManyObjects>
@@ -182,23 +182,7 @@
           <BreakIfRCount>1</BreakIfRCount>
           <Filename>..\MiniBalance_HARDWARE\CAN\can.c</Filename>
           <ExecCommand></ExecCommand>
-          <Expression></Expression>
-        </Bp>
-        <Bp>
-          <Number>1</Number>
-          <Type>0</Type>
-          <LineNumber>141</LineNumber>
-          <EnabledFlag>1</EnabledFlag>
-          <Address>0</Address>
-          <ByteObject>0</ByteObject>
-          <HtxType>0</HtxType>
-          <ManyObjects>0</ManyObjects>
-          <SizeOfObject>0</SizeOfObject>
-          <BreakByAccess>0</BreakByAccess>
-          <BreakIfRCount>0</BreakIfRCount>
-          <Filename>..\MiniBalance\Experiment\labyrinth.c</Filename>
-          <ExecCommand></ExecCommand>
-          <Expression></Expression>
+          <Expression>\\Minibalance\../MiniBalance_HARDWARE/CAN/can.c\198</Expression>
         </Bp>
       </Breakpoint>
       <WatchWindow1>
@@ -1082,7 +1066,7 @@
 
   <Group>
     <GroupName>Experiment</GroupName>
-    <tvExp>1</tvExp>
+    <tvExp>0</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>

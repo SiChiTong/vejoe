@@ -605,7 +605,7 @@
 	}
 	
 	//测试用例
-	void TEST_HallEncoder()
+	void TEST_HallEncoder(void)
 	{
 		//获取霍尔传感器的数值
 		GPIOConfigStruct hallEncoderConfig[2]=
@@ -632,11 +632,48 @@
 
 //----------------------- 电机 ------------------------------------------------------
 #ifdef COMPONENTS_MOTOR
-	void PWMBalanceCarInitial(GPIOConfigStruct channelsMotor[],u8 channelMotorCount,GPIOConfigStruct channelsPwm[],u8 channelPwmCount,u16 period,u16 prescaler)
+
+	#define IO_ADDRES_CONFIGURATION	
+	#include "Tools.h"
+	
+	u32 leftWheelForward, leftWheelBackward, rightWheelForward, rightWheelBackward;
+	u8 leftWheelFPin,leftWheelBPin,rightWheelFPin,rightWheelBPin;
+	
+	u32 getGPIOODRAddr(GPIOChannelType channelType)
 	{
+		u32 tempAddr= GPIOA_ODR_Addr;
+		switch(channelType)
+		{
+			case ChannelB:tempAddr= GPIOB_ODR_Addr;break;
+			case ChannelC:tempAddr= GPIOC_ODR_Addr;break;
+			case ChannelD:tempAddr= GPIOD_ODR_Addr;break;
+			case ChannelE:tempAddr= GPIOE_ODR_Addr;break;
+			case ChannelF:tempAddr= GPIOF_ODR_Addr;break;
+			case ChannelG:tempAddr= GPIOG_ODR_Addr;break;
+			default:break;
+		}
+		return tempAddr;
+	}
+	
+	void explainInitialParams(WheelGPIOInfo wheelConfig[])
+	{
+		leftWheelForward = getGPIOODRAddr(wheelConfig[0].forwardType);
+		leftWheelFPin = wheelConfig[0].forwardGPIOPin;
+		leftWheelBackward = getGPIOODRAddr(wheelConfig[0].backwardType);
+		leftWheelBPin = wheelConfig[0].backwardGPIOPin;		
+		
+		rightWheelForward = getGPIOODRAddr(wheelConfig[1].forwardType);
+		rightWheelFPin = wheelConfig[1].forwardGPIOPin;
+		rightWheelBackward = getGPIOODRAddr(wheelConfig[1].backwardType);
+		rightWheelBPin = wheelConfig[1].backwardGPIOPin;
+	}
+	
+	void PWMBalanceCarInitial(GPIOConfigStruct channelsMotor[],u8 channelMotorCount,WheelGPIOInfo wheelConfig[], GPIOConfigStruct channelsPwm[],u8 channelPwmCount,u16 period,u16 prescaler)
+	{		
+		explainInitialParams(wheelConfig);
 		setGPIOConfiguration2(channelsMotor,channelMotorCount,GPIO_Mode_Out_PP, GPIO_Speed_50MHz);
 		setGPIOConfiguration2(channelsPwm,channelPwmCount,GPIO_Mode_AF_PP, GPIO_Speed_50MHz);
-		
+				
 		TIM_TimeBaseInitTypeDef  TIM_TimeBaseStructure;
 		TIM_OCInitTypeDef  TIM_OCInitStructure;
 		RCC_APB2PeriphClockCmd(RCC_APB2Periph_TIM1, ENABLE);// 
@@ -664,6 +701,54 @@
 
 		TIM_Cmd(TIM1, ENABLE);  //使能TIM1
 	}
+	
+	void SetPwmValue(int leftPwm,int rightPwm)
+	{
+		u8 forward = 1, backward = 0;
+		if(leftPwm < 0)
+		{
+			forward = 0;
+			backward = 1;
+			leftPwm *= -1;
+		}
+		BIT_ADDR(leftWheelForward,leftWheelFPin)=forward;
+		BIT_ADDR(leftWheelBackward,leftWheelBPin)=backward;		
+		TIM1->CCR1 = leftPwm;
+		
+		forward = 1;
+		backward = 0;	
+		if(rightPwm < 0)
+		{
+			forward = 0;
+			backward = 1;
+			rightPwm *= -1;
+		}		
+		BIT_ADDR(rightWheelForward,rightWheelFPin)=forward;
+		BIT_ADDR(rightWheelBackward,rightWheelBPin)=backward;
+		TIM1->CCR4 = rightPwm;
+	}
+	
+	//测试用例
+	void TEST_PwmMotor(void)
+	{
+		GPIOConfigStruct motorGPIOConfig[2] = {
+			{ChannelC,{8,9,12},3},
+			{ChannelA,{15},1},
+		};
+		WheelGPIOInfo wheelGPIOConfig[2] = {
+			{ChannelC,9,ChannelC,8},
+			{ChannelA,15,ChannelC,12}
+		};
+		GPIOConfigStruct pwmGPIOConfig[1] = {
+			{ChannelA,{8,11},2},
+		};
+		PWMBalanceCarInitial(motorGPIOConfig,2,wheelGPIOConfig,pwmGPIOConfig,1,7199,0);
+		while(1)
+		{
+			//控制小车轮子转动
+			SetPwmValue(1000,3000);
+		}
+	}
 #endif
 	
 //-----------------------end of 电机 ------------------------------------------------------
@@ -686,18 +771,16 @@
 	StructAdcInfo adcInfoArray[CHECK_COUNT];
 	StructCheckOverload g_check_info[CHECK_COUNT];
 	StructAdcDelayInfo adcDelayInfo[CHECK_COUNT];
-	u8 adcValueChannelArray[ADC_VALUE_COUNT] = {ADC_Channel_3,ADC_Channel_4,ADC_Channel_5,ADC_Channel_6,ADC_Channel_7,ADC_Channel_14};
 	u8 adcValueChannelIdx[ADC_VALUE_COUNT];
 	
 	void FilterADCValue(void)
 	{
-		StructAdcInfo tempAdcInfo = adcInfoArray[HardWare_ADC1];
+		StructAdcInfo *tempAdcInfo = &adcInfoArray[HardWare_ADC1];
 		for(int i=0;i<ADC_VALUE_COUNT;i++)
 		{
-			tempAdcInfo.adcSourceValuesArray[i] = Get_ADC_Value(i);
-			tempAdcInfo.channelIdxArray[i] = adcValueChannelArray[i];
-			tempAdcInfo.adcWeightFilterValuesArray[i] = weightFilter(tempAdcInfo.weightFilterIdxArray[i],tempAdcInfo.adcSourceValuesArray[i]);
-			tempAdcInfo.adcFilterResultValuesArray[i] = averageFilter(tempAdcInfo.averageFilterIdxArray[i],tempAdcInfo.adcWeightFilterValuesArray[i]);
+			(*tempAdcInfo).adcSourceValuesArray[i] = Get_ADC_Value(i);
+			(*tempAdcInfo).adcWeightFilterValuesArray[i] = weightFilter((*tempAdcInfo).weightFilterIdxArray[i],(*tempAdcInfo).adcSourceValuesArray[i]);
+			(*tempAdcInfo).adcFilterResultValuesArray[i] = averageFilter((*tempAdcInfo).averageFilterIdxArray[i],(*tempAdcInfo).adcWeightFilterValuesArray[i]);
 		}
 	}
 	
@@ -805,7 +888,7 @@
 	{
 		u8 adcDelayIdx = g_check_info[chkIdx].offset_delay_id;
 		adcDelayInfo[adcDelayIdx].Time = 200;
-		adcDelayInfo[adcDelayIdx].StartFlag = 0;
+		adcDelayInfo[adcDelayIdx].StartFlag = 1;
 		while(!adcDelayInfo[adcDelayIdx].Success)
 		{
 			FilterADCValue();
@@ -818,10 +901,16 @@
 		
 	}
 	
-	void UpdateSampleValue(u8 chkIdx, u8 voltIdx, u8 curIdx)
+	void UpdateVolCurValue(u8 chkIdx, u8 voltIdx, u8 curIdx)
 	{
 		g_check_info[chkIdx].current_adc = adcInfoArray[HardWare_ADC1].adcFilterResultValuesArray[curIdx];
 		g_check_info[chkIdx].voltage_adc = adcInfoArray[HardWare_ADC1].adcFilterResultValuesArray[voltIdx];
+	}
+	
+	void GetVolCurValue(u8 chkIdx, u8 * voltage, u8 * current)
+	{
+		* voltage = g_check_info[chkIdx].voltage_adc;
+		* current = g_check_info[chkIdx].current_adc;
 	}
 	
 	void motorSafetyCheckInitital(StructMotorSafeInfo initialInfo[],u8 infoCount)
@@ -847,7 +936,6 @@
 		//初始化滤波器
 		for(i=0;i<ADC_VALUE_COUNT;i++)
 		{
-			adcInfoArray[HardWare_ADC1].channelIdxArray[i] = adcValueChannelArray[i];
 			adcInfoArray[HardWare_ADC1].weightFilterIdxArray[i] = weightFilterInitial(16);
 			adcInfoArray[HardWare_ADC1].averageFilterIdxArray[i] = averageFilterInitial(32);
 		}
@@ -892,5 +980,43 @@
 			}
 		}
 	}
+	
+	
+	void TEST_SafetyCheck(void)
+	{
+		//AD转换模块初始化
+		StructAdcChannelInfo adcChannelInfo[6] = {
+			{GPIO_Pin_3,ADC_Channel_3,GPIOA},
+			{GPIO_Pin_4,ADC_Channel_4,GPIOA},
+			{GPIO_Pin_5,ADC_Channel_5,GPIOA},
+			{GPIO_Pin_6,ADC_Channel_6,GPIOA},
+			{GPIO_Pin_7,ADC_Channel_7,GPIOA},
+			{GPIO_Pin_4,ADC_Channel_14,GPIOC}
+		};
+		DeviceADCInitial(adcChannelInfo,6);
+		//电机安全检测初始化
+		StructMotorSafeInfo motorSafeInfo[2] = {
+			{2500,500,1400,0.001, 14, 9},
+			{2500,500,1400,0.001, 14, 9}
+		};
+		motorSafetyCheckInitital(motorSafeInfo,2);
+		//采集通道数据
+		ReadOffsetCurrentValue(0, 2);
+		ReadOffsetCurrentValue(1, 3);
+		u8 leftVol, leftCur, rightVol, rightCur;
+		while(1)
+		{		
+			//电机安全检测
+			FilterADCValue();
+			UpdateVolCurValue(0,1,2);
+			UpdateVolCurValue(1,1,3);
+			GeneralSafetyCheck();
+			//显示电流电压值
+			GetVolCurValue(0, &leftVol,&leftCur);
+			GetVolCurValue(1, &rightVol,&rightCur);
+		}		
+	}
+	
 #endif
 //-----------------------end of 设备安全检查 ------------------------------------------------------
+

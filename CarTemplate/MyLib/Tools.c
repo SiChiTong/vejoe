@@ -4124,7 +4124,7 @@ void main()
 	}
 	
 	//测试用例
-	void TEST_Filter()
+	void TEST_Filter(void)
 	{
 		int filterTest[13] = {500,500,500,500,500,1100,500,500,500,100,500,500,500};
 		int averageResult[13],weightResult[13];
@@ -4349,7 +4349,7 @@ void main()
 		GPIO_Init(initChannel, &GPIO_InitStructure);					      //根据设定参数初始化GPIO 
 	}	
 	//测试用例
-	void TEST_SetGPIO()
+	void TEST_SetGPIO(void)
 	{
 		setGPIOConfiguration(ChannelA, getGPIOPortByNumber(1)|getGPIOPortByNumber(2), GPIO_Mode_Out_PP, GPIO_Speed_2MHz);
 		
@@ -4397,7 +4397,7 @@ void main()
 	}
 	
 	//测试用例
-	void TEST_MoveArray()
+	void TEST_MoveArray(void)
 	{
 		int data[10] = {1,2,3,4,5,6,7,8,9,10};
 		moveArrayForward(4,data);
