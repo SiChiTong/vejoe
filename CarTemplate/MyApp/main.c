@@ -7,14 +7,9 @@
 
 int main(void)
 {	
-	//霍尔编码器初始化
-	GPIOConfigStruct hallEncoderLeft = {ChannelA,{0,1},2},
-									 hallEncoderRight= {ChannelB,{6,7},2};
-	HallEncoderInit(&hallEncoderLeft,1,First);
-	HallEncoderInit(&hallEncoderRight,1,Second);
-	HallSpeedInitial(20);
-	//OLED初始化
-	OLED_Init(ChannelC,15,0,13,14);
+	//
+	RCC_APB2PeriphClockCmd(RCC_APB2Periph_AFIO,  ENABLE);
+	GPIO_PinRemapConfig(GPIO_Remap_SWJ_JTAGDisable, ENABLE);	
 	//电机初始化
 	GPIOConfigStruct motorGPIOConfig[2] = {
 		{ChannelC,{8,9,12},3},
@@ -27,7 +22,17 @@ int main(void)
 	GPIOConfigStruct pwmGPIOConfig[1] = {
 		{ChannelA,{8,11},2},
 	};
-	PWMBalanceCarInitial(motorGPIOConfig,2,wheelGPIOConfig,pwmGPIOConfig,1,7199,0);
+	PWMBalanceCarInitial(motorGPIOConfig,2,wheelGPIOConfig,pwmGPIOConfig,1,7199,0);	
+	//OLED初始化
+	OLED_Init(ChannelC,15,0,13,14);
+	//每秒200次中断（5ms一次）
+	Config_TIMER(TIMER_3,1,200);
+	//霍尔编码器初始化
+	GPIOConfigStruct hallEncoderLeft = {ChannelA,{0,1},2},
+									 hallEncoderRight= {ChannelB,{6,7},2};
+	HallEncoderInit(&hallEncoderLeft,1,First);
+	HallEncoderInit(&hallEncoderRight,1,Second);
+	HallSpeedInitial(20);	
 	//AD转换模块初始化
 	StructAdcChannelInfo adcChannelInfo[6] = {
 		{GPIO_Pin_3,ADC_Channel_3,GPIOA},
@@ -46,7 +51,7 @@ int main(void)
 	motorSafetyCheckInitital(motorSafeInfo,2);
 	//采集通道数据
 	ReadOffsetCurrentValue(0, 2);
-	ReadOffsetCurrentValue(1, 3);
+	ReadOffsetCurrentValue(1, 3);	
 	//局部变量
 	int encoderLeft, encoderRight, speedLeft, speedRight;
 	u8 leftVol, leftCur, rightVol, rightCur;
@@ -72,7 +77,7 @@ int main(void)
 		ShowVolCurValue(0,leftVol,leftCur);
 		ShowVolCurValue(1,rightVol,rightCur);
 		//控制小车轮子转动
-		SetPwmValue(1000,3000);
+		SetPwmValue(2000,2000);
 	}
 }
 

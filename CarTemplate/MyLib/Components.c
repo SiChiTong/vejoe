@@ -588,7 +588,6 @@
 		
 		checkTimeLength = timesFor5ms;
 		
-		Config_TIMER(TIMER_3,1,200);//每秒200次中断（5ms一次）
 		Timer_Register(TIMER_3,calcHallMoveSpeed);
 	}	
 	
@@ -633,11 +632,15 @@
 //----------------------- 电机 ------------------------------------------------------
 #ifdef COMPONENTS_MOTOR
 
+	#define PWM_EXTREME_VALUE 				6900	
+	//DIFFERENCE是一个衡量平衡小车电机和机械安装差异的一个变量。直接作用于输出，让小车具有更好的一致性。
+	#define DIFFERENCE_MOTOR_MACHINE	100
 	#define IO_ADDRES_CONFIGURATION	
 	#include "Tools.h"
 	
 	u32 leftWheelForward, leftWheelBackward, rightWheelForward, rightWheelBackward;
 	u8 leftWheelFPin,leftWheelBPin,rightWheelFPin,rightWheelBPin;
+	int PwmExtremeValue(int pwmValue);
 	
 	u32 getGPIOODRAddr(GPIOChannelType channelType)
 	{
@@ -672,18 +675,17 @@
 	{		
 		explainInitialParams(wheelConfig);
 		setGPIOConfiguration2(channelsMotor,channelMotorCount,GPIO_Mode_Out_PP, GPIO_Speed_50MHz);
+		RCC_APB2PeriphClockCmd(RCC_APB2Periph_TIM1, ENABLE);
 		setGPIOConfiguration2(channelsPwm,channelPwmCount,GPIO_Mode_AF_PP, GPIO_Speed_50MHz);
 				
 		TIM_TimeBaseInitTypeDef  TIM_TimeBaseStructure;
-		TIM_OCInitTypeDef  TIM_OCInitStructure;
-		RCC_APB2PeriphClockCmd(RCC_APB2Periph_TIM1, ENABLE);// 
+		TIM_OCInitTypeDef  TIM_OCInitStructure; 
 
 		TIM_TimeBaseStructure.TIM_Period = period; //设置在下一个更新事件装入活动的自动重装载寄存器周期的值	 
 		TIM_TimeBaseStructure.TIM_Prescaler =prescaler; //设置用来作为TIMx时钟频率除数的预分频值  不分频
 		TIM_TimeBaseStructure.TIM_ClockDivision = 0; //设置时钟分割:TDTS = Tck_tim
 		TIM_TimeBaseStructure.TIM_CounterMode = TIM_CounterMode_Up;  //TIM向上计数模式
 		TIM_TimeBaseInit(TIM1, &TIM_TimeBaseStructure); //根据TIM_TimeBaseInitStruct中指定的参数初始化TIMx的时间基数单位
-
 
 		TIM_OCInitStructure.TIM_OCMode = TIM_OCMode_PWM1; //选择定时器模式:TIM脉冲宽度调制模式1
 		TIM_OCInitStructure.TIM_OutputState = TIM_OutputState_Enable; //比较输出使能
@@ -713,7 +715,7 @@
 		}
 		BIT_ADDR(leftWheelForward,leftWheelFPin)=forward;
 		BIT_ADDR(leftWheelBackward,leftWheelBPin)=backward;		
-		TIM1->CCR1 = leftPwm;
+		TIM1->CCR1 = PwmExtremeValue(leftPwm);
 		
 		forward = 1;
 		backward = 0;	
@@ -725,7 +727,15 @@
 		}		
 		BIT_ADDR(rightWheelForward,rightWheelFPin)=forward;
 		BIT_ADDR(rightWheelBackward,rightWheelBPin)=backward;
-		TIM1->CCR4 = rightPwm;
+		TIM1->CCR4 = PwmExtremeValue(rightPwm);
+	}
+	
+	int PwmExtremeValue(int pwmValue)
+	{
+		if(pwmValue > PWM_EXTREME_VALUE)
+			pwmValue = PWM_EXTREME_VALUE;
+		
+		return pwmValue;
 	}
 	
 	//测试用例
@@ -772,6 +782,7 @@
 	StructCheckOverload g_check_info[CHECK_COUNT];
 	StructAdcDelayInfo adcDelayInfo[CHECK_COUNT];
 	u8 adcValueChannelIdx[ADC_VALUE_COUNT];
+	u8 delayIdCount = 0;
 	
 	void FilterADCValue(void)
 	{
@@ -890,11 +901,11 @@
 		adcDelayInfo[adcDelayIdx].Time = 200;
 		adcDelayInfo[adcDelayIdx].StartFlag = 1;
 		while(!adcDelayInfo[adcDelayIdx].Success)
-		{
-			FilterADCValue();
-			
+		{			
 			u16 tempAdcValue = adcInfoArray[HardWare_ADC1].adcFilterResultValuesArray[adcInfoIdx];
 			g_check_info[chkIdx].cur_offset_dc = weightFilter(g_check_info[chkIdx].weightFilterIdx,tempAdcValue);
+			
+			FilterADCValue();
 		}
 		g_check_info[chkIdx].stall_sum = g_check_info[chkIdx].cur_offset_dc + g_check_info[chkIdx].stall_cmp;
 		g_check_info[chkIdx].cur_last_value = g_check_info[chkIdx].cur_offset_dc;
@@ -911,6 +922,23 @@
 	{
 		* voltage = g_check_info[chkIdx].voltage_adc;
 		* current = g_check_info[chkIdx].current_adc;
+	}
+	
+	void UpdateDelayIdFunction(u8 num, u8 *returnId)
+	{
+		u8 index = 0;
+		if((delayIdCount + num) <= CHECK_COUNT)
+		{
+			for(index = 0; index < num; index ++)
+			{
+				if(returnId != 0) //指针不为空
+				{
+					*returnId = delayIdCount;
+					returnId ++;
+					delayIdCount ++;
+				}
+			}
+		}
 	}
 	
 	void motorSafetyCheckInitital(StructMotorSafeInfo initialInfo[],u8 infoCount)
@@ -931,7 +959,7 @@
 			g_check_info[i].current_adc = 0;
 			g_check_info[i].current_error_time = 0;
 			g_check_info[i].stall_cmp = g_check_info[i].stall_current * 0.373; //默认0.744
-	//		GetDelayIdFunction(1, &g_check_info[i].offset_delay_id);
+			UpdateDelayIdFunction(1, &g_check_info[i].offset_delay_id);
 		}
 		//初始化滤波器
 		for(i=0;i<ADC_VALUE_COUNT;i++)

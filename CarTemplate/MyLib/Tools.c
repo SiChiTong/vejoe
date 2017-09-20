@@ -4404,3 +4404,19 @@ void main()
 	}
 #endif
 //-----------------------End of Êý×é²Ù×÷ ----------------------------------------	
+
+//	u16 delayCount;
+//	void DelayMsByWaiting(u16 timesFor5ms)
+//	{
+//		u16 idx = 0;
+//		while(idx < timesFor5ms)
+//		{
+//			
+//		}
+//		
+//	}
+//	
+//	void DelayMsByCB(u16 timesFor5ms, (*delayCb)(void))
+//	{
+//		delayCb();
+//	}

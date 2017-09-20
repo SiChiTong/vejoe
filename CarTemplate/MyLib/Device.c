@@ -641,6 +641,7 @@ void DMA1_Channel1_IRQHandler(void)
 {
 	if(DMA_GetITStatus(DMA1_IT_TC1))
 	{
+		DMA_ClearITPendingBit(DMA1_IT_GL1);
 		for(UINT8 i = 0; i < _ADC_CH_Num; i++)
 		{
 			_ADC_Info[i]._adc_value = _ADC_Buffer[i];
@@ -655,8 +656,6 @@ void DMA1_Channel1_IRQHandler(void)
 //			}
 //			_ADC_Info[i]._adc_value = (_ADC_Info[i]._adc_value >> 3);
 		}
-		
-		DMA_ClearITPendingBit(DMA1_IT_GL1);
 	}
 }
 #endif 

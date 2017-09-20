@@ -45,11 +45,11 @@ u8 labyrinthCanRunning = 0;
 int main(void)
 { 
 	delay_init();	    	            //=====延时函数初始化	
-	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA, ENABLE);
-	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOB, ENABLE);
-	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOC, ENABLE);
-	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOD, ENABLE);	
-	RCC_APB2PeriphClockCmd(RCC_APB2Periph_AFIO,  ENABLE);
+//	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA, ENABLE);
+//	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOB, ENABLE);
+//	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOC, ENABLE);
+//	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOD, ENABLE);	
+//	RCC_APB2PeriphClockCmd(RCC_APB2Periph_AFIO,  ENABLE);
 	GPIO_PinRemapConfig(GPIO_Remap_SWJ_JTAGDisable, ENABLE);
 	Piezoelectric_IOInit();
 	Init_SwitchMode();
@@ -83,7 +83,7 @@ int main(void)
 		Get_Adcs();
 	}
 	//-----------------------------//
-	delay_ms(500);                  //=====延时
+//	delay_ms(500);                  //=====延时
 	IIC_Init();                     //=====IIC初始化
 	MPU6050_initialize();           //=====MPU6050初始化	
 	DMP_Init();                     //=====初始化DMP 
