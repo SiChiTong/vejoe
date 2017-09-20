@@ -10,6 +10,16 @@ int main(void)
 	//
 	RCC_APB2PeriphClockCmd(RCC_APB2Periph_AFIO,  ENABLE);
 	GPIO_PinRemapConfig(GPIO_Remap_SWJ_JTAGDisable, ENABLE);	
+	//每秒200次中断（5ms一次）
+	Config_TIMER(TIMER_3,1,200);
+	//霍尔编码器初始化
+	GPIOConfigStruct hallEncoderLeft = {ChannelA,{0,1},2},
+									 hallEncoderRight= {ChannelB,{6,7},2};
+	HallEncoderInit(&hallEncoderLeft,1,First);
+	HallEncoderInit(&hallEncoderRight,1,Second);
+	HallSpeedInitial(20);	
+	//OLED初始化
+	OLED_Init(ChannelC,15,0,13,14);
 	//电机初始化
 	GPIOConfigStruct motorGPIOConfig[2] = {
 		{ChannelC,{8,9,12},3},
@@ -23,16 +33,9 @@ int main(void)
 		{ChannelA,{8,11},2},
 	};
 	PWMBalanceCarInitial(motorGPIOConfig,2,wheelGPIOConfig,pwmGPIOConfig,1,7199,0);	
-	//OLED初始化
-	OLED_Init(ChannelC,15,0,13,14);
-	//每秒200次中断（5ms一次）
-	Config_TIMER(TIMER_3,1,200);
-	//霍尔编码器初始化
-	GPIOConfigStruct hallEncoderLeft = {ChannelA,{0,1},2},
-									 hallEncoderRight= {ChannelB,{6,7},2};
-	HallEncoderInit(&hallEncoderLeft,1,First);
-	HallEncoderInit(&hallEncoderRight,1,Second);
-	HallSpeedInitial(20);	
+	
+									 
+//	TESTTIME1(7199,0);
 	//AD转换模块初始化
 	StructAdcChannelInfo adcChannelInfo[6] = {
 		{GPIO_Pin_3,ADC_Channel_3,GPIOA},

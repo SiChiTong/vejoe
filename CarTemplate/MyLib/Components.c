@@ -671,13 +671,10 @@
 		rightWheelBPin = wheelConfig[1].backwardGPIOPin;
 	}
 	
-	void PWMBalanceCarInitial(GPIOConfigStruct channelsMotor[],u8 channelMotorCount,WheelGPIOInfo wheelConfig[], GPIOConfigStruct channelsPwm[],u8 channelPwmCount,u16 period,u16 prescaler)
-	{		
-		explainInitialParams(wheelConfig);
-		setGPIOConfiguration2(channelsMotor,channelMotorCount,GPIO_Mode_Out_PP, GPIO_Speed_50MHz);
-		RCC_APB2PeriphClockCmd(RCC_APB2Periph_TIM1, ENABLE);
-		setGPIOConfiguration2(channelsPwm,channelPwmCount,GPIO_Mode_AF_PP, GPIO_Speed_50MHz);
-				
+	
+	void Tim1ForMotorInitial(u16 period,u16 prescaler)
+	{//这个函数不独立出来，轮子会有一个不转
+	 //未定位到明确的问题，可能是编译器问题
 		TIM_TimeBaseInitTypeDef  TIM_TimeBaseStructure;
 		TIM_OCInitTypeDef  TIM_OCInitStructure; 
 
@@ -702,6 +699,16 @@
 		TIM_ARRPreloadConfig(TIM1, ENABLE); //使能TIMx在ARR上的预装载寄存器
 
 		TIM_Cmd(TIM1, ENABLE);  //使能TIM1
+	}
+	
+	void PWMBalanceCarInitial(GPIOConfigStruct channelsMotor[],u8 channelMotorCount,WheelGPIOInfo wheelConfig[], GPIOConfigStruct channelsPwm[],u8 channelPwmCount,u16 period,u16 prescaler)
+	{		
+		explainInitialParams(wheelConfig);
+		setGPIOConfiguration2(channelsMotor,channelMotorCount,GPIO_Mode_Out_PP, GPIO_Speed_50MHz);
+		RCC_APB2PeriphClockCmd(RCC_APB2Periph_TIM1, ENABLE);
+		setGPIOConfiguration2(channelsPwm,channelPwmCount,GPIO_Mode_AF_PP, GPIO_Speed_50MHz);
+		
+		Tim1ForMotorInitial(period,prescaler);
 	}
 	
 	void SetPwmValue(int leftPwm,int rightPwm)
