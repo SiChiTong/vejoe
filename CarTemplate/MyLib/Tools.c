@@ -4039,9 +4039,9 @@ void main()
 	#define FILTER_MAX_COUNT 16	//最大同时滤波容量
 	#define FILTER_MAX_WINDOW_SIZE 32	//滤波最大窗口
 	
-	u8 weightCurrentIdx=0, averageCurrentIdx=0;
+	static u8 weightCurrentIdx=0, averageCurrentIdx=0;
 	u8 weightwidowSize[FILTER_MAX_COUNT],averagewidowSize[FILTER_MAX_COUNT];
-	int weightDataArray[FILTER_MAX_COUNT][FILTER_MAX_WINDOW_SIZE],averageDataArray[16][FILTER_MAX_WINDOW_SIZE];
+	int weightDataArray[FILTER_MAX_COUNT][FILTER_MAX_WINDOW_SIZE],averageDataArray[FILTER_MAX_COUNT][FILTER_MAX_WINDOW_SIZE];
 	void Filter16_Init(struct _Filter_Data16_EX *filterData, UINT8 type, UINT8 width)
 	{
 		filterData->_filter_type = type;
@@ -4066,7 +4066,7 @@ void main()
 		return 0;
 		
 		weightwidowSize[weightCurrentIdx] = filterWidowSize;
-		weightCurrentIdx++;
+		weightCurrentIdx = weightCurrentIdx + 1;
 		return weightCurrentIdx;
 	}
 	
@@ -4077,7 +4077,7 @@ void main()
 		return 0;
 		
 		averagewidowSize[averageCurrentIdx] = filterWidowSize;
-		averageCurrentIdx++;
+		averageCurrentIdx = averageCurrentIdx + 1;
 		return averageCurrentIdx;
 	}	
 
@@ -4089,7 +4089,7 @@ void main()
 		
 		u8 widowSize = weightwidowSize[filterIdx - 1];
 		int filterResult = 0;
-		int * tempDataArray = weightDataArray[filterIdx];
+		int * tempDataArray = weightDataArray[filterIdx - 1];
 				
 		moveArrayForward(widowSize, tempDataArray);
 		tempDataArray[widowSize-1] = newValue;
@@ -4109,7 +4109,7 @@ void main()
 		
 		u8 widowSize = averagewidowSize[filterIdx - 1];
 		int filterResult = 0;
-		int * tempDataArray = averageDataArray[filterIdx];
+		int * tempDataArray = averageDataArray[filterIdx - 1];
 				
 		moveArrayForward(widowSize, tempDataArray);
 		tempDataArray[widowSize-1] = newValue;

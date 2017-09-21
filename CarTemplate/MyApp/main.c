@@ -57,7 +57,7 @@ int main(void)
 	ReadOffsetCurrentValue(1, 3);	
 	//局部变量
 	int encoderLeft, encoderRight, speedLeft, speedRight;
-	u8 leftVol, leftCur, rightVol, rightCur;
+	u16 batteryVol, leftCur, rightCur;
 	while(1)
 	{
 		//编码器数值显示
@@ -71,16 +71,13 @@ int main(void)
 		showSpeedValue(speedLeft,speedRight);
 		//电机安全检测
 		FilterADCValue();
-		UpdateVolCurValue(0,1,2);
-		UpdateVolCurValue(1,1,3);
+		UpdateVolCurValue(1,2,3);
 		GeneralSafetyCheck();
 		//显示电流电压值
-		GetVolCurValue(0, &leftVol,&leftCur);
-		GetVolCurValue(1, &rightVol,&rightCur);
-		ShowVolCurValue(0,leftVol,leftCur);
-		ShowVolCurValue(1,rightVol,rightCur);
+		GetVolCurValue(&batteryVol,&leftCur,&rightCur);
+		ShowVolCurValue(batteryVol,leftCur,rightCur);
 		//控制小车轮子转动
-		SetPwmValue(2000,2000);
+		SetPwmValue(4000,4000);
 	}
 }
 

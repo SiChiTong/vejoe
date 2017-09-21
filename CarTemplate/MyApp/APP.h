@@ -2,4 +2,4 @@
 	
 	
 	void showSpeedValue(int speedLeft,int speedRight);
-	void ShowVolCurValue(int encodeIdx, unsigned char voltage,unsigned char current);
+	void ShowVolCurValue(unsigned short int batteryVoltage,unsigned short int leftCurrent,unsigned short int rightCurrent);

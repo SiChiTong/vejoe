@@ -157,8 +157,8 @@
 	}StructAdcDelayInfo;
 	
 	void FilterADCValue(void);
-	void GetVolCurValue(u8 chkIdx, u8 * voltage, u8 * current);
-	void UpdateVolCurValue(u8 chkIdx, u8 voltIdx, u8 curIdx);
+	void GetVolCurValue(u16 * batteryVoltage, u16 * leftCurrent, u16 * rightCurrent);
+	void UpdateVolCurValue(u8 voltIdx, u8 leftCurIdx,u8 rightCurIdx);
 	void ReadOffsetCurrentValue(u8 chkIdx,u8 adcInfoIdx);
 	void motorSafetyCheckInitital(StructMotorSafeInfo initialInfo[],u8 infoCount);
 	void GeneralSafetyCheck(void);

@@ -785,7 +785,7 @@
 	#define		ADC_RESOLUTION_10		1024		//10位AD的分辨率
 	#define  	ADC_RESOLUTION_12		4096		//12位AD的分辨率
 	
-	StructAdcInfo adcInfoArray[CHECK_COUNT];
+	StructAdcInfo adcInfoArray;
 	StructCheckOverload g_check_info[CHECK_COUNT];
 	StructAdcDelayInfo adcDelayInfo[CHECK_COUNT];
 	u8 adcValueChannelIdx[ADC_VALUE_COUNT];
@@ -793,12 +793,12 @@
 	
 	void FilterADCValue(void)
 	{
-		StructAdcInfo *tempAdcInfo = &adcInfoArray[HardWare_ADC1];
-		for(int i=0;i<ADC_VALUE_COUNT;i++)
+		u8 i = 0;
+		for(i=0;i<ADC_VALUE_COUNT;i+=1)
 		{
-			(*tempAdcInfo).adcSourceValuesArray[i] = Get_ADC_Value(i);
-			(*tempAdcInfo).adcWeightFilterValuesArray[i] = weightFilter((*tempAdcInfo).weightFilterIdxArray[i],(*tempAdcInfo).adcSourceValuesArray[i]);
-			(*tempAdcInfo).adcFilterResultValuesArray[i] = averageFilter((*tempAdcInfo).averageFilterIdxArray[i],(*tempAdcInfo).adcWeightFilterValuesArray[i]);
+			adcInfoArray.adcSourceValuesArray[i] = Get_ADC_Value(i);
+			adcInfoArray.adcWeightFilterValuesArray[i] = weightFilter(adcInfoArray.weightFilterIdxArray[i],adcInfoArray.adcSourceValuesArray[i]);
+			adcInfoArray.adcFilterResultValuesArray[i] = averageFilter(adcInfoArray.averageFilterIdxArray[i],adcInfoArray.adcWeightFilterValuesArray[i]);
 		}
 	}
 	
@@ -909,7 +909,7 @@
 		adcDelayInfo[adcDelayIdx].StartFlag = 1;
 		while(!adcDelayInfo[adcDelayIdx].Success)
 		{			
-			u16 tempAdcValue = adcInfoArray[HardWare_ADC1].adcFilterResultValuesArray[adcInfoIdx];
+			u16 tempAdcValue = adcInfoArray.adcFilterResultValuesArray[adcInfoIdx];
 			g_check_info[chkIdx].cur_offset_dc = weightFilter(g_check_info[chkIdx].weightFilterIdx,tempAdcValue);
 			
 			FilterADCValue();
@@ -919,16 +919,22 @@
 		
 	}
 	
-	void UpdateVolCurValue(u8 chkIdx, u8 voltIdx, u8 curIdx)
+	void UpdateVolCurValue(u8 voltIdx, u8 leftCurIdx,u8 rightCurIdx)
 	{
-		g_check_info[chkIdx].current_adc = adcInfoArray[HardWare_ADC1].adcFilterResultValuesArray[curIdx];
-		g_check_info[chkIdx].voltage_adc = adcInfoArray[HardWare_ADC1].adcFilterResultValuesArray[voltIdx];
+		g_check_info[1].voltage_adc = adcInfoArray.adcFilterResultValuesArray[voltIdx];
+		g_check_info[0].voltage_adc = adcInfoArray.adcFilterResultValuesArray[voltIdx];
+		
+		g_check_info[0].current_adc = adcInfoArray.adcFilterResultValuesArray[leftCurIdx];		
+		g_check_info[1].current_adc = adcInfoArray.adcFilterResultValuesArray[rightCurIdx];
 	}
 	
-	void GetVolCurValue(u8 chkIdx, u8 * voltage, u8 * current)
+	void GetVolCurValue(u16 * batteryVoltage, u16 * leftCurrent, u16 * rightCurrent)
 	{
-		* voltage = g_check_info[chkIdx].voltage_adc;
-		* current = g_check_info[chkIdx].current_adc;
+		//电阻分压，具体根据原理图简单分析可以得到	
+		* batteryVoltage = g_check_info[0].voltage_adc * 1.692;// 3.3*21*100/4096;
+		
+		* leftCurrent = (g_check_info[0].current_adc - 1835) / 0.744 ; //AD采样中间值： 1824：1.47/3.3*4096 ；1402：1.13/3.3*4096
+		* rightCurrent = (g_check_info[1].current_adc - 1402) / 0.744 ;//电压AD值到电流的转换比：0.744：((0.01 * 6) / 3.3) *4096 / 1000; unit is mA.
 	}
 	
 	void UpdateDelayIdFunction(u8 num, u8 *returnId)
@@ -955,8 +961,7 @@
 		#ifdef	ADC_12_BIT
 		adcResolution = ADC_RESOLUTION_12;
 		#endif
-		u8 i;
-		for(i = 0; i < infoCount; i ++)
+		for(u8 i = 0; i < infoCount; i ++)
 		{
 			g_check_info[i].stall_time = initialInfo[i].stallTime;			//time is 500ms.
 			g_check_info[i].stall_current = initialInfo[i].stallCurrent;		//current is 4000ma.
@@ -969,12 +974,12 @@
 			UpdateDelayIdFunction(1, &g_check_info[i].offset_delay_id);
 		}
 		//初始化滤波器
-		for(i=0;i<ADC_VALUE_COUNT;i++)
-		{
-			adcInfoArray[HardWare_ADC1].weightFilterIdxArray[i] = weightFilterInitial(16);
-			adcInfoArray[HardWare_ADC1].averageFilterIdxArray[i] = averageFilterInitial(32);
+		for(u8 i=0;i<ADC_VALUE_COUNT;i++)
+		{	
+			adcInfoArray.averageFilterIdxArray[i] = weightFilterInitial(16);
+			adcInfoArray.weightFilterIdxArray[i] = averageFilterInitial(32);
 		}
-		for(i=0;i<CHECK_COUNT;i++)
+		for(u8 i=0;i<CHECK_COUNT;i++)
 		{
 			g_check_info[i].weightFilterIdx = weightFilterInitial(ADC_BUF_SIZE);
 		}
@@ -1038,17 +1043,16 @@
 		//采集通道数据
 		ReadOffsetCurrentValue(0, 2);
 		ReadOffsetCurrentValue(1, 3);
-		u8 leftVol, leftCur, rightVol, rightCur;
+		
+		u16 batteryVol, leftCur, rightCur;
 		while(1)
 		{		
 			//电机安全检测
 			FilterADCValue();
-			UpdateVolCurValue(0,1,2);
-			UpdateVolCurValue(1,1,3);
+			UpdateVolCurValue(1,2,3);
 			GeneralSafetyCheck();
 			//显示电流电压值
-			GetVolCurValue(0, &leftVol,&leftCur);
-			GetVolCurValue(1, &rightVol,&rightCur);
+			GetVolCurValue(&batteryVol,&leftCur,&rightCur);
 		}		
 	}
 	

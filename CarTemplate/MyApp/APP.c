@@ -29,18 +29,19 @@
 		OLED_Refresh_Gram();
 	}
 	
-	void ShowVolCurValue(int encodeIdx, u8 voltage,u8 current)
+	void ShowVolCurValue(u16 batteryVoltage,u16 leftCurrent,u16 rightCurrent)
 	{
-		u8 showLocation = 40;		
-		u8* strEncoder = "Lvc";
-		if( encodeIdx > 0)
-		{
-			strEncoder = "Rvc";
-			showLocation = 50;		
-		}
-		OLED_ShowString(00,showLocation,strEncoder);
-		OLED_ShowNumber(50,showLocation,voltage,4,12);
-		OLED_ShowNumber(80,showLocation,current,4,12);
+		OLED_ShowString(00,40,"Volta");
+		OLED_ShowString(58,40,".");
+		OLED_ShowString(80,40,"V");
+		OLED_ShowNumber(45,40,batteryVoltage/100,2,12);
+		OLED_ShowNumber(68,40,batteryVoltage%100,2,12);
+		if(batteryVoltage%100<10) 	
+			OLED_ShowNumber(62,40,0,2,12);
+		
+		OLED_ShowString(00,50,"Cur");
+		OLED_ShowNumber(50,50,leftCurrent,4,12);
+		OLED_ShowNumber(80,50,rightCurrent,4,12);
 		
 		//ÏÔÊ¾ÆÁË¢ÐÂ
 		OLED_Refresh_Gram();
