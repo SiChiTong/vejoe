@@ -192,7 +192,7 @@
         <Ww>
           <count>4</count>
           <WinNumber>1</WinNumber>
-          <ItemText>adcInfoArray[0].adcSourceValuesArray[i]</ItemText>
+          <ItemText>g_check_info[1]</ItemText>
         </Ww>
       </WatchWindow1>
       <MemoryWindow1>
@@ -239,7 +239,7 @@
 
   <Group>
     <GroupName>STM32F10x_Lib</GroupName>
-    <tvExp>0</tvExp>
+    <tvExp>1</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>
