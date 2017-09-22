@@ -9,10 +9,12 @@
 
 //----------------------- PID控制 ---------------------------------------------
 #ifdef APP_PID_CONTROL
-	//速度环初始化
-	void velocityStableInitial(void);
 	//速度环：左右轮子同时维持一个固定的速度不变
-	void keepVelocityStable(int targetVelocity);
+	void velocityStableInitial(int target);
+	void keepVelocityStable(void);
+	//电流环：左右轮子电机的电流保持不变
+	void CurrentStableInitial(void);
+	void keepCurrentStable(int targetCurrent);
 
 	//速度跳变计时器
 	void jumpVelocityTimer(void);	

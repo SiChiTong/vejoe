@@ -33,9 +33,6 @@ int main(void)
 		{ChannelA,{8,11},2},
 	};
 	PWMBalanceCarInitial(motorGPIOConfig,2,wheelGPIOConfig,pwmGPIOConfig,1,7199,0);	
-	
-									 
-//	TESTTIME1(7199,0);
 	//AD转换模块初始化
 	StructAdcChannelInfo adcChannelInfo[6] = {
 		{GPIO_Pin_3,ADC_Channel_3,GPIOA},
@@ -55,8 +52,9 @@ int main(void)
 	//采集通道数据
 	ReadOffsetCurrentValue(0, 2);
 	ReadOffsetCurrentValue(1, 3);
-	//速度跳变应用
-	appJumpVelocity(10,1000);
+	
+	//速度环 PID 初始化（电流环类似）
+	velocityStableInitial(1000);		
 	//局部变量
 	int encoderLeft, encoderRight, speedLeft, speedRight;
 	u16 batteryVol, leftCur, rightCur;
@@ -78,7 +76,6 @@ int main(void)
 		//显示电流电压值
 		GetVolCurValue(&batteryVol,&leftCur,&rightCur);
 		ShowVolCurValue(batteryVol,leftCur,rightCur);
-		//
 	}
 }
 
