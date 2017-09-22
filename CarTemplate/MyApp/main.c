@@ -10,14 +10,14 @@ int main(void)
 	//
 	RCC_APB2PeriphClockCmd(RCC_APB2Periph_AFIO,  ENABLE);
 	GPIO_PinRemapConfig(GPIO_Remap_SWJ_JTAGDisable, ENABLE);	
-	//每秒200次中断（5ms一次）
+	//每秒1000次中断（1ms一次）
 	Config_TIMER(TIMER_3,1,200);
 	//霍尔编码器初始化
 	GPIOConfigStruct hallEncoderLeft = {ChannelA,{0,1},2},
 									 hallEncoderRight= {ChannelB,{6,7},2};
 	HallEncoderInit(&hallEncoderLeft,1,First);
 	HallEncoderInit(&hallEncoderRight,1,Second);
-	HallSpeedInitial(20);	
+	HallSpeedInitial(5,20);	
 	//OLED初始化
 	OLED_Init(ChannelC,15,0,13,14);
 	//电机初始化

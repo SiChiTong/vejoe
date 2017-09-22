@@ -457,20 +457,21 @@
 
 //-----------------------Hall------------------------------------------------------
 #ifdef COMPONENTS_HALL
-	
+	#define USE_MEM_MANAGER
+	#include "Device.h"
 	#define ENCODER_TIM_PERIOD 0xFFFF
 	#define ENCODER_COUNT		 2	
 	
 	int _TIM4_BaseCounter = 0;
 	int _TIM2_BaseCounter = 0;
-	int hallLastValueArray[ENCODER_COUNT],hallCurrentValueArray[ENCODER_COUNT], hallSpeedArray[ENCODER_COUNT];
-	int hallFilterIdxArray[ENCODER_COUNT];
-	u8 checkTimeLength=0, speedJumpCount = 0;	
+	int hallSpeedArray[ENCODER_COUNT];
+	int *pHallValue[ENCODER_COUNT];
+	u8 checkTimeLength, speedSamplePulse, speedJumpCount;	
 
 	void HallEncoderInit(GPIOConfigStruct* channelInfo, u8 channelCount, HallEncoderIndex encoderIdx)
 	{
 		u32 rccChannel = RCC_APB1Periph_TIM2;
-		u8 IRQChannel = TIM2_IRQn, tempFilterIdx = 0;
+		u8 IRQChannel = TIM2_IRQn;
 		TIM_TypeDef * pTimeType = TIM2;
 		if(encoderIdx != First && encoderIdx != Second)
 		{
@@ -481,9 +482,7 @@
 			rccChannel = RCC_APB1Periph_TIM4;	
 			IRQChannel=TIM4_IRQn;
 			pTimeType = TIM4;
-			tempFilterIdx = 1;
-		}	
-		hallFilterIdxArray[tempFilterIdx] = averageFilterInitial(16);
+		}
 		RCC_APB1PeriphClockCmd(rccChannel, ENABLE);
 		setGPIOConfiguration2(channelInfo,channelCount,GPIO_Mode_IN_FLOATING,GPIO_Speed_50MHz);	
 		
@@ -568,29 +567,28 @@
 	
 	void calcHallMoveSpeed(void)
 	{
-		if(speedJumpCount < checkTimeLength)
-		{
-			speedJumpCount ++;
-			return;
-		}
-		speedJumpCount = 0;
-		int tempHallValue;
 		HallEncoderIndex encoderIdx;
 		for(int i=0;i<ENCODER_COUNT;i++)
 		{
 			encoderIdx = (i==0?First:Second);
-			tempHallValue = Read_ABS_Value(encoderIdx);
-			hallCurrentValueArray[i] = averageFilter(hallFilterIdxArray[i] ,tempHallValue);
-			hallSpeedArray[i] = (hallCurrentValueArray[i] - hallLastValueArray[i]) * (1000 / 5 / checkTimeLength);
-			hallLastValueArray[i] = hallCurrentValueArray[i];
+			moveArrayForward(checkTimeLength, pHallValue[i]);
+			pHallValue[i][checkTimeLength-1] = Read_ABS_Value(encoderIdx);
+			hallSpeedArray[i] = (pHallValue[i][checkTimeLength-1] - pHallValue[i][0]) * (1000 / checkTimeLength);
 		}
 	}
 	
-	void HallSpeedInitial(u8 timesFor5ms)
+	void HallSpeedInitial(u8 sampleFrequency, u8 speedWindows)
 	{
-		if(timesFor5ms <= 0) return;
+		if(speedWindows <= 0 || sampleFrequency <= 0) return;
 		
-		checkTimeLength = timesFor5ms;
+		speedSamplePulse = sampleFrequency;
+		checkTimeLength = speedWindows;	
+		speedJumpCount = 0;
+		
+		for(int i=0;i<ENCODER_COUNT;i++)
+		{
+			pHallValue[i] = (int *)My_malloc(speedWindows * sizeof(int));
+		}
 		
 		Timer_Register(TIMER_3,calcHallMoveSpeed);
 	}	
@@ -623,7 +621,7 @@
 		
 		
 		//获取霍尔传感器的变化速度
-		HallSpeedInitial(20);
+		HallSpeedInitial(5,20);
 		int speedLeft = getHallChangeSpeed(First);
 		int speedRight = getHallChangeSpeed(Second);
 		

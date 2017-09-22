@@ -49,7 +49,10 @@
 	void HallEncoderInit(GPIOConfigStruct * channelInfo, u8 channelCount, HallEncoderIndex encoderIdx);
 	int Read_ABS_Value(HallEncoderIndex);
 	
-	void HallSpeedInitial(u8 timesFor5ms);
+	//速度初始化
+	//sampleFrequency：采样频率（多久计算一次速度），以1ms为单位
+	//speedWindows：速度计算窗口（计算速度使用的采样跨度），以采样周期为单位，
+	void HallSpeedInitial(u8 sampleFrequency, u8 speedWindows);
 	int getHallChangeSpeed(HallEncoderIndex encoderIdx);
 	
 #endif
