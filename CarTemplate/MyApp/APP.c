@@ -1,7 +1,8 @@
 #include "APP.h"
 
-#include "Components.h"
-	
+//----------------------- OLED 显示---------------------------------------------
+#ifdef APP_OLED_SHOW_INFORMATION
+	#include "Components.h"	
 	void showSpeedValue(int speedLeft,int speedRight)
 	{
 		int showDirectNumber = 1;
@@ -46,3 +47,21 @@
 		//显示屏刷新
 		OLED_Refresh_Gram();
 	}
+#endif
+//-----------------------End of OLED 显示---------------------------------------------
+
+
+	
+//----------------------- PID控制 ---------------------------------------------
+#ifdef APP_CONTROL_PID
+	
+	#define USE_PID
+	#include "Tools.h"
+	
+	void keepVelocityStable(u16 velocity)
+	{
+		
+	}
+
+#endif
+//-----------------------End of PID控制 ---------------------------------------------

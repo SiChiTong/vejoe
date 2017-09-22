@@ -172,27 +172,27 @@
         <Ww>
           <count>0</count>
           <WinNumber>1</WinNumber>
-          <ItemText>g_Target_Current,0x0A</ItemText>
+          <ItemText>adcInfoArray</ItemText>
         </Ww>
         <Ww>
           <count>1</count>
           <WinNumber>1</WinNumber>
-          <ItemText>g_current,0x0A</ItemText>
+          <ItemText>averageDataArray</ItemText>
         </Ww>
         <Ww>
           <count>2</count>
           <WinNumber>1</WinNumber>
-          <ItemText>g_Target_Speed,0x0A</ItemText>
+          <ItemText>averageDataArray[1][31]</ItemText>
         </Ww>
         <Ww>
           <count>3</count>
           <WinNumber>1</WinNumber>
-          <ItemText>leftWheelForward</ItemText>
+          <ItemText>averageCurrentIdx</ItemText>
         </Ww>
         <Ww>
           <count>4</count>
           <WinNumber>1</WinNumber>
-          <ItemText>g_check_info[1]</ItemText>
+          <ItemText>weightCurrentIdx</ItemText>
         </Ww>
       </WatchWindow1>
       <MemoryWindow1>
@@ -239,7 +239,7 @@
 
   <Group>
     <GroupName>STM32F10x_Lib</GroupName>
-    <tvExp>1</tvExp>
+    <tvExp>0</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>

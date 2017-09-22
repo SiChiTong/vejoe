@@ -4250,10 +4250,10 @@ void main()
 	
 	float Get_PID_Output(struct _PID_Info *PID_obj, float error)
 	{
-		PID_obj->_error = error;
 		PID_obj->_error_proportion = PID_obj->_Kp * error;
 		PID_obj->_error_integral += (PID_obj->_Ki * error);
 		PID_obj->_error_differential = PID_obj->_Kd * (error - PID_obj->_error);
+		PID_obj->_error = error;
 		
 		if(PID_obj->_error_integral > PID_obj->_upper_bound)
 		{

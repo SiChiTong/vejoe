@@ -70,6 +70,7 @@
 #define COMPONENTS_OLED
 #define COMPONENTS_MOTOR
 #define DEVICE_SAFETY_CHECK
+#define APP_OLED_SHOW_INFORMATION
 //-----------------------end of 设置 外设 模块-------------------------=---------------//
 
 #ifdef USE_GPIO
