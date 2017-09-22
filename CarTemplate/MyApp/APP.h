@@ -16,9 +16,7 @@
 
 	//速度跳变计时器
 	void jumpVelocityTimer(void);	
-	//速度跳变初始化
-	void jumpVelocityInitial(u16 seconds, u16 stepLength);
 	//速度跳变：在最大最小值之间，每几秒改变一个段位的速度
-	void JumpVelocityEachSeconds(void);
+	void appJumpVelocity(u16 seconds, u16 stepLength);
 #endif
 //-----------------------End of PID控制 ---------------------------------------------

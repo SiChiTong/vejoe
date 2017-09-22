@@ -65,14 +65,15 @@
 	
 	struct _PID_Info leftVelocityPidInfo, rightVelocityPidInfo;
 	struct _PID_Info leftCurrentPidInfo, rightCurrentPidInfo;
-	u16 onceStepLength, onceSeconds;
+	u16 onceStepLength, onceSecondsTime, currentTargetVelocity, currentTimeCount;
+	int currentChangeDirect;
 	
 	//速度环初始化
 	void velocityStableInitial()
 	{
 		float leftKP = 0.5, leftKI = 0.003, leftKD = 0.01;
 		float rightKP = 1, rightKI = 0.003, rightKD = 0.01;
-		float tempUpper = 3000, tempLower = -3000;
+		float tempUpper = PWM_EXTREME_VALUE, tempLower = -PWM_EXTREME_VALUE;
 		
 		Config_PID(&leftVelocityPidInfo, leftKP, leftKI,leftKD, tempUpper, tempLower);
 		Config_PID(&rightVelocityPidInfo, rightKP, rightKI,rightKD, tempUpper, tempLower);
@@ -94,26 +95,39 @@
 	}
 	
 	//在最大最小值之间，每几秒改变一个段位的速度
-	void JumpVelocityEachSeconds()
+	void jumpVelocityTimer(void)
 	{
+		currentTimeCount ++ ; 
+		if(currentTimeCount < onceSecondsTime) return;
 		
+		currentTimeCount = 0;
+		if(currentTargetVelocity + onceStepLength >= PWM_EXTREME_VALUE)
+			currentChangeDirect = -1;
+		else if(currentTargetVelocity - onceStepLength < onceStepLength)
+			currentChangeDirect = 1;
+		currentTargetVelocity += (currentChangeDirect * onceStepLength);
+
+		SetPwmValue(currentTargetVelocity,currentTargetVelocity);
 	}
 
-	void jumpVelocityInitial(u16 seconds, u16 stepLength)
+	void appJumpVelocity(u16 seconds, u16 stepLength)
 	{
 		onceStepLength = stepLength;
-		onceSeconds = seconds;
+		onceSecondsTime = seconds * 1000 / 5;//时钟为5ms
+		currentTargetVelocity = onceStepLength;
+		currentTimeCount = 0;
+		currentChangeDirect = 1;
+		
+		if(leftVelocityPidInfo._Kp  == 0 || rightVelocityPidInfo._Kp == 0)
+		{
+			velocityStableInitial();
+		}
 		
 		Timer_Register(TIMER_3,jumpVelocityTimer);
 	}
-	
-	void jumpVelocityTimer()
-	{
-		
-	}
 		
 	//电流环初始化
-	void CurrentStableInitial()
+	void CurrentStableInitial(void)
 	{
 		float leftKP = 0.5, leftKI = 0.003, leftKD = 0.01;
 		float rightKP = 1, rightKI = 0.003, rightKD = 0.01;
@@ -129,7 +143,7 @@
 		velocityStableInitial();
 		while(1)
 		{
-			//控制速度
+			//保持速度
 			keepVelocityStable(1000);
 		}
 	}

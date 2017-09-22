@@ -56,7 +56,8 @@
 //-----------------------end of Hall------------------------------------------------------
 
 //----------------------- µç»ú ------------------------------------------------------
-#ifdef COMPONENTS_MOTOR
+#ifdef COMPONENTS_MOTOR	
+	#define PWM_EXTREME_VALUE 				6900	
 	typedef struct
 	{		
 		GPIOChannelType forwardType;

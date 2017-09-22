@@ -54,9 +54,9 @@ int main(void)
 	motorSafetyCheckInitital(motorSafeInfo,2);
 	//采集通道数据
 	ReadOffsetCurrentValue(0, 2);
-	ReadOffsetCurrentValue(1, 3);	
-	//PID 控制器初始化
-	velocityStableInitial();
+	ReadOffsetCurrentValue(1, 3);
+	//速度跳变应用
+	appJumpVelocity(10,1000);
 	//局部变量
 	int encoderLeft, encoderRight, speedLeft, speedRight;
 	u16 batteryVol, leftCur, rightCur;
@@ -78,8 +78,7 @@ int main(void)
 		//显示电流电压值
 		GetVolCurValue(&batteryVol,&leftCur,&rightCur);
 		ShowVolCurValue(batteryVol,leftCur,rightCur);
-		//控制速度
-		keepVelocityStable(1000);
+		//
 	}
 }
 

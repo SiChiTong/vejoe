@@ -636,7 +636,6 @@
 //----------------------- 电机 ------------------------------------------------------
 #ifdef COMPONENTS_MOTOR
 
-	#define PWM_EXTREME_VALUE 				6900	
 	//DIFFERENCE是一个衡量平衡小车电机和机械安装差异的一个变量。直接作用于输出，让小车具有更好的一致性。
 	#define DIFFERENCE_MOTOR_MACHINE	100
 	#define IO_ADDRES_CONFIGURATION	
