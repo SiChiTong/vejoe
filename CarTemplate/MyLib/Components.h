@@ -31,6 +31,7 @@
 #ifdef COMPONENTS_HALL	
 	
 	#define GPIO_CONFIGURATION
+	#define USE_FILTER
 	#define DATA_ARRAY_HANDLE
 	#include "Tools.h"
 	#include "Device.h"

@@ -458,19 +458,19 @@
 //-----------------------Hall------------------------------------------------------
 #ifdef COMPONENTS_HALL
 	
-	#define ENCODER_TIM_PERIOD 0xFFFF	
-	#define MAX_NUMBER_COUNT 31
+	#define ENCODER_TIM_PERIOD 0xFFFF
+	#define ENCODER_COUNT		 2	
 	
 	int _TIM4_BaseCounter = 0;
 	int _TIM2_BaseCounter = 0;
-	int hallSpeedArray[2];
-	int hallValueArray[2][MAX_NUMBER_COUNT];
+	int hallLastValueArray[ENCODER_COUNT],hallCurrentValueArray[ENCODER_COUNT], hallSpeedArray[ENCODER_COUNT];
+	int hallFilterIdxArray[ENCODER_COUNT];
 	u8 checkTimeLength=0, speedJumpCount = 0;	
 
 	void HallEncoderInit(GPIOConfigStruct* channelInfo, u8 channelCount, HallEncoderIndex encoderIdx)
 	{
 		u32 rccChannel = RCC_APB1Periph_TIM2;
-		u8 IRQChannel = TIM2_IRQn;
+		u8 IRQChannel = TIM2_IRQn, tempFilterIdx = 0;
 		TIM_TypeDef * pTimeType = TIM2;
 		if(encoderIdx != First && encoderIdx != Second)
 		{
@@ -481,7 +481,9 @@
 			rccChannel = RCC_APB1Periph_TIM4;	
 			IRQChannel=TIM4_IRQn;
 			pTimeType = TIM4;
+			tempFilterIdx = 1;
 		}	
+		hallFilterIdxArray[tempFilterIdx] = averageFilterInitial(16);
 		RCC_APB1PeriphClockCmd(rccChannel, ENABLE);
 		setGPIOConfiguration2(channelInfo,channelCount,GPIO_Mode_IN_FLOATING,GPIO_Speed_50MHz);	
 		
@@ -572,13 +574,15 @@
 			return;
 		}
 		speedJumpCount = 0;
+		int tempHallValue;
 		HallEncoderIndex encoderIdx;
-		for(int i=0;i<2;i++)
+		for(int i=0;i<ENCODER_COUNT;i++)
 		{
 			encoderIdx = (i==0?First:Second);
-			moveArrayForward(MAX_NUMBER_COUNT,hallValueArray[i]);
-			hallValueArray[i][MAX_NUMBER_COUNT-1] = Read_ABS_Value(encoderIdx);
-			hallSpeedArray[i] = (hallValueArray[i][MAX_NUMBER_COUNT-1] - hallValueArray[i][MAX_NUMBER_COUNT-2]) * (1000 / 5 / checkTimeLength);
+			tempHallValue = Read_ABS_Value(encoderIdx);
+			hallCurrentValueArray[i] = averageFilter(hallFilterIdxArray[i] ,tempHallValue);
+			hallSpeedArray[i] = (hallCurrentValueArray[i] - hallLastValueArray[i]) * (1000 / 5 / checkTimeLength);
+			hallLastValueArray[i] = hallCurrentValueArray[i];
 		}
 	}
 	
@@ -976,8 +980,8 @@
 		//³õÊ¼»¯ÂË²¨Æ÷
 		for(u8 i=0;i<ADC_VALUE_COUNT;i++)
 		{	
-			adcInfoArray.averageFilterIdxArray[i] = weightFilterInitial(16);
-			adcInfoArray.weightFilterIdxArray[i] = averageFilterInitial(32);
+			adcInfoArray.weightFilterIdxArray[i] = weightFilterInitial(16);
+			adcInfoArray.averageFilterIdxArray[i] = averageFilterInitial(32);
 		}
 		for(u8 i=0;i<CHECK_COUNT;i++)
 		{
