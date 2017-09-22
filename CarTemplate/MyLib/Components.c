@@ -465,8 +465,10 @@
 	int _TIM4_BaseCounter = 0;
 	int _TIM2_BaseCounter = 0;
 	int hallSpeedArray[ENCODER_COUNT];
-	int *pHallValue[ENCODER_COUNT];
-	u8 checkTimeLength, speedSamplePulse, speedJumpCount;	
+//	int *pHallValue[ENCODER_COUNT];
+	int pHallValue[ENCODER_COUNT][32];
+	u8 checkTimeLength, speedSampleFrequency, speedJumpCount;	
+	u8 sampleCountIdx;
 
 	void HallEncoderInit(GPIOConfigStruct* channelInfo, u8 channelCount, HallEncoderIndex encoderIdx)
 	{
@@ -566,32 +568,47 @@
 	}	
 	
 	void calcHallMoveSpeed(void)
-	{
+	{		
+		if(speedJumpCount < speedSampleFrequency)		
+ 		{		
+ 			speedJumpCount++;		
+ 			return;		
+ 		}		
+ 		speedJumpCount = 0;
+		sampleCountIdx = (sampleCountIdx >= checkTimeLength?checkTimeLength:sampleCountIdx+1);
 		HallEncoderIndex encoderIdx;
 		for(int i=0;i<ENCODER_COUNT;i++)
 		{
 			encoderIdx = (i==0?First:Second);
 			moveArrayForward(checkTimeLength, pHallValue[i]);
 			pHallValue[i][checkTimeLength-1] = Read_ABS_Value(encoderIdx);
-			hallSpeedArray[i] = (pHallValue[i][checkTimeLength-1] - pHallValue[i][0]) * (1000 / checkTimeLength);
+			hallSpeedArray[i] = 1000 * (pHallValue[i][sampleCountIdx-1] - pHallValue[i][0]) / (speedSampleFrequency * sampleCountIdx);
 		}
+	}
+	
+	u8 getSpeedSampleFrequency(void)
+	{
+		return speedSampleFrequency;
 	}
 	
 	void HallSpeedInitial(u8 sampleFrequency, u8 speedWindows)
 	{
 		if(speedWindows <= 0 || sampleFrequency <= 0) return;
 		
-		speedSamplePulse = sampleFrequency;
+		speedSampleFrequency = sampleFrequency;
 		checkTimeLength = speedWindows;	
 		speedJumpCount = 0;
+		sampleCountIdx = 0;
 		
-		for(int i=0;i<ENCODER_COUNT;i++)
-		{
-			pHallValue[i] = (int *)My_malloc(speedWindows * sizeof(int));
-		}
+//		for(int i=0;i<ENCODER_COUNT;i++)
+//		{
+//			pHallValue[i] = (int *)My_malloc(speedWindows * sizeof(int));
+//		}
 		
 		Timer_Register(TIMER_3,calcHallMoveSpeed);
 	}	
+	
+	
 	
 	int getHallChangeSpeed(HallEncoderIndex encoderIdx)
 	{

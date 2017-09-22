@@ -67,24 +67,34 @@
 	struct _PID_Info leftCurrentPidInfo, rightCurrentPidInfo;
 	u16 onceStepLength, onceSecondsTime, currentTargetVelocity, currentTimeCount;
 	int currentChangeDirect, targetVelocity;
+	u8 speedSampleFre, speedSampleCount;
 	
 	//速度环初始化
 	void velocityStableInitial(int target)
 	{
 		targetVelocity = target;
-		float leftKP = 1, leftKI = 0.01, leftKD = 0;
-		float rightKP = 1, rightKI = 0.01, rightKD = 0;
+		float tempKP = 0.008, tempKI = 0.0005, tempKD = 0;
 		float tempUpper = 3000, tempLower = -3000;
 		
-		Config_PID(&leftVelocityPidInfo, leftKP, leftKI,leftKD, tempUpper, tempLower);
-		Config_PID(&rightVelocityPidInfo, rightKP, rightKI,rightKD, tempUpper, tempLower);
+		Config_PID(&leftVelocityPidInfo, tempKP, tempKI,tempKD, tempUpper, tempLower);
+		Config_PID(&rightVelocityPidInfo, tempKP, tempKI,tempKD, tempUpper, tempLower);
 		
-		Timer_Register(TIMER_3,keepVelocityStable);
+		speedSampleFre = getSpeedSampleFrequency();
+		speedSampleCount = 0;
+		
+		Timer_Register(TIMER_3,keepVelocityStable);		
 	}	
 	
 	//速度环
 	void keepVelocityStable(void)
 	{
+		if(speedSampleCount < speedSampleFre)		
+ 		{		
+ 			speedSampleCount ++;		
+ 			return;		
+ 		}		
+ 		speedSampleCount = 0;	
+		
 		int leftSpeed, rightSpeed;
 		float leftPWM, rightPWM;
 		

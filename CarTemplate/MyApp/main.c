@@ -11,7 +11,7 @@ int main(void)
 	RCC_APB2PeriphClockCmd(RCC_APB2Periph_AFIO,  ENABLE);
 	GPIO_PinRemapConfig(GPIO_Remap_SWJ_JTAGDisable, ENABLE);	
 	//每秒1000次中断（1ms一次）
-	Config_TIMER(TIMER_3,1,200);
+	Config_TIMER(TIMER_3,1,1000);
 	//霍尔编码器初始化
 	GPIOConfigStruct hallEncoderLeft = {ChannelA,{0,1},2},
 									 hallEncoderRight= {ChannelB,{6,7},2};
@@ -51,8 +51,7 @@ int main(void)
 	motorSafetyCheckInitital(motorSafeInfo,2);
 	//采集通道数据
 	ReadOffsetCurrentValue(0, 2);
-	ReadOffsetCurrentValue(1, 3);
-	
+	ReadOffsetCurrentValue(1, 3);	
 	//速度环 PID 初始化（电流环类似）
 	velocityStableInitial(1000);		
 	//局部变量
