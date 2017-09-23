@@ -10,7 +10,8 @@
 //----------------------- PID控制 ---------------------------------------------
 #ifdef APP_PID_CONTROL
 	//速度环：左右轮子同时维持一个固定的速度不变
-	void velocityStableInitial(int target);
+	//采样频率不得低于5ms（速度的计算频率为5ms，低于5ms会导致结果不准）
+	void velocityStableInitial(u8 sampleFrequence,int target);
 	void keepVelocityStable(void);
 	//电流环：左右轮子电机的电流保持不变
 	void CurrentStableInitial(void);

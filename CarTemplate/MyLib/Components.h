@@ -39,8 +39,8 @@
 	//编码器索引
 	typedef enum
 	{
-		First = 0x02,
-		Second = 0x04
+		HallEncoderLeftWheel = 0x00,
+		HallEncoderRightWheel
 	}HallEncoderIndex;
 
 	void TIM4_IRQHandler(void);
@@ -48,11 +48,8 @@
 	
 	void HallEncoderInit(GPIOConfigStruct * channelInfo, u8 channelCount, HallEncoderIndex encoderIdx);
 	int Read_ABS_Value(HallEncoderIndex);
-	u8 getSpeedSampleFrequency(void);
-	//速度初始化
-	//sampleFrequency：采样频率（多久计算一次速度），以1ms为单位
-	//speedWindows：速度计算窗口（计算速度使用的采样跨度），以采样周期为单位，
-	void HallSpeedInitial(u8 sampleFrequency, u8 speedWindows);
+	//速度计算
+	void HallSpeedInitial(void);
 	int getHallChangeSpeed(HallEncoderIndex encoderIdx);
 	
 #endif

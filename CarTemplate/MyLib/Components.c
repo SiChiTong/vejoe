@@ -460,26 +460,28 @@
 	#define USE_MEM_MANAGER
 	#include "Device.h"
 	#define ENCODER_TIM_PERIOD 0xFFFF
-	#define ENCODER_COUNT		 2	
+	#define ENCODER_COUNT		 	 2
+	#define ENCODER_SPEED_WINDOWS	25
+	#define ENCODER_SPEED_SAMPLE	5
 	
 	int _TIM4_BaseCounter = 0;
 	int _TIM2_BaseCounter = 0;
 	int hallSpeedArray[ENCODER_COUNT];
 //	int *pHallValue[ENCODER_COUNT];
-	int pHallValue[ENCODER_COUNT][32];
-	u8 checkTimeLength, speedSampleFrequency, speedJumpCount;	
-	u8 sampleCountIdx;
+	int pHallValue[ENCODER_COUNT][ENCODER_SPEED_WINDOWS];
+	u8 speedJumpCount;	
+	u8 hallCurrentIdx , hallBeforeIdx;
 
 	void HallEncoderInit(GPIOConfigStruct* channelInfo, u8 channelCount, HallEncoderIndex encoderIdx)
 	{
 		u32 rccChannel = RCC_APB1Periph_TIM2;
 		u8 IRQChannel = TIM2_IRQn;
 		TIM_TypeDef * pTimeType = TIM2;
-		if(encoderIdx != First && encoderIdx != Second)
+		if(encoderIdx != HallEncoderLeftWheel && encoderIdx != HallEncoderRightWheel)
 		{
 			return;
 		}
-		else if(encoderIdx == Second)
+		else if(encoderIdx == HallEncoderRightWheel)
 		{
 			rccChannel = RCC_APB1Periph_TIM4;	
 			IRQChannel=TIM4_IRQn;
@@ -556,11 +558,11 @@
 	int Read_ABS_Value(HallEncoderIndex encoderIdx)
 	{
 		int tempResult = 0;
-		if(encoderIdx == First)
+		if(encoderIdx == HallEncoderLeftWheel)
 		{
 			tempResult = _TIM2_BaseCounter + (int)(TIM2->CNT);
 		}
-		else if(encoderIdx == Second)
+		else if(encoderIdx == HallEncoderRightWheel)
 		{
 			tempResult = _TIM4_BaseCounter + (int)(TIM4->CNT);
 		}
@@ -569,40 +571,36 @@
 	
 	void calcHallMoveSpeed(void)
 	{		
-		if(speedJumpCount < speedSampleFrequency)		
+		if(speedJumpCount < ENCODER_SPEED_SAMPLE)		
  		{		
  			speedJumpCount++;		
  			return;		
  		}		
  		speedJumpCount = 0;
-		sampleCountIdx = (sampleCountIdx >= checkTimeLength?checkTimeLength:sampleCountIdx+1);
-		HallEncoderIndex encoderIdx;
 		for(int i=0;i<ENCODER_COUNT;i++)
 		{
-			encoderIdx = (i==0?First:Second);
-			moveArrayForward(checkTimeLength, pHallValue[i]);
-			pHallValue[i][checkTimeLength-1] = Read_ABS_Value(encoderIdx);
-			hallSpeedArray[i] = 1000 * (pHallValue[i][sampleCountIdx-1] - pHallValue[i][0]) / (speedSampleFrequency * sampleCountIdx);
+			pHallValue[i][hallCurrentIdx] = Read_ABS_Value((HallEncoderIndex)i);
+			// 速度 = 时间内的差值 / 时间窗口大小 / 采样周期 * 1000 （ms）;
+			// 1000 / 25 / 5 = 8
+			hallSpeedArray[i] = (pHallValue[i][hallCurrentIdx] - pHallValue[i][hallBeforeIdx]) << 3;
 		}
+		hallCurrentIdx += 1;
+		hallBeforeIdx += 1;
+		if(hallCurrentIdx >= ENCODER_SPEED_WINDOWS)
+			hallCurrentIdx = 0;			
+		if(hallBeforeIdx >= ENCODER_SPEED_WINDOWS)
+			hallBeforeIdx = 0;
 	}
 	
-	u8 getSpeedSampleFrequency(void)
+	void HallSpeedInitial(void)
 	{
-		return speedSampleFrequency;
-	}
-	
-	void HallSpeedInitial(u8 sampleFrequency, u8 speedWindows)
-	{
-		if(speedWindows <= 0 || sampleFrequency <= 0) return;
-		
-		speedSampleFrequency = sampleFrequency;
-		checkTimeLength = speedWindows;	
 		speedJumpCount = 0;
-		sampleCountIdx = 0;
+		hallCurrentIdx = 0;
+		hallBeforeIdx = hallCurrentIdx + 1;
 		
 //		for(int i=0;i<ENCODER_COUNT;i++)
 //		{
-//			pHallValue[i] = (int *)My_malloc(speedWindows * sizeof(int));
+//			pHallValue[i] = (int *)malloc(ENCODER_SPEED_WINDOWS * sizeof(int));
 //		}
 		
 		Timer_Register(TIMER_3,calcHallMoveSpeed);
@@ -614,7 +612,7 @@
 	{
 		int tempSpeed = hallSpeedArray[0];
 		
-		if(encoderIdx == Second)
+		if(encoderIdx == HallEncoderRightWheel)
 		{
 			tempSpeed = hallSpeedArray[1];
 		}
@@ -631,16 +629,16 @@
 			{ChannelA,{0,1},2},
 			{ChannelB,{6,7},2}
 		};
-		HallEncoderInit(hallEncoderConfig,1,First);
-		int encoderLeft = Read_ABS_Value(First);		
-		HallEncoderInit(&hallEncoderConfig[1],1,Second);	
-		int encoderRight = Read_ABS_Value(Second);
+		HallEncoderInit(hallEncoderConfig,1,HallEncoderLeftWheel);
+		int encoderLeft = Read_ABS_Value(HallEncoderLeftWheel);		
+		HallEncoderInit(&hallEncoderConfig[1],1,HallEncoderRightWheel);	
+		int encoderRight = Read_ABS_Value(HallEncoderRightWheel);
 		
 		
 		//获取霍尔传感器的变化速度
-		HallSpeedInitial(5,20);
-		int speedLeft = getHallChangeSpeed(First);
-		int speedRight = getHallChangeSpeed(Second);
+		HallSpeedInitial();
+		int speedLeft = getHallChangeSpeed(HallEncoderLeftWheel);
+		int speedRight = getHallChangeSpeed(HallEncoderRightWheel);
 		
 		int clearWarnning = encoderLeft + encoderRight + speedLeft + speedRight;
 		clearWarnning = clearWarnning + 1;
@@ -732,27 +730,27 @@
 	void SetPwmValue(int leftPwm,int rightPwm)
 	{
 		u8 forward = 1, backward = 0;
-		if(leftPwm < 0)
-		{
-			forward = 0;
-			backward = 1;
-			leftPwm *= -1;
-		}
-		BIT_ADDR(leftWheelForward,leftWheelFPin)=forward;
-		BIT_ADDR(leftWheelBackward,leftWheelBPin)=backward;		
-		TIM1->CCR1 = PwmExtremeValue(leftPwm);
-		
-		forward = 1;
-		backward = 0;	
 		if(rightPwm < 0)
 		{
 			forward = 0;
 			backward = 1;
 			rightPwm *= -1;
+		}
+		BIT_ADDR(leftWheelForward,leftWheelFPin)=forward;
+		BIT_ADDR(leftWheelBackward,leftWheelBPin)=backward;		
+		TIM1->CCR1 = PwmExtremeValue(rightPwm);
+		
+		forward = 1;
+		backward = 0;	
+		if(leftPwm < 0)
+		{
+			forward = 0;
+			backward = 1;
+			leftPwm *= -1;
 		}		
 		BIT_ADDR(rightWheelForward,rightWheelFPin)=forward;
 		BIT_ADDR(rightWheelBackward,rightWheelBPin)=backward;
-		TIM1->CCR4 = PwmExtremeValue(rightPwm);
+		TIM1->CCR4 = PwmExtremeValue(leftPwm);
 	}
 	
 	int PwmExtremeValue(int pwmValue)

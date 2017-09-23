@@ -15,9 +15,9 @@ int main(void)
 	//霍尔编码器初始化
 	GPIOConfigStruct hallEncoderLeft = {ChannelA,{0,1},2},
 									 hallEncoderRight= {ChannelB,{6,7},2};
-	HallEncoderInit(&hallEncoderLeft,1,First);
-	HallEncoderInit(&hallEncoderRight,1,Second);
-	HallSpeedInitial(5,20);	
+	HallEncoderInit(&hallEncoderLeft,1,HallEncoderLeftWheel);
+	HallEncoderInit(&hallEncoderRight,1,HallEncoderRightWheel);
+	HallSpeedInitial();	
 	//OLED初始化
 	OLED_Init(ChannelC,15,0,13,14);
 	//电机初始化
@@ -52,21 +52,21 @@ int main(void)
 	//采集通道数据
 	ReadOffsetCurrentValue(0, 2);
 	ReadOffsetCurrentValue(1, 3);	
-	//速度环 PID 初始化（电流环类似）
-	velocityStableInitial(1000);		
+	//速度环 PID （电流环类似）
+	velocityStableInitial(5,1000);		
 	//局部变量
 	int encoderLeft, encoderRight, speedLeft, speedRight;
 	u16 batteryVol, leftCur, rightCur;
 	while(1)
 	{
 		//编码器数值显示
-		encoderLeft = Read_ABS_Value(First);
-		encoderRight = Read_ABS_Value(Second);
+		encoderLeft = Read_ABS_Value(HallEncoderLeftWheel);
+		encoderRight = Read_ABS_Value(HallEncoderRightWheel);
 		OLED_ShowNumber(00,00,encoderLeft,6,12);
 		OLED_ShowNumber(60,00,encoderRight,6,12);
 		//速度显示
-		speedLeft = getHallChangeSpeed(First);
-		speedRight = getHallChangeSpeed(Second);		
+		speedLeft = getHallChangeSpeed(HallEncoderLeftWheel);
+		speedRight = getHallChangeSpeed(HallEncoderRightWheel);		
 		showSpeedValue(speedLeft,speedRight);
 		//电机安全检测
 		FilterADCValue();

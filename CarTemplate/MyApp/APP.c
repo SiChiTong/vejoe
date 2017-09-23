@@ -63,31 +63,31 @@
 	#define USE_TIMER_TICK
 	#include "Device.h"
 	
-	struct _PID_Info leftVelocityPidInfo, rightVelocityPidInfo;
-	struct _PID_Info leftCurrentPidInfo, rightCurrentPidInfo;
+	struct _PID_Info velocityPidInfo, currentPidInfo;
 	u16 onceStepLength, onceSecondsTime, currentTargetVelocity, currentTimeCount;
 	int currentChangeDirect, targetVelocity;
 	u8 speedSampleFre, speedSampleCount;
 	
+	int speed;
+	
 	//速度环初始化
-	void velocityStableInitial(int target)
+	void velocityStableInitial(u8 sampleFrequence,int target)
 	{
 		targetVelocity = target;
-		float tempKP = 0.008, tempKI = 0.0005, tempKD = 0;
+		speedSampleFre = sampleFrequence;
+		speedSampleCount = 0;
+		
+		float tempKP = 0.2, tempKI = 0.01, tempKD = 0;
 		float tempUpper = 3000, tempLower = -3000;
 		
-		Config_PID(&leftVelocityPidInfo, tempKP, tempKI,tempKD, tempUpper, tempLower);
-		Config_PID(&rightVelocityPidInfo, tempKP, tempKI,tempKD, tempUpper, tempLower);
-		
-		speedSampleFre = getSpeedSampleFrequency();
-		speedSampleCount = 0;
+		Config_PID(&velocityPidInfo, tempKP, tempKI,tempKD, tempUpper, tempLower);		
 		
 		Timer_Register(TIMER_3,keepVelocityStable);		
 	}	
 	
 	//速度环
 	void keepVelocityStable(void)
-	{
+	{		
 		if(speedSampleCount < speedSampleFre)		
  		{		
  			speedSampleCount ++;		
@@ -98,11 +98,11 @@
 		int leftSpeed, rightSpeed;
 		float leftPWM, rightPWM;
 		
-		leftSpeed = getHallChangeSpeed(First);
-		rightSpeed = getHallChangeSpeed(Second);
+		leftSpeed = getHallChangeSpeed(HallEncoderLeftWheel);
+		rightSpeed = getHallChangeSpeed(HallEncoderRightWheel);
 		
-		leftPWM = Get_PID_Output(&leftVelocityPidInfo, targetVelocity - leftSpeed);
-		rightPWM = Get_PID_Output(&rightVelocityPidInfo, -1*targetVelocity - rightSpeed);//右轮编码器反向所以目标值取反
+		leftPWM = Get_PID_Output(&velocityPidInfo, targetVelocity - leftSpeed);
+		rightPWM = Get_PID_Output(&velocityPidInfo, -1*targetVelocity - rightSpeed);//右轮编码器反向所以目标值取反
 		
 		SetPwmValue((int)leftPWM,(int)rightPWM);
 	}
@@ -131,9 +131,9 @@
 		currentTimeCount = 0;
 		currentChangeDirect = 1;
 		
-		if(leftVelocityPidInfo._Kp  == 0 || rightVelocityPidInfo._Kp == 0)
+		if(velocityPidInfo._Kp  == 0 || velocityPidInfo._Kp == 0)
 		{
-			velocityStableInitial(currentTargetVelocity);
+			velocityStableInitial(5,currentTargetVelocity);
 		}
 		
 		Timer_Register(TIMER_3,jumpVelocityTimer);
@@ -142,12 +142,10 @@
 	//电流环初始化
 	void CurrentStableInitial(void)
 	{
-		float leftKP = 5, leftKI = 0.1, leftKD = 0.5;
-		float rightKP = 5, rightKI = 0.1, rightKD = 0.5;
+		float tempKP = 5, tempKI = 0.1, tempKD = 0.5;
 		float tempUpper = PWM_EXTREME_VALUE, tempLower = -PWM_EXTREME_VALUE;
 		
-		Config_PID(&leftCurrentPidInfo, leftKP, leftKI,leftKD, tempUpper, tempLower);
-		Config_PID(&rightCurrentPidInfo, rightKP, rightKI,rightKD, tempUpper, tempLower);
+		Config_PID(&currentPidInfo, tempKP, tempKI, tempKD, tempUpper, tempLower);
 	}
 	
 	//电流环
@@ -160,8 +158,8 @@
 		UpdateVolCurValue(1,2,3);
 		GetVolCurValue(&batteryVol,&leftCur,&rightCur);
 		
-		leftPWM = Get_PID_Output(&leftCurrentPidInfo, targetCurrent - leftCur);
-		rightPWM = Get_PID_Output(&rightCurrentPidInfo, targetCurrent - rightCur);//右轮编码器反向所以目标值取反
+		leftPWM = Get_PID_Output(&currentPidInfo, targetCurrent - leftCur);
+		rightPWM = Get_PID_Output(&currentPidInfo, targetCurrent - rightCur);
 		
 		SetPwmValue((int)leftPWM,(int)rightPWM);
 	}
@@ -171,9 +169,9 @@
 		//速度跳变应用
 		appJumpVelocity(15,1500);
 		
-		//速度环 PID 初始化（电流环类似）
-		velocityStableInitial(1000);		
-//		//电流环初始化
+		//速度环 PID （电流环类似）
+		velocityStableInitial(5,1000);		
+//		//电流环PID
 //		CurrentStableInitial();
 
 	}
