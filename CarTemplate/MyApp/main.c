@@ -62,8 +62,8 @@ int main(void)
 		//编码器数值显示
 		encoderLeft = Read_ABS_Value(HallEncoderLeftWheel);
 		encoderRight = Read_ABS_Value(HallEncoderRightWheel);
-		OLED_ShowNumber(00,00,encoderLeft,6,12);
-		OLED_ShowNumber(60,00,encoderRight,6,12);
+		OLED_ShowNumber2(00,00,encoderLeft,6,12);
+		OLED_ShowNumber2(60,00,encoderRight,6,12);
 		//速度显示
 		speedLeft = getHallChangeSpeed(HallEncoderLeftWheel);
 		speedRight = getHallChangeSpeed(HallEncoderRightWheel);		

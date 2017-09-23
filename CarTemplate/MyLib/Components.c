@@ -346,7 +346,19 @@
 		u32 result=1;	 
 		while(n--)result*=m;    
 		return result;
-	}				  
+	}
+	
+	void OLED_ShowNumber2(u8 x,u8 y,int num,u8 len,u8 size)
+	{
+		if(num < 0)
+		{
+			OLED_ShowChar(x,y,'-',size,1);
+			num *= -1;
+			x += 5;//一个字符的像素宽度
+		}
+		OLED_ShowNumber(x,y,num,len-1,size);
+	}		
+	
 	//显示2个数字
 	//x,y :起点坐标	 
 	//len :数字的位数
@@ -610,14 +622,7 @@
 	
 	int getHallChangeSpeed(HallEncoderIndex encoderIdx)
 	{
-		int tempSpeed = hallSpeedArray[0];
-		
-		if(encoderIdx == HallEncoderRightWheel)
-		{
-			tempSpeed = hallSpeedArray[1];
-		}
-		
-		return tempSpeed;
+		return hallSpeedArray[encoderIdx];
 	}
 	
 	//测试用例
@@ -633,8 +638,7 @@
 		int encoderLeft = Read_ABS_Value(HallEncoderLeftWheel);		
 		HallEncoderInit(&hallEncoderConfig[1],1,HallEncoderRightWheel);	
 		int encoderRight = Read_ABS_Value(HallEncoderRightWheel);
-		
-		
+				
 		//获取霍尔传感器的变化速度
 		HallSpeedInitial();
 		int speedLeft = getHallChangeSpeed(HallEncoderLeftWheel);
