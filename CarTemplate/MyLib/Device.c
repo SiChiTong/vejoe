@@ -541,9 +541,12 @@ void TIM4_IRQHandler(void)
 
 //-----------------------USE_ADC-------------------------------------------------------
 #ifdef USE_ADC
+
+#define ADC_CHANNEL_MAX_COUNT	6
+
 UINT8 _ADC_CH_Num = 0;
-struct ADC_Info _ADC_Info[18];	//Ö§³Ö18Â·
-UINT16 _ADC_Buffer[2];
+struct ADC_Info _ADC_Info[ADC_CHANNEL_MAX_COUNT];
+UINT16 _ADC_Buffer[ADC_CHANNEL_MAX_COUNT];
 
 void Add_ADC_CH(UINT8 index, GPIO_TypeDef* GPIOx, uint16_t GPIO_Pin, uint8_t ADC_Channel)
 {

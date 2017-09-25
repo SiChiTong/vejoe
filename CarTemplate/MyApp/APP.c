@@ -65,14 +65,15 @@
 	
 	struct _PID_Info leftVelocityPidInfo, rightVelocityPidInfo;
 	struct _PID_Info leftCurrentPidInfo, rightCurrentPidInfo;
-	u16 onceStepLength, onceSecondsTime, currentTargetVelocity, currentTimeCount;
+	u16 onceStepLength, onceSecondsTime, currentTimeCount;
 	int currentChangeDirect, targetVelocity;
 	u8 speedSampleFre, speedSampleCount;
+  u8 currentSampleFre, currentSampleCount,	targetCurrent;
 	
 	int speed;
 	
 	//速度环初始化
-	void velocityStableInitial(u8 sampleFrequence,int target)
+	void appVelocityStable(u8 sampleFrequence,int target)
 	{
 		targetVelocity = target;
 		speedSampleFre = sampleFrequence;
@@ -80,6 +81,7 @@
 		
 		float tempKP = 0.2, tempKI = 0.01, tempKD = 0;
 		float tempUpper = 3000, tempLower = -3000;
+//		float tempUpper = PWM_EXTREME_VALUE, tempLower = -PWM_EXTREME_VALUE;
 		
 		Config_PID(&leftVelocityPidInfo, tempKP, tempKI,tempKD, tempUpper, tempLower);		
 		Config_PID(&rightVelocityPidInfo, tempKP, tempKI,tempKD, tempUpper, tempLower);		
@@ -113,52 +115,65 @@
 	void jumpVelocityTimer(void)
 	{
 		currentTimeCount ++ ; 
-		if(currentTimeCount < onceSecondsTime) return;
-		
+		if(currentTimeCount < onceSecondsTime) return;		
 		currentTimeCount = 0;
-		if(currentTargetVelocity + onceStepLength >= PWM_EXTREME_VALUE)
+		
+		if(targetVelocity + onceStepLength >= PWM_EXTREME_VALUE)
 			currentChangeDirect = -1;
-		else if(currentTargetVelocity - onceStepLength < onceStepLength)
+		else if(targetVelocity - onceStepLength < onceStepLength)
 			currentChangeDirect = 1;
-		currentTargetVelocity += (currentChangeDirect * onceStepLength);
-
-		SetPwmValue(currentTargetVelocity,currentTargetVelocity);
+		targetVelocity += (currentChangeDirect * onceStepLength);
 	}
 
 	void appJumpVelocity(u16 seconds, u16 stepLength)
 	{
 		onceStepLength = stepLength;
-		onceSecondsTime = seconds * 1000 / 5;//时钟为5ms
-		currentTargetVelocity = onceStepLength;
+		onceSecondsTime = seconds * 1000;//时钟为1ms
+		targetVelocity = onceStepLength;
 		currentTimeCount = 0;
 		currentChangeDirect = 1;
 		
 		if(leftVelocityPidInfo._Kp  == 0 || rightVelocityPidInfo._Kp == 0)
 		{
-			velocityStableInitial(5,currentTargetVelocity);
+			appVelocityStable(5,targetVelocity);
 		}
 		
 		Timer_Register(TIMER_3,jumpVelocityTimer);
 	}
 		
 	//电流环初始化
-	void CurrentStableInitial(void)
+	void appCurrentStable(u8 sampleFrequence, u8 target)
 	{
-		float tempKP = 5, tempKI = 0.1, tempKD = 0.5;
-		float tempUpper = PWM_EXTREME_VALUE, tempLower = -PWM_EXTREME_VALUE;
+		targetCurrent = target;
+		currentSampleFre = sampleFrequence;
+		currentSampleCount = 0;
+		 
+		float tempKP = 0.5, tempKI = 0.03, tempKD = 0;
+		float tempUpper = 3000, tempLower = -3000;
+//		float tempUpper = PWM_EXTREME_VALUE, tempLower = -PWM_EXTREME_VALUE;
 		
 		Config_PID(&leftCurrentPidInfo, tempKP, tempKI, tempKD, tempUpper, tempLower);
 		Config_PID(&rightCurrentPidInfo, tempKP, tempKI, tempKD, tempUpper, tempLower);
+		
+		Timer_Register(TIMER_3,keepCurrentStable);		
 	}
 	
 	//电流环
-	void keepCurrentStable(int targetCurrent)
+	void keepCurrentStable(void)
 	{
+		if(currentSampleCount < currentSampleFre)		
+ 		{		
+ 			currentSampleCount ++;		
+ 			return;		
+ 		}		
+ 		currentSampleCount = 0;	
+		
 		u16 batteryVol, leftCur, rightCur;
 		float leftPWM, rightPWM;
 		
-		FilterADCValue();
-		UpdateVolCurValue(1,2,3);
+		//主程序循环中，已经做了这两件耗时的事情
+//		FilterADCValue();
+//		UpdateVolCurValue(1,3,2);
 		GetVolCurValue(&batteryVol,&leftCur,&rightCur);
 		
 		leftPWM = Get_PID_Output(&leftCurrentPidInfo, targetCurrent - leftCur);
@@ -170,10 +185,10 @@
 	void TEST_PidControl(void)
 	{
 		//速度跳变应用
-		appJumpVelocity(15,1500);
+		appJumpVelocity(10,1000);
 		
-		//速度环 PID （电流环类似）
-		velocityStableInitial(5,1000);		
+//		//速度环 PID （电流环类似）
+//		appVelocityStable(5,1000);		
 //		//电流环PID
 //		CurrentStableInitial();
 

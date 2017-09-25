@@ -52,8 +52,8 @@ int main(void)
 	//采集通道数据
 	ReadOffsetCurrentValue(0, 2);
 	ReadOffsetCurrentValue(1, 3);	
-	//速度环 PID （电流环类似）
-	velocityStableInitial(5,1000);		
+//	//速度环 PID （电流环类似）
+	appCurrentStable(5,15);	
 	//局部变量
 	int encoderLeft, encoderRight, speedLeft, speedRight;
 	u16 batteryVol, leftCur, rightCur;

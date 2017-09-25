@@ -954,7 +954,7 @@
 		* batteryVoltage = g_check_info[0].voltage_adc * 1.692;// 3.3*21*100/4096;
 		
 		* leftCurrent = (g_check_info[0].current_adc - 1835) / 0.744 ; //AD采样中间值： 1824：1.47/3.3*4096 ；1402：1.13/3.3*4096
-		* rightCurrent = (g_check_info[1].current_adc - 1402) / 0.744 ;//电压AD值到电流的转换比：0.744：((0.01 * 6) / 3.3) *4096 / 1000; unit is mA.
+		* rightCurrent = (g_check_info[1].current_adc - 1404) / 0.744 ;//电压AD值到电流的转换比：0.744：((0.01 * 6) / 3.3) *4096 / 1000; unit is mA.
 	}
 	
 	void UpdateDelayIdFunction(u8 num, u8 *returnId)
@@ -1069,7 +1069,7 @@
 		{		
 			//电机安全检测
 			FilterADCValue();
-			UpdateVolCurValue(1,2,3);
+			UpdateVolCurValue(1,3,2);
 			GeneralSafetyCheck();
 			//显示电流电压值
 			GetVolCurValue(&batteryVol,&leftCur,&rightCur);
