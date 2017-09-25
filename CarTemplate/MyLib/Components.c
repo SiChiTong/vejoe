@@ -354,7 +354,7 @@
 		{
 			OLED_ShowChar(x,y,'-',size,1);
 			num *= -1;
-			x += 5;//一个字符的像素宽度
+			x += 3;//一个字符的像素宽度
 		}
 		OLED_ShowNumber(x,y,num,len-1,size);
 	}		
@@ -679,16 +679,16 @@
 	}
 	
 	void explainInitialParams(WheelGPIOInfo wheelConfig[])
-	{
-		leftWheelForward = getGPIOODRAddr(wheelConfig[0].forwardType);
-		leftWheelFPin = wheelConfig[0].forwardGPIOPin;
-		leftWheelBackward = getGPIOODRAddr(wheelConfig[0].backwardType);
-		leftWheelBPin = wheelConfig[0].backwardGPIOPin;		
+	{		
+		rightWheelForward = getGPIOODRAddr(wheelConfig[0].forwardType);
+		rightWheelFPin = wheelConfig[0].forwardGPIOPin;
+		rightWheelBackward = getGPIOODRAddr(wheelConfig[0].backwardType);
+		rightWheelBPin = wheelConfig[0].backwardGPIOPin;
 		
-		rightWheelForward = getGPIOODRAddr(wheelConfig[1].forwardType);
-		rightWheelFPin = wheelConfig[1].forwardGPIOPin;
-		rightWheelBackward = getGPIOODRAddr(wheelConfig[1].backwardType);
-		rightWheelBPin = wheelConfig[1].backwardGPIOPin;
+		leftWheelForward = getGPIOODRAddr(wheelConfig[1].forwardType);
+		leftWheelFPin = wheelConfig[1].forwardGPIOPin;
+		leftWheelBackward = getGPIOODRAddr(wheelConfig[1].backwardType);
+		leftWheelBPin = wheelConfig[1].backwardGPIOPin;		
 	}
 	
 	
@@ -734,27 +734,27 @@
 	void SetPwmValue(int leftPwm,int rightPwm)
 	{
 		u8 forward = 1, backward = 0;
-		if(rightPwm < 0)
-		{
-			forward = 0;
-			backward = 1;
-			rightPwm *= -1;
-		}
-		BIT_ADDR(leftWheelForward,leftWheelFPin)=forward;
-		BIT_ADDR(leftWheelBackward,leftWheelBPin)=backward;		
-		TIM1->CCR1 = PwmExtremeValue(rightPwm);
-		
-		forward = 1;
-		backward = 0;	
 		if(leftPwm < 0)
 		{
 			forward = 0;
 			backward = 1;
 			leftPwm *= -1;
+		}
+		BIT_ADDR(leftWheelForward,leftWheelFPin)=forward;
+		BIT_ADDR(leftWheelBackward,leftWheelBPin)=backward;		
+		TIM1->CCR4 = PwmExtremeValue(leftPwm);
+		
+		forward = 1;
+		backward = 0;	
+		if(rightPwm < 0)
+		{
+			forward = 0;
+			backward = 1;
+			rightPwm *= -1;
 		}		
 		BIT_ADDR(rightWheelForward,rightWheelFPin)=forward;
 		BIT_ADDR(rightWheelBackward,rightWheelBPin)=backward;
-		TIM1->CCR4 = PwmExtremeValue(leftPwm);
+		TIM1->CCR1 = PwmExtremeValue(rightPwm);
 	}
 	
 	int PwmExtremeValue(int pwmValue)

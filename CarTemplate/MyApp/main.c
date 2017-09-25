@@ -26,7 +26,7 @@ int main(void)
 		{ChannelA,{15},1},
 	};
 	WheelGPIOInfo wheelGPIOConfig[2] = {
-		{ChannelC,9,ChannelC,8},
+		{ChannelC,8,ChannelC,9},
 		{ChannelA,15,ChannelC,12}
 	};
 	GPIOConfigStruct pwmGPIOConfig[1] = {

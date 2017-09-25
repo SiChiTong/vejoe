@@ -63,7 +63,8 @@
 	#define USE_TIMER_TICK
 	#include "Device.h"
 	
-	struct _PID_Info velocityPidInfo, currentPidInfo;
+	struct _PID_Info leftVelocityPidInfo, rightVelocityPidInfo;
+	struct _PID_Info leftCurrentPidInfo, rightCurrentPidInfo;
 	u16 onceStepLength, onceSecondsTime, currentTargetVelocity, currentTimeCount;
 	int currentChangeDirect, targetVelocity;
 	u8 speedSampleFre, speedSampleCount;
@@ -80,7 +81,8 @@
 		float tempKP = 0.2, tempKI = 0.01, tempKD = 0;
 		float tempUpper = 3000, tempLower = -3000;
 		
-		Config_PID(&velocityPidInfo, tempKP, tempKI,tempKD, tempUpper, tempLower);		
+		Config_PID(&leftVelocityPidInfo, tempKP, tempKI,tempKD, tempUpper, tempLower);		
+		Config_PID(&rightVelocityPidInfo, tempKP, tempKI,tempKD, tempUpper, tempLower);		
 		
 		Timer_Register(TIMER_3,keepVelocityStable);		
 	}	
@@ -101,8 +103,8 @@
 		leftSpeed = getHallChangeSpeed(HallEncoderLeftWheel);
 		rightSpeed = getHallChangeSpeed(HallEncoderRightWheel);
 		
-		leftPWM = Get_PID_Output(&velocityPidInfo, targetVelocity - leftSpeed);
-		rightPWM = Get_PID_Output(&velocityPidInfo, -1*targetVelocity - rightSpeed);//右轮编码器反向所以目标值取反
+		leftPWM = Get_PID_Output(&leftVelocityPidInfo, targetVelocity - leftSpeed);
+		rightPWM = Get_PID_Output(&rightVelocityPidInfo, -1 * targetVelocity - rightSpeed);//右轮编码器反向所以目标值取反
 		
 		SetPwmValue((int)leftPWM,(int)rightPWM);
 	}
@@ -131,7 +133,7 @@
 		currentTimeCount = 0;
 		currentChangeDirect = 1;
 		
-		if(velocityPidInfo._Kp  == 0 || velocityPidInfo._Kp == 0)
+		if(leftVelocityPidInfo._Kp  == 0 || rightVelocityPidInfo._Kp == 0)
 		{
 			velocityStableInitial(5,currentTargetVelocity);
 		}
@@ -145,7 +147,8 @@
 		float tempKP = 5, tempKI = 0.1, tempKD = 0.5;
 		float tempUpper = PWM_EXTREME_VALUE, tempLower = -PWM_EXTREME_VALUE;
 		
-		Config_PID(&currentPidInfo, tempKP, tempKI, tempKD, tempUpper, tempLower);
+		Config_PID(&leftCurrentPidInfo, tempKP, tempKI, tempKD, tempUpper, tempLower);
+		Config_PID(&rightCurrentPidInfo, tempKP, tempKI, tempKD, tempUpper, tempLower);
 	}
 	
 	//电流环
@@ -158,8 +161,8 @@
 		UpdateVolCurValue(1,2,3);
 		GetVolCurValue(&batteryVol,&leftCur,&rightCur);
 		
-		leftPWM = Get_PID_Output(&currentPidInfo, targetCurrent - leftCur);
-		rightPWM = Get_PID_Output(&currentPidInfo, targetCurrent - rightCur);
+		leftPWM = Get_PID_Output(&leftCurrentPidInfo, targetCurrent - leftCur);
+		rightPWM = Get_PID_Output(&rightCurrentPidInfo, targetCurrent - rightCur);
 		
 		SetPwmValue((int)leftPWM,(int)rightPWM);
 	}
