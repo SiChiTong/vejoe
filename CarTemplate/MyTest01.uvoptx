@@ -172,12 +172,12 @@
         <Ww>
           <count>0</count>
           <WinNumber>1</WinNumber>
-          <ItemText>hallSpeedArray</ItemText>
+          <ItemText>leftCurrent</ItemText>
         </Ww>
         <Ww>
           <count>1</count>
           <WinNumber>1</WinNumber>
-          <ItemText>pHallValue[0]</ItemText>
+          <ItemText>rightCurrent</ItemText>
         </Ww>
       </WatchWindow1>
       <MemoryWindow1>

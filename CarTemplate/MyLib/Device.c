@@ -581,6 +581,7 @@ void Enable_ADC(void)
 	ADC_Init(ADC1, &ADC_InitStructure); 	
 	for(UINT8 i = 0; i < _ADC_CH_Num; i++)  //set sample cycle.
 	{
+		//采样周期为239次计数采样一次，计数频率跟时钟有关（当前为72M），因此一毫秒采样72000/239=301次，即采样周期为3us
 		ADC_RegularChannelConfig(ADC1, _ADC_Info[i]._ADC_Channel, i + 1, ADC_SampleTime_239Cycles5);	
 	}
 

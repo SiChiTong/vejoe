@@ -7,7 +7,7 @@
 
 int main(void)
 {	
-	//
+	//失能JTAG调试模式（GPIOA的15口跟PWM复用）
 	RCC_APB2PeriphClockCmd(RCC_APB2Periph_AFIO,  ENABLE);
 	GPIO_PinRemapConfig(GPIO_Remap_SWJ_JTAGDisable, ENABLE);	
 	//每秒1000次中断（1ms一次）
