@@ -90,11 +90,15 @@
 	
 	void Filter16_Init(struct _Filter_Data16_EX *filterData, UINT8 type, UINT8 width);
 	UINT16 Filter16_GetValue(struct _Filter_Data16_EX *filterData, UINT16 data);
-	
+	//均值滤波
 	u8 averageFilterInitial(u8 filterWidowSize);
 	int averageFilter(u8 filterIdx, int newValue);
+	//权值滤波
 	u8 weightFilterInitial(u8 filterWidowSize);
 	int weightFilter(u8 filterIdx, int newValue);
+	//简化权值滤波
+	u8 weightSimpleFilterInitial(float ratio);
+	int weightSimpleFilter(u8 filterIdx, int newValue);
 #endif 
 //-----------------------End of USE_FILTER----------------------------------------		
 

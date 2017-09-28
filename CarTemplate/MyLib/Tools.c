@@ -4039,9 +4039,11 @@ void main()
 	#define FILTER_MAX_COUNT 16	//最大同时滤波容量
 	#define FILTER_MAX_WINDOW_SIZE 32	//滤波最大窗口
 	
-	static u8 weightCurrentIdx=0, averageCurrentIdx=0;
+	static u8 weightCurrentIdx=0, averageCurrentIdx=0, weightSimpleCurrentIdx = 0;
 	u8 weightwidowSize[FILTER_MAX_COUNT],averagewidowSize[FILTER_MAX_COUNT];
-	int weightDataArray[FILTER_MAX_COUNT][FILTER_MAX_WINDOW_SIZE],averageDataArray[FILTER_MAX_COUNT][FILTER_MAX_WINDOW_SIZE];
+	int weightDataArray[FILTER_MAX_COUNT][FILTER_MAX_WINDOW_SIZE],averageDataArray[FILTER_MAX_COUNT][FILTER_MAX_WINDOW_SIZE],weightSimpleDataArray[FILTER_MAX_COUNT];
+	float weightSimpleRatio[FILTER_MAX_COUNT];
+
 	void Filter16_Init(struct _Filter_Data16_EX *filterData, UINT8 type, UINT8 width)
 	{
 		filterData->_filter_type = type;
@@ -4066,7 +4068,7 @@ void main()
 		return 0;
 		
 		weightwidowSize[weightCurrentIdx] = filterWidowSize;
-		weightCurrentIdx = weightCurrentIdx + 1;
+		weightCurrentIdx += 1;
 		return weightCurrentIdx;
 	}
 	
@@ -4077,10 +4079,21 @@ void main()
 		return 0;
 		
 		averagewidowSize[averageCurrentIdx] = filterWidowSize;
-		averageCurrentIdx = averageCurrentIdx + 1;
+		averageCurrentIdx += 1;
 		return averageCurrentIdx;
 	}	
 
+	u8 weightSimpleFilterInitial(float ratio)
+	{		
+		if(weightSimpleCurrentIdx >= FILTER_MAX_COUNT ||
+			 ratio <= 0 || ratio >= 1)
+		return 0;
+		
+		weightSimpleRatio[weightSimpleCurrentIdx] = ratio;
+		weightSimpleCurrentIdx += 1;
+		return weightSimpleCurrentIdx;
+	}
+	
 	//权值滤波
 	//衰减率为1/2,即历史数据的权重衰减一半
 	int weightFilter(u8 filterIdx, int newValue)
@@ -4121,6 +4134,18 @@ void main()
 		}
 		filterResult /= widowSize;
 		return filterResult;
+	}
+	
+	//简化权值滤波
+	int weightSimpleFilter(u8 filterIdx, int newValue)
+	{
+		if(filterIdx <=0 || filterIdx > FILTER_MAX_COUNT) return -1;
+		
+		float tempRatio = weightSimpleRatio[filterIdx - 1];
+		int filterResult = tempRatio * newValue + (1-tempRatio) * weightSimpleDataArray[filterIdx - 1];
+		weightSimpleDataArray[filterIdx - 1] = filterResult;
+		
+		return filterResult;		
 	}
 	
 	//测试用例
