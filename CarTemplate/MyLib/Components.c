@@ -810,6 +810,8 @@
 	StructAdcDelayInfo adcDelayInfo[CHECK_COUNT];
 	u8 adcValueChannelIdx[ADC_VALUE_COUNT];
 	u8 delayIdCount = 0;
+	u8 leftCurrentFilterIdx, rightCurrentFilterIdx;
+	static u16 leftMotorZeroDriftValue, rightMotorZeroDriftValue ;
 	
 	void FilterADCValue(void)
 	{
@@ -948,13 +950,28 @@
 		g_check_info[1].current_adc = adcInfoArray.adcFilterResultValuesArray[rightCurIdx];
 	}
 	
+	void updateCurrentZeroDrift(u8 leftCurrentAdcIdx, u8 rightCurrentAdcIdx)
+	{
+		leftMotorZeroDriftValue = weightSimpleFilter(leftCurrentFilterIdx,adcInfoArray.adcSourceValuesArray[leftCurrentAdcIdx]);
+		rightMotorZeroDriftValue = weightSimpleFilter(rightCurrentFilterIdx,adcInfoArray.adcSourceValuesArray[rightCurrentAdcIdx]);
+	}
+	
+	void CurrentSampleInitital(void)
+	{
+		leftMotorZeroDriftValue = 1835;
+		rightMotorZeroDriftValue = 1404;
+		
+		leftCurrentFilterIdx = weightSimpleFilterInitial(0.05);
+		rightCurrentFilterIdx= weightSimpleFilterInitial(0.05);;
+	}
+	
 	void GetVolCurValue(u16 * batteryVoltage, u16 * leftCurrent, u16 * rightCurrent)
 	{
 		//电阻分压，具体根据原理图简单分析可以得到	
 		* batteryVoltage = g_check_info[0].voltage_adc * 1.692;// 3.3*21*100/4096;
 		
-		* leftCurrent = (g_check_info[0].current_adc - 1835) / 0.744 ; //AD采样中间值： 1824：1.47/3.3*4096 ；1402：1.13/3.3*4096
-		* rightCurrent = (g_check_info[1].current_adc - 1404) / 0.744 ;//电压AD值到电流的转换比：0.744：((0.01 * 6) / 3.3) *4096 / 1000; unit is mA.
+		* leftCurrent = (g_check_info[0].current_adc - leftMotorZeroDriftValue) / 0.744 ; //AD采样中间值： 1824：1.47/3.3*4096 ；1402：1.13/3.3*4096
+		* rightCurrent = (g_check_info[1].current_adc - rightMotorZeroDriftValue) / 0.744 ;//电压AD值到电流的转换比：0.744：((0.01 * 6) / 3.3) *4096 / 1000; unit is mA.
 	}
 	
 	void UpdateDelayIdFunction(u8 num, u8 *returnId)
@@ -990,7 +1007,7 @@
 			g_check_info[i].min_voltage = initialInfo[i].minWorkVoltage * initialInfo[i].voltageRatio * adcResolution / 3.3;
 			g_check_info[i].current_adc = 0;
 			g_check_info[i].current_error_time = 0;
-			g_check_info[i].stall_cmp = g_check_info[i].stall_current * 0.373; //默认0.744
+			g_check_info[i].stall_cmp = g_check_info[i].stall_current * 0.744;
 			UpdateDelayIdFunction(1, &g_check_info[i].offset_delay_id);
 		}
 		//初始化滤波器
@@ -1003,9 +1020,11 @@
 		{
 			g_check_info[i].weightFilterIdx = weightFilterInitial(ADC_BUF_SIZE);
 		}
-		//5ms为单位
+		//1ms为单位
 		Timer_Register(TIMER_3,AdcDelayTimerCheck);
 		Timer_Register(TIMER_3,AdcErrorTimerCheck);
+		//电流值的采样初始化
+		CurrentSampleInitital();
 	}
 	
 	void GeneralSafetyCheck(void)

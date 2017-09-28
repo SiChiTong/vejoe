@@ -15,6 +15,9 @@ typedef enum
 	//电机不转
 	MotorStopping,
 	
+	//电机工作
+	MotorWorking,
+	
 	//电机加速阶段
 	MotorAccelerate,
 	
@@ -30,7 +33,7 @@ typedef enum
 	void appVelocityStable(u8 sampleFrequence,int target);
 	void keepVelocityStable(void);
 	//电流环：左右轮子电机的电流保持不变
-	void appCurrentStable(u8 sampleFrequence, u8 target);
+	void appCurrentStable(u8 sampleFrequence, u8 target,u8 leftCurIdx, u8 rightCurIdx);
 	void keepCurrentStable(void);
 
 	//速度跳变计时器

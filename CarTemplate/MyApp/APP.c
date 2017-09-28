@@ -63,14 +63,17 @@
 	#define USE_TIMER_TICK
 	#include "Device.h"
 	
+	#define ZERO_DRIFT_CALC_COUNT	1000//零漂计算次数
+	
 	struct _PID_Info leftVelocityPidInfo, rightVelocityPidInfo;
 	struct _PID_Info leftCurrentPidInfo, rightCurrentPidInfo;
 	u16 onceStepLength, onceSecondsTime, currentTimeCount;
 	int currentChangeDirect, targetVelocity;
 	u8 speedSampleFre, speedSampleCount;
   u8 currentSampleFre, currentSampleCount,	targetCurrent;
-	
-	int speed;
+	u8 leftCurrentAdcIdx, rightCurrentAdcIdx;
+	enumMotorWorkingStatus currentDeviceStatus;
+	u16 zeroDriftCount;
 	
 	//速度环初始化
 	void appVelocityStable(u8 sampleFrequence,int target)
@@ -142,10 +145,12 @@
 	}
 		
 	//电流环初始化
-	void appCurrentStable(u8 sampleFrequence, u8 target)
+	void appCurrentStable(u8 sampleFrequence, u8 target,u8 leftCurIdx, u8 rightCurIdx)
 	{
 		targetCurrent = target;
 		currentSampleFre = sampleFrequence;
+		leftCurrentAdcIdx = leftCurIdx;
+		rightCurrentAdcIdx = rightCurIdx;
 		currentSampleCount = 0;
 		 
 		float tempKP = 0.5, tempKI = 0.03, tempKD = 0;
@@ -155,12 +160,27 @@
 		Config_PID(&leftCurrentPidInfo, tempKP, tempKI, tempKD, tempUpper, tempLower);
 		Config_PID(&rightCurrentPidInfo, tempKP, tempKI, tempKD, tempUpper, tempLower);
 		
+		currentDeviceStatus = MotorStopping;
+		
 		Timer_Register(TIMER_3,keepCurrentStable);		
 	}
 	
 	//电流环
 	void keepCurrentStable(void)
 	{
+		if(currentDeviceStatus == MotorStopping)
+		{
+			if(zeroDriftCount < ZERO_DRIFT_CALC_COUNT)
+			{
+				updateCurrentZeroDrift(leftCurrentAdcIdx,rightCurrentAdcIdx);
+				zeroDriftCount += 1;
+			}
+			else
+			{
+				zeroDriftCount = 0;
+				currentDeviceStatus = MotorWorking;
+			}
+		}
 		if(currentSampleCount < currentSampleFre)		
  		{		
  			currentSampleCount ++;		
@@ -188,7 +208,7 @@
 		appJumpVelocity(10,1000);
 		
 //		//速度环 PID （电流环类似）
-//		appVelocityStable(5,1000);		
+//		appVelocityStable(5,1000,2,3);		
 //		//电流环PID
 //		CurrentStableInitial();
 

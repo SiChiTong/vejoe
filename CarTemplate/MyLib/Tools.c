@@ -4152,16 +4152,18 @@ void main()
 	void TEST_Filter(void)
 	{
 		int filterTest[13] = {500,500,500,500,500,1100,500,500,500,100,500,500,500};
-		int averageResult[13],weightResult[13];
+		int averageResult[13],weightResult[13],weightSimpleResult[13];
 		u8 aIdx = averageFilterInitial(3);
 		u8 wIdx = weightFilterInitial(3);
+		u8 wsIdx = weightSimpleFilterInitial(0.8);
 		int clearWarnning=0;
 		for(int i=0;i<13;i++)
 		{
 			averageResult[i] = averageFilter(aIdx, filterTest[i]);
 			weightResult[i] = weightFilter(wIdx,filterTest[i]);
+			weightSimpleResult[i] = weightSimpleFilter(wsIdx,filterTest[i]);
 		}
-		clearWarnning = averageResult[0] + weightResult[0];
+		clearWarnning = averageResult[0] + weightResult[0] + weightSimpleResult[0];
 		clearWarnning = clearWarnning + 1;
 	}
 
