@@ -48,7 +48,7 @@ int main(void)
 		{2500,500,1400,0.001, 14, 9},
 		{2500,500,1400,0.001, 14, 9}
 	};
-	motorSafetyCheckInitital(motorSafeInfo,2);
+	motorSafetyCheckInitital(motorSafeInfo,2,1,2,3);
 	//采集通道数据
 	ReadOffsetCurrentValue(0, 2);
 	ReadOffsetCurrentValue(1, 3);	
@@ -70,7 +70,7 @@ int main(void)
 		showSpeedValue(speedLeft,speedRight);
 		//电机安全检测
 		FilterADCValue();
-		UpdateVolCurValue(1,2,3);
+		RefreshVolCurValue();
 		GeneralSafetyCheck();
 		//显示电流电压值
 		GetVolCurValue(&batteryVol,&leftCur,&rightCur);

@@ -79,6 +79,7 @@
 	typedef struct 
 	{
 		u8 index;
+		u8 batteryVoltageAdcIdx, leftCurrentAdcIdx, rightCurrentAdcIdx;
 		u8 weightFilterIdxArray[ADC_VALUE_COUNT];
 		u8 averageFilterIdxArray[ADC_VALUE_COUNT];
 		u16  adcSourceValuesArray[ADC_VALUE_COUNT];
@@ -161,10 +162,10 @@
 	
 	void FilterADCValue(void);
 	void GetVolCurValue(u16 * batteryVoltage, u16 * leftCurrent, u16 * rightCurrent);
-	void UpdateVolCurValue(u8 voltIdx, u8 leftCurIdx,u8 rightCurIdx);
-	void updateCurrentZeroDrift(u8 leftCurrentAdcIdx, u8 rightCurrentAdcIdx);
+	void RefreshVolCurValue(void);
+	void RefreshCurrentZeroDriftValue(void);
 	void ReadOffsetCurrentValue(u8 chkIdx,u8 adcInfoIdx);
-	void motorSafetyCheckInitital(StructMotorSafeInfo initialInfo[],u8 infoCount);
+	void motorSafetyCheckInitital(StructMotorSafeInfo initialInfo[],u8 infoCount,u8 batteryVolIdx,u8 leftCurIdx, u8 rightCurIdx);
 	void GeneralSafetyCheck(void);
 #endif
 //-----------------------end of 设备安全检查 ------------------------------------------------------

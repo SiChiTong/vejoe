@@ -810,7 +810,6 @@
 	StructAdcDelayInfo adcDelayInfo[CHECK_COUNT];
 	u8 adcValueChannelIdx[ADC_VALUE_COUNT];
 	u8 delayIdCount = 0;
-	u8 leftCurrentFilterIdx, rightCurrentFilterIdx;
 	static u16 leftMotorZeroDriftValue, rightMotorZeroDriftValue ;
 	
 	void FilterADCValue(void)
@@ -819,8 +818,16 @@
 		for(i=0;i<ADC_VALUE_COUNT;i+=1)
 		{
 			adcInfoArray.adcSourceValuesArray[i] = Get_ADC_Value(i);
-			adcInfoArray.adcWeightFilterValuesArray[i] = weightFilter(adcInfoArray.weightFilterIdxArray[i],adcInfoArray.adcSourceValuesArray[i]);
-			adcInfoArray.adcFilterResultValuesArray[i] = averageFilter(adcInfoArray.averageFilterIdxArray[i],adcInfoArray.adcWeightFilterValuesArray[i]);
+			if(i == adcInfoArray.leftCurrentAdcIdx || i == adcInfoArray.rightCurrentAdcIdx)
+			{
+				adcInfoArray.adcWeightFilterValuesArray[i] = weightSimpleFilter(adcInfoArray.weightFilterIdxArray[i],adcInfoArray.adcSourceValuesArray[i]);
+				adcInfoArray.adcFilterResultValuesArray[i] = adcInfoArray.adcWeightFilterValuesArray[i];
+			}
+			else
+			{
+				adcInfoArray.adcWeightFilterValuesArray[i] = weightFilter(adcInfoArray.weightFilterIdxArray[i],adcInfoArray.adcSourceValuesArray[i]);
+				adcInfoArray.adcFilterResultValuesArray[i] = averageFilter(adcInfoArray.averageFilterIdxArray[i],adcInfoArray.adcWeightFilterValuesArray[i]);
+			}
 		}
 	}
 	
@@ -941,28 +948,24 @@
 		
 	}
 	
-	void UpdateVolCurValue(u8 voltIdx, u8 leftCurIdx,u8 rightCurIdx)
+	void RefreshVolCurValue(void)
 	{
-		g_check_info[1].voltage_adc = adcInfoArray.adcFilterResultValuesArray[voltIdx];
-		g_check_info[0].voltage_adc = adcInfoArray.adcFilterResultValuesArray[voltIdx];
+		g_check_info[1].voltage_adc = adcInfoArray.adcFilterResultValuesArray[adcInfoArray.batteryVoltageAdcIdx];
+		g_check_info[0].voltage_adc = adcInfoArray.adcFilterResultValuesArray[adcInfoArray.batteryVoltageAdcIdx];
 		
-		g_check_info[0].current_adc = adcInfoArray.adcFilterResultValuesArray[leftCurIdx];		
-		g_check_info[1].current_adc = adcInfoArray.adcFilterResultValuesArray[rightCurIdx];
+		g_check_info[0].current_adc = adcInfoArray.adcFilterResultValuesArray[adcInfoArray.leftCurrentAdcIdx];		
+		g_check_info[1].current_adc = adcInfoArray.adcFilterResultValuesArray[adcInfoArray.rightCurrentAdcIdx];
 	}
 	
-	void updateCurrentZeroDrift(u8 leftCurrentAdcIdx, u8 rightCurrentAdcIdx)
+	void RefreshCurrentZeroDriftValue(void)
 	{
-		leftMotorZeroDriftValue = weightSimpleFilter(leftCurrentFilterIdx,adcInfoArray.adcSourceValuesArray[leftCurrentAdcIdx]);
-		rightMotorZeroDriftValue = weightSimpleFilter(rightCurrentFilterIdx,adcInfoArray.adcSourceValuesArray[rightCurrentAdcIdx]);
-	}
-	
-	void CurrentSampleInitital(void)
-	{
-		leftMotorZeroDriftValue = 1835;
-		rightMotorZeroDriftValue = 1404;
+		leftMotorZeroDriftValue = weightSimpleFilter(adcInfoArray.weightFilterIdxArray[adcInfoArray.leftCurrentAdcIdx],
+				adcInfoArray.adcSourceValuesArray[adcInfoArray.leftCurrentAdcIdx]);
+		adcInfoArray.adcSourceValuesArray[adcInfoArray.leftCurrentAdcIdx] = leftMotorZeroDriftValue;
 		
-		leftCurrentFilterIdx = weightSimpleFilterInitial(0.05);
-		rightCurrentFilterIdx= weightSimpleFilterInitial(0.05);;
+		rightMotorZeroDriftValue = weightSimpleFilter(adcInfoArray.weightFilterIdxArray[adcInfoArray.rightCurrentAdcIdx],
+				adcInfoArray.adcSourceValuesArray[adcInfoArray.rightCurrentAdcIdx]);
+		adcInfoArray.adcSourceValuesArray[adcInfoArray.rightCurrentAdcIdx] = rightMotorZeroDriftValue;
 	}
 	
 	void GetVolCurValue(u16 * batteryVoltage, u16 * leftCurrent, u16 * rightCurrent)
@@ -991,9 +994,13 @@
 		}
 	}
 	
-	void motorSafetyCheckInitital(StructMotorSafeInfo initialInfo[],u8 infoCount)
+	void motorSafetyCheckInitital(StructMotorSafeInfo initialInfo[],u8 infoCount,u8 batteryVolIdx,u8 leftCurIdx, u8 rightCurIdx)
 	{
 		if(infoCount > CHECK_COUNT) return;
+		adcInfoArray.batteryVoltageAdcIdx = batteryVolIdx;
+		adcInfoArray.leftCurrentAdcIdx = leftCurIdx;
+		adcInfoArray.rightCurrentAdcIdx = rightCurIdx;
+		
 		u16 adcResolution = ADC_RESOLUTION_10;
 		#ifdef	ADC_12_BIT
 		adcResolution = ADC_RESOLUTION_12;
@@ -1012,9 +1019,16 @@
 		}
 		//初始化滤波器
 		for(u8 i=0;i<ADC_VALUE_COUNT;i++)
-		{	
-			adcInfoArray.weightFilterIdxArray[i] = weightFilterInitial(16);
-			adcInfoArray.averageFilterIdxArray[i] = averageFilterInitial(32);
+		{
+			if(i == adcInfoArray.leftCurrentAdcIdx || i == adcInfoArray.rightCurrentAdcIdx)
+			{
+				adcInfoArray.weightFilterIdxArray[i] = weightSimpleFilterInitial(0.05);
+			}
+			else
+			{
+				adcInfoArray.weightFilterIdxArray[i] = weightFilterInitial(16);
+				adcInfoArray.averageFilterIdxArray[i] = averageFilterInitial(32);
+			}
 		}
 		for(u8 i=0;i<CHECK_COUNT;i++)
 		{
@@ -1024,7 +1038,8 @@
 		Timer_Register(TIMER_3,AdcDelayTimerCheck);
 		Timer_Register(TIMER_3,AdcErrorTimerCheck);
 		//电流值的采样初始化
-		CurrentSampleInitital();
+		leftMotorZeroDriftValue = 1835;
+		rightMotorZeroDriftValue = 1404;
 	}
 	
 	void GeneralSafetyCheck(void)
@@ -1078,7 +1093,7 @@
 			{2500,500,1400,0.001, 14, 9},
 			{2500,500,1400,0.001, 14, 9}
 		};
-		motorSafetyCheckInitital(motorSafeInfo,2);
+		motorSafetyCheckInitital(motorSafeInfo,2,1,2,3);
 		//采集通道数据
 		ReadOffsetCurrentValue(0, 2);
 		ReadOffsetCurrentValue(1, 3);
@@ -1088,7 +1103,7 @@
 		{		
 			//电机安全检测
 			FilterADCValue();
-			UpdateVolCurValue(1,3,2);
+			RefreshVolCurValue();
 			GeneralSafetyCheck();
 			//显示电流电压值
 			GetVolCurValue(&batteryVol,&leftCur,&rightCur);

@@ -172,7 +172,7 @@
 		{
 			if(zeroDriftCount < ZERO_DRIFT_CALC_COUNT)
 			{
-				updateCurrentZeroDrift(leftCurrentAdcIdx,rightCurrentAdcIdx);
+				RefreshCurrentZeroDriftValue();
 				zeroDriftCount += 1;
 			}
 			else
@@ -191,9 +191,8 @@
 		u16 batteryVol, leftCur, rightCur;
 		float leftPWM, rightPWM;
 		
-		//主程序循环中，已经做了这两件耗时的事情
-//		FilterADCValue();
-//		UpdateVolCurValue(1,3,2);
+		FilterADCValue();
+		RefreshVolCurValue();
 		GetVolCurValue(&batteryVol,&leftCur,&rightCur);
 		
 		leftPWM = Get_PID_Output(&leftCurrentPidInfo, targetCurrent - leftCur);
