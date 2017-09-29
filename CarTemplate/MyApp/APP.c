@@ -63,7 +63,7 @@
 	#define USE_TIMER_TICK
 	#include "Device.h"
 	
-	#define ZERO_DRIFT_CALC_COUNT	1000//零漂计算次数
+	#define ZERO_DRIFT_CALC_COUNT	10000//零漂计算次数(ms为单位)
 	
 	struct _PID_Info leftVelocityPidInfo, rightVelocityPidInfo;
 	struct _PID_Info leftCurrentPidInfo, rightCurrentPidInfo;
@@ -145,12 +145,10 @@
 	}
 		
 	//电流环初始化
-	void appCurrentStable(u8 sampleFrequence, u8 target,u8 leftCurIdx, u8 rightCurIdx)
+	void appCurrentStable(u8 sampleFrequence, u8 target)
 	{
 		targetCurrent = target;
 		currentSampleFre = sampleFrequence;
-		leftCurrentAdcIdx = leftCurIdx;
-		rightCurrentAdcIdx = rightCurIdx;
 		currentSampleCount = 0;
 		 
 		float tempKP = 0.5, tempKI = 0.03, tempKD = 0;
@@ -180,6 +178,8 @@
 				zeroDriftCount = 0;
 				currentDeviceStatus = MotorWorking;
 			}
+			SetPwmValue(0,0);
+			return;
 		}
 		if(currentSampleCount < currentSampleFre)		
  		{		
@@ -189,7 +189,7 @@
  		currentSampleCount = 0;	
 		
 		u16 batteryVol, leftCur, rightCur;
-		float leftPWM, rightPWM;
+		static float leftPWM, rightPWM;
 		
 		FilterADCValue();
 		RefreshVolCurValue();
@@ -197,6 +197,12 @@
 		
 		leftPWM = Get_PID_Output(&leftCurrentPidInfo, targetCurrent - leftCur);
 		rightPWM = Get_PID_Output(&rightCurrentPidInfo, targetCurrent - rightCur);
+//		if(targetCurrent - leftCur >= 3)
+//			leftPWM ++;
+//		else if(targetCurrent - leftCur <= -3)
+//			leftPWM --;
+//		leftPWM = 3000;
+//		rightPWM = 0;
 		
 		SetPwmValue((int)leftPWM,(int)rightPWM);
 	}

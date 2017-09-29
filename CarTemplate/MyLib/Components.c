@@ -810,7 +810,7 @@
 	StructAdcDelayInfo adcDelayInfo[CHECK_COUNT];
 	u8 adcValueChannelIdx[ADC_VALUE_COUNT];
 	u8 delayIdCount = 0;
-	static u16 leftMotorZeroDriftValue, rightMotorZeroDriftValue ;
+	static float leftMotorZeroDriftValue, rightMotorZeroDriftValue ;
 	
 	void FilterADCValue(void)
 	{
@@ -960,11 +960,11 @@
 	void RefreshCurrentZeroDriftValue(void)
 	{
 		leftMotorZeroDriftValue = weightSimpleFilter(adcInfoArray.weightFilterIdxArray[adcInfoArray.leftCurrentAdcIdx],
-				adcInfoArray.adcSourceValuesArray[adcInfoArray.leftCurrentAdcIdx]);
+				Get_ADC_Value(adcInfoArray.leftCurrentAdcIdx));
 		adcInfoArray.adcSourceValuesArray[adcInfoArray.leftCurrentAdcIdx] = leftMotorZeroDriftValue;
 		
 		rightMotorZeroDriftValue = weightSimpleFilter(adcInfoArray.weightFilterIdxArray[adcInfoArray.rightCurrentAdcIdx],
-				adcInfoArray.adcSourceValuesArray[adcInfoArray.rightCurrentAdcIdx]);
+				Get_ADC_Value(adcInfoArray.rightCurrentAdcIdx));
 		adcInfoArray.adcSourceValuesArray[adcInfoArray.rightCurrentAdcIdx] = rightMotorZeroDriftValue;
 	}
 	
@@ -1022,7 +1022,7 @@
 		{
 			if(i == adcInfoArray.leftCurrentAdcIdx || i == adcInfoArray.rightCurrentAdcIdx)
 			{
-				adcInfoArray.weightFilterIdxArray[i] = weightSimpleFilterInitial(0.05);
+				adcInfoArray.weightFilterIdxArray[i] = weightSimpleFilterInitial(0.01);
 			}
 			else
 			{
@@ -1039,7 +1039,7 @@
 		Timer_Register(TIMER_3,AdcErrorTimerCheck);
 		//电流值的采样初始化
 		leftMotorZeroDriftValue = 1835;
-		rightMotorZeroDriftValue = 1404;
+		rightMotorZeroDriftValue = 1400;
 	}
 	
 	void GeneralSafetyCheck(void)

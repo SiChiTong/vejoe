@@ -40,6 +40,12 @@ void updateEcoderDelta(void)
 **************************************************************************/
 int EXTI2_IRQHandler(void) 
 {    
+	//////////////
+	Set_Pwm(3000,0);	
+	EXTI_ClearITPendingBit(EXTI_Line2);  //清除中断标志位     
+	return 0;
+	//////////////
+	
 	if(INT==0)		
 	{   
 		EXTI_ClearITPendingBit(EXTI_Line2);  //清除中断标志位                                  
@@ -80,7 +86,7 @@ int EXTI2_IRQHandler(void)
 		if(Turn_Off(Angle_Balance,Voltage)==0)                              //===如果不存在异常
 		Set_Pwm(Moto1,Moto2);                                               //===赋值给PWM寄存器  
 
-	}       	
+	}       
 	return 0;	  
 } 
 

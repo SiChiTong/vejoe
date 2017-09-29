@@ -98,7 +98,7 @@
 	int weightFilter(u8 filterIdx, int newValue);
 	//简化权值滤波
 	u8 weightSimpleFilterInitial(float ratio);//最新值有有效比例
-	int weightSimpleFilter(u8 filterIdx, int newValue);
+	float weightSimpleFilter(u8 filterIdx, float newValue);
 #endif 
 //-----------------------End of USE_FILTER----------------------------------------		
 

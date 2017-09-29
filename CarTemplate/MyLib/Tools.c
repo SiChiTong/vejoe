@@ -4041,8 +4041,8 @@ void main()
 	
 	static u8 weightCurrentIdx=0, averageCurrentIdx=0, weightSimpleCurrentIdx = 0;
 	u8 weightwidowSize[FILTER_MAX_COUNT],averagewidowSize[FILTER_MAX_COUNT];
-	int weightDataArray[FILTER_MAX_COUNT][FILTER_MAX_WINDOW_SIZE],averageDataArray[FILTER_MAX_COUNT][FILTER_MAX_WINDOW_SIZE],weightSimpleDataArray[FILTER_MAX_COUNT];
-	float weightSimpleRatio[FILTER_MAX_COUNT];
+	int weightDataArray[FILTER_MAX_COUNT][FILTER_MAX_WINDOW_SIZE],averageDataArray[FILTER_MAX_COUNT][FILTER_MAX_WINDOW_SIZE];
+	float weightSimpleRatio[FILTER_MAX_COUNT], weightSimpleDataArray[FILTER_MAX_COUNT];
 
 	void Filter16_Init(struct _Filter_Data16_EX *filterData, UINT8 type, UINT8 width)
 	{
@@ -4137,12 +4137,12 @@ void main()
 	}
 	
 	//¼ò»¯È¨ÖµÂË²¨
-	int weightSimpleFilter(u8 filterIdx, int newValue)
+	float weightSimpleFilter(u8 filterIdx, float newValue)
 	{
 		if(filterIdx <=0 || filterIdx > FILTER_MAX_COUNT) return -1;
 		
 		float tempRatio = weightSimpleRatio[filterIdx - 1];
-		int filterResult = tempRatio * newValue + (1-tempRatio) * weightSimpleDataArray[filterIdx - 1];
+		float filterResult = tempRatio * newValue + (1-tempRatio) * weightSimpleDataArray[filterIdx - 1];
 		weightSimpleDataArray[filterIdx - 1] = filterResult;
 		
 		return filterResult;		

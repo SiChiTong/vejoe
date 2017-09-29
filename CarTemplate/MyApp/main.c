@@ -48,12 +48,12 @@ int main(void)
 		{2500,500,1400,0.001, 14, 9},
 		{2500,500,1400,0.001, 14, 9}
 	};
-	motorSafetyCheckInitital(motorSafeInfo,2,1,2,3);
+	motorSafetyCheckInitital(motorSafeInfo,2,1,3,2);
 	//采集通道数据
 	ReadOffsetCurrentValue(0, 2);
 	ReadOffsetCurrentValue(1, 3);	
 	//速度环 PID （电流环类似）
-	appCurrentStable(5,15,2,3);	
+	appCurrentStable(1,30);	
 	//局部变量
 	int encoderLeft, encoderRight, speedLeft, speedRight;
 	u16 batteryVol, leftCur, rightCur;
