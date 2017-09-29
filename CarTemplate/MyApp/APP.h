@@ -25,7 +25,10 @@ typedef enum
 	MotorKeepSpeed,
 	
 	//电机减速阶段
-	MotorDecelerate
+	MotorDecelerate,
+	
+	//位置环中结束速度环
+	MotorFinishVelocityPID
 }enumMotorWorkingStatus;
 
 	//速度环：左右轮子同时维持一个固定的速度不变
@@ -35,6 +38,9 @@ typedef enum
 	//电流环：左右轮子电机的电流保持不变
 	void appCurrentStable(u8 sampleFrequence, u8 target);
 	void keepCurrentStable(void);
+	//位置环：左右轮子运动同样的距离
+	void appLocationStable(int target);
+	void keepLocationStable(void);
 
 	//速度跳变计时器
 	void jumpVelocityTimer(void);	
