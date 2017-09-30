@@ -53,7 +53,7 @@ int main(void)
 	ReadOffsetCurrentValue(0, 2);
 	ReadOffsetCurrentValue(1, 3);	
 	// PID 控制
-	appLocationStable(20000);	
+	appLocationStable(-20000,15000);	
 	//局部变量
 	int encoderLeft, encoderRight, speedLeft, speedRight;
 	u16 batteryVol, leftCur, rightCur;

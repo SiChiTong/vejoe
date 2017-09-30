@@ -39,7 +39,7 @@ typedef enum
 	void appCurrentStable(u8 sampleFrequence, u8 target);
 	void keepCurrentStable(void);
 	//位置环：左右轮子运动同样的距离
-	void appLocationStable(int target);
+	void appLocationStable(int targetLeft,int targetRight);
 	void keepLocationStable(void);
 
 	//速度跳变计时器

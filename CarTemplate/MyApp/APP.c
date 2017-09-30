@@ -65,7 +65,6 @@
 	#define MAX_SPPED_FOR_LOCATION	3000//位置环的最大速度
 	#define ACCELERATE_EACH_INTERVAL   5//加速度：5ms的加速单位
 	#define ACCELERATE_TIME_INTERVAL   5//加速时间间隔（ms）
-	#define TARGET_LOCATION				 20000//目标距离
 	#define END_LOCATION_LAST				 500//剩余指定长度时停止速度环调控
 	#define LOCATION_FINISH_BOUNDRAY 5//位置环最后误差范围
 	#define END_LOCATION_VELOCITY		 20//剩余指定长度时速度
@@ -83,6 +82,7 @@
 	u16 startLocationLeftValue, startLocationRightValue;  //位置环：启动时的左右轮子的初始位置
 	int targetLocationLeftValue, targetLocationRightValue;//位置环：左右轮子的目标位置
 	int velocityLocationLeft, velocityLocationRight;			//位置环：左右轮子的速度
+	int velocityLocLeftDirect, velocityLocRightDirect;		//位置环：左右轮子转动方向
 	u16 locIntevalCount;	//位置环时钟计时变量
 	u16 locationMaxLength;//位置环加减速最长距离
 	
@@ -219,12 +219,16 @@
 	}
 	
 	//位置环
-	void appLocationStable(int target)
-	{
+	void appLocationStable(int targetLeft,int targetRight)
+	{//目标和速度的方向只用于最终控制，因此仅在初始化和最终控制时候设置方向
+	 //值的计算和状态的判断都用正数，因此中间判断都用绝对值
 		startLocationLeftValue = Read_ABS_Value(HallEncoderLeftWheel);
 		startLocationRightValue = Read_ABS_Value(HallEncoderRightWheel);
-		targetLocationLeftValue = startLocationLeftValue + target;
-		targetLocationRightValue = startLocationRightValue + target;
+		targetLocationLeftValue = startLocationLeftValue + targetLeft;
+		targetLocationRightValue = startLocationRightValue + (-1) * targetRight;//右轮编码器负值为前
+		velocityLocLeftDirect = targetLeft>0?1:-1;
+		velocityLocRightDirect = targetRight>0?-1:1;
+		
 		locIntevalCount = 0;
 		locationMaxLength = (MAX_SPPED_FOR_LOCATION * (MAX_SPPED_FOR_LOCATION/1000/(ACCELERATE_EACH_INTERVAL/ACCELERATE_TIME_INTERVAL))) >> 1;
 				
@@ -239,14 +243,21 @@
 		Timer_Register(TIMER_3,keepLocationStable);		
 	}
 	
+	int abs(int number)
+	{
+		if(number < 0)
+			return -1*number;
+		else return number;
+	}
+	
 	void _keepLocationStableAccelerate(int startValue,int targetValue, int currentValue, int *nextVelocity, enumMotorWorkingStatus *nextStatus)
 	{
-		if(targetValue - currentValue <= currentValue - startValue)
+		if(abs(targetValue - currentValue) <= abs(currentValue - startValue))
 		{//剩余距离只需要减速即可到达
 			*nextVelocity -= ACCELERATE_EACH_INTERVAL;
 			*nextStatus = MotorDecelerate;
 		}
-		else if(*nextVelocity + ACCELERATE_EACH_INTERVAL < MAX_SPPED_FOR_LOCATION)
+		else if(abs(*nextVelocity + ACCELERATE_EACH_INTERVAL) < MAX_SPPED_FOR_LOCATION)
 		{//加速阶段
 			*nextVelocity += ACCELERATE_EACH_INTERVAL;
 		}
@@ -259,7 +270,7 @@
 	
 	void _keepLocationStableKeepSpeed(int targetValue, int currentValue,int *nextVelocity, enumMotorWorkingStatus *nextStatus)
 	{
-		if(targetValue - currentValue <= locationMaxLength)
+		if(abs(targetValue - currentValue) <= locationMaxLength)
 		{//匀速运动到达减速点
 			*nextVelocity -= ACCELERATE_EACH_INTERVAL;
 			*nextStatus = MotorDecelerate;
@@ -268,7 +279,7 @@
 	
 	void _keepLocationStableDecelerate(int targetValue, int currentValue,int *nextVelocity, enumMotorWorkingStatus *nextStatus)
 	{
-		if(targetValue - currentValue <= END_LOCATION_LAST)
+		if(abs(targetValue - currentValue) <= END_LOCATION_LAST)
 		{//到达最后的小区间
 			*nextStatus = MotorFinishVelocityPID;
 		}
@@ -280,7 +291,7 @@
 	
 	void _keepLocationStableFinishVelocity(int targetValue, int currentValue,int *nextVelocity, enumMotorWorkingStatus *nextStatus)
 	{
-		if(targetValue - currentValue <= LOCATION_FINISH_BOUNDRAY)
+		if(abs(targetValue - currentValue) <= LOCATION_FINISH_BOUNDRAY)
 		{//到达边界值停止运动
 			*nextVelocity = 0;
 			*nextStatus = MotorStopping;
@@ -315,20 +326,20 @@
 	{
 		int leftSpeed, rightSpeed;
 		float leftPWM, rightPWM;
-		if(currentVelocityLeft > 0)
+		if(abs(currentVelocityLeft) > 0)
 		{
 			leftSpeed = getHallChangeSpeed(HallEncoderLeftWheel);
-			leftPWM = Get_PID_Output(&leftLocationPidInfo, currentVelocityLeft - leftSpeed);
+			leftPWM = Get_PID_Output(&leftLocationPidInfo, velocityLocLeftDirect * currentVelocityLeft - leftSpeed);
 		}
 		else
 		{
 			leftPWM = 0;
 		}
 		
-		if(currentVelocityRight > 0)
+		if(abs(currentVelocityRight) > 0)
 		{
 			rightSpeed = getHallChangeSpeed(HallEncoderRightWheel);		
-			rightPWM = Get_PID_Output(&rightLocationPidInfo, currentVelocityRight - rightSpeed);
+			rightPWM = Get_PID_Output(&rightLocationPidInfo,velocityLocRightDirect * currentVelocityRight - rightSpeed);
 		}
 		else
 		{
@@ -357,10 +368,12 @@
 		//速度跳变应用
 		appJumpVelocity(10,1000);
 		
-//		//速度环 PID （电流环类似）
+//		//速度环 PID 
 //		appVelocityStable(5,1000,2,3);		
 //		//电流环PID
 //		CurrentStableInitial();
+//		//位置环 PID
+//		appLocationStable(-20000,15000);	
 
 	}
 #endif
