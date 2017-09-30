@@ -82,7 +82,7 @@
 	u16 zeroDriftCount;
 	u16 startLocationLeftValue, startLocationRightValue;  //位置环：启动时的左右轮子的初始位置
 	int targetLocationLeftValue, targetLocationRightValue;//位置环：左右轮子的目标位置
-	int velecityLocationLeft, velecityLocationRight;			//位置环：左右轮子的速度
+	int velocityLocationLeft, velocityLocationRight;			//位置环：左右轮子的速度
 	u16 locIntevalCount;	//位置环时钟计时变量
 	u16 locationMaxLength;//位置环加减速最长距离
 	
@@ -224,7 +224,7 @@
 		startLocationLeftValue = Read_ABS_Value(HallEncoderLeftWheel);
 		startLocationRightValue = Read_ABS_Value(HallEncoderRightWheel);
 		targetLocationLeftValue = startLocationLeftValue + target;
-		startLocationRightValue = startLocationRightValue + target;
+		targetLocationRightValue = startLocationRightValue + target;
 		locIntevalCount = 0;
 		locationMaxLength = (MAX_SPPED_FOR_LOCATION * (MAX_SPPED_FOR_LOCATION/1000/(ACCELERATE_EACH_INTERVAL/ACCELERATE_TIME_INTERVAL))) >> 1;
 				
@@ -234,6 +234,7 @@
 		Config_PID(&rightLocationPidInfo, tempKP, tempKI,tempKD, tempUpper, tempLower);	
 		
 		currentLeftStatus = MotorAccelerate;
+		currentRightStatus = MotorAccelerate;
 		
 		Timer_Register(TIMER_3,keepLocationStable);		
 	}
@@ -246,14 +247,94 @@
 			*nextStatus = MotorDecelerate;
 		}
 		else if(*nextVelocity + ACCELERATE_EACH_INTERVAL < MAX_SPPED_FOR_LOCATION)
-		{
+		{//加速阶段
 			*nextVelocity += ACCELERATE_EACH_INTERVAL;
 		}
 		else
-		{
+		{//加速到了极限
 			*nextVelocity = MAX_SPPED_FOR_LOCATION;
 			*nextStatus = MotorKeepSpeed;
 		}
+	}
+	
+	void _keepLocationStableKeepSpeed(int targetValue, int currentValue,int *nextVelocity, enumMotorWorkingStatus *nextStatus)
+	{
+		if(targetValue - currentValue <= locationMaxLength)
+		{//匀速运动到达减速点
+			*nextVelocity -= ACCELERATE_EACH_INTERVAL;
+			*nextStatus = MotorDecelerate;
+		}
+	}
+	
+	void _keepLocationStableDecelerate(int targetValue, int currentValue,int *nextVelocity, enumMotorWorkingStatus *nextStatus)
+	{
+		if(targetValue - currentValue <= END_LOCATION_LAST)
+		{//到达最后的小区间
+			*nextStatus = MotorFinishVelocityPID;
+		}
+		else
+		{//减速阶段
+			*nextVelocity -= ACCELERATE_EACH_INTERVAL;
+		}
+	}
+	
+	void _keepLocationStableFinishVelocity(int targetValue, int currentValue,int *nextVelocity, enumMotorWorkingStatus *nextStatus)
+	{
+		if(targetValue - currentValue <= LOCATION_FINISH_BOUNDRAY)
+		{//到达边界值停止运动
+			*nextVelocity = 0;
+			*nextStatus = MotorStopping;
+		}
+		else
+		{//最后阶段低速匀速运动
+			*nextVelocity = END_LOCATION_VELOCITY;
+		}
+	}
+	
+	void _keepLocationStableWorking(int startValue,int targetValue, int currentValue, int *nextVelocity, enumMotorWorkingStatus *nextStatus)
+	{
+		switch(*nextStatus)
+		{
+			case MotorAccelerate:
+				_keepLocationStableAccelerate(startValue,targetValue,currentValue,nextVelocity,nextStatus);
+			break;
+			case MotorKeepSpeed:
+				_keepLocationStableKeepSpeed(targetValue,currentValue,nextVelocity,nextStatus);
+			break;
+			case MotorDecelerate:
+				_keepLocationStableDecelerate(targetValue,currentValue,nextVelocity,nextStatus);
+			break;
+			case MotorFinishVelocityPID:
+				_keepLocationStableFinishVelocity(targetValue,currentValue,nextVelocity,nextStatus);
+			break;
+			default:break;
+		}
+	}
+	
+	void _keepLocationStableVelocityPID(int currentVelocityLeft,int currentVelocityRight)
+	{
+		int leftSpeed, rightSpeed;
+		float leftPWM, rightPWM;
+		if(currentVelocityLeft > 0)
+		{
+			leftSpeed = getHallChangeSpeed(HallEncoderLeftWheel);
+			leftPWM = Get_PID_Output(&leftLocationPidInfo, currentVelocityLeft - leftSpeed);
+		}
+		else
+		{
+			leftPWM = 0;
+		}
+		
+		if(currentVelocityRight > 0)
+		{
+			rightSpeed = getHallChangeSpeed(HallEncoderRightWheel);		
+			rightPWM = Get_PID_Output(&rightLocationPidInfo, currentVelocityRight - rightSpeed);
+		}
+		else
+		{
+			rightPWM = 0;
+		}
+		SetPwmValue((int)leftPWM,(int)rightPWM);
 	}
 	
 	void keepLocationStable(void)
@@ -266,82 +347,9 @@
 		locIntevalCount=0;
 		
 		int tempLeftValue = Read_ABS_Value(HallEncoderLeftWheel),tempRightValue = Read_ABS_Value(HallEncoderRightWheel);
-		switch(currentLeftStatus)
-		{
-			case MotorAccelerate:
-				_keepLocationStableAccelerate(startLocationLeftValue,targetLocationLeftValue,tempLeftValue,&velecityLocationLeft,&currentLeftStatus);
-				_keepLocationStableAccelerate(startLocationRightValue,targetLocationRightValue,tempRightValue,&velecityLocationRight,&currentRightStatus);
-			break;
-			case MotorKeepSpeed:
-				
-			break;
-			case MotorDecelerate:break;
-			case MotorFinishVelocityPID:break;
-			default:break;
-		}
-		if(currentLeftStatus == MotorAccelerate)
-		{
-			if(targetLocationLeftValue - tempLeftValue <= tempLeftValue - startLocationLeftValue)
-			{//剩余距离只需要减速即可到达
-				velecityLocationLeft -= ACCELERATE_EACH_INTERVAL;
-				currentLeftStatus = MotorDecelerate;
-			}
-			else if(velecityLocationLeft + ACCELERATE_EACH_INTERVAL < MAX_SPPED_FOR_LOCATION)
-			{
-				velecityLocationLeft += ACCELERATE_EACH_INTERVAL;
-			}
-			else
-			{
-				velecityLocationLeft = MAX_SPPED_FOR_LOCATION;
-				currentLeftStatus = MotorKeepSpeed;
-			}
-		}
-		else if(currentLeftStatus == MotorKeepSpeed)
-		{
-			if(targetLocationLeftValue - tempLeftValue <= locationMaxLength)
-			{				
-				velecityLocationLeft -= ACCELERATE_EACH_INTERVAL;
-				currentLeftStatus = MotorDecelerate;
-			}
-		}
-		else if(currentLeftStatus == MotorDecelerate)
-		{
-			if(targetLocationLeftValue - tempLeftValue <= END_LOCATION_LAST)
-			{
-				currentLeftStatus = MotorFinishVelocityPID;
-			}
-			else
-			{
-				velecityLocationLeft -= ACCELERATE_EACH_INTERVAL;
-			}
-		}
-		else if(currentLeftStatus == MotorFinishVelocityPID)
-		{
-			if(targetLocationLeftValue - tempLeftValue <= LOCATION_FINISH_BOUNDRAY)
-			{
-				velecityLocationLeft = 0;
-				currentLeftStatus = MotorStopping;
-			}
-			else
-			{
-				velecityLocationLeft = END_LOCATION_VELOCITY;
-			}
-		}		
-		
-		int leftSpeed, rightSpeed;
-		float leftPWM, rightPWM;
-		if(velecityLocationLeft > 0)
-		{
-		leftSpeed = getHallChangeSpeed(HallEncoderLeftWheel);
-//		rightSpeed = getHallChangeSpeed(HallEncoderRightWheel);		
-		leftPWM = Get_PID_Output(&leftLocationPidInfo, velecityLocationLeft - leftSpeed);
-//		rightPWM = Get_PID_Output(&rightLocationPidInfo, -1 * targetVelocity - rightSpeed);
-		}
-		else
-		{
-			leftPWM = 0;
-		}
-		SetPwmValue((int)leftPWM,0);
+		_keepLocationStableWorking(startLocationLeftValue,targetLocationLeftValue,tempLeftValue,&velocityLocationLeft,&currentLeftStatus);
+		_keepLocationStableWorking(startLocationRightValue,targetLocationRightValue,tempRightValue,&velocityLocationRight,&currentRightStatus);
+		_keepLocationStableVelocityPID(velocityLocationLeft,velocityLocationRight);
 	}
 	
 	void TEST_PidControl(void)
