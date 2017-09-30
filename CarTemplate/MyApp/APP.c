@@ -230,7 +230,7 @@
 		velocityLocRightDirect = targetRight>0?-1:1;
 		
 		locIntevalCount = 0;
-		locationMaxLength = (MAX_SPPED_FOR_LOCATION * (MAX_SPPED_FOR_LOCATION/1000/(ACCELERATE_EACH_INTERVAL/ACCELERATE_TIME_INTERVAL))) >> 1;
+		locationMaxLength = END_LOCATION_LAST + (MAX_SPPED_FOR_LOCATION * (MAX_SPPED_FOR_LOCATION/1000/(ACCELERATE_EACH_INTERVAL/ACCELERATE_TIME_INTERVAL))) >> 1;
 				
 		float tempKP = 0.2, tempKI = 0.01, tempKD = 0;
 		float tempUpper = 3000, tempLower = -3000;
