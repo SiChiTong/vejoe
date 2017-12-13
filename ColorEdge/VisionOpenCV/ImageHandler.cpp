@@ -66,6 +66,13 @@ ImageHandler::ImageHandler(void)
 	HsvGray.HUp=180;
 	HsvGray.SUp=43;
 	HsvGray.VUp=220;
+	
+	HsvWater.HLow=30;
+	HsvWater.SLow=5;
+	HsvWater.VLow=105;
+	HsvWater.HUp=135;
+	HsvWater.SUp=58;
+	HsvWater.VUp=140;
 }
 
 
@@ -100,6 +107,9 @@ HSVBoundray ImageHandler::getColorBoundary(int color){
 		break;
 	case 8://Gray:
 		hsvResult = HsvGray;
+		break;
+	case 9://Water:
+		hsvResult = HsvWater;
 		break;
 	default:
 		break;
@@ -138,6 +148,15 @@ void edgeTest(Mat srcImage)
 		approxPolyDP(Mat(contourAll[i]), contoursAppr[i], 5, true);
 		boundRect[i] = boundingRect(Mat(contoursAppr[i]));
 		if(boundRect[i].area() < MIN_RECT_AREA || boundRect[i].area() > MAX_RECT_AREA) continue;
+		//绘制面积
+		int areaValue = boundRect[i].area();
+		stringstream tempString;
+		tempString << areaValue;
+		std::string areaSize = tempString.str();
+		Point areaPoint ;
+		areaPoint.x = boundRect[i].x + boundRect[i].width / 2;
+		areaPoint.y = boundRect[i].y + boundRect[i].height / 2;
+		putText(resultImage,areaSize,areaPoint,FONT_HERSHEY_PLAIN,1,Scalar(255));
 		//绘制边缘
 		drawContours(resultImage,contourAll,i,Scalar(255), 1);
 	}

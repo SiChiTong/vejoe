@@ -4,7 +4,6 @@
 #include <highgui/highgui.hpp>
 #include <opencv2/imgproc/imgproc.hpp>
 #include <opencv2/video/video.hpp>
-#include <opencv2/objdetect/objdetect.hpp>
 #include <opencv.hpp>
 #include <cv.h>
 
@@ -45,6 +44,6 @@ private:
 	HSVBoundray getColorBoundary(int);
 
 	Mat element;
-	HSVBoundray HsvRed,HsvBlue,HsvGreen,HsvYellow,HsvPurple,HsvBlack,HsvWhite,HsvGray;
+	HSVBoundray HsvRed,HsvBlue,HsvGreen,HsvYellow,HsvPurple,HsvBlack,HsvWhite,HsvGray,HsvWater;
 };
 
